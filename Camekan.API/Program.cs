@@ -27,6 +27,7 @@ namespace Camekan.API
                 {
                     var context = services.GetRequiredService<DatabaseContext>();
                     await context.Database.MigrateAsync();
+                    await DatabaseContextSeed.SeedAsync(context, loggerFactory);
                 }
                 catch (Exception ex)
                 {
