@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camekan.API", "..\Camekan.API\Camekan.API.csproj", "{28B4A09E-CA08-443B-9E92-CAEBDF5F25CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camekan.WebAPI", ".\Camekan.API\Camekan.WebAPI.csproj", "{28B4A09E-CA08-443B-9E92-CAEBDF5F25CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camekan.DataAccess", ".\Camekan.DataAccess\Camekan.DataAccess.csproj", "{D9A0D2C5-09E7-4FFF-A306-004FE52DF33C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Camekan.Entities", ".\Camekan.Entities\Camekan.Entities.csproj", "{23B0492F-9D48-4143-86D0-865FD6A89399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{28B4A09E-CA08-443B-9E92-CAEBDF5F25CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28B4A09E-CA08-443B-9E92-CAEBDF5F25CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28B4A09E-CA08-443B-9E92-CAEBDF5F25CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A0D2C5-09E7-4FFF-A306-004FE52DF33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A0D2C5-09E7-4FFF-A306-004FE52DF33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A0D2C5-09E7-4FFF-A306-004FE52DF33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A0D2C5-09E7-4FFF-A306-004FE52DF33C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B0492F-9D48-4143-86D0-865FD6A89399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B0492F-9D48-4143-86D0-865FD6A89399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B0492F-9D48-4143-86D0-865FD6A89399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B0492F-9D48-4143-86D0-865FD6A89399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
