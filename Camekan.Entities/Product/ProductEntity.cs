@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Camekan.API.Entities
+namespace Camekan.Entities.Product
 {
-    public class ProductEntity
+   public class ProductEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
