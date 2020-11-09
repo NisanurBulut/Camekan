@@ -1,5 +1,6 @@
 # Application Architecture
 * The Repository Pattern
+* Specification Pattern
 - Seperation of concerns
 - Minimise dublicate query logic
 - Decouple business code from data access
