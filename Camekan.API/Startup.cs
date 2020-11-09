@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Camekan.DataAccess.Context;
+using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace Camekan.API
         {
             services.AddControllers();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
             services.AddDbContext<DatabaseContext>();
         }
 
