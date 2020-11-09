@@ -16,7 +16,7 @@ namespace Camekan.DataAccess.Repositories
         private readonly DatabaseContext _dbContext;
         public BaseRepository(DatabaseContext dbContext)
         {
-            dbContext = new DatabaseContext();
+            _dbContext = dbContext;
         }
         public async Task<T> GetByIdAsync(int id)
         {
