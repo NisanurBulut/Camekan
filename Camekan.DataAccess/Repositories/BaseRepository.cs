@@ -1,5 +1,7 @@
-﻿using Camekan.DataAccess.IRepositories;
+﻿using Camekan.DataAccess.Context;
+using Camekan.DataAccess.IRepositories;
 using Camekan.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,14 +11,20 @@ namespace Camekan.DataAccess.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        public Task<T> GetByIdAsync(int id)
+        private readonly DatabaseContext _dbContext;
+        public BaseRepository(DatabaseContext dbContext)
         {
-            throw new NotImplementedException();
+            dbContext = new DatabaseContext();
+        }
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>()
+                .ToListAsync();
         }
     }
 }
