@@ -39,7 +39,7 @@ namespace Camekan.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthorization();
