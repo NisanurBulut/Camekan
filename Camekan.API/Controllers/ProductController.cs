@@ -28,8 +28,15 @@ namespace Camekan.API.Controllers
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
             var productEntity = await _productRepo.GetEntityWithSpec(spec);
-            return _mapper.Map<ProductToReturnDto>(productEntity);
+            return Ok(_mapper.Map<ProductToReturnDto>(productEntity));
             
+        }
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
+        {
+            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var productEntities = await _productRepo.ListAsync(spec);
+            return Ok(_mapper.Map<IReadOnlyList<ProductToReturnDto>>(productEntities));
         }
     }
 }
