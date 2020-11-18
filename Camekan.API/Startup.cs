@@ -28,7 +28,7 @@ namespace Camekan.API
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped(typeof(IBaseRepository<>),typeof(BaseRepository<>));
-            services.AddDbContext<DatabaseContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>();
 
         }
 
@@ -41,7 +41,7 @@ namespace Camekan.API
             }
 
             app.UseRouting();
-
+            app.UseStaticFiles();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

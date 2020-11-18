@@ -20,6 +20,7 @@ namespace Camekan.DataAccess.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
         }
         public DbSet<ProductEntity> tProduct { get; set; }
         public DbSet<ProductBrandEntity> tProductBrand { get; set; }
