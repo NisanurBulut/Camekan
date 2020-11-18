@@ -3,6 +3,7 @@ using Camekan.DataAccess.Context;
 using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Repositories;
 using Camekan.Util.Mapping;
+using Camekan.Util.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -35,10 +36,7 @@ namespace Camekan.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseRouting();
             app.UseStaticFiles();
