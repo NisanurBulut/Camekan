@@ -3,19 +3,40 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Camekan.DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Camekan.DataAccess.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository:BaseRepository<ProductEntity>,IProductRepository
     {
-        public Task<ProductEntity> GetProductByIdAsync(int id)
+        private readonly DatabaseContext _context;
+        public ProductRepository(DatabaseContext context):base(context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<IReadOnlyList<ProductEntity>> GetProductsAsync()
+        public async Task<ProductEntity> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.tProduct
+                .Include(p => p.ProductType)
+                .Include(p => p.ProductBrand)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+        public async Task<IReadOnlyList<ProductBrandEntity>> GetProductBrandsAsync()
+        {
+            return await _context.tProductBrand.ToListAsync();
+        }
+        public async Task<IReadOnlyList<ProductEntity>> GetProductsAsync()
+        {
+            return await _context.tProduct
+                .Include(p => p.ProductType)
+                .Include(p => p.ProductBrand)
+                .ToListAsync();
+        }
+        public async Task<IReadOnlyList<ProductTypeEntity>> GetProductTypesAsync()
+        {
+            return await _context.tProductType.ToListAsync();
         }
     }
 }

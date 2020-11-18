@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Camekan.Entities\Camekan.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IRepositories\" />
+  </ItemGroup>
+
 </Project>
