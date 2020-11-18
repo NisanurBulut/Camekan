@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Camekan.DataAccess\Camekan.DataAccess.csproj" />
+    <ProjectReference Include="..\Camekan.Util\Camekan.Util.csproj" />
   </ItemGroup>
 
 
