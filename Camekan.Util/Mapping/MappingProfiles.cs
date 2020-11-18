@@ -8,7 +8,9 @@ namespace Camekan.Util.Mapping
     {
         public MappingProfiles()
         {
-            CreateMap<ProductEntity,ProductToReturnDto>();
+            CreateMap<ProductEntity, ProductToReturnDto>()
+                .ForMember(d => d.ProductBrand, o => o.MapFrom(s => s.ProductBrand.Name))
+                .ForMember(d => d.ProductType, o => o.MapFrom(s => s.ProductType.Name));
         }
     }
 }
