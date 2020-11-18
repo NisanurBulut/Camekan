@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Camekan.DataAccess.IRepositories;
+﻿using AutoMapper;
 using Camekan.DataAccess.Repositories;
 using Camekan.DataAccess.Specification;
 using Camekan.DataTransferObject;
 using Camekan.Entities;
+using Camekan.WebAPI.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Camekan.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseApiController
     {
         private readonly IProductRepository _productRepo;
         private readonly IMapper _mapper;
@@ -36,7 +32,7 @@ namespace Camekan.API.Controllers
         {
             var spec = new ProductsWithTypesAndBrandsSpecification();
             var productEntities = await _productRepo.ListAsync(spec);
-            return Ok(_mapper.Map<IReadOnlyList<ProductToReturnDto>>(productEntities));
+            return Ok(_mapper.Map<IReadOnlyList<ProductEntity>, IReadOnlyList<ProductToReturnDto>>(productEntities));
         }
     }
 }

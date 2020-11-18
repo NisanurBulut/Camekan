@@ -26,15 +26,16 @@ namespace Camekan.DataAccess.Context
                     context.tProductBrand.AddRange(brands);
                     await context.SaveChangesAsync();
 
+                    var productTypeDatas = File.ReadAllText("../Camekan.DataAccess/SeedData/types.json");
+                    var productTypes = JsonSerializer.Deserialize<List<ProductTypeEntity>>(productTypeDatas);
+                    context.tProductType.AddRange(productTypes);
+                    await context.SaveChangesAsync();
+
                     var productDatas = File.ReadAllText("../Camekan.DataAccess/SeedData/products.json");
                     var products = JsonSerializer.Deserialize<List<ProductEntity>>(productDatas);
                     context.tProduct.AddRange(products);
                     await context.SaveChangesAsync();
 
-                    var productTypeDatas = File.ReadAllText("../Camekan.DataAccess/SeedData/types.json");
-                    var productTypes = JsonSerializer.Deserialize<List<ProductTypeEntity>>(productTypeDatas);
-                    context.tProductType.AddRange(productTypes);
-                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
