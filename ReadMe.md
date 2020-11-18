@@ -9,6 +9,13 @@
     -More Classes/Interfaces <br>
     -Business logic further away from data <br>
 * Specification Pattern
+* Error Handling and Exceptions
+    -Developer exception page
+    -Middleware
+    -Swagger
+    -Http response error
+    -Custumize errors
+    -Validations errors
 ##### For a specification pattern, we can simply say that it is a pattern that allows us to create reusable parts by encapsulating the domain information / rules we want.
 * Related Data
 * Seeding Data
