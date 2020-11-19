@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Camekan.WebAPI.Controllers
 {
     [Route("errors/{code}")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : BaseApiController
     {
         public IActionResult Error(int code)
