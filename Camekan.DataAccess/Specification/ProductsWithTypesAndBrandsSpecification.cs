@@ -19,7 +19,7 @@ namespace Camekan.DataAccess.Specification
             AddInclude(a => a.ProductBrand);
             AddInclude(a => a.ProductType);
             AddOrderBy(a => a.Name); // default
-
+            ApplyPaging(productSpecParam.PageSize*(productSpecParam.PageIndex-1), productSpecParam.PageSize);
             if (!string.IsNullOrEmpty(productSpecParam.Sort))
             {
                 switch (productSpecParam.Sort)
