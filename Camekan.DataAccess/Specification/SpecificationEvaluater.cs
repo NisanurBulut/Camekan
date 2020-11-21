@@ -10,14 +10,22 @@ namespace Camekan.DataAccess.Specification
 {
     public class SpecificationEvaluater<TEntity> where TEntity : BaseEntity
     {
-        public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> specification)
+        public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> spec)
         {
             var query = inputQuery;
-            if (specification.Criteria != null)
+            if (spec.Criteria != null)
             {
-                query = query.Where(specification.Criteria);
+                query = query.Where(spec.Criteria);
             }
-            query = specification.Includes.Aggregate(query, (current, includes) =>
+            if (spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+            if (spec.OrderByDescending != null)
+            {
+                query = query.OrderBy(spec.OrderByDescending);
+            }
+            query = spec.Includes.Aggregate(query, (current, includes) =>
                current.Include(includes));
             return query;
         }
