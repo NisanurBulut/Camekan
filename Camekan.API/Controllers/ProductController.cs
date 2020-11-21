@@ -34,9 +34,9 @@ namespace Camekan.API.Controllers
 
         }
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort, int? brandId, int? typeId)
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParam productSpecParam)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
+            var spec = new ProductsWithTypesAndBrandsSpecification(productSpecParam);
             var productEntities = await _productRepo.ListAsync(spec);
             return Ok(_mapper.Map<IReadOnlyList<ProductEntity>, IReadOnlyList<ProductToReturnDto>>(productEntities));
         }

@@ -12,17 +12,17 @@ namespace Camekan.DataAccess.Specification
             AddInclude(a => a.ProductBrand);
             AddInclude(a => a.ProductType);
         }
-        public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId)
-            : base(x => (!brandId.HasValue || x.ProductBrandId==brandId) && 
-            (!typeId.HasValue || x.ProductTypeId==typeId))
+        public ProductsWithTypesAndBrandsSpecification(ProductSpecParam productSpecParam)
+            : base(x => (!productSpecParam.BrandId.HasValue || x.ProductBrandId== productSpecParam.BrandId) && 
+            (!productSpecParam.TypeId.HasValue || x.ProductTypeId== productSpecParam.TypeId))
         {
             AddInclude(a => a.ProductBrand);
             AddInclude(a => a.ProductType);
             AddOrderBy(a => a.Name); // default
 
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productSpecParam.Sort))
             {
-                switch (sort)
+                switch (productSpecParam.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(a => a.Price);
