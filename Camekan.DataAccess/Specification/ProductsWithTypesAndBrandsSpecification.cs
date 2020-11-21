@@ -12,10 +12,27 @@ namespace Camekan.DataAccess.Specification
             AddInclude(a => a.ProductBrand);
             AddInclude(a => a.ProductType);
         }
-        public ProductsWithTypesAndBrandsSpecification()
+        public ProductsWithTypesAndBrandsSpecification(string sort)
         {
             AddInclude(a => a.ProductBrand);
             AddInclude(a => a.ProductType);
+            AddOrderBy(a => a.Name); // default
+
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort)
+                {
+                    case "priceAsc":
+                        AddOrderBy(a => a.Price);
+                        break;
+                    case "priceDesc":
+                        AddOrderByDescending(a => a.Price);
+                        break;
+                    default:
+                        AddOrderBy(a => a.Name); // default
+                        break;
+                }
+            }
         }
     }
 }
