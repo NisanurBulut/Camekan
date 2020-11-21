@@ -25,6 +25,10 @@ namespace Camekan.DataAccess.Specification
             {
                 query = query.OrderBy(spec.OrderByDescending);
             }
+            if(spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
             query = spec.Includes.Aggregate(query, (current, includes) =>
                current.Include(includes));
             return query;
