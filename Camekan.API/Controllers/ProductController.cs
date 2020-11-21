@@ -17,7 +17,7 @@ namespace Camekan.API.Controllers
         private readonly IProductRepository _productRepo;
         private readonly IMapper _mapper;
         public ProductController(IProductRepository productsRepo, IMapper mapper)
-        {           
+        {
             _productRepo = productsRepo;
             _mapper = mapper;
         }
@@ -31,12 +31,12 @@ namespace Camekan.API.Controllers
             if (productEntity == null) return NotFound(new ApiResponse(404));
 
             return Ok(_mapper.Map<ProductToReturnDto>(productEntity));
-            
+
         }
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort)
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort, int? brandId, int? typeId)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(sort);
+            var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
             var productEntities = await _productRepo.ListAsync(spec);
             return Ok(_mapper.Map<IReadOnlyList<ProductEntity>, IReadOnlyList<ProductToReturnDto>>(productEntities));
         }
