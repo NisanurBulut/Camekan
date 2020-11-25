@@ -24,3 +24,5 @@
     - To be implementing sorting, searching and pagination functionality in a list using the specification pattern
     - Query commands are stored in variable
     - Execution of the query is deferred : ToList(), ToArray(), ToDictionary(), Count() or other singleton queries
+* FlexBox
+    - https://flexboxfroggy.com/#tr
