@@ -1,7 +1,4 @@
------------------------------------------------------------------------
-# APP Main Screen UI  
-![APP](https://github.com/NisanurBulut/Camekan/blob/master/Trailer.gif)
-------------------------------------------------------------------------
+
 # Application Architecture
 * The Repository Pattern
     -Seperation of concerns <br>
@@ -30,3 +27,5 @@
     - Execution of the query is deferred : ToList(), ToArray(), ToDictionary(), Count() or other singleton queries
 * FlexBox
     - https://flexboxfroggy.com/#tr
+
+![APP](https://github.com/NisanurBulut/Camekan/blob/master/Trailer.gif)
