@@ -1,4 +1,4 @@
-import { IProduct } from './Product.model';
+import { IProduct } from './product.model';
 
 export interface IPagination {
     index: number;
