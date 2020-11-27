@@ -1,4 +1,10 @@
 <app-nav-bar></app-nav-bar>
 <div class="container" style="margin-top: 140px;">
-İçerik
+<ul>
+    <li class="list-unstyled" *ngFor="let item of products">
+        {{
+            item.name
+        }}
+    </li>
+</ul>
 </div>
