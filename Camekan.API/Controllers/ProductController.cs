@@ -16,11 +16,30 @@ namespace Camekan.API.Controllers
     public class ProductController : BaseApiController
     {
         private readonly IProductRepository _productRepo;
+       
         private readonly IMapper _mapper;
         public ProductController(IProductRepository productsRepo, IMapper mapper)
         {
             _productRepo = productsRepo;
             _mapper = mapper;
+        }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands()
+        {
+            var list = await _productRepo.GetProductBrandsAsync();
+
+            return Ok(_mapper.Map<List<ProductBrandToReturnDto>>(list));
+
+        }
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes()
+        {
+            var list = await _productRepo.GetProductTypesAsync();
+
+            return Ok(_mapper.Map<List<ProductTypeToReturnDto>>(list));
+
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)

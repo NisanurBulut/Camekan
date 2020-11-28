@@ -13,6 +13,14 @@ namespace Camekan.Util.Mapping
                 .ForMember(d => d.ProductBrand, o => o.MapFrom(s => s.ProductBrand.Name))
                 .ForMember(d => d.ProductType, o => o.MapFrom(s => s.ProductType.Name))
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
+
+            CreateMap<ProductBrandEntity, ProductBrandToReturnDto>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
+
+            CreateMap<ProductTypeEntity, ProductTypeToReturnDto>()
+              .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
+              .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
         }
     }
 }
