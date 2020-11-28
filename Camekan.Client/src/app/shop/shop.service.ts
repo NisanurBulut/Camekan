@@ -17,15 +17,15 @@ export class ShopService {
 
   getProducts(shopParam?: ShopParam) {
     let param = new HttpParams();
-    if (shopParam.BrandId) {
+    if (shopParam.BrandId !== 0) {
       param = param.append('BrandId', shopParam.BrandId.toString());
     }
-    if (shopParam.TypeId) {
+    if (shopParam.TypeId !== 0) {
       param = param.append('TypeId', shopParam.TypeId.toString());
     }
-    if (shopParam.Sort) {
-      param = param.append('Sort', shopParam.Sort);
-    }
+    param = param.append('Sort', shopParam.Sort);
+    param = param.append('PageIndex', shopParam.PageNumber.toString());
+    param = param.append('PageSize', shopParam.PageSize.toString());
 
     return this.http.get<IPagination>(
       this.baseUrl + 'product', {
