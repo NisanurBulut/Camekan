@@ -5,14 +5,19 @@ import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { SectionHeaderComponent } from './section-header/section-header.component';
-
-
+import { ToastrModule } from 'ngx-toastr';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 
 @NgModule({
   declarations: [NavBarComponent, NotFoundComponent, ServerErrorComponent, SectionHeaderComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
+    BreadcrumbModule
   ],
   exports: [
     NavBarComponent,
