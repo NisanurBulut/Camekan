@@ -23,6 +23,9 @@ export class ShopService {
     if (shopParam.TypeId !== 0) {
       param = param.append('TypeId', shopParam.TypeId.toString());
     }
+    if (shopParam.search) {
+      param = param.append('Search', shopParam.search);
+    }
     param = param.append('Sort', shopParam.Sort);
     param = param.append('PageIndex', shopParam.PageNumber.toString());
     param = param.append('PageSize', shopParam.PageSize.toString());

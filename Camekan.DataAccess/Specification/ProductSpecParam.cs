@@ -15,7 +15,7 @@ namespace Camekan.DataAccess.Specification
         public string Search
         {
             get => _search;
-            set => Search = _search.ToLower();
+            set => _search = value.ToLower();
         }
         public string Sort { get; set; }
         public int? BrandId { get; set; }
