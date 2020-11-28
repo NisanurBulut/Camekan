@@ -4,12 +4,10 @@ import { ShopComponent } from './shop.component';
 import { ShopService } from './shop.service';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { SharedModule } from '../shared/shared.module';
-import { PoductDetailComponent } from './poduct-detail/poduct-detail.component';
-
-
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
-  declarations: [ShopComponent, ProductItemComponent, PoductDetailComponent],
+  declarations: [ShopComponent, ProductItemComponent, ProductDetailComponent],
   imports: [
     CommonModule,
     SharedModule
