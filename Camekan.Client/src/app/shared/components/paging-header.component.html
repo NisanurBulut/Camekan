@@ -1,0 +1,17 @@
+<header>
+    <span *ngIf="totalCount && totalCount > 0">
+      <strong
+        >{{ (pageNumber - 1) * pageSize + 1 }}-
+        {{
+          pageSize * pageNumber >
+          this.totalCount
+            ? this.totalCount
+            : pageNumber * pageSize
+        }}
+      </strong>
+      / <strong>{{ this.totalCount }}</strong> Kayıt</span
+    >
+    <span *ngIf="totalCount && totalCount === 0">
+      <strong>0</strong> / <strong>0</strong> Kayıt
+    </span>
+  </header>

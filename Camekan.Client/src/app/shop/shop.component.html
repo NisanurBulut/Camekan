@@ -37,23 +37,10 @@
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span *ngIf="totalCount && totalCount > 0">
-            <strong
-              >{{ (shopParams.PageNumber - 1) * this.shopParams.PageSize + 1 }}-
-              {{
-                shopParams.PageSize * this.shopParams.PageNumber >
-                this.totalCount
-                  ? this.totalCount
-                  : this.shopParams.PageNumber * this.shopParams.PageSize
-              }}
-            </strong>
-            / <strong>{{ this.totalCount }}</strong> Kayıt</span
-          >
-          <span *ngIf="totalCount && totalCount === 0">
-            <strong>0</strong> / <strong>0</strong> Kayıt
-          </span>
-        </header>
+       <app-paging-header
+       [totalCount]="totalCount"
+       [pageNumber]="this.shopParams.PageNumber"
+       [pageSize]="this.shopParams.PageSize"></app-paging-header>
         <div class="form-inline mt-2">
           <input
             type="text"
