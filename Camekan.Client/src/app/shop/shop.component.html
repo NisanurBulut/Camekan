@@ -15,7 +15,7 @@
         <li
           class="list-group-item"
           *ngFor="let item of brands"
-          [class.active]="item.id === brandIdSelect"
+          [class.active]="item.id === shopParams.BrandId"
           [value]="item.id"
           (click)="onBrandSelected(item.id)"
         >
@@ -27,7 +27,7 @@
         <li
           class="list-group-item"
           *ngFor="let item of types"
-          [class.active]="item.id === typeIdSelect"
+          [class.active]="item.id === shopParams.TypeId"
           [value]="item.id"
           (click)="onTypeSelected(item.id)"
         >
@@ -60,7 +60,7 @@
       <div class="d-flex justify-content-between">
         <pagination
         [boundaryLinks]="true"
-        [totalItems]="77"
+        [totalItems]="this.totalCount"
         previousText="&lsaquo;"
         nextText="&rsaquo;"
         firstText="&laquo;"
