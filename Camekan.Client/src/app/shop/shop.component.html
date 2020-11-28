@@ -1,32 +1,44 @@
 <div class="container">
   <div class="row">
     <section class="col-3">
-        <h5 class="text-warning ml-3">Sort</h5>
-        <select class="custom-select mb-3">
-            <option>Alfabetik</option>
-            <option>Fiyat Artan</option>
-            <option>Fiyat Azalan</option>
-        </select>
+      <h5 class="text-warning ml-3">Sort</h5>
+      <select
+        class="custom-select mb-3"
+        (change)="onSortSelected($event.target.value)"
+      >
+        <option *ngFor="let item of sortOptions" [value]="item.value">
+          {{ item.name }}
+        </option>
+      </select>
       <h5 class="text-warning ml-3">Yayın Evi</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item" *ngFor="let item of brands"
-        [class.active]="item.id===brandIdSelect"
-        [value]="item.id"
-        (click)="onBrandSelected(item.id)">{{item.name}}</li>
+        <li
+          class="list-group-item"
+          *ngFor="let item of brands"
+          [class.active]="item.id === brandIdSelect"
+          [value]="item.id"
+          (click)="onBrandSelected(item.id)"
+        >
+          {{ item.name }}
+        </li>
       </ul>
       <h5 class="text-warning ml-3">Tip</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item" *ngFor="let item of types"
-        [class.active]="item.id===typeIdSelect"
-        [value]="item.id"
-        (click)="onTypeSelected(item.id)">
-        {{item.name}}</li>
+        <li
+          class="list-group-item"
+          *ngFor="let item of types"
+          [class.active]="item.id === typeIdSelect"
+          [value]="item.id"
+          (click)="onTypeSelected(item.id)"
+        >
+          {{ item.name }}
+        </li>
       </ul>
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
         <header>
-            <span><strong>10</strong> / <strong>16</strong> Kayıt</span>
+          <span><strong>10</strong> / <strong>16</strong> Kayıt</span>
         </header>
         <div class="form-inline mt-2">
           <input
@@ -42,7 +54,7 @@
 
       <div class="row">
         <div class="col-4 mb-4" *ngFor="let item of products">
-        <app-product-item [product]="item"></app-product-item>
+          <app-product-item [product]="item"></app-product-item>
         </div>
       </div>
     </section>

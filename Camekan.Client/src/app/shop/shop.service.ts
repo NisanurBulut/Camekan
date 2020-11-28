@@ -14,24 +14,28 @@ export class ShopService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(brandId?: number, typeId?: number) {
-    let params = new HttpParams();
+  getProducts(brandId?: number, typeId?: number, sort?: string) {
+    let param = new HttpParams();
     if (brandId) {
-      params.append('brandId', brandId.toString());
+      param = param.append('BrandId', brandId.toString());
     }
     if (typeId) {
-      params.append('typeId', typeId.toString());
+      param = param.append('TypeId', typeId.toString());
     }
+    if (sort) {
+      param = param.append('sort', sort);
+    }
+    console.log(brandId, typeId);
     return this.http.get<IPagination>(
       this.baseUrl + 'product', {
       observe: 'response',
-      params
+      params: param
     })
       .pipe(
         delay(1000),
         map(response => {
-        return response.body;
-      })
+          return response.body;
+        })
       );
   }
   getBrands() {
