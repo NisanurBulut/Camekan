@@ -5,12 +5,14 @@ import { ShopService } from './shop.service';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ShopComponent, ProductItemComponent, ProductDetailComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [
     ShopService

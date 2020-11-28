@@ -2,7 +2,7 @@
   <img  src="{{ product.pictureUrl }}" alt="{{ product.name }}" class="img-fluid bg-mid-gray"/>
 
   <div class="card-body d-flex flex-column">
-    <a href="#">
+    <a  routerLink="/shop/{{product.id}}">
       <h6>{{ product.name }}</h6>
     </a>
     <span class="mb-2">{{ product.price |  currency: "TRY":"₺":"" }}</span>
@@ -11,6 +11,7 @@
       <button
         type="button"
         class="btn btn-sm btn-outline-secondary fa fa-eye mr-2"
+        routerLink="/shop/{{product.id}}"
       ></button>
       <button
         type="button"
