@@ -14,7 +14,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (error) {
                     switch (error.status) {
                         case 400:
-                            this.toastrService.error(error.error.message, error.error.statusCode);
+                            if (error.error.errors) {
+                                throw error.error;
+                            } else {
+                                this.toastrService.error(error.error.message, error.error.statusCode);
+                            }
                             break;
                         case 401:
                             this.toastrService.error(error.error.message, error.error.statusCode);
