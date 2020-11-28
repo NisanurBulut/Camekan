@@ -1,3 +1,24 @@
 <div class="container-mt5">
-    Internel Server Error
+  <h4>
+    Internel Server Error - Hatanın kaybolması için ekranı yenilemeyi
+    deneyiniz..
+  </h4>
+  <ng-container *ngIf="error">
+
+      <h5 class="text-danger">Hata: {{ error.message }}</h5>
+      <p class="font-weight-bold">
+        Not: Bunu görüyorsanız, muhtemelen Angular sorumlu değildir
+      </p>
+      <p>Ne yapmak istersiniz ?</p>
+      <ol>
+          <li>Chrome tarayıcı geliştirici konsolunu aç</li>
+          <li>Network sekmesini incele</li>
+          <li>Hatalı isteği incele</li>
+          <li>URL isteğini kontrol edin</li>
+          <li>Postamn üzerinden istek atarak yeniden deneyin</li>
+      </ol>
+      <code class="mt-5" style="background-color: whitesmoke;">
+    {{error.details}}
+      </code>
+  </ng-container>
 </div>
