@@ -57,6 +57,18 @@
           <app-product-item [product]="item"></app-product-item>
         </div>
       </div>
+      <div class="d-flex justify-content-between">
+        <pagination
+        [boundaryLinks]="true"
+        [totalItems]="77"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+      </div>
+
     </section>
   </div>
 </div>

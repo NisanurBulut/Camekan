@@ -25,7 +25,8 @@
     - To be implementing sorting, searching and pagination functionality in a list using the specification pattern
     - Query commands are stored in variable
     - Execution of the query is deferred : ToList(), ToArray(), ToDictionary(), Count() or other singleton queries
-* FlexBox
+* Helper Web sites
     - https://flexboxfroggy.com/#tr
+    - http://www.jsontots.com/
 
 ![APP](https://github.com/NisanurBulut/Camekan/blob/master/Trailer.gif)

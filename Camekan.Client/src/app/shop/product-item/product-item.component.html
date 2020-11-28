@@ -5,7 +5,7 @@
     <a href="#">
       <h6>{{ product.name }}</h6>
     </a>
-    <span class="mb-2">{{ product.price | currency }}</span>
+    <span class="mb-2">{{ product.price |  currency: "TRY":"₺":"" }}</span>
 
     <div class="btn-group mt-auto">
       <button
