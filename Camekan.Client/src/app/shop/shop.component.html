@@ -38,7 +38,21 @@
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
         <header>
-          <span><strong>10</strong> / <strong>16</strong> Kayıt</span>
+          <span *ngIf="totalCount && totalCount > 0">
+            <strong
+              >{{ (shopParams.PageNumber - 1) * this.shopParams.PageSize + 1 }}-
+              {{
+                shopParams.PageSize * this.shopParams.PageNumber >
+                this.totalCount
+                  ? this.totalCount
+                  : this.shopParams.PageNumber * this.shopParams.PageSize
+              }}
+            </strong>
+            / <strong>{{ this.totalCount }}</strong> Kayıt</span
+          >
+          <span *ngIf="totalCount && totalCount === 0">
+            <strong>0</strong> / <strong>0</strong> Kayıt
+          </span>
         </header>
         <div class="form-inline mt-2">
           <input
@@ -57,20 +71,19 @@
           <app-product-item [product]="item"></app-product-item>
         </div>
       </div>
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between"> *ngIf="totalCount > 0"
         <pagination
-        [boundaryLinks]="true"
-        [totalItems]="this.totalCount"
-        (pageChanged)="onPagechanged($event)"
-        [itemsPerPage]="this.shopParams.PageSize"
-        previousText="&lsaquo;"
-        nextText="&rsaquo;"
-        firstText="&laquo;"
-        lastText="&raquo;"
-      >
-      </pagination>
+          [boundaryLinks]="true"
+          [totalItems]="this.totalCount"
+          (pageChanged)="onPagechanged($event)"
+          [itemsPerPage]="this.shopParams.PageSize"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+        >
+        </pagination>
       </div>
-
     </section>
   </div>
 </div>
