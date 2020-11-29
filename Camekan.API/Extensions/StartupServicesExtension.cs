@@ -12,7 +12,7 @@ namespace Camekan.API.Extensions
         public static IServiceCollection AddStartupServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-           
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             services.Configure<ApiBehaviorOptions>(options =>

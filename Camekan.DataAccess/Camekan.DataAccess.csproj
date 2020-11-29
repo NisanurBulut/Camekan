@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Camekan.Entities\Camekan.Entities.csproj" />
+    <ProjectReference Include="..\Camekan.Util\Camekan.Util.csproj" />
   </ItemGroup>
 
 </Project>

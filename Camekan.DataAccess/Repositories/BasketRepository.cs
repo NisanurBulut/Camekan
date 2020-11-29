@@ -3,24 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using StackExchange.Redis;
+using System.Text.Json;
 
 namespace Camekan.DataAccess.Repositories
 {
     public class BasketRepository : IBasketRepository
     {
-        public Task<bool> DeleteBasketAsync(string basketId)
+        private readonly IDatabase _database;
+        public BasketRepository(IConnectionMultiplexer connectionMultiplexer)
         {
-            throw new NotImplementedException();
+            _database = connectionMultiplexer.GetDatabase();
+        }
+        public async Task<bool> DeleteBasketAsync(string basketId)
+        {
+            return await _database.KeyDeleteAsync(basketId);
         }
 
-        public Task<BasketEntity> GetBasketAsync(string basketId)
+        public async Task<BasketEntity> GetBasketAsync(string basketId)
         {
-            throw new NotImplementedException();
+            var data = await _database.StringGetAsync(basketId);
+            return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketEntity>(data);
         }
 
-        public Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity)
+        public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity)
         {
-            throw new NotImplementedException();
+            var created = await _database.StringSetAsync(basketEntity.Id,JsonSerializer.Serialize(basketEntity), TimeSpan.FromDays(30));
+            if (!created) return null;
+            return await GetBasketAsync(basketEntity.Id);
         }
     }
 }
