@@ -74,7 +74,7 @@ export class BasketService {
     }
     return items;
   }
-  private removeItemFromBasket(item: IBasketItem) {
+  removeItemFromBasket(item: IBasketItem) {
     const basket = this.getCurrenctBasketValue();
     if (basket.items.some(x => x.id === item.id)) {
       basket.items = basket.items.filter(x => x.id !== item.id);

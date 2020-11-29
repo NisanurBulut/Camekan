@@ -34,7 +34,7 @@
                     <th scope="row">
                       <div class="py-2">
                         <img
-                        style="max-height: 50px;"
+                        style="max-height: 100px;"
                           src="{{ item.pictureUrl }}"
                           alt="{{ item.productName }}"
                           class="img-fluid"
@@ -61,10 +61,10 @@
                     </td>
                     <td class="align-middle">
                        <div class="d-flex align-items-center">
-                        <i class="fa fa-minus-circle text-warning mr-2 btn-basket-action">
+                        <i (click)="incrementItemQuantity(item)" class="fa fa-plus-circle text-warning mr-2 btn-basket-action">
                         </i>
                         <span class="font-weight-bold" style="font-size:1.5em;">{{item.quantity}}</span>
-                        <i class="fa fa-plus-circle text-warning mx-2 btn-basket-action"></i>
+                        <i (click)="decrementItemQuantity(item)" class="fa fa-minus-circle text-warning mx-2 btn-basket-action"></i>
                        </div>
                     </td>
                     <td class="align-middle">
@@ -72,7 +72,8 @@
                      </td>
                      <td class="align-middle text-center">
                        <a class="text-danger">
-                           <i class="fa fa-trash" style="font-size: 2em;"></i>
+                           <i (click)="removeBasketItem(item)"
+                           class="fa fa-trash" style="font-size: 2em;cursor:pointer;"></i>
                        </a>
                      </td>
                   </tr>
