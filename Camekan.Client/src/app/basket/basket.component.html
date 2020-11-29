@@ -50,7 +50,8 @@
                           <span
                             class="text-muted font-weight-normal font-italic"
                           >
-                            Tür: {{ item.type }}
+                            Tür: {{ item.type }} <br>
+                            Yayım Evi: {{ item.brand }}
                           </span>
                         </div>
                       </div>
@@ -61,10 +62,10 @@
                     </td>
                     <td class="align-middle">
                        <div class="d-flex align-items-center">
-                        <i (click)="incrementItemQuantity(item)" class="fa fa-plus-circle text-warning mr-2 btn-basket-action">
+                        <i (click)="incrementItemQuantity(item)" class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action">
                         </i>
                         <span class="font-weight-bold" style="font-size:1.5em;">{{item.quantity}}</span>
-                        <i (click)="decrementItemQuantity(item)" class="fa fa-minus-circle text-warning mx-2 btn-basket-action"></i>
+                        <i (click)="decrementItemQuantity(item)" class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"></i>
                        </div>
                     </td>
                     <td class="align-middle">
