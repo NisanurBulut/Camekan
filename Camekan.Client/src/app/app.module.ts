@@ -9,6 +9,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
+import { CheckoutModule } from './checkout/checkout.module';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 
 
@@ -23,7 +24,8 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
     HttpClientModule,
     NgxSpinnerModule,
     CoreModule,
-    HomeModule
+    HomeModule,
+    CheckoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

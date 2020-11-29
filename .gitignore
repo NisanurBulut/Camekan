@@ -3,6 +3,7 @@ obj
 appsetting.json
 Migrations
 *.db
+*.rdb
 
 # User-specific files
 *.rsuser
