@@ -31,7 +31,7 @@ namespace Camekan.API
             services.AddDbContext<DatabaseContext>();
             services.AddStartupServices();
             services.AddSwaggerDocumentation();
-            services.AddSingleton<ConnectionMultiplexer>(c =>
+            services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var config = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(config);
