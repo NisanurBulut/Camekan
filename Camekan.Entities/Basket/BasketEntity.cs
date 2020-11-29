@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Camekan.Entities
 {
-   public class Basket
+   public class BasketEntity
     {
-        public Basket()
+        public BasketEntity()
         {
 
         }
-        public Basket(string id)
+        public BasketEntity(string id)
         {
             Id = id;
         }
         public string Id { get; set; }
-        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
+        public List<BasketItemEntity> Items { get; set; } = new List<BasketItemEntity>();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Camekan.Entities
 {
-    public class BasketItem
+    public class BasketItemEntity
     {
         public int Id { get; set; }
         public string ProductName { get; set; }
