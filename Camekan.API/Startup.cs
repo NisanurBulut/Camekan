@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Camekan.API
 {
@@ -30,6 +31,11 @@ namespace Camekan.API
             services.AddDbContext<DatabaseContext>();
             services.AddStartupServices();
             services.AddSwaggerDocumentation();
+            services.AddSingleton<ConnectionMultiplexer>(c =>
+            {
+                var config = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(config);
+            });
             services.AddCors(option =>
             {
                 option.AddPolicy("CorsPolicy", policy =>
