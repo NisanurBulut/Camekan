@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Camekan.Entities
+namespace Camekan.DataAccess
 {
     public class AppUser : IdentityUser
     {

@@ -6,6 +6,7 @@ using Camekan.Util.Middleware;
 using Camekan.WebAPI.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
@@ -29,6 +30,10 @@ namespace Camekan.API
             services.AddAutoMapper(typeof(MappingProfiles));
            
             services.AddDbContext<DatabaseContext>();
+            //services.AddDbContext<AppIdentityDbContext>(x=>
+            //{
+            //    x.UseSqlite(Configuration.GetConnectionString("DefaultConnectionString"));
+            //});
             services.AddStartupServices();
             services.AddSwaggerDocumentation();
             services.AddSingleton<IConnectionMultiplexer>(c =>

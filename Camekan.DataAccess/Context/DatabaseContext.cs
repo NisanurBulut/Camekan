@@ -1,4 +1,5 @@
 ﻿using Camekan.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 
 namespace Camekan.DataAccess.Context
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

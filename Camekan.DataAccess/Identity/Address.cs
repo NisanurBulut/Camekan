@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Camekan.Entities
+namespace Camekan.DataAccess
 {
     public class Address
     {
