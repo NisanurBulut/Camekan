@@ -1,12 +1,25 @@
-<section class="py-5">
-  <div class="container">
-    <div class="row d-flex align-items-center">
-      <div class="col-9">Başlık</div>
-      <div class="col-3">
-        <nav aria-label="breadcrumb">
+<ng-container *ngIf="breadcrumb$ | async as breadcrumb">
+  <section
+    *ngIf="
+      breadcrumb.length > 0 &&
+      breadcrumb[breadcrumb.length - 1].label !== 'Camekân'
+    "
+    class="py-5"
+  >
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-9">
+          <h1>
+            {{breadcrumb.length > 0 &&
+              breadcrumb[breadcrumb.length - 1].label | titlecase}}
+          </h1>
+        </div>
+        <div class="col-3">
+          <nav aria-label="breadcrumb">
             <xng-breadcrumb></xng-breadcrumb>
           </nav>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</ng-container>
