@@ -1,23 +1,25 @@
-<div class="row" *ngIf="product">
-  <div class="col-6">
-    <img
-      src="{{ product.pictureUrl }}"
-      alt="{{ product.name }}"
-      class="img-fluid w-100"
-    />
-  </div>
-  <div class="col-6">
-    <h3>{{ product.name }}</h3>
-    <p class="mb-2">{{ product.price | currency: "TRY":"₺":"" }}</p>
-    <div class="d-flex justify-content-start align-items-center">
-      <i class="fa fa-minus mr-2 btn-basket-action">
-      </i>
-      <span class="font-weight-bold" style="font-size:1.5em;">2</span>
-      <i class="fa fa-plus mx-2 btn-basket-action"></i>
-      <button class="btn btn-lg btn-outline-secondary ml-4">Sepete Ekle</button>
+<div class="container mt-5">
+  <div class="row" *ngIf="product">
+    <div class="col-6">
+      <img
+        src="{{ product.pictureUrl }}"
+        alt="{{ product.name }}"
+        class="img-fluid w-100"
+      />
     </div>
-    <div style="padding-top: 50px;">
-    <p>{{ product.description }}</p>
+    <div class="col-6">
+      <h3>{{ product.name }}</h3>
+      <p class="mb-2 price">{{ product.price | currency: "TRY":"₺":"" }}</p>
+      <div class="d-flex justify-content-start align-items-center">
+        <i class="fa fa-minus-circle text-warning mr-2 btn-basket-action">
+        </i>
+        <span class="font-weight-bold" style="font-size:1.5em;">2</span>
+        <i class="fa fa-plus-circle text-warning mx-2 btn-basket-action"></i>
+        <button class="btn btn-lg btn-outline-secondary ml-4">Sepete Ekle</button>
+      </div>
+      <div style="padding-top: 50px;">
+      <p>{{ product.description }}</p>
+      </div>
     </div>
   </div>
 </div>

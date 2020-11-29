@@ -12,8 +12,10 @@ import { ShopService } from '../shop.service';
 export class ProductDetailComponent implements OnInit {
   product: IProduct;
   constructor(private shopService: ShopService,
-    private activateRoute: ActivatedRoute,
-    private bcService: BreadcrumbService) { }
+              private activateRoute: ActivatedRoute,
+              private bcService: BreadcrumbService) {
+    this.bcService.set('@ProductDetail', '');
+  }
 
   ngOnInit(): void {
     this.loadProduct();
