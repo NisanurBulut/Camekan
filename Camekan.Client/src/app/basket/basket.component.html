@@ -1,13 +1,87 @@
 <div class="container mt-">
-    <div *ngIf="(this.basket$ | async)===null">
-        <p>Sepette ürün bulunmuyor</p>
-    </div>
+  <div *ngIf="(this.basket$ | async) === null">
+    <p>Sepette ürün bulunmuyor</p>
+  </div>
 
-    <div *ngIf="this.basket$ | async as basket">
-        <ul>
-            <li *ngFor="let item of basket.items">
-               {{ item.productName}}- {{item.quantity}}
-            </li>
-        </ul>
+  <div *ngIf="this.basket$ | async as basket">
+    <div class="pb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 py-5 mb-1">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="border-0 bg-light" scope="col">
+                      <div class="p-2 px-3">ÜRÜN</div>
+                    </th>
+                    <th class="border-0 bg-light" scope="col">
+                      <div class="p-2 px-3">FİYAT</div>
+                    </th>
+                    <th class="border-0 bg-light" scope="col">
+                      <div class="p-2 px-3">ADET</div>
+                    </th>
+                    <th class="border-0 bg-light" scope="col">
+                      <div class="p-2 px-3">TOPLAM</div>
+                    </th>
+                    <th class="border-0 bg-light" scope="col">
+                      <div class="p-2 px-3">KALDIR</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of basket.items">
+                    <th scope="row">
+                      <div class="py-2">
+                        <img
+                        style="max-height: 50px;"
+                          src="{{ item.pictureUrl }}"
+                          alt="{{ item.productName }}"
+                          class="img-fluid"
+                        />
+                        <div class="ml-3 d-inline-block align-middle">
+                          <h5 class="mb-0">
+                            <a
+                              routerLink="/shop/{{ item.id }}"
+                              class="text-dark"
+                              >{{ item.productName }}</a
+                            >
+                          </h5>
+                          <span
+                            class="text-muted font-weight-normal font-italic"
+                          >
+                            Tür: {{ item.type }}
+                          </span>
+                        </div>
+                      </div>
+                    </th>
+
+                    <td class="align-middle">
+                        <strong>{{ item.price |  currency: "TRY":"₺":"" }}</strong>
+                    </td>
+                    <td class="align-middle">
+                       <div class="d-flex align-items-center">
+                        <i class="fa fa-minus-circle text-warning mr-2 btn-basket-action">
+                        </i>
+                        <span class="font-weight-bold" style="font-size:1.5em;">{{item.quantity}}</span>
+                        <i class="fa fa-plus-circle text-warning mx-2 btn-basket-action"></i>
+                       </div>
+                    </td>
+                    <td class="align-middle">
+                        <strong>{{item.quantity*item.price |currency: "TRY":"₺":""}}</strong>
+                     </td>
+                     <td class="align-middle text-center">
+                       <a class="text-danger">
+                           <i class="fa fa-trash" style="font-size: 2em;"></i>
+                       </a>
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
