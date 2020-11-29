@@ -28,5 +28,7 @@
 * Helper Web sites
     - https://flexboxfroggy.com/#tr
     - http://www.jsontots.com/
+    - https://bootswatch.com/minty/
+    - https://themestr.app/theme
 
 ![APP](https://github.com/NisanurBulut/Camekan/blob/master/Trailer.gif)
