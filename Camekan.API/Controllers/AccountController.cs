@@ -1,15 +1,13 @@
 ﻿using Camekan.DataAccess;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Camekan.Entities;
 using Camekan.DataTransferObject;
 using Camekan.Util.Errors;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using Camekan.WebAPI.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -18,12 +16,13 @@ namespace Camekan.WebAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
-
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
         [Authorize]
         [HttpGet]
@@ -44,10 +43,21 @@ namespace Camekan.WebAPI.Controllers
             return await _userManager.FindByEmailAsync(email) != null;
         }
         [HttpGet("address")]
-        public async Task<ActionResult<Address>> GetUserAddress()
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
             var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
-            return user.Address;
+         
+            return _mapper.Map<Address, AddressDto>(user.Address);
+        }
+
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model)
+        {
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
+            user.Address = _mapper.Map<AddressDto, Address>(model);
+            var result = await _userManager.UpdateAsync(user);
+            if(!result.Succeeded) return BadRequest(new ApiResponse(500));
+            return Ok(_mapper.Map<Address, AddressDto>(user.Address));
         }
         [HttpPost("login")]
         public async Task<ActionResult<AppUserDto>> Login(LoginDto model)

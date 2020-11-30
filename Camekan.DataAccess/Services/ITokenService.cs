@@ -1,4 +1,6 @@
-﻿namespace Camekan.DataAccess
+﻿using Camekan.Entities;
+
+namespace Camekan.DataAccess
 {
     public interface ITokenService
     {

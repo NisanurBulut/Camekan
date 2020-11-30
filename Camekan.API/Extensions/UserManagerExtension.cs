@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Camekan.Entities;
 
 namespace Camekan.WebAPI.Extensions
 {

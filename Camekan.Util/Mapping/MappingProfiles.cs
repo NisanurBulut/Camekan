@@ -21,6 +21,8 @@ namespace Camekan.Util.Mapping
             CreateMap<ProductTypeEntity, ProductTypeToReturnDto>()
               .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
               .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
+            CreateMap<Address, AddressDto>();
+            CreateMap<AddressDto, Address>();
         }
     }
 }

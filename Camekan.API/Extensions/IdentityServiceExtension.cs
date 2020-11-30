@@ -1,11 +1,11 @@
-﻿using Camekan.DataAccess;
-using Camekan.DataAccess.Context;
-using Microsoft.AspNetCore.Identity;
+﻿using Camekan.DataAccess.Context;
+using Camekan.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 
 namespace Camekan.WebAPI.Extensions
 {

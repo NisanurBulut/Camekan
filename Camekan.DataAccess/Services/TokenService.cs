@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System;
+using Camekan.Entities;
 
 namespace Camekan.DataAccess.Services
 {
