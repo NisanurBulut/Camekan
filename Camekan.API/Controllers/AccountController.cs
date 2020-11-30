@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Camekan.DataTransferObject;
 using Camekan.Util.Errors;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -14,10 +16,38 @@ namespace Camekan.WebAPI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly ITokenService _tokenService;
+
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<AppUserDto>> GetCurrentUser()
+        {
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            var user = await _userManager.FindByEmailAsync(email);
+            return Ok(new AppUserDto
+            {
+                Email = user.Email,
+                Token = _tokenService.CreateToken(user),
+                DisplayName = user.DisplayName
+            });
+        }
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
+        }
+        [HttpGet("address")]
+        public async Task<ActionResult<Address>> GetUserAddress()
+        {
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            var user = await _userManager.FindByEmailAsync(email);
+            return user.Address;
         }
         [HttpPost("login")]
         public async Task<ActionResult<AppUserDto>> Login(LoginDto model)
@@ -29,12 +59,12 @@ namespace Camekan.WebAPI.Controllers
             return Ok(new AppUserDto
             {
                 Email = user.Email,
-                Token = "",
+                Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             });
         }
         [HttpPost("register")]
-        public async Task<ActionResult<AppUserDto>> Register(RegisterDto model)
+        public async Task<ActionResult<AppUserDto>> Register([FromBody] RegisterDto model)
         {
             var user = new AppUser
             {
@@ -42,13 +72,13 @@ namespace Camekan.WebAPI.Controllers
                 UserName = model.Email,
                 DisplayName = model.DisplayName
             };
-           
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
             return Ok(new AppUserDto
             {
                 Email = user.Email,
-                Token = "",
+                Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             });
         }

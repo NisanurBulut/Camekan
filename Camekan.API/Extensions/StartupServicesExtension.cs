@@ -1,5 +1,7 @@
-﻿using Camekan.DataAccess.IRepositories;
+﻿using Camekan.DataAccess;
+using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Repositories;
+using Camekan.DataAccess.Services;
 using Camekan.Util.Errors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,7 @@ namespace Camekan.API.Extensions
     {
         public static IServiceCollection AddStartupServices(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

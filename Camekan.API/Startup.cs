@@ -32,7 +32,7 @@ namespace Camekan.API
             services.AddDbContext<DatabaseContext>();
             
             services.AddStartupServices();
-            services.AddIdentityServices();
+            services.AddIdentityServices(Configuration);
             services.AddSwaggerDocumentation();
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
@@ -56,6 +56,7 @@ namespace Camekan.API
             app.UseRouting();
             app.UseStaticFiles();
             app.UseCors("CorsPolicy");
+            app.UseAuthorization();
             app.UseAuthorization();
             app.UseSwaggerDocumentation();
             app.UseEndpoints(endpoints =>
