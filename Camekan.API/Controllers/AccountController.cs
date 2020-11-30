@@ -33,5 +33,24 @@ namespace Camekan.WebAPI.Controllers
                 DisplayName = user.DisplayName
             });
         }
+        [HttpPost("register")]
+        public async Task<ActionResult<AppUserDto>> Register(RegisterDto model)
+        {
+            var user = new AppUser
+            {
+                Email = model.Email,
+                UserName = model.Email,
+                DisplayName = model.DisplayName
+            };
+           
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded) return BadRequest(new ApiResponse(400));
+            return Ok(new AppUserDto
+            {
+                Email = user.Email,
+                Token = "",
+                DisplayName = user.DisplayName
+            });
+        }
     }
 }
