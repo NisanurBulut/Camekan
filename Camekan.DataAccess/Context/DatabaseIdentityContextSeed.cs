@@ -35,7 +35,8 @@ namespace Camekan.DataAccess.Context
                             ZipCode="2600"
                         }
                     };
-                    await userManager.CreateAsync(user,"1");
+                    await userManager.CreateAsync(user, "?0H?KWXe");
+                   
                 }
             }
             catch (Exception ex)

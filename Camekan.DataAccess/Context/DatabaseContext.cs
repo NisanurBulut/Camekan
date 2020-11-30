@@ -9,9 +9,9 @@ using System.Text;
 
 namespace Camekan.DataAccess.Context
 {
-    public class DatabaseContext : IdentityDbContext
+    public class DatabaseContext : IdentityDbContext<AppUser>
     {
-
+      
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=../Camekan.DataAccess/Camekan.db;Cache=Shared");
@@ -34,6 +34,7 @@ namespace Camekan.DataAccess.Context
                 }
             }
         }
+        public DbSet<Address> Address { get; set; }
         public DbSet<ProductEntity> tProduct { get; set; }
         public DbSet<ProductBrandEntity> tProductBrand { get; set; }
         public DbSet<ProductTypeEntity> tProductType { get; set; }

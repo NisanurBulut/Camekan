@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Camekan.DataAccess;
 using Camekan.DataAccess.Context;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,11 @@ namespace Camekan.API
                     var context = services.GetRequiredService<DatabaseContext>();
                     await context.Database.MigrateAsync();
                     await DatabaseContextSeed.SeedAsync(context, loggerFactory);
+
+                    var contextIdentity = services.GetRequiredService<DatabaseContext>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                    await contextIdentity.Database.MigrateAsync();
+                    await DatabaseIdentityContextSeed.SeedUserAsync(userManager, loggerFactory);
                 }
                 catch (Exception ex)
                 {

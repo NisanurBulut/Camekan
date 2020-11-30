@@ -30,11 +30,9 @@ namespace Camekan.API
             services.AddAutoMapper(typeof(MappingProfiles));
            
             services.AddDbContext<DatabaseContext>();
-            //services.AddDbContext<AppIdentityDbContext>(x=>
-            //{
-            //    x.UseSqlite(Configuration.GetConnectionString("DefaultConnectionString"));
-            //});
+            
             services.AddStartupServices();
+            services.AddIdentityServices();
             services.AddSwaggerDocumentation();
             services.AddSingleton<IConnectionMultiplexer>(c =>
             {
