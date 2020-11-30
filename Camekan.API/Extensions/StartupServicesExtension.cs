@@ -2,7 +2,9 @@
 using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Repositories;
 using Camekan.DataAccess.Services;
+using Camekan.DataTransferObject;
 using Camekan.Util.Errors;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace Camekan.API.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
+            services.AddTransient<IValidator<AddressDto>, AddressValidator>();
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = actionContext =>
