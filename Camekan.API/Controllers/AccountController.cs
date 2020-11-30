@@ -9,6 +9,7 @@ using Camekan.DataTransferObject;
 using Camekan.Util.Errors;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Camekan.WebAPI.Extensions;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -28,8 +29,8 @@ namespace Camekan.WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<AppUserDto>> GetCurrentUser()
         {
-            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-            var user = await _userManager.FindByEmailAsync(email);
+
+            var user = await _userManager.FindByEmailFromClaimsPrincipalAsync(HttpContext.User);
             return Ok(new AppUserDto
             {
                 Email = user.Email,
@@ -45,8 +46,7 @@ namespace Camekan.WebAPI.Controllers
         [HttpGet("address")]
         public async Task<ActionResult<Address>> GetUserAddress()
         {
-            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
             return user.Address;
         }
         [HttpPost("login")]
