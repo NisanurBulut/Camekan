@@ -76,6 +76,11 @@ namespace Camekan.WebAPI.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AppUserDto>> Register([FromBody] RegisterDto model)
         {
+            if (CheckEmailExistsAsync(model.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email adresi kullanılmaktadır." } });
+                
+            }
             var user = new AppUser
             {
                 Email = model.Email,
