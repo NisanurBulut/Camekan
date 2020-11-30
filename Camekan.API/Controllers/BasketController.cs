@@ -1,4 +1,6 @@
-﻿using Camekan.DataAccess.Repositories;
+﻿using AutoMapper;
+using Camekan.DataAccess.Repositories;
+using Camekan.DataTransferObject;
 using Camekan.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,9 +13,11 @@ namespace Camekan.WebAPI.Controllers
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;
-        public BasketController(IBasketRepository basketRepository)
+        private readonly IMapper _mapper;
+        public BasketController(IBasketRepository basketRepository, IMapper mapper)
         {
             _basketRepository = basketRepository;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<ActionResult<BasketEntity>> GetBasketById(string id)
@@ -22,9 +26,9 @@ namespace Camekan.WebAPI.Controllers
             return Ok(basket?? new BasketEntity(id));
         }
         [HttpPost]
-        public async Task<ActionResult<BasketEntity>> UpdateBasket(BasketEntity basket)
+        public async Task<ActionResult<BasketEntity>> UpdateBasket(BasketDto basket)
         {
-            var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
+            var updatedBasket = await _basketRepository.UpdateBasketAsync(_mapper.Map<BasketDto,BasketEntity>(basket));
             return Ok(updatedBasket);
         }
         [HttpDelete]

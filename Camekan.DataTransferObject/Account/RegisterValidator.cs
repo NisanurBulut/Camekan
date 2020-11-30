@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Camekan.DataTransferObject.Account
+namespace Camekan.DataTransferObject
 {
     public class RegisterValidator:AbstractValidator<RegisterDto>
     {
