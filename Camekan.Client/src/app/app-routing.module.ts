@@ -10,6 +10,10 @@ const routes: Routes = [
   { path: 'shop', loadChildren: () => import('./shop/shop.module').then(a => a.ShopModule), data: { breadcrumb: 'Vitrin' } },
   { path: 'basket', loadChildren: () => import('./basket/basket.module').then(a => a.BasketModule), data: { breadcrumb: 'Sepet' } },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(a => a.CheckoutModule), data: { breadcrumb: 'Hesap' } },
+  {
+    path: 'checkout', loadChildren: () => import('./account/account.module')
+      .then(a => a.AccountModule), data: { breadcrumb: { skip: true } }
+  },
   { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'Server Error' } },
   { path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: 'Not-Found Error' } },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
