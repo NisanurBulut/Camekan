@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'basket', loadChildren: () => import('./basket/basket.module').then(a => a.BasketModule), data: { breadcrumb: 'Sepet' } },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(a => a.CheckoutModule), data: { breadcrumb: 'Hesap' } },
   {
-    path: 'checkout', loadChildren: () => import('./account/account.module')
+    path: 'account', loadChildren: () => import('./account/account.module')
       .then(a => a.AccountModule), data: { breadcrumb: { skip: true } }
   },
   { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'Server Error' } },
