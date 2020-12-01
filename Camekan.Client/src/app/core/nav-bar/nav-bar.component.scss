@@ -10,9 +10,9 @@
   right: 32px;
   text-align: center;
 }
-a {
+a, li {
   text-decoration: none;
-
+  cursor: pointer;
 }
 .logo{
     cursor: pointer;

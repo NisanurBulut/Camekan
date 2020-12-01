@@ -33,7 +33,28 @@
       <a [routerLink]="['/account/regisster']" class="btn btn-outline-secondary mr-3">Kayıt</a>
     </ng-container>
     <ng-container *ngIf="(this.currentUser$ | async)">
-     <a> Hoşgeldiniz {{(currentUser$ | async).displayName}}</a>
+      <div class="dropdown ml-3 mr-5" dropdown>
+        <a class="dropdown-toggle" dropdownToggle >
+          <strong>Hoşgeldiniz {{(currentUser$ | async).displayName}}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+          <li class="dropdown-item d-flex align-items-center py-2">
+            <i class="fa fa-shopping-cart mr-3"><span class="ml-3">
+              Sepete Git
+            </span></i>
+          </li>
+          <li class="dropdown-item d-flex align-items-center py-2">
+            <i class="fa fa-history mr-3">
+              <span class="ml-3">Siparişleri Gör</span>
+            </i>
+          </li>
+          <li class="dropdown-item d-flex align-items-center py-2" (click)="logOut()">
+            <i class="fa fa-sign-out mr-3"><span class="ml-3">
+              Çıkış Yap
+            </span></i>
+          </li>
+        </ul>
+      </div>
     </ng-container>
   </div>
 </div>
