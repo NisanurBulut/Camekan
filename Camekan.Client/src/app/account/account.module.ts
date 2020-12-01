@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountRotingModule } from './account-roting.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -8,7 +9,8 @@ import { AccountRotingModule } from './account-roting.module';
   declarations: [],
   imports: [
     CommonModule,
-    AccountRotingModule
+    AccountRotingModule,
+    SharedModule
   ]
 })
 export class AccountModule { }

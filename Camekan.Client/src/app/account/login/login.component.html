@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center mt-5">
   <div class="col-3">
-    <form class="form-signin">
+    <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
@@ -8,6 +8,7 @@
       <div class="form-label-group">
         <input
           type="email"
+          formControlName="email"
           id="inputEmail"
           class="form-control"
           placeholder="Email address"
@@ -16,7 +17,7 @@
       </div>
 
       <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control"  placeholder="Parola"/>
+        <input type="password" formControlName="password" id="inputPassword" class="form-control"  placeholder="Parola"/>
         <label for="inputPassword"></label>
       </div>
 
