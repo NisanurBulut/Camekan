@@ -7,9 +7,14 @@ import { PagingHeaderComponent } from './components/paging-header/paging-header.
 import { PagerComponent } from './components/pager/pager.component';
 import { OrderTotalComponent } from './components/order-total/order-total.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextInputComponent } from './components/text-input/text-input.component';
 
 @NgModule({
-  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalComponent],
+  declarations: [
+    PagingHeaderComponent,
+    PagerComponent,
+    OrderTotalComponent,
+    TextInputComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
