@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Camekan.Entities
 {
-    public class OrderItem : BaseEntity
+    public class OrderItemEntity : BaseEntity
     {
-        public OrderItem()
+        public OrderItemEntity()
         {
 
         }
-        public OrderItem(ProductItemOrdered ıtemOrdered, int quantity, decimal price)
+        public OrderItemEntity(ProductItemOrdered ıtemOrdered, int quantity, decimal price)
         {
             ItemOrdered = ıtemOrdered;
             Quantity = quantity;
