@@ -6,6 +6,10 @@ namespace Camekan.Entities
 {
    public class OrderEntity
     {
+        public OrderEntity()
+        {
+
+        }
         public OrderEntity(string buyerEmail, Address shipToAddress, DeliveryMethodEntity deliveryMethod, decimal subTotal)
         {
             BuyerEmail = buyerEmail;
@@ -13,7 +17,7 @@ namespace Camekan.Entities
             DeliveryMethod = deliveryMethod;
             SubTotal = subTotal;
         }
-
+        public int Id { get; set; }
         public string BuyerEmail { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public Address ShipToAddress { get; set; }

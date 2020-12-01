@@ -10,6 +10,7 @@ namespace Camekan.DataAccess
         public void Configure(EntityTypeBuilder<OrderEntity> builder)
         {
             builder.ToTable("tOrder","dbo");
+            builder.HasKey(a => a.Id);
             builder.OwnsOne(o => o.ShipToAddress, a =>
               {
                   a.WithOwner();
