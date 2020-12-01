@@ -35,6 +35,9 @@ namespace Camekan.DataAccess.Context
             }
         }
         public DbSet<Address> Address { get; set; }
+        public DbSet<OrderEntity> tOrder { get; set; }
+        public DbSet<OrderItemEntity> tOrderItem { get; set; }
+        public DbSet<DeliveryMethodEntity> tDeliveryMethod { get; set; }
         public DbSet<ProductEntity> tProduct { get; set; }
         public DbSet<ProductBrandEntity> tProductBrand { get; set; }
         public DbSet<ProductTypeEntity> tProductType { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Camekan.Entities
 {
-    public class DeliveryMethod : BaseEntity
+    public class DeliveryMethodEntity : BaseEntity
     {
         public string ShortName { get; set; }
         public string DeliveryTime { get; set; }

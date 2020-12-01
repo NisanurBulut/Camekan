@@ -18,7 +18,7 @@ namespace Camekan.DataAccess.Context
         {
             try
             {
-                
+                #region PRODUCT
                 if (!context.tProductBrand.Any())
                 {
                     var brandDatas = File.ReadAllText("../Camekan.DataAccess/SeedData/brands.json");
@@ -37,6 +37,16 @@ namespace Camekan.DataAccess.Context
                     await context.SaveChangesAsync();
 
                 }
+                #endregion
+                #region ORDER-DELIVERY
+                if (!context.tOrder.Any())
+                {
+                    var dmData = File.ReadAllText("../Camekan.DataAccess/SeedData/delivery.json");
+                    var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethodEntity>>(dmData);
+                    context.tDeliveryMethod.AddRange(deliveryMethods);
+                    await context.SaveChangesAsync();
+                }
+                #endregion
             }
             catch (Exception ex)
             {
