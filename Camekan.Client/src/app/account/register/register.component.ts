@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../account.service';
 
@@ -10,21 +10,23 @@ import { AccountService } from '../account.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
+  errors: string[];
+
+  constructor(private accountService: AccountService, private router: Router) { }
 
   ngOnInit(): void {
     this.createRegisterForm();
   }
   createRegisterForm() {
-    this.registerForm = this.fb.group({
-      password: [null, [Validators.required]],
-      displayName: [null, [Validators.required]],
-      email: [null, [Validators.required, '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$']]
+    this.registerForm = new FormGroup({
+      displayName: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')),
+      password: new FormControl('', Validators.required)
     });
   }
-  onSubmit(){
+  onSubmit() {
     this.accountService.register(this.registerForm.value).subscribe(() => {
       this.router.navigateByUrl('/shop');
-     }, error => console.log(error));
+    }, error => this.errors = error.errors);
   }
 }

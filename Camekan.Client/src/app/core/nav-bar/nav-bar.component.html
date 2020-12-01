@@ -30,7 +30,7 @@
     </a>
     <ng-container *ngIf="(this.currentUser$ | async)===null">
       <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">Giriş</a>
-      <a [routerLink]="['/account/regisster']" class="btn btn-outline-secondary mr-3">Kayıt</a>
+      <a [routerLink]="['/account/register']" class="btn btn-outline-secondary mr-3">Kayıt</a>
     </ng-container>
     <ng-container *ngIf="(this.currentUser$ | async)">
       <div class="dropdown ml-3 mr-5" dropdown>
