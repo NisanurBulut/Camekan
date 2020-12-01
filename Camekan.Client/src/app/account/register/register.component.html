@@ -1,1 +1,18 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-3">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="text-center mb-4">
+          <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
+        </div>
+        <app-text-input formControlName="displayName" [label]="'Kullanıcı Adı'"></app-text-input>
+        <app-text-input formControlName="email" [label]="'Email'"></app-text-input>
+
+        <app-text-input formControlName="password" [label]="'Parola'" [type]="'password'"></app-text-input>
+
+        <button [disabled] class="btn btn-lg btn-primary btn-block" type="submit">
+          Kaydol
+        </button>
+        <p class="mt-5 mb-3 text-muted text-center">© 2020-2021</p>
+      </form>
+    </div>
+  </div>
