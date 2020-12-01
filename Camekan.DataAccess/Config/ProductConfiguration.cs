@@ -1,11 +1,8 @@
 ﻿using Camekan.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Camekan.DataAccess.Config
+namespace Camekan.DataAccess
 {
     public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
     {
