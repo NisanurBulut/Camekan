@@ -4,20 +4,21 @@ using System.Text;
 
 namespace Camekan.Entities
 {
-   public class OrderEntity
+   public class OrderEntity:BaseEntity
     {
         public OrderEntity()
         {
 
         }
-        public OrderEntity(string buyerEmail, Address shipToAddress, DeliveryMethodEntity deliveryMethod, decimal subTotal)
+        public OrderEntity(List<OrderItemEntity> orderItems,string buyerEmail, DeliveryMethodEntity deliveryMethod, Address shipToAddress, decimal subTotal)
         {
+            OrderItems = orderItems;
             BuyerEmail = buyerEmail;
             ShipToAddress = shipToAddress;
             DeliveryMethod = deliveryMethod;
             SubTotal = subTotal;
         }
-        public int Id { get; set; }
+       
         public string BuyerEmail { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public Address ShipToAddress { get; set; }

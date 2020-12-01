@@ -10,7 +10,7 @@ namespace Camekan.Entities
         {
 
         }
-        public OrderItemEntity(ProductItemOrdered ıtemOrdered, int quantity, decimal price)
+        public OrderItemEntity(ProductItemOrdered ıtemOrdered, decimal price, int quantity)
         {
             ItemOrdered = ıtemOrdered;
             Quantity = quantity;
