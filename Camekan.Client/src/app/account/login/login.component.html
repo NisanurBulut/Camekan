@@ -14,17 +14,35 @@
           placeholder="Email address"
         />
         <label for="inputPassword"></label>
+        <span class="text-danger"
+        *ngIf="loginForm.get('email').invalid &&
+        loginForm.get('email').touched &&
+        loginForm.get('email').errors['required']">
+        Email adresi gereklidir.
+        </span>
+        <span class="text-danger"
+        *ngIf="loginForm.get('email').invalid &&
+        loginForm.get('email').touched &&
+        loginForm.get('email').errors['pattern']">
+        Email adresi formatı doğru değildir.
+        </span>
       </div>
 
       <div class="form-label-group">
         <input type="password" formControlName="password" id="inputPassword" class="form-control"  placeholder="Parola"/>
         <label for="inputPassword"></label>
+        <span class="text-danger"
+        *ngIf="loginForm.get('password').invalid &&
+        loginForm.get('password').touched &&
+        loginForm.get('password').errors['password']">
+        Email adresi gereklidir.
+        </span>
       </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button [disabled] class="btn btn-lg btn-primary btn-block" type="submit">
         Oturum Aç
       </button>
-      <p class="mt-5 mb-3 text-muted text-center">© 2017-2020</p>
+      <p class="mt-5 mb-3 text-muted text-center">© 2020-2021</p>
     </form>
   </div>
 </div>
