@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
+
     this.accountservice.login(this.loginForm.value).subscribe(() => {
      this.router.navigateByUrl('/shop');
     }, error => console.log(error));

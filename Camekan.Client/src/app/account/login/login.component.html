@@ -5,39 +5,9 @@
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
 
-      <div class="form-label-group">
-        <input
-          type="email"
-          formControlName="email"
-          id="inputEmail"
-          class="form-control"
-          placeholder="Email address"
-        />
-        <label for="inputPassword"></label>
-        <span class="text-danger"
-        *ngIf="loginForm.get('email').invalid &&
-        loginForm.get('email').touched &&
-        loginForm.get('email').errors['required']">
-        Email adresi gereklidir.
-        </span>
-        <span class="text-danger"
-        *ngIf="loginForm.get('email').invalid &&
-        loginForm.get('email').touched &&
-        loginForm.get('email').errors['pattern']">
-        Email adresi formatı doğru değildir.
-        </span>
-      </div>
+      <app-text-input formControlName="email" [label]="'Email'"></app-text-input>
 
-      <div class="form-label-group">
-        <input type="password" formControlName="password" id="inputPassword" class="form-control"  placeholder="Parola"/>
-        <label for="inputPassword"></label>
-        <span class="text-danger"
-        *ngIf="loginForm.get('password').invalid &&
-        loginForm.get('password').touched &&
-        loginForm.get('password').errors['password']">
-        Email adresi gereklidir.
-        </span>
-      </div>
+      <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
 
       <button [disabled] class="btn btn-lg btn-primary btn-block" type="submit">
         Oturum Aç

@@ -1,1 +1,20 @@
-<p>text-input works!</p>
+<div class="form-label-group">
+    <input
+    [ngClass]="(controlDir && controlDir.control && controlDir.control.touched) ?
+     !controlDir.control.valid ? 'is-invalid':'is-valid':null"
+      [type]="type"
+      (input)="onChange($event.target.value)"
+      (blur)="onTouched()"
+      #input
+      id="{{label}}"
+      class="form-control"
+      placeholder="{{label}}"
+    />
+    <label for="{{label}}"></label>
+    <div class="invalid-feedback"
+    *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.touched)">
+    <span *ngIf="controlDir.control.errors?.required">{{label}} alanı gereklidir</span>
+    <span *ngIf="controlDir.control.errors?.pattern">{{label}} alanı için uyumsuz format</span>
+</div>
+
+  </div>
