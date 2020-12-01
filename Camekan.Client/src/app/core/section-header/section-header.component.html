@@ -2,7 +2,7 @@
   <section
     *ngIf="
       breadcrumb.length > 0 &&
-      breadcrumb[breadcrumb.length - 1].label !== 'Camekân'
+      (breadcrumb[breadcrumb.length - 1].label !== 'Camekân')
     "
     class="py-5"
   >

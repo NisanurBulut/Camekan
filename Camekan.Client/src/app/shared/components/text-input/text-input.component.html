@@ -10,11 +10,16 @@
       class="form-control"
       placeholder="{{label}}"
     />
+    <div class="fa fa-spinner fa-spin loader" *ngIf="controlDir && controlDir.control && controlDir.control.status==='PENDING'">
+
+    </div>
     <label for="{{label}}"></label>
     <div class="invalid-feedback"
     *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.touched)">
     <span *ngIf="controlDir.control.errors?.required">{{label}} alanı gereklidir</span>
-    <span *ngIf="controlDir.control.errors?.pattern">{{label}} alanı için uyumsuz format</span>
 </div>
-
+<div class="invalid-feedback d-block"
+*ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)">
+<span *ngIf="controlDir.control.errors?.emailExists">Email kullanılmaktadır.</span>
+</div>
   </div>

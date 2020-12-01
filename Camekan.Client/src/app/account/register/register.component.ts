@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { of, timer } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -20,9 +22,25 @@ export class RegisterComponent implements OnInit {
   createRegisterForm() {
     this.registerForm = new FormGroup({
       displayName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')),
+      email: new FormControl('',
+      Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'), this.validateEmailNotToken()),
       password: new FormControl('', Validators.required)
     });
+  }
+  validateEmailNotToken(): AsyncValidatorFn {
+    return control => {
+      return timer(500).pipe(
+        switchMap(() => {
+          if (!control.value) { return of(null); }
+          return this.accountService.checkEmailExists(control.value)
+            .pipe(
+              map(res => {
+                return res ? { emailExists: true } : null;
+              })
+            );
+        })
+      );
+    };
   }
   onSubmit() {
     this.accountService.register(this.registerForm.value).subscribe(() => {

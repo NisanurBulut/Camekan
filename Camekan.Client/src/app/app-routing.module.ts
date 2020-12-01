@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(a => a.CheckoutModule), data: { breadcrumb: 'Hesap' } },
   {
     path: 'account', loadChildren: () => import('./account/account.module')
-      .then(a => a.AccountModule), data: { breadcrumb: { skip: true } }
+      .then(a => a.AccountModule), data: { breadcrumb: 'Camekân' }
   },
   { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'Server Error' } },
   { path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: 'Not-Found Error' } },
