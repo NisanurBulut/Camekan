@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AsyncSubject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user.model';
@@ -12,14 +12,16 @@ import { IUser } from '../shared/models/user.model';
 export class AccountService {
 
   baseUrl = environment.apiUrl;
-  private currenUserSource = new BehaviorSubject<IUser>(null);
+  private currenUserSource = new ReplaySubject<IUser>(1);
   currentUser$ = this.currenUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getCurrentUser() { return this.currenUserSource.value; }
-
   loadCurrentUser(token: string) {
+    if (token === null) {
+      this.currenUserSource.next(null);
+      return of(null);
+    }
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`

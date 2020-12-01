@@ -19,12 +19,10 @@ export class AppComponent implements OnInit {
   }
   loadUser() {
     const token = localStorage.getItem('token');
-    if (token) {
-      this.accountService.loadCurrentUser(token)
-        .subscribe(() => {
-          console.log('mevcut kullanici getirildi');
-        }, error => console.log(error));
-    }
+    this.accountService.loadCurrentUser(token)
+    .subscribe(() => {
+      console.log('mevcut kullanici getirildi');
+    }, error => console.log(error));
   }
   loadBasket() {
     const basketId = localStorage.getItem('basket_id');
