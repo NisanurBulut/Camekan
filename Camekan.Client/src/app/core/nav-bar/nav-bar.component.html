@@ -22,13 +22,18 @@
     >
   </nav>
   <div class="d-flex align-items-center">
-    <a routerLink="/basket" style="position: relative" href=""
-      ><i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
-      <div *ngIf="this.basket$ | async as basket" class="cart-no">
-        {{ basket.items.length }}
+    <a routerLink="/basket" style="position: relative">
+      <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
+      <div *ngIf="(this.basket$ | async)" class="cart-no">
+        {{ (this.basket$ | async).items.length }}
       </div>
     </a>
-    <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">Giriş</a>
-    <a [routerLink]="['/account/regisster']" class="btn btn-outline-secondary mr-3">Kayıt</a>
+    <ng-container *ngIf="(this.currentUser$ | async)===null">
+      <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">Giriş</a>
+      <a [routerLink]="['/account/regisster']" class="btn btn-outline-secondary mr-3">Kayıt</a>
+    </ng-container>
+    <ng-container *ngIf="(this.currentUser$ | async)">
+     <a> Hoşgeldiniz {{(currentUser$ | async).displayName}}</a>
+    </ng-container>
   </div>
 </div>

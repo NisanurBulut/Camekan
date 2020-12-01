@@ -24,11 +24,11 @@ namespace Camekan.WebAPI.Controllers
             _tokenService = tokenService;
             _mapper = mapper;
         }
-        [Authorize]
-        [HttpGet]
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("getcurrentuser")]
         public async Task<ActionResult<AppUserDto>> GetCurrentUser()
         {
-
             var user = await _userManager.FindByEmailFromClaimsPrincipalAsync(HttpContext.User);
             return Ok(new AppUserDto
             {
