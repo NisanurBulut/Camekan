@@ -3,13 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { AuthGuard } from './core/guard/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
   { path: 'home', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
   { path: 'shop', loadChildren: () => import('./shop/shop.module').then(a => a.ShopModule), data: { breadcrumb: 'Vitrin' } },
   { path: 'basket', loadChildren: () => import('./basket/basket.module').then(a => a.BasketModule), data: { breadcrumb: 'Sepet' } },
-  { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(a => a.CheckoutModule), data: { breadcrumb: 'Hesap' } },
+  {
+    path: 'checkout',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./checkout/checkout.module').then(a => a.CheckoutModule),
+    data: { breadcrumb: 'Hesap' }
+  },
   {
     path: 'account', loadChildren: () => import('./account/account.module')
       .then(a => a.AccountModule), data: { breadcrumb: 'Camekân' }

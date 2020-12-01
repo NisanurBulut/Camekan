@@ -21,4 +21,5 @@ Forms in Angular > Reactive Forms > Client Side Validation > Async Validation
     - https://regexlib.com/?AspxAutoDetectCookieSupport=1
 
 ![APP-SignIn](https://github.com/NisanurBulut/Camekan/blob/master/Trailer_SignIn.gif)
+------------------------------------------------------------------------------------------
 ![APP](https://github.com/NisanurBulut/Camekan/blob/master/Trailer.gif)
