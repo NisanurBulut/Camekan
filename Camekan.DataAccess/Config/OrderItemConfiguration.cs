@@ -10,6 +10,7 @@ namespace Camekan.DataAccess
         public void Configure(EntityTypeBuilder<OrderItemEntity> builder)
         {
             builder.ToTable("tOrderItem", "dbo");
+            builder.HasKey(a => a.Id);
             builder.OwnsOne(o => o.ItemOrdered, oi => { oi.WithOwner(); });
             builder.Property(s => s.Price).HasColumnType("decimal(18,2)");
         }

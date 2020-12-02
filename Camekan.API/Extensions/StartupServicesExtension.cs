@@ -15,8 +15,11 @@ namespace Camekan.API.Extensions
     {
         public static IServiceCollection AddStartupServices(this IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IDeliveryModethodRepository, DeliveryMethodRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
