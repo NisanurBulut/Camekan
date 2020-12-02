@@ -1,10 +1,9 @@
-﻿using Camekan.DataAccess.IRepositories;
-using Camekan.DataAccess.Repositories;
+﻿using Camekan.DataAccess.Repositories;
 using Camekan.Entities;
+using Camekan.DataAccess.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Camekan.DataAccess
@@ -56,19 +55,21 @@ namespace Camekan.DataAccess
             return order;
         }
 
-        public Task<IReadOnlyList<DeliveryMethodEntity>> GetDeliveryMethodsAsync()
+        public async Task<IReadOnlyList<DeliveryMethodEntity>> GetDeliveryMethodsAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Repository<DeliveryMethodEntity>().ListAllAsync();
         }
 
-        public Task<OrderEntity> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<OrderEntity> GetOrderByIdAsync(int id, string buyerEmail)
         {
-            throw new NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(id,buyerEmail);
+            return await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
         }
 
-        public Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
+            return await _unitOfWork.Repository<OrderEntity>().ListAsync(spec);
         }
     }
 }
