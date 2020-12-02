@@ -34,8 +34,16 @@ namespace Camekan.Util.Mapping
             CreateMap<OrderEntity, OrderDto>();
             CreateMap<OrderDto, OrderEntity>();
 
-            CreateMap<OrderEntity, OrdertoReturnDto>();
+            CreateMap<OrderEntity, OrdertoReturnDto>()
+                .ForMember(d=>d.DeliveryMethod, o=>o.MapFrom(s=>s.DeliveryMethod.ShortName))
+                .ForMember(d => d.ShippingPrice, o => o.MapFrom(s => s.DeliveryMethod.Price))
+                .ForMember(d => d.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.ShortName));
             CreateMap<OrdertoReturnDto, OrderEntity>();
+
+            CreateMap<OrderItemEntity, OrderItemDto>()
+                 .ForMember(d => d.ProductId, o => o.MapFrom(s => s.ItemOrdered.ProductItemId))
+                 .ForMember(d => d.ProductName, o => o.MapFrom(s => s.ItemOrdered.ProductName))
+                 .ForMember(d => d.PictureUrl, o => o.MapFrom(s => s.ItemOrdered.PictureUrl));
         }
     }
 }
