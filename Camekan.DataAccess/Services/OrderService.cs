@@ -11,20 +11,16 @@ namespace Camekan.DataAccess
 {
     public class OrderService : IOrderService
     {
-        private readonly IOrderRepository _orderRepo;
-        private readonly IProductRepository _productRepo;
-        private readonly IDeliveryModethodRepository _deliveryRepo;
+        private readonly IUnitOfWork _unitOfWork;
+      
         private readonly IBasketRepository _basketRepo;
 
-        public OrderService(IOrderRepository orderRepo, 
-            IProductRepository productRepo, 
-            IDeliveryModethodRepository deliveryRepo,
+        public OrderService(IUnitOfWork unitOfWork,
             IBasketRepository basketRepo)
         {
-            this._orderRepo = orderRepo;
-            this._productRepo = productRepo;
-            this._deliveryRepo = deliveryRepo;
+           
             this._basketRepo = basketRepo;
+            this._unitOfWork = unitOfWork;
         }
         public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, Address shippingAddress)
         {
@@ -35,23 +31,28 @@ namespace Camekan.DataAccess
             var items = new List<OrderItemEntity>();
             foreach(var item in basket.Items)
             {
-                var productItem = await _productRepo.GetByIdAsync(item.Id);
+                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id);
                 var itemOrdered = new ProductItemOrdered(productItem.Name,productItem.Id,productItem.PictureUrl);
                 var orderItem = new OrderItemEntity(itemOrdered,productItem.Price,item.Quantity);
                 items.Add(orderItem);
             }
 
             // get delivery method from the repo
-            var deliveryMethod = await _deliveryRepo.GetByIdAsync(deliveryMethodId);
+            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId);
 
             // calculate subtotal
             var subTotal = items.Sum(a => a.Price * a.Quantity);
 
             // create order
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal);
-            // save to db
+            _unitOfWork.Repository<OrderEntity>().AddAsync(order);
 
+            // save to db
+            var result = await _unitOfWork.Complete();
             // return order
+            if (result <= 0) return null;
+            // delete basket
+            await _basketRepo.DeleteBasketAsync(basketId);
             return order;
         }
 
