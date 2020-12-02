@@ -46,5 +46,20 @@ namespace Camekan.DataAccess.Repositories
             return SpecificationEvaluater<T>.GetQuery(_dbContext.Set<T>().AsQueryable(), spec);
         }
 
+        public void AddAsync(T entity)
+        {
+            _dbContext.Set<T>().AddAsync(entity);
+        }
+
+        public void UpdateAsync(T entity)
+        {
+            _dbContext.Set<T>().Attach(entity);
+            _dbContext.Entry(entity).State=EntityState.Modified;
+        }
+
+        public void DeleteAsync(T entity)
+        {
+            _dbContext.Set<T>().Remove(entity);
+        }
     }
 }
