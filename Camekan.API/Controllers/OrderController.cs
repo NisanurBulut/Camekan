@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Camekan.API.Extensions;
 using Camekan.WebAPI.Extensions;
 using Camekan.Util.Errors;
+using System.Collections.Generic;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -32,6 +33,27 @@ namespace Camekan.WebAPI.Controllers
             if (order == null) return BadRequest(new ApiResponse(400,"Sipariş oluşturma aşamasında bir hata oluştu."));
             return Ok(order);
         }
-
+        [HttpGet]
+        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser()
+        {
+            var email = HttpContext.User.RetrieveEmailFromPrincipal();
+            var orders = await _orderService.GetOrdersForUserAsync(email);
+            var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrderDto>>(orders);
+            return Ok(result);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderDto>> GetOrderByIdForUser(int id)
+        {
+            var email = HttpContext.User.RetrieveEmailFromPrincipal();
+            var order = await _orderService.GetOrderByIdAsync(id,email);
+            if (order == null) return NotFound(new ApiResponse(404));
+            var result = _mapper.Map<OrderEntity, OrderDto>(order);
+            return Ok(result);
+        }
+        [HttpGet("{deliveryMethods}")]
+        public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods()
+        {
+            return Ok(await _orderService.GetDeliveryMethodsAsync());
+        }
     }
 }
