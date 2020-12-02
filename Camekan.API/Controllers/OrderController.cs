@@ -34,20 +34,20 @@ namespace Camekan.WebAPI.Controllers
             return Ok(order);
         }
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<OrderDto>>> GetOrdersForUser()
+        public async Task<ActionResult<IReadOnlyList<OrdertoReturnDto>>> GetOrdersForUser()
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var orders = await _orderService.GetOrdersForUserAsync(email);
-            var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrderDto>>(orders);
+            var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrdertoReturnDto>>(orders);
             return Ok(result);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDto>> GetOrderByIdForUser(int id)
+        public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var order = await _orderService.GetOrderByIdAsync(id,email);
             if (order == null) return NotFound(new ApiResponse(404));
-            var result = _mapper.Map<OrderEntity, OrderDto>(order);
+            var result = _mapper.Map<OrderEntity, OrdertoReturnDto>(order);
             return Ok(result);
         }
         [HttpGet("{deliveryMethods}")]

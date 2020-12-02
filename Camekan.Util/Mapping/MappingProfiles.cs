@@ -33,6 +33,9 @@ namespace Camekan.Util.Mapping
 
             CreateMap<OrderEntity, OrderDto>();
             CreateMap<OrderDto, OrderEntity>();
+
+            CreateMap<OrderEntity, OrdertoReturnDto>();
+            CreateMap<OrdertoReturnDto, OrderEntity>();
         }
     }
 }
