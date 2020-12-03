@@ -1,15 +1,15 @@
 [
   {
     "Id": 1,
-    "Name": "Angular"
+    "Name": "İş Bankası Kültür Yayınları"
   },
   {
     "Id": 2,
-    "Name": "NetCore"
+    "Name": "Yapı Kredi Yayınları"
   },
   {
     "Id": 3,
-    "Name": "VS Code"
+    "Name": "Everest Yayınları"
   },
   {
     "Id": 4,
@@ -17,10 +17,10 @@
   },
   {
     "Id": 5,
-    "Name": "Typescript"
+    "Name": "Can Yayınları"
   },
   {
     "Id": 6,
-    "Name": "Redis"
+    "Name": "Pegasus Yayınları"
   }
 ]

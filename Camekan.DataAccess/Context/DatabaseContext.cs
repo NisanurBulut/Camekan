@@ -21,8 +21,6 @@ namespace Camekan.DataAccess.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             if (Database.ProviderName == "Microsoft.EntityFrameWork.Sqlite")
             {
                 foreach(var entityType in modelBuilder.Model.GetEntityTypes())
@@ -40,6 +38,12 @@ namespace Camekan.DataAccess.Context
                     }
                 }
             }
+            modelBuilder.ApplyConfiguration(new DeliveryMethodConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
         public DbSet<Address> Address { get; set; }
         public DbSet<OrderEntity> tOrder { get; set; }

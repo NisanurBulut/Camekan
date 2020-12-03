@@ -22,7 +22,9 @@ namespace Camekan.API.Extensions
             services.AddScoped<IDeliveryModethodRepository, DeliveryMethodRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+            
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+           
             services.AddTransient<IValidator<AddressDto>, AddressValidator>();
             services.AddTransient<IValidator<RegisterDto>, RegisterValidator>();
             services.AddTransient<IValidator<BasketDto>, BasketValidator>();

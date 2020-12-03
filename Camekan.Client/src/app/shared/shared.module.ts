@@ -8,20 +8,25 @@ import { PagerComponent } from './components/pager/pager.component';
 import { OrderTotalComponent } from './components/order-total/order-total.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { CdkStepperModule } from '@angular/cdk/stepper';
+import { StepperComponent } from './components/stepper/stepper.component';
+
 
 @NgModule({
   declarations: [
     PagingHeaderComponent,
     PagerComponent,
     OrderTotalComponent,
-    TextInputComponent],
+    TextInputComponent,
+    StepperComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CdkStepperModule
   ],
   exports: [
     PaginationModule,
@@ -31,7 +36,9 @@ import { TextInputComponent } from './components/text-input/text-input.component
     CarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    TextInputComponent
+    TextInputComponent,
+    CdkStepperModule,
+    StepperComponent
   ]
 })
 export class SharedModule { }

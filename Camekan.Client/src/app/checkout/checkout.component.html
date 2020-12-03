@@ -1,7 +1,20 @@
 <div class="container mt-5">
   <div class="row">
       <div class="col-8">
-          Ödeme İşlemleri
+          <app-stepper [linearModelSelected]="false" #appStepper>
+              <cdk-step [label]="'Adres'">
+                  Adım 1
+              </cdk-step>
+              <cdk-step [label]="'Teslimat'">
+                Adım 2
+            </cdk-step>
+            <cdk-step [label]="'Kontrol'">
+                Adım 3
+            </cdk-step>
+            <cdk-step [label]="'Ödeme'">
+                Adım 4
+            </cdk-step>
+          </app-stepper>
       </div>
       <div class="col-4">
           <app-order-total></app-order-total>

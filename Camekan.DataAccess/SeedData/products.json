@@ -1,145 +1,145 @@
 [
   {
-    "Name": "Angular Speedster Board 2000",
-    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-    "Price": 200,
-    "PictureUrl": "images/products/sb-ang1.png",
+    "Name": "Aşkımız Eskir Bir Roman",
+    "Description": "Cinayetleri çözmek için sadece aklından ve deneyimlerinden değil, yaralı yüreğinden de güç alan Başkomser Nevzat, belki de en çok bu yüzden ayrılıyor benzerlerinden, belki de en çok bu yüzden seviliyor, okunuyor ve hatırlanıyor. Aşkımız Eski Bir Roman, onun bu zorlu serüveninde yepyeni bir halka...",
+    "Price": 20,
+    "PictureUrl": "images/products/askimizeskibirroman.png",
     "ProductTypeId": 1,
     "ProductBrandId": 1
   },
   {
-    "Name": "Green Angular Board 3000",
-    "Description": "Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
-    "Price": 150,
-    "PictureUrl": "images/products/sb-ang2.png",
+    "Name": "Ben Kirke",
+    "Description": "Ben, Kirke'de Madeline Miller; Odysseus, İkaros, Minotauros, Prometheus ve Zeus gibi mitolojik karakterlerin binlerce yıldır anlatılagelen hikâyesini farklı bir bakış açısından sunmakla kalmayıp Olymposlu tanrıların dünyasını Homeros'un destansılığında aktarmayı başarıyor.",
+    "Price": 15,
+    "PictureUrl": "images/products/BenKirke.png",
     "ProductTypeId": 1,
     "ProductBrandId": 1
   },
   {
     "Name": "Core Board Speed Rush 3",
-    "Description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
-    "Price": 180,
-    "PictureUrl": "images/products/sb-core1.png",
+    "Description": "Burak Aksak’ın kaleme aldığı öykülerden oluşan Ben Orada Değildim Üstelik Siz de Yoktunuz’u okurken İstanbul’u bir binanın çatısından seyrediyor hissine kapılacak, birbirinden farklı karakterlerle oturup uzun uzun sohbet etmek isteyecek, daha önce kaçtığınız, görmezden geldiğiniz her şeyle yüzleşeceksiniz!",
+    "Price": 18,
+    "PictureUrl": "images/products/benorada.jpg",
     "ProductTypeId": 1,
     "ProductBrandId": 2
   },
   {
-    "Name": "Net Core Super Board",
-    "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
-    "Price": 300,
-    "PictureUrl": "images/products/sb-core2.png",
+    "Name": "Bir Ömür Nasıl Yaşanır?",
+    "Description": "“Bir Ömür Nasıl Yaşanır?”, ülkemizin medarıiftiharı olmuş bir tarihçinin gözünden, insanın hayattaki anlam arayışına, bu arayışın tadını nasıl çıkaracağına ve süreç boyunca karşılaşacağı zorluklarla nasıl baş etmesi gerektiğine dair çok özel bir kılavuz…",
+    "Price": 30,
+    "PictureUrl": "images/products/biromurnasilyasanir.jpg",
     "ProductTypeId": 1,
     "ProductBrandId": 2
   },
   {
-    "Name": "React Board Super Whizzy Fast",
-    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "Name": "Clarissa",
+    "Description": "Edebiyat tarihinin buyuk isimlerinden Stefan Zweig, gozlemleri ve aci dolu gelecegi ongoren duyarliligiyla 20. yuzyil Avrupasina damgasini vurmus bir aydindi.Simdi baska bir yuzyildan ya da baska bir ulustan geliyormus gibi kendini tecrit etmek mumkun degildir. Insan zorla tarafsiz kalamaz. Savas ile ilgili normal ve insancil bir goruse sahip olabilmek icin tek bir olasilik vardir: savasin farkinda olmak ve savasi, kendileri asla cephede bulunmamis savas cigirtkanlarindan dinlememek. Bunun disindaki her sey kendini kandirmak, kendini aldatmak, soyut seylerle kendini uyusturmak ve kendinden gecmek anlamina gelir.Olmeden once uzerinde calistigi son kitabi Clarissa, Zweig'in sozleriyle, Bir kadinin yasadiklarindan hareketle, 1902'den sa vasin patlak vermesine kadar gecen sure icinde dunyanin anlatildigi romandir. Zweig, Avusturyali bir subayin kizi Clarissa Schuhmeister'in hayatini anlatirken, Birinci Dunya Savasi'nin gerek Avusturya ve Orta Avrupa kulturu, gerek bireyler uzerindeki etkisini gozler onune serer. Clarissa, yazarinin 1942'deki intihariyla yarim kalmis, ancak 39 yil sonra 1981'de gun isigina cikarilan metni Zweig'in yayincisi Knut Beck tamamlamisti.",
     "Price": 250,
-    "PictureUrl": "images/products/sb-react1.png",
+    "PictureUrl": "images/products/clarissa.jpg",
     "ProductTypeId": 1,
     "ProductBrandId": 4
   },
   {
-    "Name": "Typescript Entry Board",
-    "Description": "Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.",
-    "Price": 120,
-    "PictureUrl": "images/products/sb-ts1.png",
+    "Name": "Ev Kuralları",
+    "Description": "Eserleri 40'a yakın dile çevrildi. Tüm dünyada 30 milyondan fazla okuru var. Çoğu eleştirmene göre 21. yüzyılın en özgün romancısı. Jodi Picoult, Kızkardeşim İçin, Yapboz, Cam Çocuk, Taş Kağıt Makas, Abra Kadabra ve Bir Daha Bak'tan sonra Ev Kuralları'nı koyuyor. Asperger sendromlu dahi çocuk Jacob ile kusursuz bir dünyada kusurlu olmanın öyküsünü yüksek gerilimli bir polisiyenin satır aralarından fısıldıyor.",
+    "Price": 12,
+    "PictureUrl": "images/products/evkurallari.JPG",
     "ProductTypeId": 1,
     "ProductBrandId": 5
   },
   {
-    "Name": "Core Blue Hat",
-    "Description": "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "Name": "Ev Sahibesi",
+    "Description": "Dostoyevski, bu romanında da yalnız ve toplumdışı kalmış bir aydının acılarını incelikli tespitleriyle kaleme alıyor. Günah, vicdan azabı, yalnızlık, aydın yabancılaşması ve aşk gibi birbirinden çetrefil temaları da bu kısa öyküde büyük bir maharetle harmanlıyor.Ev Sahibesi, imkansız bir aşkın, hastalıklı bir yaşantının ve karanlık bir geçmişin öyküsü…",
     "Price": 10,
-    "PictureUrl": "images/products/hat-core1.png",
+    "PictureUrl": "images/products/evsahibesi.jpg",
     "ProductTypeId": 2,
     "ProductBrandId": 2
   },
   {
-    "Name": "Green React Woolen Hat",
-    "Description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
-    "Price": 8,
-    "PictureUrl": "images/products/hat-react1.png",
-    "ProductTypeId": 2,
-    "ProductBrandId": 4
-  },
-  {
-    "Name": "Purple React Woolen Hat",
-    "Description": "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
-    "Price": 15,
-    "PictureUrl": "images/products/hat-react2.png",
-    "ProductTypeId": 2,
-    "ProductBrandId": 4
-  },
-  {
-    "Name": "Blue Code Gloves",
-    "Description": "Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+    "Name": "Genç Bir Doktorun Anıları",
+    "Description": "Hikayeler doktorun günlük olarak ilk kez karşılaştığı sorunlar (ilk ampütasyonu - iyileşmesi olanaksız görülen bir organın kesilip atılması - ilk makat sunumu, ilk diş çekimi) karşısında yaşadığı kaygı, korku ve paniği ve çoğu zaman da bunların üstesinden gelişini, ruhsal gelgitlerini nefes kesen bir yoğunlukla aktarıyor. Ayrıca köylülerin cehaleti ile doktorun talimatları arasında sürekli bir gerilim olduğunu da ortaya koyuyor. Kar fırtınası ve tecrit dolu hikayelerle Bulgakov, dostluğu, içtenliği, asaleti ve adaleti, sımsıcak duygularla okuyucularıyla buluşturuyor.",
     "Price": 18,
-    "PictureUrl": "images/products/glove-code1.png",
-    "ProductTypeId": 4,
-    "ProductBrandId": 3
+    "PictureUrl": "images/products/gencbir.jpg",
+    "ProductTypeId": 2,
+    "ProductBrandId": 4
   },
   {
-    "Name": "Green Code Gloves",
-    "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
+    "Name": "Görünmez Adam",
+    "Description": "lk baskısı 1897 yılında yapıldığında, “Görünmez Adam” HG Wells’in, insanca değerleri önemsemeyen bilimin verebileceği zararlar hakkında dünyamızı haklı uyarısı olarak kabul edildi.",
     "Price": 15,
-    "PictureUrl": "images/products/glove-code2.png",
+    "PictureUrl": "images/products/gorunmez.JPG",
+    "ProductTypeId": 2,
+    "ProductBrandId": 4
+  },
+  {
+    "Name": "Güçler (Batı Sahili Yıllıkları 3)",
+    "Description": "Marifetler ve Sesler'in ardından Ursula K. Le Guin'in Batı Sahili Yıllıkları dizisinin üçüncü kitabı Güçler. Köleliğin olduğu yerde adalet olabilir mi? Güven ve sadakatin ihanetle, itaatin zulümle sonuçlandığı bir yerde sevgi yaşayabilir mi? Kitaplardan korkulan bir yerde bilgi barınabilir, yeni fikirler yeşerebilir mi? Yasaklar ve engellerle dolu bir yerde insan kendisi olabilir mi? Henüz olmamış olayları hatırlama ve muazzam hafızası sayesinde bir kere okuduğunu asla unutmama gücüne sahip olan Gavir'in öyküsü Güçler; kendisine ulaşmak, kendisi olabilmek için diyarlar aşan bir çocuğun öyküsü.",
+    "Price": 18,
+    "PictureUrl": "images/products/Gucler.jpg",
     "ProductTypeId": 4,
     "ProductBrandId": 3
   },
   {
-    "Name": "Purple React Gloves",
-    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
+    "Name": "Hippi",
+    "Description": "Paulo Coelho’nun kendi yaşamöyküsüne belki de en yakın eseri Hippi, başka bir dünyanın mümkün olduğuna inanan barışçıl bir neslin arayış ve dönüşüm öyküsü.",
+    "Price": 15,
+    "PictureUrl": "images/products/hippi.jpg",
+    "ProductTypeId": 4,
+    "ProductBrandId": 3
+  },
+  {
+    "Name": "Kırmızı Pazartesi",
+    "Description": "Kırmızı Pazartesi, bir cinayetin arka planını göstermekten öte, acımasız törelerin kıskacındaki bir halkın ortak davranış biçimlerinin portresini de çiziyor. Böylece alabildiğine sürükleyici bu kısa ve ölümsüz roman, adeta bir toplumun ruh çözümlemesi niteliğini de kazanmış oluyor.",
     "Price": 16,
-    "PictureUrl": "images/products/glove-react1.png",
+    "PictureUrl": "images/products/KirmiziPazartesi.jpg",
     "ProductTypeId": 4,
     "ProductBrandId": 4
   },
   {
-    "Name": "Green React Gloves",
-    "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
+    "Name": "Marifetler",
+    "Description": "Eğer savaşmazsan ele geçirilirsin, soyun sona erer. Marifetler bu işe yarar, verdiği güçler sayesinde.. insan arazisini koruyabilir, soyunu temiz tutabilir. Eğer kendini koruyamazsan, marifetini kaybedersin. Başka soylar bize baskın çıkar, sıradan insanlar.",
     "Price": 14,
-    "PictureUrl": "images/products/glove-react2.png",
+    "PictureUrl": "images/products/marifetler.jpg",
     "ProductTypeId": 4,
     "ProductBrandId": 4
   },
   {
-    "Name": "Redis Red Boots",
-    "Description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
+    "Name": "raconnanindunyasi.jpg",
+    "Description": "Fian, uçbenimle! Halkınız gibi zihninle konuşamam, ama havada giden sözcüklerin hepsi de boş değildir. Ben Rocanon. Ben Rocannon. Yanıt verin! Uzun süre alıcısının sessizliğini dinledi,sonra bir kez daha geminin frekansını denedi: Ben Rocannon... Ne denli alçak sesle konuştuğunu, neredeyse fısıldadığını farkendince durdu ve bağlantıyı kesti. Hepsi ölmüştü, ondördü de, beraberindekiler ve dostları. Hepsi gemideydiler, çünkü onları oraya kendisi çağırmıştı.",
     "Price": 250,
     "PictureUrl": "images/products/boot-redis1.png",
     "ProductTypeId": 3,
     "ProductBrandId": 6
   },
   {
-    "Name": "Core Red Boots",
-    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "Name": "Sarı Sıcak",
+    "Description": "Sarı Sıcak Anadolu halkının yokluğa, açlığa, unutulmuşluğa karşı verdiği insanüstü mücadelenin hikayesidir. Pisliğin, sıcağın, sefaletin ortasında bir avuç insanın hayatla aralarındaki ince bağa sımsıkı sarılışlarının ve hayatta kalma çabalarının dramı yirmi iki hikayede dile getirilir.",
     "Price": 189.99,
-    "PictureUrl": "images/products/boot-core2.png",
+    "PictureUrl": "images/products/sarisicak.jpg",
     "ProductTypeId": 3,
     "ProductBrandId": 2
   },
   {
-    "Name": "Core Purple Boots",
-    "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
-    "Price": 199.99,
-    "PictureUrl": "images/products/boot-core1.png",
+    "Name": "Suskunlar",
+    "Description": "Hayat kadar gerçek, düş kadar inanılmaz bu dünyanın tüm kahramanlarının seslerini duyacak, nefeslerini hissedeceksiniz. Çünkü Suskunlar, sessizliğin olduğu kadar, seslerin ve sözlerin, yani musikînin romanıdır.",
+    "Price": 19.99,
+    "PictureUrl": "images/products/suskunlar.jpg",
     "ProductTypeId": 3,
     "ProductBrandId": 2
   },
   {
-    "Name": "Angular Purple Boots",
-    "Description": "Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.",
+    "Name": "Sesler (Batı Sahili Yıllıkları 2)",
+    "Description": "Şiddet, hoşgörüsüzlük ve yazılı söze tam bir düşmanlık karşısında sürdürülmeye çalışılan günlük hayat, hiç bitmeyecekmiş gibi duran bir işgal... Ama onları yok etmenin tek yolu bilgilerini yok etmektir ve bilgiyi koruyanlar vardır.Ursula K. Le Guin'in devamlı okuyucuları daha önce yayımladığımız Marifetler'de tanıştıkları karakterleri de fark edecekler Sesler'de. Sırada ise Güçler var.",
     "Price": 150,
-    "PictureUrl": "images/products/boot-ang2.png",
+    "PictureUrl": "images/products/sesler.jpg",
     "ProductTypeId": 3,
     "ProductBrandId": 1
   },
   {
-    "Name": "Angular Blue Boots",
-    "Description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
-    "Price": 180,
-    "PictureUrl": "images/products/boot-ang1.png",
+    "Name": "Üç Kız Kardeş",
+    "Description": "Ayvalık’ın denize uzanan taş sokaklarından, nice yaşamlar görüp geçirmiş zeytin ağaçlarından, hayatın kaynağından akan suyundan, eski evlerinden doğmuş bir aile hikâyesi Üç Kız Kardeş. Bir mutsuzluk hikâyesi değil; neşeli günleri yâd ede ede iyiliğe dönüşün hikâyesi. İyileşmenin yolculuğu…",
+    "Price": 18,
+    "PictureUrl": "images/products/uckizkardes.jpg",
     "ProductTypeId": 3,
     "ProductBrandId": 1
   }

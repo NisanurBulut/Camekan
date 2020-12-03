@@ -1,18 +1,18 @@
 [
   {
     "Id": 1,
-    "Name": "Boards"
+    "Name": "Dünya Klasikleri Kitapları"
   },
   {
     "Id": 2,
-    "Name": "Hats"
+    "Name": "Roman Kitapları"
   },
   {
     "Id": 3,
-    "Name": "Boots"
+    "Name": "Gençlik Kitapları"
   },
   {
     "Id": 4,
-    "Name": "Gloves"
+    "Name": "Tarih Kitapları"
   }
 ]
