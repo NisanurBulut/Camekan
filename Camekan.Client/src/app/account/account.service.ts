@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, of, ReplaySubject } from 'rxjs';
+import { of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user.model';
@@ -22,15 +22,11 @@ export class AccountService {
       this.currenUserSource.next(null);
       return of(null);
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      })
-    };
 
-    return this.http.get(this.baseUrl + '/account/getcurrentuser', httpOptions).pipe(
+    return this.http.get(this.baseUrl + '/account/getcurrentuser').pipe(
       map((user: IUser) => {
         if (user) {
+          console.log(user.token);
           localStorage.setItem('token', user.token);
           this.currenUserSource.next(user);
         }

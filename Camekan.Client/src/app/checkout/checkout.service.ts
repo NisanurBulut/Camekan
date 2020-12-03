@@ -13,7 +13,7 @@ export class CheckoutService {
   constructor(private http: HttpClient) { }
 
   getDeliveryMethods() {
-    return this.http.get(this.baseUrl + '/order/deliveryMethods ')
+    return this.http.get(this.baseUrl + '/order/GetDeliveryMethods ')
       .pipe(
         map((dm: IDeliveryMethod[]) => {
           return dm.sort((a, b) => b.price - a.price);
