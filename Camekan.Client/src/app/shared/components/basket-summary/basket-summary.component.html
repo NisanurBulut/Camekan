@@ -2,19 +2,19 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="border-0 bg-light" scope="col">
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
             <div class="p-2 px-3">ÜRÜN</div>
           </th>
-          <th class="border-0 bg-light" scope="col">
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
             <div class="p-2 px-3">FİYAT</div>
           </th>
-          <th class="border-0 bg-light" scope="col">
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
             <div class="p-2 px-3">ADET</div>
           </th>
-          <th class="border-0 bg-light" scope="col">
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
             <div class="p-2 px-3">TOPLAM</div>
           </th>
-          <th class="border-0 bg-light" scope="col">
+          <th *ngIf="isBasket" class="border-0 bg-light" scope="col">
             <div class="p-2 px-3">KALDIR</div>
           </th>
         </tr>
@@ -51,11 +51,11 @@
               <strong>{{ item.price |  currency: "TRY":"₺":"" }}</strong>
           </td>
           <td class="align-middle">
-             <div class="d-flex align-items-center">
-              <i (click)="incrementItemQuantity(item)" class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action">
+             <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
+              <i *ngIf="isBasket" (click)="incrementItemQuantity(item)" class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action">
               </i>
               <span class="font-weight-bold" style="font-size:1.5em;">{{item.quantity}}</span>
-              <i (click)="decrementItemQuantity(item)" class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"></i>
+              <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"></i>
              </div>
           </td>
           <td class="align-middle">
@@ -63,7 +63,7 @@
            </td>
            <td class="align-middle text-center">
              <a class="text-danger">
-                 <i (click)="removeBasketItem(item)"
+                 <i *ngIf="isBasket" (click)="removeBasketItem(item)"
                  class="fa fa-trash" style="font-size: 2em;cursor:pointer;"></i>
              </a>
            </td>
