@@ -11,10 +11,20 @@
       <label for="{{ item.id }}" class="custom-control-class">
         <strong>{{ item.shortName }} - {{ item.price | currency }}</strong>
       </label>
-      <br>
+      <br />
       <span class="label-description">
-          {{item.description}}
+        {{ item.description }}
       </span>
     </div>
   </div>
+</div>
+<div
+  class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
+>
+  <button class="btn-outline-success" cdkStepperPrevious>
+    <i class="fa fa-angle-left"></i>
+  </button>
+  <button class="btn-primary" cdkStepperNext>
+    <i class="fa fa-angle-right"></i>
+  </button>
 </div>

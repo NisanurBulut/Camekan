@@ -2,16 +2,16 @@
   <div class="row">
       <div class="col-8">
           <app-stepper [linearModelSelected]="false" #appStepper>
-              <cdk-step [label]="'Adres'">
+              <cdk-step [label]="'Adres'" [completed]="(checkoutForm.get('addressForm'))">
                   <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
               </cdk-step>
-              <cdk-step [label]="'Teslimat'">
+              <cdk-step [label]="'Teslimat'" [completed]="(checkoutForm.get('deliveryForm')).valid">
                 <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
             </cdk-step>
             <cdk-step [label]="'Sipariş'">
               <app-checkout-review></app-checkout-review>
             </cdk-step>
-            <cdk-step [label]="'Ödeme'">
+            <cdk-step [label]="'Ödeme'" [completed]="(checkoutForm.get('paymentForm')).valid">
                 <app-checkout-payment></app-checkout-payment>
             </cdk-step>
           </app-stepper>
