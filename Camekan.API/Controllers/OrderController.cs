@@ -50,7 +50,8 @@ namespace Camekan.WebAPI.Controllers
             var result = _mapper.Map<OrderEntity, OrdertoReturnDto>(order);
             return Ok(result);
         }
-        [HttpGet("{deliveryMethods}")]
+        [Route("[action]")]
+        [HttpGet()]
         public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods()
         {
             return Ok(await _orderService.GetDeliveryMethodsAsync());

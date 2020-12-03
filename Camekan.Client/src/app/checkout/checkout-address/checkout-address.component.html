@@ -1,1 +1,26 @@
-<p>checkout-address works!</p>
+<div class="mt-4" [formGroup]="checkoutForm">
+  <div class="d-flex justify-content-between align-content-center">
+    <h4>Teslimat Adresi</h4>
+    <button class="btn btn-outline-success mb-3">Kaydet</button>
+  </div>
+  <div class="row" formGroupName="addressForm">
+      <div class="form-group col-6">
+    <app-text-input [label]="'Ad'" formControlName="firstName"></app-text-input>
+  </div>
+  <div class="form-group col-6">
+    <app-text-input [label]="'Soyad'" formControlName="lastName"></app-text-input>
+  </div>
+  <div class="form-group col-6">
+    <app-text-input [label]="'Şehir'" formControlName="city"></app-text-input>
+  </div>
+  <div class="form-group col-6">
+    <app-text-input [label]="'Mahalle'" formControlName="state"></app-text-input>
+  </div>
+  <div class="form-group col-6">
+    <app-text-input [label]="'Cadde'" formControlName="street"></app-text-input>
+  </div>
+  <div class="form-group col-6">
+    <app-text-input [label]="'Posta Kodu'" formControlName="zipCode"></app-text-input>
+  </div>
+  </div>
+</div>

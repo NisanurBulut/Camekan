@@ -39,7 +39,7 @@ namespace Camekan.DataAccess.Context
                 }
                 #endregion
                 #region ORDER-DELIVERY
-                if (!context.tOrder.Any())
+                if (!context.tDeliveryMethod.Any())
                 {
                     var dmData = File.ReadAllText("../Camekan.DataAccess/SeedData/delivery.json");
                     var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethodEntity>>(dmData);

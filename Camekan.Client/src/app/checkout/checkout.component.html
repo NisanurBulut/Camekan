@@ -3,10 +3,10 @@
       <div class="col-8">
           <app-stepper [linearModelSelected]="false" #appStepper>
               <cdk-step [label]="'Adres'">
-                  <app-checkout-address></app-checkout-address>
+                  <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
               </cdk-step>
               <cdk-step [label]="'Teslimat'">
-                <app-checkout-delivery></app-checkout-delivery>
+                <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
             </cdk-step>
             <cdk-step [label]="'Kontrol'">
               <app-checkout-review></app-checkout-review>

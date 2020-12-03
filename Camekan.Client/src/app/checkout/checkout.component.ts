@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,6 +14,7 @@ export class CheckoutComponent implements OnInit {
     this.createCheckoutForm();
   }
   createCheckoutForm(): void {
+    console.log('form olusturma cagrildi');
     this.checkoutForm = this.fb.group({
       addressForm: this.fb.group({
         firstName: [null, Validators.required],
@@ -31,5 +31,6 @@ export class CheckoutComponent implements OnInit {
         nameOnCard: [null, Validators.required]
       })
     });
+    console.log(this.checkoutForm);
   }
 }
