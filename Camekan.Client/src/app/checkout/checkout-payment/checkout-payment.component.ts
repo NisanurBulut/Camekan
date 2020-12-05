@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
@@ -16,7 +17,8 @@ export class CheckoutPaymentComponent implements OnInit {
   constructor(
     private checkOutService: CheckoutService,
     private basketService: BasketService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +29,8 @@ export class CheckoutPaymentComponent implements OnInit {
       .subscribe((order: IOrder) => {
         this.toastrService.success('Siparişiniz başarıyla oluşturuldu.');
         this.basketService.deleteBasketLocal(basket.id);
+        const navigationExtras: NavigationExtras = { state: order };
+        this.router.navigate(['/checkout/success'], navigationExtras);
       }, error => {
         this.toastrService.error(error.message);
       });

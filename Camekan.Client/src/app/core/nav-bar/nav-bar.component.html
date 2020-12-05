@@ -38,7 +38,7 @@
           <strong>Hoşgeldiniz {{(currentUser$ | async).displayName}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-          <li class="dropdown-item d-flex align-items-center py-2">
+          <li [routerLink]="['/basket']" class="dropdown-item d-flex align-items-center py-2">
             <i class="fa fa-shopping-cart mr-3"><span class="ml-3">
               Sepete Git
             </span></i>
