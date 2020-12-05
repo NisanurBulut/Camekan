@@ -16,5 +16,8 @@ namespace Camekan.Entities
         }
         public string Id { get; set; }
         public List<BasketItemEntity> Items { get; set; } = new List<BasketItemEntity>();
+        public int? DeliveryMethodId { get; set; }
+        public string ClientSecret { get; set; }
+        public string PaymentIntentId { get; set; }
     }
 }
