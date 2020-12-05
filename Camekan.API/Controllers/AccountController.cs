@@ -17,17 +17,14 @@ namespace Camekan.WebAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
-        private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
         public AccountController(UserManager<AppUser> userManager, 
                                  SignInManager<AppUser> signInManager,
-                                 IAddressRepository addressRepository,
                                  ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
-            _addressRepository = addressRepository;
             _mapper = mapper;
         }
 
@@ -36,6 +33,7 @@ namespace Camekan.WebAPI.Controllers
         public async Task<ActionResult<AppUserDto>> GetCurrentUser()
         {
             var user = await _userManager.FindByEmailFromClaimsPrincipalAsync(HttpContext.User);
+            if (user == null) return Ok(new AppUserDto());
             return Ok(new AppUserDto
             {
                 Email = user.Email,

@@ -14,8 +14,8 @@ namespace Camekan.WebAPI.Extensions
         {
             var email = user.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             // join dene
-           
-            return await input.Users.Include(a=>a.Id).Include(a=>a.Address).SingleOrDefaultAsync(a => a.Email == email);
+           var appUser= await input.Users.Include(a => a.Address).FirstOrDefaultAsync(a => a.Email == email);
+            return appUser;
         }
         public static async Task<AppUser> FindByEmailFromClaimsPrincipalAsync(this UserManager<AppUser> input, ClaimsPrincipal user)
         {
