@@ -23,6 +23,14 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
+  createPaymentIntent() {
+    return this.http.post(this.baseUrl + '/payment/CreateOrUpdatePaymentIntent?basketId=' + this.getCurrenctBasketValue().id, {})
+      .pipe(
+        map((data: IBasket) => {
+          this.basketSource.next(data);
+        })
+      );
+  }
   setShippingPrice(deliveryMethod: IDeliveryMethod): void {
     this.shippingPrice = deliveryMethod.price;
     const basket = this.getCurrenctBasketValue();
