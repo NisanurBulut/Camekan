@@ -24,6 +24,7 @@ namespace Camekan.WebAPI.Controllers
             _orderService = orderService;
             _mapper = mapper;
         }
+
         [Route("[action]")]
         [HttpPost]
         public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model)
@@ -34,6 +35,8 @@ namespace Camekan.WebAPI.Controllers
             if (order == null) return BadRequest(new ApiResponse(400,"Sipariş oluşturma aşamasında bir hata oluştu."));
             return Ok(order);
         }
+        
+        [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<OrdertoReturnDto>>> GetOrdersForUser()
         {
@@ -42,6 +45,8 @@ namespace Camekan.WebAPI.Controllers
             var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrdertoReturnDto>>(orders);
             return Ok(result);
         }
+
+        [Route("[action]")]
         [HttpGet("{id}")]
         public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id)
         {

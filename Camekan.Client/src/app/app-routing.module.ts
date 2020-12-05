@@ -9,6 +9,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
   { path: 'home', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
   { path: 'shop', loadChildren: () => import('./shop/shop.module').then(a => a.ShopModule), data: { breadcrumb: 'Vitrin' } },
+  { path: 'order',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./order/order.module').then(a => a.OrderModule),
+    data: { breadcrumb: 'Sipariş' } },
   { path: 'basket', loadChildren: () => import('./basket/basket.module').then(a => a.BasketModule), data: { breadcrumb: 'Sepet' } },
   {
     path: 'checkout',

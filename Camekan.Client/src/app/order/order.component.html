@@ -1,0 +1,24 @@
+<div class="container ml-5">
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Sipariş</th>
+            <th>Tarih</th>
+            <th>Tutar</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders" routerLink="/order/{{order.id}}">
+            <th>#{{order.id}}</th>
+            <td>{{order.orderDate | date:'medium'}}</td>
+            <td>{{order.total | currency : "TRY":"₺":"" }}</td>
+            <td>{{order.status}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

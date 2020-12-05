@@ -1,5 +1,6 @@
 <div class="container mt-5">
     <div class="i fa fa-check-circle fa-5x"></div>
     <h2>Sipariş talebiniz alındı.</h2>
-    <button class="btn btn-outline-success">Siparişi Görüntüle</button>
+    <button *ngIf="order" routerLink="/order/{{order?.id}}" class="btn btn-outline-success">Siparişinizi Görüntüleyin</button>
+    <button *ngIf="!order" routerLink="/order" class="btn btn-outline-success">Siparişlerinizi Görüntüleyin</button>
 </div>
