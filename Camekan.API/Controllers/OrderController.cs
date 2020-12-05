@@ -47,7 +47,7 @@ namespace Camekan.WebAPI.Controllers
         }
 
         [Route("[action]")]
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();

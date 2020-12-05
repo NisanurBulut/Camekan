@@ -13,9 +13,9 @@ export class OrderDetailComponent implements OnInit {
   order: IOrder;
   constructor(
     private route: ActivatedRoute,
-    private breadCrumb: BreadcrumbService,
+    private breadCrumbService: BreadcrumbService,
     private orderservice: OrderService) {
-    this.breadCrumb.set('@OrderDetail', '');
+    this.breadCrumbService.set('@OrderDetail', '');
   }
 
   ngOnInit(): void {
@@ -27,6 +27,7 @@ export class OrderDetailComponent implements OnInit {
     this.orderservice.getOrderDetail(id)
       .subscribe((data: IOrder) => {
         this.order = data;
+        this.breadCrumbService.set('@OrderDetail', 'Sipariş Detayı');
       }, error => console.log(error));
   }
 }

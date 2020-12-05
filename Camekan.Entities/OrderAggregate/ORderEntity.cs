@@ -20,7 +20,7 @@ namespace Camekan.Entities
         }
        
         public string BuyerEmail { get; set; }
-        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
+        public DateTime OrderDate { get; set; } = DateTime.Now;
         public AddressAggregate ShipToAddress { get; set; }
         public DeliveryMethodEntity DeliveryMethod { get; set; }
         public IReadOnlyList<OrderItemEntity> OrderItems { get; set; }

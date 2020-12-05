@@ -7,7 +7,7 @@ namespace Camekan.DataTransferObject
     {
         public int Id { get; set; }
         public string BuyerEmail { get; set; }
-        public DateTimeOffset OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public AddressDto ShipToAddress { get; set; }
         public string DeliveryMethod { get; set; }
         public decimal ShippingPrice { get; set; }
