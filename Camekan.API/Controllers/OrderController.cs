@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
-using Camekan.Entities;
 using Camekan.DataAccess;
 using Camekan.DataTransferObject;
+using Camekan.Entities;
+using Camekan.Util.Errors;
+using Camekan.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Security.Claims;
-using Camekan.API.Extensions;
-using Camekan.WebAPI.Extensions;
-using Camekan.Util.Errors;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Camekan.WebAPI.Controllers
 {
