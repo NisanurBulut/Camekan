@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+    <PackageReference Include="Stripe.net" Version="34.19.0" />
   </ItemGroup>
 
   <ItemGroup>
