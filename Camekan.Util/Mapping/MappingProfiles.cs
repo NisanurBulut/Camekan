@@ -25,6 +25,12 @@ namespace Camekan.Util.Mapping
             CreateMap<AddressEntity, AddressDto>();
             CreateMap<AddressDto, AddressEntity>();
 
+            CreateMap<AddressEntity, AddressAggregate>();
+            CreateMap<AddressAggregate, AddressDto>();
+
+            CreateMap<AddressAggregate, AddressDto>();
+            CreateMap<AddressDto, AddressAggregate>();
+
             CreateMap<BasketEntity, BasketDto>();
             CreateMap<BasketDto, BasketEntity>();
 

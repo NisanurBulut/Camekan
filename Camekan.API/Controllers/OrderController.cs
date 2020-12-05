@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Camekan.WebAPI.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class OrderController : BaseApiController
     {
         private IMapper _mapper { get; set; }
@@ -24,6 +24,7 @@ namespace Camekan.WebAPI.Controllers
             _orderService = orderService;
             _mapper = mapper;
         }
+        [Route("[action]")]
         [HttpPost]
         public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model)
         {
@@ -51,7 +52,6 @@ namespace Camekan.WebAPI.Controllers
             return Ok(result);
         }
         [Route("[action]")]
-        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
         public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods()
         {
