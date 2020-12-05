@@ -4,6 +4,9 @@ import { IBasketItem } from './basketItem.model';
 export interface IBasket {
   id: string;
   items: IBasketItem[];
+  clientSecret?: string;
+  paymentIntentId?: string;
+  deliveryMethodId?: number;
 }
 export class Basket implements IBasket {
   id = uuidv4();
