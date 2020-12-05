@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Camekan.WebAPI.Controllers
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
-    [Route("[action]")]
+   
     public class PaymentController : BaseApiController
     {
         private readonly IPaymentService _paymentService;
@@ -17,8 +17,8 @@ namespace Camekan.WebAPI.Controllers
             this._paymentService = paymentService;
         }
 
-        
-        [HttpPost()]
+        [Route("[action]")]
+        [HttpPost]
         public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId)
         {
             return await _paymentService.CreateOrUpdatePaymentIntent(basketId);

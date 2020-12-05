@@ -23,7 +23,7 @@ namespace Camekan.DataAccess.Services
 
         public async Task<BasketEntity> CreateOrUpdatePaymentIntent(string basketId)
         {
-            StripeConfiguration.ApiKey = this._configuration["StripeSettings:ApiKey"];
+            StripeConfiguration.ApiKey = this._configuration["StripeSettings:SecretKey"];
             var basket = await _basketRepository.GetBasketAsync(basketId);
             var shippingPrice = 0m;
 
