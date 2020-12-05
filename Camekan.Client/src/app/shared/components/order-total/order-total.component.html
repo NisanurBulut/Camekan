@@ -5,18 +5,18 @@
     Ödeme sırasında yapılan seçimlere bağlı olarak taşıma ücreti
     eklenecektir
   </p>
-  <ul class="list-unstyled mb-4" *ngIf="basketTotal$ | async as basketTotal">
+  <ul class="list-unstyled mb-4">
     <li class="d-flex justify-content-between py-3 border-bottom">
         <strong class="text-muted">Ürün Fiyatı</strong>
-        <strong>{{basketTotal.subTotal |  currency: "TRY":"₺":""}}</strong>
+        <strong>{{subTotal |  currency: "TRY":"₺":""}}</strong>
     </li>
     <li class="d-flex justify-content-between py-3 border-bottom">
         <strong class="text-muted">Taşıma Fiyatı</strong>
-        <strong>{{basketTotal.shipping |  currency: "TRY":"₺":""}}</strong>
+        <strong>{{shippingPrice |  currency: "TRY":"₺":""}}</strong>
     </li>
     <li class="d-flex justify-content-between py-3 border-bottom">
         <strong class="text-muted">Toplam Fiyat</strong>
-        <strong>{{basketTotal.total |  currency: "TRY":"₺":""}}</strong>
+        <strong>{{total |  currency: "TRY":"₺":""}}</strong>
     </li>
   </ul>
 </div>

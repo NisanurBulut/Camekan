@@ -1,75 +1,90 @@
-<ng-container *ngIf="basket$ | async">
+<ng-container *ngIf="items.length > 0">
   <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="border-0" [class.bg-light]="isBasket" scope="col">
-              <div class="p-2 px-3">ÜRÜN</div>
-            </th>
-            <th class="border-0" [class.bg-light]="isBasket" scope="col">
-              <div class="p-2 px-3">FİYAT</div>
-            </th>
-            <th class="border-0" [class.bg-light]="isBasket" scope="col">
-              <div class="p-2 px-3">ADET</div>
-            </th>
-            <th class="border-0" [class.bg-light]="isBasket" scope="col">
-              <div class="p-2 px-3">TOPLAM</div>
-            </th>
-            <th *ngIf="isBasket" class="border-0 bg-light" scope="col">
-              <div class="p-2 px-3">KALDIR</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of (this.basket$ | async).items">
-            <th scope="row">
-              <div class="py-2">
-                <img
-                style="max-height: 100px;"
-                  src="{{ item.pictureUrl }}"
-                  alt="{{ item.productName }}"
-                  class="img-fluid"
-                />
-                <div class="ml-3 d-inline-block align-middle">
-                  <h5 class="mb-0">
-                    <a
-                      routerLink="/shop/{{ item.id }}"
-                      class="text-dark"
-                      >{{ item.productName }}</a
-                    >
-                  </h5>
-                  <span
-                    class="text-muted font-weight-normal font-italic"
-                  >
-                    Tür: {{ item.type }} <br>
-                    Yayım Evi: {{ item.brand }}
-                  </span>
-                </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
+            <div class="p-2 px-3">ÜRÜN</div>
+          </th>
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
+            <div class="p-2 px-3">FİYAT</div>
+          </th>
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
+            <div class="p-2 px-3">ADET</div>
+          </th>
+          <th class="border-0" [class.bg-light]="isBasket" scope="col">
+            <div class="p-2 px-3">TOPLAM</div>
+          </th>
+          <th *ngIf="isBasket" class="border-0 bg-light" scope="col">
+            <div class="p-2 px-3">KALDIR</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <th scope="row">
+            <div class="py-2">
+              <img
+                style="max-height: 100px"
+                src="{{ item.pictureUrl }}"
+                alt="{{ item.productName }}"
+                class="img-fluid"
+              />
+              <div class="ml-3 d-inline-block align-middle">
+                <h5 class="mb-0">
+                  <a routerLink="/shop/{{ item.id || item.productId}}" class="text-dark">{{
+                    item.productName
+                  }}</a>
+                </h5>
+                <span *ngIf="item.type" class="text-muted font-weight-normal font-italic">
+                  Tür: {{ item.type }} <br />
+                  Yayım Evi: {{ item.brand }}
+                </span>
               </div>
-            </th>
+            </div>
+          </th>
 
-            <td class="align-middle">
-                <strong>{{ item.price |  currency: "TRY":"₺":"" }}</strong>
-            </td>
-            <td class="align-middle">
-               <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
-                <i *ngIf="isBasket" (click)="incrementItemQuantity(item)" class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action">
-                </i>
-                <span class="font-weight-bold" style="font-size:1.5em;">{{item.quantity}}</span>
-                <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"></i>
-               </div>
-            </td>
-            <td class="align-middle">
-                <strong>{{item.quantity*item.price |currency: "TRY":"₺":""}}</strong>
-             </td>
-             <td class="align-middle text-center">
-               <a class="text-danger">
-                   <i *ngIf="isBasket" (click)="removeBasketItem(item)"
-                   class="fa fa-trash" style="font-size: 2em;cursor:pointer;"></i>
-               </a>
-             </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          <td class="align-middle">
+            <strong>{{ item.price | currency: "TRY":"₺":"" }}</strong>
+          </td>
+          <td class="align-middle">
+            <div
+              class="d-flex align-items-center"
+              [class.justify-content-center]="!isBasket"
+            >
+              <i
+                *ngIf="isBasket"
+                (click)="incrementItemQuantity(item)"
+                class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action"
+              >
+              </i>
+              <span class="font-weight-bold" style="font-size: 1.5em">{{
+                item.quantity
+              }}</span>
+              <i
+                *ngIf="isBasket"
+                (click)="decrementItemQuantity(item)"
+                class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"
+              ></i>
+            </div>
+          </td>
+          <td class="align-middle">
+            <strong>{{
+              item.quantity * item.price | currency: "TRY":"₺":""
+            }}</strong>
+          </td>
+          <td class="align-middle text-center">
+            <a class="text-danger">
+              <i
+                *ngIf="isBasket"
+                (click)="removeBasketItem(item)"
+                class="fa fa-trash"
+                style="font-size: 2em; cursor: pointer"
+              ></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </ng-container>

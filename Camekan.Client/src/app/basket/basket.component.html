@@ -10,15 +10,21 @@
           <div class="col-12 py-5 mb-1">
           <app-basket-summary
           [isBasket]="true"
+          [isOrder]="false"
           (decrement)="decrementItemQuantity($event)"
           (increment)="incrementItemQuantity($event)"
-          (remove)="removeBasketItem($event)">
+          (remove)="removeBasketItem($event)"
+          [items]="(basket$ | async).items">
         </app-basket-summary>
           </div>
         </div>
       <div class="row">
         <div class="col-6 offset-6">
-          <app-order-total></app-order-total>
+          <app-order-total
+          *ngIf="(basketTotal$ | async)"
+          [shippingPrice]="(basketTotal$ | async).shipping"
+          [subTotal]="(basketTotal$ | async).subTotal"
+          [total]="(basketTotal$ | async).total"></app-order-total>
           <a routerLink="/checkout" class="btn btn-block btn-outline-primary py-2">Siparişi Tamamla</a>
         </div>
       </div>

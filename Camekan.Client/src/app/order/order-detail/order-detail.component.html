@@ -1,72 +1,17 @@
 <div class="container ml-5">
   <div class="row" *ngIf="order">
     <div class="col-8">
-      <div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col" class="border-o bg-liht">
-                  <div class="p-1">Sipariş</div>
-                </th>
-                <th scope="col" class="border-o bg-liht">
-                  <div class="p-1">Fiyat</div>
-                </th>
-                <th scope="col" class="border-o bg-liht">
-                  <div class="p-1">Adet</div>
-                </th>
-                <th scope="col" class="border-o bg-liht">
-                  <div class="p-1">Toplam</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of order.orderItems">
-                <th scope="row">
-                  <div class="p-2">
-                    <img
-                      src="{{ item.pictureUrl }}"
-                      alt="{{ item.productName }}"
-                      class="img-fluid"
-                    />
-                    <div class="ml-3 d-inline-block align-middle">
-                      <h5 class="mb-0">
-                        {{ item.productName }}
-                      </h5>
-                    </div>
-                  </div>
-                </th>
-                <td class="align-middle">
-                  <strong>{{ item.price | currency: "TRY":"₺":"" }}</strong>
-                </td>
-                <td class="align-middle">
-                  <span class="font-weight-bold px-2">{{ item.quantity }}</span>
-                </td>
-                <td class="align-middle">
-                  <strong>{{
-                    item.price * item.quantity | currency: "TRY":"₺":""
-                  }}</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <app-basket-summary
+        [isBasket]="false"
+        [isOrder]="true"
+        [items]="order.orderItems"
+      ></app-basket-summary>
     </div>
     <div class="col-4">
-      <div class="bg-light px-4 py-3 font-weight-bold">sipariş Özeti</div>
-      <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">Ürün Fiyatı</strong>
-        <strong>{{ order.subtotal | currency: "TRY":"₺":"" }}</strong>
-      </li>
-      <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">Taşıma Ücreti</strong>
-        <strong>{{ order.shippingPrice | currency: "TRY":"₺":"" }}</strong>
-      </li>
-      <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">Toplam</strong>
-        <strong>{{ order.total | currency: "TRY":"₺":"" }}</strong>
-      </li>
+    <app-order-total
+    [shippingPrice]="order.shippingPrice"
+    [subTotal]="order.subtotal"
+    [total]="order.total"></app-order-total>
     </div>
   </div>
 </div>
