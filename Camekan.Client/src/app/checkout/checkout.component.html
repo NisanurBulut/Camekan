@@ -12,7 +12,8 @@
               <app-checkout-review></app-checkout-review>
             </cdk-step>
             <cdk-step [label]="'Ödeme'" [completed]="(checkoutForm.get('paymentForm')).valid">
-                <app-checkout-payment></app-checkout-payment>
+                <app-checkout-payment
+                [checkoutForm]="checkoutForm"></app-checkout-payment>
             </cdk-step>
           </app-stepper>
       </div>

@@ -20,6 +20,7 @@ export class BasketService {
   basketTotal$ = this.basketTotalSource.asObservable();
   basket$ = this.basketSource.asObservable();
   shippingPrice = 0;
+
   constructor(private http: HttpClient) { }
 
   setShippingPrice(deliveryMethod: IDeliveryMethod): void {
@@ -98,7 +99,11 @@ export class BasketService {
         localStorage.removeItem('basket_id');
       }, error => console.log(error));
   }
-
+  deleteBasketLocal(id: string) {
+    this.basketSource.next(null);
+    this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
+  }
   private calculateTotal() {
     const basket = this.getCurrenctBasketValue();
     const shipping = this.shippingPrice;

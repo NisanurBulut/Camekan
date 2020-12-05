@@ -7,6 +7,7 @@ export interface IOrderToCreate {
 }
 export interface IOrder {
   id: number;
+  basketId: string;
   buyerEmail: string;
   orderDate: string;
   shipToAddress: IAddress;
