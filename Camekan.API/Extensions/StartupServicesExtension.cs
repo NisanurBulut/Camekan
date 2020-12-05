@@ -17,6 +17,7 @@ namespace Camekan.API.Extensions
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IDeliveryModethodRepository, DeliveryMethodRepository>();
