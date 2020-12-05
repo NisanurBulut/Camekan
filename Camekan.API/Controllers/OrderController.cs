@@ -28,7 +28,7 @@ namespace Camekan.WebAPI.Controllers
         public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
-            var address = _mapper.Map<AddressDto, Address>(model.ShipToAddress);
+            var address = _mapper.Map<AddressDto, AddressAggregate>(model.ShipToAddress);
             var order = await _orderService.CreateOrderAsync(email,model.DeliveryMethodId,model.BasketId,address);
             if (order == null) return BadRequest(new ApiResponse(400,"Sipariş oluşturma aşamasında bir hata oluştu."));
             return Ok(order);
@@ -51,7 +51,8 @@ namespace Camekan.WebAPI.Controllers
             return Ok(result);
         }
         [Route("[action]")]
-        [HttpGet()]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
         public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods()
         {
             return Ok(await _orderService.GetDeliveryMethodsAsync());

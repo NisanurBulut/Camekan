@@ -21,7 +21,7 @@ namespace Camekan.DataAccess
             this._basketRepo = basketRepo;
             this._unitOfWork = unitOfWork;
         }
-        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, Address shippingAddress)
+        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress)
         {
             // get basket from the repo
             var basket = await _basketRepo.GetBasketAsync(basketId);

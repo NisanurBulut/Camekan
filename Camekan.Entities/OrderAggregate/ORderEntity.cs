@@ -10,7 +10,7 @@ namespace Camekan.Entities
         {
 
         }
-        public OrderEntity(List<OrderItemEntity> orderItems,string buyerEmail, DeliveryMethodEntity deliveryMethod, Address shipToAddress, decimal subTotal)
+        public OrderEntity(List<OrderItemEntity> orderItems,string buyerEmail, DeliveryMethodEntity deliveryMethod, AddressAggregate shipToAddress, decimal subTotal)
         {
             OrderItems = orderItems;
             BuyerEmail = buyerEmail;
@@ -21,7 +21,7 @@ namespace Camekan.Entities
        
         public string BuyerEmail { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public Address ShipToAddress { get; set; }
+        public AddressAggregate ShipToAddress { get; set; }
         public DeliveryMethodEntity DeliveryMethod { get; set; }
         public IReadOnlyList<OrderItemEntity> OrderItems { get; set; }
         public decimal SubTotal { get; set; }

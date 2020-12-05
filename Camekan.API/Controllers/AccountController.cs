@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AutoMapper;
+using Camekan.DataAccess.Repositories;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -16,12 +17,17 @@ namespace Camekan.WebAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager, 
+                                 SignInManager<AppUser> signInManager,
+                                 IAddressRepository addressRepository,
+                                 ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _addressRepository = addressRepository;
             _mapper = mapper;
         }
 
@@ -42,22 +48,27 @@ namespace Camekan.WebAPI.Controllers
         {
             return await _userManager.FindByEmailAsync(email) != null;
         }
-        [HttpGet("address")]
+
+        [Route("[action]")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
             var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
          
-            return _mapper.Map<Address, AddressDto>(user.Address);
+            return _mapper.Map<AddressEntity, AddressDto>(user.Address);
         }
 
         [HttpPut("address")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model)
         {
             var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
-            user.Address = _mapper.Map<AddressDto, Address>(model);
+
+            user.Address = _mapper.Map<AddressDto, AddressEntity>(model);
             var result = await _userManager.UpdateAsync(user);
             if(!result.Succeeded) return BadRequest(new ApiResponse(500));
-            return Ok(_mapper.Map<Address, AddressDto>(user.Address));
+            return Ok(_mapper.Map<AddressEntity, AddressDto>(user.Address));
         }
         [HttpPost("login")]
         public async Task<ActionResult<AppUserDto>> Login(LoginDto model)

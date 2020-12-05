@@ -9,14 +9,15 @@ namespace Camekan.DataAccess
         public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.ToTable("tProduct", "dbo");
-            builder.HasKey(a => a.Id);
-            builder.Property(a => a.Id).IsRequired();
-            builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
-            builder.Property(a => a.Description).IsRequired().HasMaxLength(200);
-            builder.Property(a => a.Price).IsRequired().HasColumnType("decimal(18,2)");
-            builder.Property(a => a.PictureUrl).IsRequired();
-            builder.HasOne(a => a.ProductBrand).WithMany().HasForeignKey(a => a.ProductBrandId);
-            builder.HasOne(a => a.ProductType).WithMany().HasForeignKey(a => a.ProductTypeId);
+            builder.Property(p => p.Id).IsRequired();
+            builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.Description).IsRequired();
+            builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
+            builder.Property(p => p.PictureUrl).IsRequired();
+            builder.HasOne(b => b.ProductBrand).WithMany()
+                .HasForeignKey(p => p.ProductBrandId);
+            builder.HasOne(t => t.ProductType).WithMany()
+                .HasForeignKey(p => p.ProductTypeId);
         }
     }
 }

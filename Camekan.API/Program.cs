@@ -23,14 +23,15 @@ namespace Camekan.API
                 // temporary code blockes
                 try
                 {
-                    var context = services.GetRequiredService<DatabaseContext>();
-                    await context.Database.MigrateAsync();
-                    await DatabaseContextSeed.SeedAsync(context, loggerFactory);
-
                     var contextIdentity = services.GetRequiredService<DatabaseContext>();
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     await contextIdentity.Database.MigrateAsync();
                     await DatabaseIdentityContextSeed.SeedUserAsync(userManager, loggerFactory);
+
+                    var context = services.GetRequiredService<DatabaseContext>();
+                    await context.Database.MigrateAsync();
+                    await DatabaseContextSeed.SeedAsync(context, loggerFactory);
+
                 }
                 catch (Exception ex)
                 {

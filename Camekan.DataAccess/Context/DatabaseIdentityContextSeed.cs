@@ -25,14 +25,16 @@ namespace Camekan.DataAccess.Context
                     var user = new AppUser
                     {
                         DisplayName="Nisanur",
-                        Email="nisanurbulutnb@gmail.com",
+                        Email="nisanurbulut@gmail.com",
                         UserName="nisanurrunasin",
-                        Address=new Address
+                        Address=new AddressEntity
                         {
+                            FirstName="Nisanur",
+                            LastName="Bulut",
                             City="Eskişehir",
                             State="ESES",
                             Street="Adalar",
-                            ZipCode="2600"
+                            Zipcode="2600"
                         }
                     };
                     await userManager.CreateAsync(user, "1");

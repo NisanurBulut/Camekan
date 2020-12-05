@@ -22,8 +22,8 @@ namespace Camekan.Util.Mapping
               .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
               .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
             
-            CreateMap<Address, AddressDto>();
-            CreateMap<AddressDto, Address>();
+            CreateMap<AddressEntity, AddressDto>();
+            CreateMap<AddressDto, AddressEntity>();
 
             CreateMap<BasketEntity, BasketDto>();
             CreateMap<BasketDto, BasketEntity>();

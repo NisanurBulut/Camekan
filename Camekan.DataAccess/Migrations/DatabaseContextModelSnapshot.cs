@@ -16,6 +16,42 @@ namespace Camekan.DataAccess.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10");
 
+            modelBuilder.Entity("Camekan.Entities.AddressEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("State")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Zipcode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique();
+
+                    b.ToTable("tAddress");
+                });
+
             modelBuilder.Entity("Camekan.Entities.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -182,8 +218,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(200);
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -354,29 +389,31 @@ namespace Camekan.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Camekan.Entities.AddressEntity", b =>
+                {
+                    b.HasOne("Camekan.Entities.AppUser", "AppUser")
+                        .WithOne("Address")
+                        .HasForeignKey("Camekan.Entities.AddressEntity", "AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Camekan.Entities.OrderEntity", b =>
                 {
                     b.HasOne("Camekan.Entities.DeliveryMethodEntity", "DeliveryMethod")
                         .WithMany()
                         .HasForeignKey("DeliveryMethodId");
 
-                    b.OwnsOne("Camekan.Entities.Address", "ShipToAddress", b1 =>
+                    b.OwnsOne("Camekan.Entities.AddressAggregate", "ShipToAddress", b1 =>
                         {
                             b1.Property<int>("OrderEntityId")
                                 .HasColumnType("INTEGER");
-
-                            b1.Property<string>("AppUserId")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
 
                             b1.Property<string>("City")
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("FirstName")
                                 .HasColumnType("TEXT");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("INTEGER");
 
                             b1.Property<string>("LastName")
                                 .HasColumnType("TEXT");
@@ -392,15 +429,7 @@ namespace Camekan.DataAccess.Migrations
 
                             b1.HasKey("OrderEntityId");
 
-                            b1.HasIndex("AppUserId");
-
-                            b1.ToTable("Address");
-
-                            b1.HasOne("Camekan.Entities.AppUser", "AppUser")
-                                .WithMany()
-                                .HasForeignKey("AppUserId")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
+                            b1.ToTable("tOrder");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderEntityId");

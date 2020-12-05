@@ -8,8 +8,8 @@ namespace Camekan.Entities
 {
     public class AppUser : IdentityUser
     {
-        public string DisplayName { get; set; }
-        [NotMapped]
-        public Address Address { get; set; }
+        public string DisplayName { get; set; }  
+   
+        public AddressEntity Address { get; set; }
     }
 }
