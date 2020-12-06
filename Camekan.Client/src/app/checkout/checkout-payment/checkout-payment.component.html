@@ -32,8 +32,9 @@
   <button class="btn-outline-success" cdkStepperPrevious>
     <i class="fa fa-angle-double-left"></i>
   </button>
-  <button class="btn-outline-success" (click)="submitOrder()">
+  <button [disabled]="loading" class="btn-outline-success" (click)="submitOrder()">
     Siparişi Tamamla
     <i class="fa fa-angle-double-right"></i>
+    <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
   </button>
 </div>
