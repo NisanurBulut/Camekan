@@ -13,12 +13,14 @@ namespace Camekan.DataAccess
         private readonly IUnitOfWork _unitOfWork;
       
         private readonly IBasketRepository _basketRepo;
+        private readonly IPaymentService _paymentService;
 
         public OrderService(IUnitOfWork unitOfWork,
-            IBasketRepository basketRepo)
+            IBasketRepository basketRepo, IPaymentService paymentService)
         {
            
             this._basketRepo = basketRepo;
+            this._paymentService = paymentService;
             this._unitOfWork = unitOfWork;
         }
         public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress)
@@ -42,16 +44,27 @@ namespace Camekan.DataAccess
             // calculate subtotal
             var subTotal = items.Sum(a => a.Price * a.Quantity);
 
+            // check to see if order is exists
+            var spec = new OrderByPaymentIntentIdWithItemsSpecification(basket.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+
+            if (existingOrder != null)
+            {
+                _unitOfWork.Repository<OrderEntity>().DeleteAsync(existingOrder);
+                await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+            }
+
             // create order
-            var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal);
+            var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);
             _unitOfWork.Repository<OrderEntity>().AddAsync(order);
 
             // save to db
             var result = await _unitOfWork.Complete();
+            
             // return order
             if (result <= 0) return null;
-            // delete basket
-            await _basketRepo.DeleteBasketAsync(basketId);
+            
+          
             return order;
         }
 

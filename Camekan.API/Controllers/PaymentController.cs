@@ -1,5 +1,6 @@
 ﻿using Camekan.DataAccess;
 using Camekan.Entities;
+using Camekan.Util.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -21,7 +22,11 @@ namespace Camekan.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId)
         {
-            return await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+            var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+
+            if (basket == null) return BadRequest(new ApiResponse(400,"Sepet bilgilerine erişilemedi"));
+
+            return basket;
         }
     }
 }
