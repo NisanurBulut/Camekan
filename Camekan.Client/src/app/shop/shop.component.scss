@@ -1,6 +1,20 @@
 li {
   cursor: pointer;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    border-radius: 10px;
+  }
+  &:not(active):hover{
+    color:#fff;
+    background-color:#2c3e509a;
+    border-radius: 10px;
+  }
 }
-h5{
-  color:#18bc9c;
+h5 {
+  color: #18bc9c;
 }
