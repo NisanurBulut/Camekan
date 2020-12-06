@@ -6,6 +6,7 @@ import { IProductBrand } from '../shared/models/productBrand.model';
 import { IProductType } from '../shared/models/productType.model';
 import { ShopParam } from '../shared/models/shopParams.model';
 import { IProduct } from '../shared/models/product.model';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,16 @@ import { IProduct } from '../shared/models/product.model';
 export class ShopService {
 
   baseUrl = 'http://localhost:63484/api/';
+  products: IProduct[] = [];
+  brands: IProductBrand[] = [];
+  types: IProductType[] = [];
 
   constructor(private http: HttpClient) { }
   getProduct(id: number) {
+    const product = this.products.find(a => a.id == id);
+    if (product) {
+      return of(product);
+    }
     return this.http.get<IProduct>(this.baseUrl + 'product/' + id);
   }
   getProducts(shopParam?: ShopParam) {
@@ -41,14 +49,32 @@ export class ShopService {
       .pipe(
         delay(1000),
         map(response => {
+          this.products = response.body.data;
           return response.body;
         })
       );
   }
   getBrands() {
-    return this.http.get<IProductBrand[]>(this.baseUrl + 'product/getproductbrands');
+    if (this.brands.length > 0) {
+      return of(this.brands);
+    }
+    return this.http.get<IProductBrand[]>(this.baseUrl + 'product/getproductbrands')
+      .pipe(
+        map((response) => {
+          this.types = response;
+          return response;
+        }));
   }
   getTypes() {
-    return this.http.get<IProductType[]>(this.baseUrl + 'product/getproducttypes');
+    if (this.types.length > 0) {
+      return of(this.types);
+    }
+    return this.http.get<IProductType[]>(this.baseUrl + 'product/getproducttypes')
+      .pipe(
+        map((response) => {
+          this.types = response;
+          return response;
+        })
+      );
   }
 }
