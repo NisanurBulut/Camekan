@@ -45,7 +45,7 @@ namespace Camekan.DataAccess
             var subTotal = items.Sum(a => a.Price * a.Quantity);
 
             // check to see if order is exists
-            var spec = new OrderByPaymentIntentIdWithItemsSpecification(basket.PaymentIntentId);
+            var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
 
             if (existingOrder != null)

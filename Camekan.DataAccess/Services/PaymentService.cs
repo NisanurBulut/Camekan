@@ -1,4 +1,5 @@
 ﻿using Camekan.DataAccess.Repositories;
+using Camekan.DataAccess.Specification;
 using Camekan.Entities;
 using Microsoft.Extensions.Configuration;
 using Stripe;
@@ -68,6 +69,28 @@ namespace Camekan.DataAccess.Services
             }
             await _basketRepository.UpdateBasketAsync(basket);
             return basket;
+        }
+
+        public async Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId)
+        {
+            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+            if (order == null) return null;
+            order.Status = OrderStatus.PaymenyFailed;
+            await _unitOfWork.Repository<OrderEntity>().UpdateAsync(order);
+            await _unitOfWork.Complete();
+            return null;
+        }
+
+        public async Task<OrderEntity> UpdateOrderPaymentSucceeded(string paymentIntentId)
+        {
+            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
+            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+            if (order == null) return null;
+            order.Status = OrderStatus.PaymentReceived;
+            await _unitOfWork.Repository<OrderEntity>().UpdateAsync(order);
+            await _unitOfWork.Complete();
+            return null;
         }
     }
 }
