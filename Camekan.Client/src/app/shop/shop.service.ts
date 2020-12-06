@@ -36,7 +36,19 @@ export class ShopService {
     }
     return this.http.get<IProduct>(this.baseUrl + 'product/' + id);
   }
-  getProducts() {
+  getProducts(useCache: boolean) {
+    if (useCache) {
+      this.products = [];
+    }
+    if (this.products.length > 0 && useCache === true) {
+      const pageReceived = Math.ceil(this.products.length / this.shopParam.PageSize);
+      this.pagination.data = this.products.slice(
+        (this.shopParam.PageNumber - 1) * this.shopParam.PageSize,
+        this.shopParam.PageSize * this.shopParam.PageNumber);
+      return of(this.pagination);
+    }
+
+
     let param = new HttpParams();
     if (this.shopParam.BrandId !== 0) {
       param = param.append('BrandId', this.shopParam.BrandId.toString());

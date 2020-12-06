@@ -27,13 +27,13 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getProducts(true);
     this.getBrands();
     this.getTypes();
   }
 
-  getProducts() {
-    this.shopService.getProducts()
+  getProducts(useCache = false) {
+    this.shopService.getProducts(useCache)
       .subscribe((response) => {
         this.products = response.data;
         this.totalCount = response.count;
@@ -76,7 +76,7 @@ export class ShopComponent implements OnInit {
     if (params.PageNumber !== event) {
       params.PageNumber = event.page;
       this.shopService.setShopParam(params);
-      this.getProducts();
+      this.getProducts(true);
     }
   }
   onSearch() {
@@ -87,9 +87,9 @@ export class ShopComponent implements OnInit {
     this.getProducts();
   }
   onReset() {
-    this.searchTerm.nativeElement = undefined;
-    const params = new ShopParam();
-    this.shopService.setShopParam(params);
+    this.searchTerm.nativeElement = '';
+    this.shopParams = new ShopParam();
+    this.shopService.setShopParam(this.shopParams);
     this.getProducts();
   }
 }
