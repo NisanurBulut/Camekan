@@ -34,7 +34,12 @@ namespace Camekan.Entities
         public string PaymentIntentId { get; set; }
         public decimal GetTotal()
         {
-            return SubTotal + DeliveryMethod.Price;
+            if (DeliveryMethod != null)
+            {
+
+                return SubTotal + DeliveryMethod.Price;
+            }
+            else { return SubTotal; }
         }
     }
 }
