@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
+import { IBasketTotal } from 'src/app/shared/models/basketTotal.model';
 import { IOrder } from 'src/app/shared/models/order.model';
 import { environment } from 'src/environments/environment';
 import { CheckoutService } from '../checkout.service';
@@ -27,6 +28,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   cardExpiry: any;
   cardErrors: any;
   cardHandler = this.onChange.bind(this);
+  loading = false;
 
   constructor(
     private checkOutService: CheckoutService,
@@ -63,34 +65,41 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       this.cardErrors = null;
     }
   }
-  submitOrder() {
+  async submitOrder() {
+    this.loading = true;
     const basket = this.basketService.getCurrenctBasketValue();
-    const orderToCreate = this.getOrderToCreate(basket);
-    this.checkOutService.creatOrder(orderToCreate)
-      .subscribe((order: IOrder) => {
-        this.toastrService.success('Siparişiniz başarıyla oluşturuldu.');
+    try {
+      const createdOrder = await this.createOrder(basket);
+      const paymentResult = await this.confirmCardPaymentWithStripe(basket);
 
-        this.stripe.confirmCardPayment(basket.clientSecret, {
-          payment_method: {
-            card: this.cardNumber,
-            billing_details: {
-              name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
-            }
-          }
-        }).then(result => {
-          console.log(result);
-          if (result.paymentIntent) {
-            this.basketService.deleteBasketLocal(basket.id);
-            const navigationExtras: NavigationExtras = { state: order };
-            this.router.navigate(['/checkout/success'], navigationExtras);
-          }
-          else {
-            this.toastrService.error(result.error.message);
-          }
-        });
-      }, error => {
-        this.toastrService.error(error.message);
-      });
+      if (paymentResult.paymentIntent) {
+        this.basketService.deleteBasketLocal(basket.id);
+        const navigationExtras: NavigationExtras = { state: createdOrder };
+        this.router.navigate(['/checkout/success'], navigationExtras);
+      }
+      else {
+        this.toastrService.error(paymentResult.error.message);
+      }
+      this.loading = false;
+    }
+    catch (error) {
+      this.loading = false;
+      console.log(error);
+    }
+  }
+  private async confirmCardPaymentWithStripe(basket: IBasket) {
+    return this.stripe.confirmCardPayment(basket.clientSecret, {
+      payment_method: {
+        card: this.cardNumber,
+        billing_details: {
+          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
+        }
+      }
+    });
+  }
+  private async createOrder(basket: IBasket) {
+    const orderToCreate = this.getOrderToCreate(basket);
+    return this.checkOutService.creatOrder(orderToCreate).toPromise();
   }
   private getOrderToCreate(basket: IBasket) {
     return {
