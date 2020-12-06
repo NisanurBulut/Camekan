@@ -65,18 +65,34 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   submitOrder() {
     const basket = this.basketService.getCurrenctBasketValue();
-    const orderToCreate = this.getOrderToVreate(basket);
+    const orderToCreate = this.getOrderToCreate(basket);
     this.checkOutService.creatOrder(orderToCreate)
       .subscribe((order: IOrder) => {
         this.toastrService.success('Siparişiniz başarıyla oluşturuldu.');
-        this.basketService.deleteBasketLocal(basket.id);
-        const navigationExtras: NavigationExtras = { state: order };
-        this.router.navigate(['/checkout/success'], navigationExtras);
+
+        this.stripe.confirmCardPayment(basket.clientSecret, {
+          payment_method: {
+            card: this.cardNumber,
+            billing_details: {
+              name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
+            }
+          }
+        }).then(result => {
+          console.log(result);
+          if (result.paymentIntent) {
+            this.basketService.deleteBasketLocal(basket.id);
+            const navigationExtras: NavigationExtras = { state: order };
+            this.router.navigate(['/checkout/success'], navigationExtras);
+          }
+          else {
+            this.toastrService.error(result.error.message);
+          }
+        });
       }, error => {
         this.toastrService.error(error.message);
       });
   }
-  private getOrderToVreate(basket: IBasket) {
+  private getOrderToCreate(basket: IBasket) {
     return {
       basketId: basket.id,
       deliveryMethodId: +this.checkoutForm.get('deliveryForm').get('deliveryMethod').value,
