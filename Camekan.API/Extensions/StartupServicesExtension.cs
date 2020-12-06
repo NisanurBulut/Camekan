@@ -16,6 +16,7 @@ namespace Camekan.API.Extensions
         public static IServiceCollection AddStartupServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IResponseCacheService, ResponseCacheService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ITokenService, TokenService>();
