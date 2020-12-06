@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:63484/api'
+  apiUrl: 'http://localhost:63484/api',
+  apiKey: 'pk_test_51Hv2RBJQtbwvMUmCUoy5cr0sfkRPsBQLK1CcKX3omdl5Rj1Fnrkws6mW0YjqKC8JcUuR61RaCFcyP50muiYglxWc00EWKghGgO'
 };
 
 /*
