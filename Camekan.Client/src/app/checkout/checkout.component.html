@@ -9,7 +9,7 @@
                 <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
             </cdk-step>
             <cdk-step [label]="'Sipariş'">
-              <app-checkout-review></app-checkout-review>
+              <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
             </cdk-step>
             <cdk-step [label]="'Ödeme'" [completed]="(checkoutForm.get('paymentForm')).valid">
                 <app-checkout-payment
