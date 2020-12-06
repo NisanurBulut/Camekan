@@ -14,8 +14,8 @@ namespace Camekan.DataAccess.IRepositories
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
         Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         Task<int> CountAsync(ISpecification<T> spec);
-        void AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        void DeleteAsync(T entity);
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(T entity);
     }
 }

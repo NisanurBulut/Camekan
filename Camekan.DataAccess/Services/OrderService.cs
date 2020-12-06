@@ -50,13 +50,13 @@ namespace Camekan.DataAccess
 
             if (existingOrder != null)
             {
-                _unitOfWork.Repository<OrderEntity>().DeleteAsync(existingOrder);
+                _unitOfWork.Repository<OrderEntity>().Delete(existingOrder);
                 await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
             }
 
             // create order
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);
-            _unitOfWork.Repository<OrderEntity>().AddAsync(order);
+            _unitOfWork.Repository<OrderEntity>().Add(order);
 
             // save to db
             var result = await _unitOfWork.Complete();

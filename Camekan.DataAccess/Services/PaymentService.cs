@@ -77,7 +77,7 @@ namespace Camekan.DataAccess.Services
             var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
             if (order == null) return null;
             order.Status = OrderStatus.PaymenyFailed;
-            await _unitOfWork.Repository<OrderEntity>().UpdateAsync(order);
+            _unitOfWork.Repository<OrderEntity>().Update(order);
             await _unitOfWork.Complete();
             return null;
         }
@@ -88,7 +88,7 @@ namespace Camekan.DataAccess.Services
             var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
             if (order == null) return null;
             order.Status = OrderStatus.PaymentReceived;
-            await _unitOfWork.Repository<OrderEntity>().UpdateAsync(order);
+            _unitOfWork.Repository<OrderEntity>().Update(order);
             await _unitOfWork.Complete();
             return null;
         }

@@ -20,6 +20,7 @@ namespace Camekan.WebAPI.Controllers
 
         public PaymentController(IPaymentService paymentService, ILogger<IPaymentService> logger)
         {
+            this._logger = logger;
             this._paymentService = paymentService;
         }
 
@@ -48,16 +49,16 @@ namespace Camekan.WebAPI.Controllers
             {
                 case "payment_intent.succeeded":
                     paymentIntent = (PaymentIntent)stripeEvent.Data.Object;
-                    _logger.LogInformation("Payment succceded : " , paymentIntent.Id);
+                    this._logger.LogInformation("Payment succceded : " , paymentIntent.Id);
                     orderEntity = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id);
-                    _logger.LogInformation("Order updated to payment succceded : ", orderEntity.Id);
+                    this._logger.LogInformation("Order updated to payment succceded : ", orderEntity.Id);
 
                     break;
                 case "payment_intent.failed":
                     paymentIntent = (PaymentIntent)stripeEvent.Data.Object;
-                    _logger.LogInformation("Payment failed : ", paymentIntent.Id);
+                    this._logger.LogInformation("Payment failed : ", paymentIntent.Id);
                     orderEntity = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id);
-                    _logger.LogInformation("Order updated to payment failed : ", orderEntity.Id);
+                    this._logger.LogInformation("Order updated to payment failed : ", orderEntity.Id);
                     break;
             }
             return new EmptyResult();
