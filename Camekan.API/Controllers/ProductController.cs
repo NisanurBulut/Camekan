@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Camekan.API.Helpers;
 using Camekan.DataAccess.Repositories;
 using Camekan.DataAccess.Specification;
 using Camekan.DataTransferObject;
@@ -23,6 +24,8 @@ namespace Camekan.API.Controllers
             _productRepo = productsRepo;
             _mapper = mapper;
         }
+
+        [Cached(600)]
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands()
@@ -32,6 +35,7 @@ namespace Camekan.API.Controllers
             return Ok(_mapper.Map<List<ProductBrandToReturnDto>>(list));
 
         }
+        [Cached(600)]
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes()
@@ -41,7 +45,10 @@ namespace Camekan.API.Controllers
             return Ok(_mapper.Map<List<ProductTypeToReturnDto>>(list));
 
         }
+        [Cached(600)]
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
         public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
@@ -53,6 +60,8 @@ namespace Camekan.API.Controllers
             return Ok(_mapper.Map<ProductToReturnDto>(productEntity));
 
         }
+        
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParam productSpecParam)
         {
