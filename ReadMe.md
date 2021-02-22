@@ -1,4 +1,9 @@
 
+## Give a Star! :star:
+
+If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+<hr>
+
 # Application Architecture
 * ASP.NET Identity : Context boundaries, Using the UserManager & SignInManager, Extensions, JWT Token
 * The Repository Pattern : Seperation of concerns-Minimise dublicate query logic-Decouple business code from data access-Testabilty-Increased level of abstraction-Increased level of maintainability, flexibility-More Classes/Interfaces-Business logic further away from data <br>
