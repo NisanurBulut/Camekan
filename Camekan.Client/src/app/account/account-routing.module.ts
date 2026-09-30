@@ -19,4 +19,4 @@ const routes = [
     RouterModule
   ]
 })
-export class AccountRotingModule { }
+export class AccountRoutingModule { }
