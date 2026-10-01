@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
@@ -16,7 +17,8 @@ export class NavBarComponent implements OnInit {
   basket$: Observable<IBasket>;
   currentUser$: Observable<IUser>;
 
-  constructor(private basketService: BasketService, private accountService: AccountService) { }
+  constructor(private basketService: BasketService, private accountService: AccountService,
+              public translateService: TranslateService) { }
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
@@ -24,5 +26,9 @@ export class NavBarComponent implements OnInit {
   }
   logOut() {
     this.accountService.logout();
+  }
+  changeLanguage(lang: string) {
+    this.translateService.use(lang);
+    localStorage.setItem('lang', lang);
   }
 }

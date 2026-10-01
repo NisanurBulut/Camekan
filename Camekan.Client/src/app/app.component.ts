@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from './account/account.service';
 import { BasketService } from './basket/basket.service';
 
@@ -10,12 +11,20 @@ import { BasketService } from './basket/basket.service';
 export class AppComponent implements OnInit {
   title = 'Camekân';
 
-  constructor(private basketService: BasketService, private accountService: AccountService) {
+  constructor(private basketService: BasketService, private accountService: AccountService,
+              private translateService: TranslateService) {
 
   }
   ngOnInit(): void {
+    this.loadLanguage();
     this.loadBasket();
     this.loadUser();
+  }
+  loadLanguage() {
+    this.translateService.addLangs(['tr', 'en']);
+    this.translateService.setDefaultLang('tr');
+    const lang = localStorage.getItem('lang');
+    this.translateService.use(lang && this.translateService.getLangs().includes(lang) ? lang : 'tr');
   }
   loadUser() {
     const token = localStorage.getItem('token');

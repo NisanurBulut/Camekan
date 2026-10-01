@@ -16,10 +16,10 @@
     <label for="{{label}}"></label>
     <div class="invalid-feedback"
     *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.touched)">
-    <span *ngIf="controlDir.control.errors?.required">{{label}} alanı gereklidir</span>
+    <span *ngIf="controlDir.control.errors?.required">{{ 'VALIDATION.REQUIRED' | translate: { field: label } }}</span>
 </div>
 <div class="invalid-feedback d-block"
 *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)">
-<span *ngIf="controlDir.control.errors?.emailExists">Email kullanılmaktadır.</span>
+<span *ngIf="controlDir.control.errors?.emailExists">{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</span>
 </div>
   </div>

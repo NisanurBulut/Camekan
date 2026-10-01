@@ -2,7 +2,7 @@
   <div class="row">
     <section class="col-3">
       <ng-container *ngIf="types && brands">
-        <h5 class="ml-3 mt-4 mb-3">Sıralama</h5>
+        <h5 class="ml-3 mt-4 mb-3">{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
           (change)="onSortSelected($event.target.value)"
@@ -10,10 +10,10 @@
           <option *ngFor="let item of sortOptions"
           [selected]="shopParams.Sort===item.value"
           [value]="item.value">
-            {{ item.name }}
+            {{ item.name | translate }}
           </option>
         </select>
-        <h5 class=" ml-3">Yayın Evi</h5>
+        <h5 class=" ml-3">{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
         <ul class="list-group my-3">
           <li
             class="list-group-item"
@@ -22,10 +22,10 @@
             [value]="item.id"
             (click)="onBrandSelected(item.id)"
           >
-            {{ item.name }}
+            {{ item.id === 0 ? (item.name | translate) : item.name }}
           </li>
         </ul>
-        <h5 class=" ml-3">Tip</h5>
+        <h5 class=" ml-3">{{ 'SHOP.TYPES' | translate }}</h5>
         <ul class="list-group my-3">
           <li
             class="list-group-item"
@@ -34,7 +34,7 @@
             [value]="item.id"
             (click)="onTypeSelected(item.id)"
           >
-            {{ item.name }}
+            {{ item.id === 0 ? (item.name | translate) : item.name }}
           </li>
         </ul>
       </ng-container>
@@ -51,11 +51,11 @@
             #search
             type="text"
             style="width: 300px"
-            placeholder="Ara..."
+            [placeholder]="'SHOP.SEARCH_PLACEHOLDER' | translate"
             class="form-control mr-2"
           />
-          <button (click)="onSearch()" class="btn btn-outline-primary my-2">Ara</button>
-          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Temizle</button>
+          <button (click)="onSearch()" class="btn btn-outline-primary my-2">{{ 'SHOP.SEARCH' | translate }}</button>
+          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">{{ 'SHOP.RESET' | translate }}</button>
         </div>
       </div>
 

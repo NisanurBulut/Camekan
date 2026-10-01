@@ -27,7 +27,7 @@ export class OrderDetailComponent implements OnInit {
     this.orderservice.getOrderDetail(id)
       .subscribe((data: IOrder) => {
         this.order = data;
-        this.breadCrumbService.set('@OrderDetail', 'Sipariş Detayı');
+        this.breadCrumbService.set('@OrderDetail', 'BREADCRUMB.ORDER_DETAIL');
       }, error => console.log(error));
   }
 }

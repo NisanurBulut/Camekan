@@ -11,12 +11,14 @@
         <div class="col-9">
           <h1 class="breadCrumbHeader">
             {{breadcrumb.length > 0 &&
-              breadcrumb[breadcrumb.length - 1].label | titlecase}}
+              breadcrumb[breadcrumb.length - 1].label | translate | titlecase}}
           </h1>
         </div>
         <div class="col-3">
           <nav aria-label="breadcrumb">
-            <xng-breadcrumb></xng-breadcrumb>
+            <xng-breadcrumb>
+              <ng-container *xngBreadcrumbItem="let label">{{ label | translate }}</ng-container>
+            </xng-breadcrumb>
           </nav>
         </div>
       </div>

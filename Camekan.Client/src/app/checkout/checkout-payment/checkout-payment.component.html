@@ -2,7 +2,7 @@
   <div class="row">
     <div class="form-group col-12" formGroupName="paymentForm">
       <app-text-input
-        [label]="'Kart Üzerindeki İsim'"
+        [label]="'CHECKOUT.NAME_ON_CARD' | translate"
         formControlName="nameOnCard"
       ></app-text-input>
     </div>
@@ -43,7 +43,7 @@
     class="btn-outline-success"
     (click)="submitOrder()"
   >
-    Siparişi Tamamla
+    {{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
     <i class="fa fa-angle-double-right"></i>
     <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
   </button>

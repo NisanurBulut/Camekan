@@ -15,7 +15,7 @@
         </i>
         <span class="font-weight-bold" style="font-size:1.5em;">{{quantity}}</span>
         <i (click)="decrementQuantity()" class="fa fa-minus-circle text-warning mx-2 btn-basket-action"></i>
-        <button (click)="addItemToBasket()" class="btn btn-lg btn-outline-primary ml-4">Sepete Ekle</button>
+        <button (click)="addItemToBasket()" class="btn btn-lg btn-outline-primary ml-4">{{ 'PRODUCT.ADD_TO_BASKET' | translate }}</button>
       </div>
       <div style="padding-top: 50px;">
       <p>{{ product.description }}</p>
