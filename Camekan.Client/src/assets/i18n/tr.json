@@ -1,0 +1,110 @@
+{
+  "COMMON": {
+    "LOADING": "Yükleniyor..",
+    "SAVE": "Kaydet",
+    "ALL": "Hepsi"
+  },
+  "NAV": {
+    "HOME": "ANA SAYFA",
+    "SHOP": "VİTRİN",
+    "LOGIN": "Giriş",
+    "REGISTER": "Kayıt",
+    "WELCOME": "Hoşgeldiniz {{name}}",
+    "GO_TO_BASKET": "Sepete Git",
+    "VIEW_ORDERS": "Siparişleri Gör",
+    "LOGOUT": "Çıkış Yap"
+  },
+  "BREADCRUMB": {
+    "SHOP": "Vitrin",
+    "BASKET": "Sepet",
+    "CHECKOUT": "Hesap",
+    "ORDER_DETAIL": "Sipariş Detayı",
+    "SERVER_ERROR": "Server Error",
+    "NOT_FOUND": "Not-Found Error"
+  },
+  "ACCOUNT": {
+    "LOGIN": "Oturum Aç",
+    "REGISTER": "Kaydol"
+  },
+  "USER": {
+    "USERNAME": "Kullanıcı Adı",
+    "EMAIL": "Email",
+    "PASSWORD": "Parola"
+  },
+  "VALIDATION": {
+    "REQUIRED": "{{field}} alanı gereklidir",
+    "EMAIL_EXISTS": "Email kullanılmaktadır."
+  },
+  "HOME": {
+    "READY": "Camekân sizin için hazır !"
+  },
+  "SHOP": {
+    "SORT": "Sıralama",
+    "SORT_ALPHABETICAL": "Alfabetik",
+    "SORT_PRICE_ASC": "Fiyat Artan",
+    "SORT_PRICE_DESC": "Fiyat Azalan",
+    "TYPES": "Tip",
+    "SEARCH": "Ara",
+    "SEARCH_PLACEHOLDER": "Ara...",
+    "RESET": "Temizle"
+  },
+  "PRODUCT": {
+    "TYPE": "Tür",
+    "PUBLISHER": "Yayın Evi",
+    "ADD_TO_BASKET": "Sepete Ekle"
+  },
+  "BASKET": {
+    "EMPTY": "Sepette ürün bulunmuyor",
+    "PRODUCT": "ÜRÜN",
+    "PRICE": "FİYAT",
+    "QUANTITY": "ADET",
+    "TOTAL": "TOPLAM",
+    "REMOVE": "KALDIR"
+  },
+  "CHECKOUT": {
+    "COMPLETE_ORDER": "Siparişi Tamamla",
+    "STEP_ADDRESS": "Adres",
+    "STEP_DELIVERY": "Teslimat",
+    "STEP_PAYMENT": "Ödeme",
+    "DELIVERY_ADDRESS": "Teslimat Adresi",
+    "ADDRESS_SAVED": "Adres kaydedildi.",
+    "NAME_ON_CARD": "Kart Üzerindeki İsim",
+    "SUCCESS_TITLE": "Sipariş talebiniz alındı.",
+    "VIEW_ORDER": "Siparişinizi Görüntüleyin",
+    "VIEW_ORDERS": "Siparişlerinizi Görüntüleyin"
+  },
+  "ADDRESS": {
+    "FIRST_NAME": "Ad",
+    "LAST_NAME": "Soyad",
+    "CITY": "Şehir",
+    "STATE": "Mahalle",
+    "STREET": "Cadde",
+    "ZIP_CODE": "Posta Kodu"
+  },
+  "ORDER": {
+    "TITLE": "Sipariş",
+    "DATE": "Tarih",
+    "AMOUNT": "Tutar",
+    "STATUS": "Durum",
+    "SUMMARY": "Sipariş Özeti",
+    "SHIPPING_NOTE": "Ödeme sırasında yapılan seçimlere bağlı olarak taşıma ücreti eklenecektir",
+    "SUBTOTAL": "Ürün Fiyatı",
+    "SHIPPING": "Taşıma Fiyatı",
+    "TOTAL": "Toplam Fiyat"
+  },
+  "PAGING": {
+    "RECORDS": "Kayıt"
+  },
+  "ERROR": {
+    "NOT_FOUND": "Not Found",
+    "SERVER_ERROR_TITLE": "Internel Server Error - Hatanın kaybolması için ekranı yenilemeyi deneyiniz..",
+    "ERROR_MESSAGE": "Hata: {{message}}",
+    "ANGULAR_NOTE": "Not: Bunu görüyorsanız, muhtemelen Angular sorumlu değildir",
+    "WHAT_TO_DO": "Ne yapmak istersiniz ?",
+    "STEP_OPEN_CONSOLE": "Chrome tarayıcı geliştirici konsolunu aç",
+    "STEP_NETWORK_TAB": "Network sekmesini incele",
+    "STEP_INSPECT_REQUEST": "Hatalı isteği incele",
+    "STEP_CHECK_URL": "URL isteğini kontrol edin",
+    "STEP_RETRY_POSTMAN": "Postamn üzerinden istek atarak yeniden deneyin"
+  }
+}

@@ -9,9 +9,9 @@
             : pageNumber * pageSize
         }}
       </strong>
-      / <strong>{{ this.totalCount }}</strong> Kayıt</span
+      / <strong>{{ this.totalCount }}</strong> {{ 'PAGING.RECORDS' | translate }}</span
     >
     <span *ngIf="totalCount && totalCount === 0">
-      <strong>0</strong> / <strong>0</strong> Kayıt
+      <strong>0</strong> / <strong>0</strong> {{ 'PAGING.RECORDS' | translate }}
     </span>
   </header>

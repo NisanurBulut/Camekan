@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/http-loader": "^5.0.0",
     "bootstrap": "4.1.1",
     "bootswatch": "^4.5.3",
     "font-awesome": "^4.7.0",

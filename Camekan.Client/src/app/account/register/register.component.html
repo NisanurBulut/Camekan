@@ -6,22 +6,22 @@
       </div>
       <app-text-input
         formControlName="displayName"
-        [label]="'Kullanıcı Adı'"
+        [label]="'USER.USERNAME' | translate"
       ></app-text-input>
       <app-text-input
         formControlName="email"
-        [label]="'Email'"
+        [label]="'USER.EMAIL' | translate"
       ></app-text-input>
       <app-text-input
         formControlName="password"
-        [label]="'Parola'"
+        [label]="'USER.PASSWORD' | translate"
         [type]="'password'"
       ></app-text-input>
       <ul class="text-danger list-unstyled" *ngIf="errors">
         <li *ngFor="let item of errors">{{ item }}</li>
       </ul>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
-        Kaydol
+        {{ 'ACCOUNT.REGISTER' | translate }}
       </button>
       <p class="mt-5 mb-3 text-muted text-center">© 2020-2021</p>
     </form>

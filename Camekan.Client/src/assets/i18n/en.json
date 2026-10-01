@@ -1,0 +1,110 @@
+{
+  "COMMON": {
+    "LOADING": "Loading..",
+    "SAVE": "Save",
+    "ALL": "All"
+  },
+  "NAV": {
+    "HOME": "HOME",
+    "SHOP": "SHOP",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "WELCOME": "Welcome {{name}}",
+    "GO_TO_BASKET": "Go to Basket",
+    "VIEW_ORDERS": "View Orders",
+    "LOGOUT": "Log Out"
+  },
+  "BREADCRUMB": {
+    "SHOP": "Shop",
+    "BASKET": "Basket",
+    "CHECKOUT": "Checkout",
+    "ORDER_DETAIL": "Order Detail",
+    "SERVER_ERROR": "Server Error",
+    "NOT_FOUND": "Not-Found Error"
+  },
+  "ACCOUNT": {
+    "LOGIN": "Sign In",
+    "REGISTER": "Sign Up"
+  },
+  "USER": {
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "PASSWORD": "Password"
+  },
+  "VALIDATION": {
+    "REQUIRED": "{{field}} is required",
+    "EMAIL_EXISTS": "Email is already in use."
+  },
+  "HOME": {
+    "READY": "Camekân is ready for you!"
+  },
+  "SHOP": {
+    "SORT": "Sort",
+    "SORT_ALPHABETICAL": "Alphabetical",
+    "SORT_PRICE_ASC": "Price: Low to High",
+    "SORT_PRICE_DESC": "Price: High to Low",
+    "TYPES": "Type",
+    "SEARCH": "Search",
+    "SEARCH_PLACEHOLDER": "Search...",
+    "RESET": "Reset"
+  },
+  "PRODUCT": {
+    "TYPE": "Type",
+    "PUBLISHER": "Publisher",
+    "ADD_TO_BASKET": "Add to Basket"
+  },
+  "BASKET": {
+    "EMPTY": "There are no items in your basket",
+    "PRODUCT": "PRODUCT",
+    "PRICE": "PRICE",
+    "QUANTITY": "QUANTITY",
+    "TOTAL": "TOTAL",
+    "REMOVE": "REMOVE"
+  },
+  "CHECKOUT": {
+    "COMPLETE_ORDER": "Complete Order",
+    "STEP_ADDRESS": "Address",
+    "STEP_DELIVERY": "Delivery",
+    "STEP_PAYMENT": "Payment",
+    "DELIVERY_ADDRESS": "Delivery Address",
+    "ADDRESS_SAVED": "Address saved.",
+    "NAME_ON_CARD": "Name on Card",
+    "SUCCESS_TITLE": "Your order has been received.",
+    "VIEW_ORDER": "View Your Order",
+    "VIEW_ORDERS": "View Your Orders"
+  },
+  "ADDRESS": {
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "CITY": "City",
+    "STATE": "District",
+    "STREET": "Street",
+    "ZIP_CODE": "Zip Code"
+  },
+  "ORDER": {
+    "TITLE": "Order",
+    "DATE": "Date",
+    "AMOUNT": "Amount",
+    "STATUS": "Status",
+    "SUMMARY": "Order Summary",
+    "SHIPPING_NOTE": "Shipping costs will be added depending on the choices made during checkout",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "TOTAL": "Total"
+  },
+  "PAGING": {
+    "RECORDS": "Records"
+  },
+  "ERROR": {
+    "NOT_FOUND": "Not Found",
+    "SERVER_ERROR_TITLE": "Internal Server Error - Try refreshing the page to clear the error..",
+    "ERROR_MESSAGE": "Error: {{message}}",
+    "ANGULAR_NOTE": "Note: If you are seeing this, Angular is probably not responsible",
+    "WHAT_TO_DO": "What would you like to do?",
+    "STEP_OPEN_CONSOLE": "Open the Chrome developer console",
+    "STEP_NETWORK_TAB": "Inspect the Network tab",
+    "STEP_INSPECT_REQUEST": "Inspect the failing request",
+    "STEP_CHECK_URL": "Check the request URL",
+    "STEP_RETRY_POSTMAN": "Retry the request via Postman"
+  }
+}

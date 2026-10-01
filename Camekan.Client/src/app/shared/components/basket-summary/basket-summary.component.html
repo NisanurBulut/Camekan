@@ -4,19 +4,19 @@
       <thead>
         <tr>
           <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">ÜRÜN</div>
+            <div class="p-2 px-3">{{ 'BASKET.PRODUCT' | translate }}</div>
           </th>
           <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">FİYAT</div>
+            <div class="p-2 px-3">{{ 'BASKET.PRICE' | translate }}</div>
           </th>
           <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">ADET</div>
+            <div class="p-2 px-3">{{ 'BASKET.QUANTITY' | translate }}</div>
           </th>
           <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">TOPLAM</div>
+            <div class="p-2 px-3">{{ 'BASKET.TOTAL' | translate }}</div>
           </th>
           <th *ngIf="isBasket" class="border-0 bg-light" scope="col">
-            <div class="p-2 px-3">KALDIR</div>
+            <div class="p-2 px-3">{{ 'BASKET.REMOVE' | translate }}</div>
           </th>
         </tr>
       </thead>
@@ -37,8 +37,8 @@
                   }}</a>
                 </h5>
                 <span *ngIf="item.type" class="text-muted font-weight-normal font-italic">
-                  Tür: {{ item.type }} <br />
-                  Yayım Evi: {{ item.brand }}
+                  {{ 'PRODUCT.TYPE' | translate }}: {{ item.type }} <br />
+                  {{ 'PRODUCT.PUBLISHER' | translate }}: {{ item.brand }}
                 </span>
               </div>
             </div>

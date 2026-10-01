@@ -1,6 +1,6 @@
 <div class="container mt-">
   <div *ngIf="(this.basket$ | async) === null">
-    <p>Sepette ürün bulunmuyor</p>
+    <p>{{ 'BASKET.EMPTY' | translate }}</p>
   </div>
 
   <div *ngIf="this.basket$ | async as basket">
@@ -25,7 +25,7 @@
           [shippingPrice]="(basketTotal$ | async).shipping"
           [subTotal]="(basketTotal$ | async).subTotal"
           [total]="(basketTotal$ | async).total"></app-order-total>
-          <a routerLink="/checkout" class="btn btn-block btn-outline-primary py-2">Siparişi Tamamla</a>
+          <a routerLink="/checkout" class="btn btn-block btn-outline-primary py-2">{{ 'CHECKOUT.COMPLETE_ORDER' | translate }}</a>
         </div>
       </div>
       </div>

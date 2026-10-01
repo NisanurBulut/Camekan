@@ -14,13 +14,17 @@
       [routerLink]="['/']"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      >ANA SAYFA</a
+      >{{ 'NAV.HOME' | translate }}</a
     >
-    <a class="p-2" [routerLink]="['/shop']" routerLinkActive="active">VİTRİN</a>
+    <a class="p-2" [routerLink]="['/shop']" routerLinkActive="active">{{ 'NAV.SHOP' | translate }}</a>
     <!-- <a class="p-2" [routerLink]="['/contact']" routerLinkActive="active"
       >İLETİŞİM</a> -->
   </nav>
   <div class="d-flex align-items-center">
+    <div class="btn-group btn-group-sm mr-4">
+      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'tr'" (click)="changeLanguage('tr')">TR</button>
+      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'en'" (click)="changeLanguage('en')">EN</button>
+    </div>
     <a routerLink="/basket" style="position: relative">
       <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
       <div *ngIf="(this.basket$ | async)" class="cart-no">
@@ -28,28 +32,28 @@
       </div>
     </a>
     <ng-container *ngIf="(this.currentUser$ | async)===null">
-      <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">Giriş</a>
-      <a [routerLink]="['/account/register']" class="btn btn-outline-secondary mr-3">Kayıt</a>
+      <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">{{ 'NAV.LOGIN' | translate }}</a>
+      <a [routerLink]="['/account/register']" class="btn btn-outline-secondary mr-3">{{ 'NAV.REGISTER' | translate }}</a>
     </ng-container>
     <ng-container *ngIf="(this.currentUser$ | async)">
       <div class="dropdown ml-3 mr-5" dropdown>
         <a class="dropdown-toggle" dropdownToggle >
-          <strong>Hoşgeldiniz {{(currentUser$ | async).displayName}}</strong>
+          <strong>{{ 'NAV.WELCOME' | translate: { name: (currentUser$ | async).displayName } }}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
           <li [routerLink]="['/basket']" class="dropdown-item d-flex align-items-center py-2">
             <i class="fa fa-shopping-cart mr-3"><span class="ml-3">
-              Sepete Git
+              {{ 'NAV.GO_TO_BASKET' | translate }}
             </span></i>
           </li>
           <li [routerLink]="['/order']" class="dropdown-item d-flex align-items-center py-2">
             <i class="fa fa-history mr-3">
-              <span class="ml-3">Siparişleri Gör</span>
+              <span class="ml-3">{{ 'NAV.VIEW_ORDERS' | translate }}</span>
             </i>
           </li>
           <li class="dropdown-item d-flex align-items-center py-2" (click)="logOut()">
             <i class="fa fa-sign-out mr-3"><span class="ml-3">
-              Çıkış Yap
+              {{ 'NAV.LOGOUT' | translate }}
             </span></i>
           </li>
         </ul>

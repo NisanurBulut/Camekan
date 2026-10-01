@@ -18,9 +18,9 @@ export class ShopComponent implements OnInit {
   shopParams: ShopParam;
   totalCount: number;
   sortOptions = [
-    { name: 'Alfabetik', value: 'name' },
-    { name: 'Fiyat Artan', value: 'priceAsc' },
-    { name: 'Fiyat Azalan', value: 'priceDesc' }
+    { name: 'SHOP.SORT_ALPHABETICAL', value: 'name' },
+    { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc' },
+    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc' }
   ];
   constructor(private shopService: ShopService) {
     this.shopParams = this.shopService.getShopParam();
@@ -42,13 +42,13 @@ export class ShopComponent implements OnInit {
   getBrands() {
     this.shopService.getBrands()
       .subscribe((response) => {
-        this.brands = [{ id: 0, name: 'Hepsi' }, ...response];
+        this.brands = [{ id: 0, name: 'COMMON.ALL' }, ...response];
       }, error => { console.log(error); });
   }
   getTypes() {
     this.shopService.getTypes()
       .subscribe((response) => {
-        this.types = [{ id: 0, name: 'Hepsi' }, ...response];
+        this.types = [{ id: 0, name: 'COMMON.ALL' }, ...response];
       }, error => { console.log(error); });
   }
   onBrandSelected(brandId: number) {

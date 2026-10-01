@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/account/account.service';
 import { IAddress } from 'src/app/shared/models/address.model';
@@ -11,14 +12,15 @@ import { IAddress } from 'src/app/shared/models/address.model';
 })
 export class CheckoutAddressComponent implements OnInit {
   @Input() checkoutForm: FormGroup;
-  constructor(private accountService: AccountService, private toastrService: ToastrService) { }
+  constructor(private accountService: AccountService, private toastrService: ToastrService,
+              private translateService: TranslateService) { }
 
   ngOnInit(): void {
   }
   saveUserAddress() {
     this.accountService.updateUserAddress(this.checkoutForm.get('addressForm').value)
       .subscribe((address: IAddress) => {
-        this.toastrService.success('Adres kaydedildi.');
+        this.toastrService.success(this.translateService.instant('CHECKOUT.ADDRESS_SAVED'));
         this.checkoutForm.get('addressform').reset();
       }, error => this.toastrService.error(error.message));
   }
