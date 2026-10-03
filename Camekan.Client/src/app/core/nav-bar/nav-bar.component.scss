@@ -4,8 +4,8 @@
   min-width: 25px;
   border-radius: 50%;
   font-size: 1em;
-  color: white;
-  background-color: rgb(5, 115, 119);
+  color: var(--on-badge);
+  background-color: var(--badge-bg);
   top: -12px;
   right: 32px;
   text-align: center;

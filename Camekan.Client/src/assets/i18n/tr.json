@@ -12,7 +12,9 @@
     "WELCOME": "Hoşgeldiniz {{name}}",
     "GO_TO_BASKET": "Sepete Git",
     "VIEW_ORDERS": "Siparişleri Gör",
-    "LOGOUT": "Çıkış Yap"
+    "LOGOUT": "Çıkış Yap",
+    "THEME_DARK": "Koyu temaya geç",
+    "THEME_LIGHT": "Açık temaya geç"
   },
   "BREADCRUMB": {
     "SHOP": "Vitrin",

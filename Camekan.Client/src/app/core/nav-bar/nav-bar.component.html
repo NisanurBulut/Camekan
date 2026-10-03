@@ -25,6 +25,13 @@
         <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'tr'" (click)="changeLanguage('tr')">TR</button>
         <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'en'" (click)="changeLanguage('en')">EN</button>
       </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary mr-4"
+        [attr.aria-pressed]="themeService.isDark()"
+        [attr.aria-label]="(themeService.isDark() ? 'NAV.THEME_LIGHT' : 'NAV.THEME_DARK') | translate"
+        [attr.title]="(themeService.isDark() ? 'NAV.THEME_LIGHT' : 'NAV.THEME_DARK') | translate"
+        (click)="themeService.toggle()">
+        <i class="fa" [class.fa-sun-o]="themeService.isDark()" [class.fa-moon-o]="!themeService.isDark()" aria-hidden="true"></i>
+      </button>
       <a routerLink="/basket" style="position: relative">
         <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
         @if ((this.basket$ | async)) {

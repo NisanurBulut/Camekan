@@ -1,12 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
-import { IBasketTotal } from 'src/app/shared/models/basketTotal.model';
-import { IOrder } from 'src/app/shared/models/order.model';
 import { environment } from 'src/environments/environment';
+import { ThemeService } from 'src/app/core/services/theme.service';
 import { CheckoutService } from '../checkout.service';
 
 declare var Stripe;
@@ -37,7 +36,16 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     private checkOutService: CheckoutService,
     private basketService: BasketService,
     private toastrService: ToastrService,
-    private router: Router) { }
+    private router: Router,
+    private themeService: ThemeService) {
+    // Stripe fields live in iframes, so CSS variables do not reach them: re-send the colors on theme change.
+    // ThemeService's root effect runs before this component effect, so data-theme is already updated here.
+    effect(() => {
+      this.themeService.theme();
+      const style = this.cardStyle();
+      [this.cardNumber, this.cardExpiry, this.cardCvc].forEach(card => card?.update({ style }));
+    });
+  }
 
   ngOnDestroy(): void {
     this.cardNumber.destroy();
@@ -48,18 +56,26 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.stripe = Stripe(environment.apiKey);
     const elements = this.stripe.elements();
+    const style = this.cardStyle();
 
-    this.cardNumber = elements.create('cardNumber');
+    this.cardNumber = elements.create('cardNumber', { style });
     this.cardNumber.mount(this.cardNumberElement.nativeElement);
     this.cardNumber.addEventListener('change', this.cardHandler);
 
-    this.cardExpiry = elements.create('cardExpiry');
+    this.cardExpiry = elements.create('cardExpiry', { style });
     this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
     this.cardExpiry.addEventListener('change', this.cardHandler);
 
-    this.cardCvc = elements.create('cardCvc');
+    this.cardCvc = elements.create('cardCvc', { style });
     this.cardCvc.mount(this.cardCvcElement.nativeElement);
     this.cardCvc.addEventListener('change', this.cardHandler);
+  }
+  // Reads the current theme tokens (src/styles/_theme.scss) so the colors are not duplicated here.
+  private cardStyle() {
+    const tokens = getComputedStyle(document.documentElement);
+    const color = tokens.getPropertyValue('--input-text').trim();
+    const muted = tokens.getPropertyValue('--text-muted').trim();
+    return { base: { color, iconColor: muted, '::placeholder': { color: muted } } };
   }
   onChange(event) {
     if (event.error) {

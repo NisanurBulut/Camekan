@@ -1,14 +1,17 @@
+@use 'styles/theme';
+@use 'styles/dark-overrides';
+
 .xng-breadcrumb-root {
   padding: 8px 16px;
   display: inline;
   border-radius: 0;
 }
 .breadCrumbHeader{
-  color: #18bc9c;
+  color: var(--primary);
 }
 label.xng-breadcrumb-trail {
   margin-bottom: 0;
-  color: #18bc9c;
+  color: var(--primary);
 }
 .xng-breadcrumb-separator {
   padding: 0 0;
