@@ -1,17 +1,21 @@
 <header>
-    <span *ngIf="totalCount && totalCount > 0">
+  @if (totalCount && totalCount > 0) {
+    <span>
       <strong
         >{{ (pageNumber - 1) * pageSize + 1 }}-
         {{
-          pageSize * pageNumber >
-          this.totalCount
-            ? this.totalCount
-            : pageNumber * pageSize
+        pageSize * pageNumber >
+        this.totalCount
+        ? this.totalCount
+        : pageNumber * pageSize
         }}
       </strong>
       / <strong>{{ this.totalCount }}</strong> {{ 'PAGING.RECORDS' | translate }}</span
-    >
-    <span *ngIf="totalCount && totalCount === 0">
-      <strong>0</strong> / <strong>0</strong> {{ 'PAGING.RECORDS' | translate }}
-    </span>
+      >
+    }
+    @if (totalCount && totalCount === 0) {
+      <span>
+        <strong>0</strong> / <strong>0</strong> {{ 'PAGING.RECORDS' | translate }}
+      </span>
+    }
   </header>

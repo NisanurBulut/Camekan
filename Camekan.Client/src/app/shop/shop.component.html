@@ -1,43 +1,47 @@
 <div class="container mt-5">
   <div class="row">
     <section class="col-3">
-      <ng-container *ngIf="types && brands">
+      @if (types && brands) {
         <h5 class="ml-3 mt-4 mb-3">{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
           (change)="onSortSelected($event.target.value)"
-        >
-          <option *ngFor="let item of sortOptions"
-          [selected]="shopParams.Sort===item.value"
-          [value]="item.value">
-            {{ item.name | translate }}
-          </option>
+          >
+          @for (item of sortOptions; track item.value) {
+            <option
+              [selected]="shopParams.Sort===item.value"
+              [value]="item.value">
+              {{ item.name | translate }}
+            </option>
+          }
         </select>
         <h5 class=" ml-3">{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
         <ul class="list-group my-3">
-          <li
-            class="list-group-item"
-            *ngFor="let item of brands"
-            [class.active]="item.id === shopParams.BrandId"
-            [value]="item.id"
-            (click)="onBrandSelected(item.id)"
-          >
-            {{ item.id === 0 ? (item.name | translate) : item.name }}
-          </li>
+          @for (item of brands; track item.id) {
+            <li
+              class="list-group-item"
+              [class.active]="item.id === shopParams.BrandId"
+              [value]="item.id"
+              (click)="onBrandSelected(item.id)"
+              >
+              {{ item.id === 0 ? (item.name | translate) : item.name }}
+            </li>
+          }
         </ul>
         <h5 class=" ml-3">{{ 'SHOP.TYPES' | translate }}</h5>
         <ul class="list-group my-3">
-          <li
-            class="list-group-item"
-            *ngFor="let item of types"
-            [class.active]="item.id === shopParams.TypeId"
-            [value]="item.id"
-            (click)="onTypeSelected(item.id)"
-          >
-            {{ item.id === 0 ? (item.name | translate) : item.name }}
-          </li>
+          @for (item of types; track item.id) {
+            <li
+              class="list-group-item"
+              [class.active]="item.id === shopParams.TypeId"
+              [value]="item.id"
+              (click)="onTypeSelected(item.id)"
+              >
+              {{ item.id === 0 ? (item.name | translate) : item.name }}
+            </li>
+          }
         </ul>
-      </ng-container>
+      }
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
@@ -46,33 +50,39 @@
           [pageNumber]="this.shopParams.PageNumber"
           [pageSize]="this.shopParams.PageSize"
         ></app-paging-header>
-        <div class="form-inline mt-2" *ngIf="products">
-          <input
-            #search
-            type="text"
-            style="width: 300px"
-            [placeholder]="'SHOP.SEARCH_PLACEHOLDER' | translate"
-            class="form-control mr-2"
-          />
-          <button (click)="onSearch()" class="btn btn-outline-primary my-2">{{ 'SHOP.SEARCH' | translate }}</button>
-          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">{{ 'SHOP.RESET' | translate }}</button>
+        @if (products) {
+          <div class="form-inline mt-2">
+            <input
+              #search
+              type="text"
+              style="width: 300px"
+              [placeholder]="'SHOP.SEARCH_PLACEHOLDER' | translate"
+              class="form-control mr-2"
+              />
+              <button (click)="onSearch()" class="btn btn-outline-primary my-2">{{ 'SHOP.SEARCH' | translate }}</button>
+              <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">{{ 'SHOP.RESET' | translate }}</button>
+            </div>
+          }
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-4 mb-4" *ngFor="let item of products">
-          <app-product-item [product]="item"></app-product-item>
+        <div class="row">
+          @for (item of products; track item.id) {
+            <div class="col-4 mb-4">
+              <app-product-item [product]="item"></app-product-item>
+            </div>
+          }
         </div>
-      </div>
-      <div class="d-flex justify-content-between"
-        *ngIf="totalCount > 0">
-        <app-pager
-          [pageSize]="this.shopParams.PageSize"
-          [totalCount]="this.totalCount"
-          [pageNumber]="this.shopParams.PageNumber"
-          (pageChanged)="onPagechanged($event)"
-        ></app-pager>
-      </div>
-    </section>
+        @if (totalCount > 0) {
+          <div class="d-flex justify-content-between"
+            >
+            <app-pager
+              [pageSize]="this.shopParams.PageSize"
+              [totalCount]="this.totalCount"
+              [pageNumber]="this.shopParams.PageNumber"
+              (pageChanged)="onPagechanged($event)"
+            ></app-pager>
+          </div>
+        }
+      </section>
+    </div>
   </div>
-</div>

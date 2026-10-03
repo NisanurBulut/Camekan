@@ -1,25 +1,33 @@
 <div class="form-label-group">
-    <input
+  <input
     [ngClass]="(controlDir && controlDir.control && controlDir.control.touched) ?
      !controlDir.control.valid ? 'is-invalid':'is-valid':null"
-      [type]="type"
-      (input)="onChange($event.target.value)"
-      (blur)="onTouched()"
-      #input
-      id="{{label}}"
-      class="form-control"
-      placeholder="{{label}}"
+    [type]="type"
+    (input)="onChange($event.target.value)"
+    (blur)="onTouched()"
+    #input
+    id="{{label}}"
+    class="form-control"
+    placeholder="{{label}}"
     />
-    <div class="fa fa-spinner fa-spin loader" *ngIf="controlDir && controlDir.control && controlDir.control.status==='PENDING'">
-
-    </div>
+    @if (controlDir && controlDir.control && controlDir.control.status==='PENDING') {
+      <div class="fa fa-spinner fa-spin loader">
+      </div>
+    }
     <label for="{{label}}"></label>
-    <div class="invalid-feedback"
-    *ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.touched)">
-    <span *ngIf="controlDir.control.errors?.required">{{ 'VALIDATION.REQUIRED' | translate: { field: label } }}</span>
-</div>
-<div class="invalid-feedback d-block"
-*ngIf="(controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)">
-<span *ngIf="controlDir.control.errors?.emailExists">{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</span>
-</div>
+    @if ((controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.touched)) {
+      <div class="invalid-feedback"
+        >
+        @if (controlDir.control.errors?.required) {
+          <span>{{ 'VALIDATION.REQUIRED' | translate: { field: label } }}</span>
+        }
+      </div>
+    }
+    @if ((controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)) {
+      <div class="invalid-feedback d-block">
+        @if (controlDir.control.errors?.emailExists) {
+          <span>{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</span>
+        }
+      </div>
+    }
   </div>

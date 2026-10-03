@@ -1,27 +1,28 @@
-<ng-container *ngIf="breadcrumb$ | async as breadcrumb">
-  <section
-    *ngIf="
-      breadcrumb.length > 0 &&
-      (breadcrumb[breadcrumb.length - 1].label !== 'Camekân')
-    "
-    class="py-5"
-  >
-    <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-9">
-          <h1 class="breadCrumbHeader">
-            {{breadcrumb.length > 0 &&
+@if (breadcrumb$ | async; as breadcrumb) {
+  @if (
+    breadcrumb.length > 0 &&
+    (breadcrumb[breadcrumb.length - 1].label !== 'Camekân')
+    ) {
+    <section
+      class="py-5"
+      >
+      <div class="container">
+        <div class="row d-flex align-items-center">
+          <div class="col-9">
+            <h1 class="breadCrumbHeader">
+              {{breadcrumb.length > 0 &&
               breadcrumb[breadcrumb.length - 1].label | translate | titlecase}}
-          </h1>
-        </div>
-        <div class="col-3">
-          <nav aria-label="breadcrumb">
-            <xng-breadcrumb>
-              <ng-container *xngBreadcrumbItem="let label">{{ label | translate }}</ng-container>
-            </xng-breadcrumb>
-          </nav>
+            </h1>
+          </div>
+          <div class="col-3">
+            <nav aria-label="breadcrumb">
+              <xng-breadcrumb>
+                <ng-container *xngBreadcrumbItem="let label">{{ label | translate }}</ng-container>
+              </xng-breadcrumb>
+            </nav>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-</ng-container>
+    </section>
+  }
+}

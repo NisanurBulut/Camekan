@@ -11,12 +11,14 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders" routerLink="/order/{{order.id}}">
-            <th>#{{order.id}}</th>
-            <td>{{order.orderDate | date:'medium'}}</td>
-            <td>{{order.total | currency : "TRY":"₺":"" }}</td>
-            <td>{{order.status}}</td>
-        </tr>
+          @for (order of orders; track order.id) {
+            <tr routerLink="/order/{{order.id}}">
+              <th>#{{order.id}}</th>
+              <td>{{order.orderDate | date:'medium'}}</td>
+              <td>{{order.total | currency : "TRY":"₺":"" }}</td>
+              <td>{{order.status}}</td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
