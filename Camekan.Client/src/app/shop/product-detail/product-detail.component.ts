@@ -26,7 +26,7 @@ export class ProductDetailComponent implements OnInit {
     this.loadProduct();
   }
   loadProduct() {
-    const id = +this.activateRoute.snapshot.paramMap.get('id');
+    const id = Number(this.activateRoute.snapshot.paramMap.get('id'));
     this.shopService.getProduct(id).subscribe((result) => {
       this.product = result;
       this.bcService.set('@ProductDetail', this.product.name);
@@ -34,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
   }
   addItemToBasket() {
     this.basketService.addItemToBasket(this.product, this.quantity);
+    this.quantity = 1;
   }
   incrementQuantity() {
     this.quantity++;
