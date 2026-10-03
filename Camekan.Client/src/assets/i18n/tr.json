@@ -99,6 +99,8 @@
     "NOT_FOUND": "Not Found",
     "SERVER_ERROR_TITLE": "Internal Server Error - Hatanın kaybolması için ekranı yenilemeyi deneyiniz..",
     "ERROR_MESSAGE": "Hata: {{message}}",
+    "CONNECTION_ERROR": "Sunucuya ulaşılamıyor. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+    "UNEXPECTED_ERROR": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
     "ANGULAR_NOTE": "Not: Bunu görüyorsanız, muhtemelen Angular sorumlu değildir",
     "WHAT_TO_DO": "Ne yapmak istersiniz ?",
     "STEP_OPEN_CONSOLE": "Chrome tarayıcı geliştirici konsolunu aç",

@@ -99,6 +99,8 @@
     "NOT_FOUND": "Not Found",
     "SERVER_ERROR_TITLE": "Internal Server Error - Try refreshing the page to clear the error..",
     "ERROR_MESSAGE": "Error: {{message}}",
+    "CONNECTION_ERROR": "Cannot reach the server. Please check your connection and try again.",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
     "ANGULAR_NOTE": "Note: If you are seeing this, Angular is probably not responsible",
     "WHAT_TO_DO": "What would you like to do?",
     "STEP_OPEN_CONSOLE": "Open the Chrome developer console",

@@ -65,7 +65,7 @@ namespace Camekan.WebAPI.Controllers
 
             user.Address = _mapper.Map<AddressDto, AddressEntity>(model);
             var result = await _userManager.UpdateAsync(user);
-            if(!result.Succeeded) return BadRequest(new ApiResponse(500));
+            if(!result.Succeeded) return BadRequest(new ApiResponse(400, "Adres güncellenemedi"));
             return Ok(_mapper.Map<AddressEntity, AddressDto>(user.Address));
         }
         [HttpPost("login")]
