@@ -108,5 +108,12 @@
     "STEP_INSPECT_REQUEST": "Hatalı isteği incele",
     "STEP_CHECK_URL": "URL isteğini kontrol edin",
     "STEP_RETRY_POSTMAN": "Postamn üzerinden istek atarak yeniden deneyin"
+  },
+  "API_ERROR": {
+    "BASKET_NOT_FOUND": "Sepet bilgilerine erişilemedi.",
+    "PAYMENT_AMOUNT_TOO_SMALL": "Sepet tutarı ödeme için çok düşük. Lütfen sepetinize ürün ekleyin.",
+    "PAYMENT_INIT_FAILED": "Ödeme başlatılamadı. Lütfen daha sonra tekrar deneyin.",
+    "ORDER_CREATE_FAILED": "Sipariş oluşturma aşamasında bir hata oluştu.",
+    "ADDRESS_UPDATE_FAILED": "Adres güncellenemedi."
   }
 }

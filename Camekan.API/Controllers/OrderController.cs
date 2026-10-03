@@ -29,7 +29,7 @@ namespace Camekan.WebAPI.Controllers
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var address = _mapper.Map<AddressDto, AddressAggregate>(model.ShipToAddress);
             var order = await _orderService.CreateOrderAsync(email,model.DeliveryMethodId,model.BasketId,address);
-            if (order == null) return BadRequest(new ApiResponse(400,"Sipariş oluşturma aşamasında bir hata oluştu."));
+            if (order == null) return BadRequest(new ApiResponse(400,"API_ERROR.ORDER_CREATE_FAILED"));
             return Ok(order);
         }
         

@@ -32,18 +32,18 @@ namespace Camekan.WebAPI.Controllers
             {
                 var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
 
-                if (basket == null) return BadRequest(new ApiResponse(400,"Sepet bilgilerine erişilemedi"));
+                if (basket == null) return BadRequest(new ApiResponse(400,"API_ERROR.BASKET_NOT_FOUND"));
 
                 return basket;
             }
             catch (StripeException ex) when (ex.StripeError?.Code == "amount_too_small")
             {
-                return BadRequest(new ApiResponse(400, "Sepet tutarı ödeme için çok düşük. Lütfen sepetinize ürün ekleyin."));
+                return BadRequest(new ApiResponse(400, "API_ERROR.PAYMENT_AMOUNT_TOO_SMALL"));
             }
             catch (StripeException ex)
             {
                 _logger.LogWarning(ex, "Stripe PaymentIntent hatası");
-                return BadRequest(new ApiResponse(400, "Ödeme başlatılamadı. Lütfen daha sonra tekrar deneyin."));
+                return BadRequest(new ApiResponse(400, "API_ERROR.PAYMENT_INIT_FAILED"));
             }
         }
         [Route("[action]")]

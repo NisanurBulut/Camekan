@@ -19,11 +19,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                             if (error.error.errors) {
                                 throw error.error;
                             } else {
-                                this.toastrService.error(error.error.message, error.error.statusCode);
+                                this.toastrService.error(this.translate(error.error.message), error.error.statusCode);
                             }
                             break;
                         case 401:
-                            this.toastrService.error(error.error.message, error.error.statusCode);
+                            this.toastrService.error(this.translate(error.error.message), error.error.statusCode);
                             break;
                         case 404:
                             this.router.navigateByUrl('/not-found');
@@ -37,7 +37,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                             break;
                         default:
                             this.toastrService.error(
-                                (error.error && error.error.message) || this.translate('ERROR.UNEXPECTED_ERROR'),
+                                this.translate(error.error && error.error.message) || this.translate('ERROR.UNEXPECTED_ERROR'),
                                 String(error.status));
                             break;
                     }
@@ -47,7 +47,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         );
     }
 
+    // Returns the text unchanged when it is not a translation key (instant() falls back to the key itself).
     private translate(key: string): string {
-        return this.injector.get(TranslateService).instant(key);
+        return key ? this.injector.get(TranslateService).instant(key) : key;
     }
 }

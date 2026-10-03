@@ -108,5 +108,12 @@
     "STEP_INSPECT_REQUEST": "Inspect the failing request",
     "STEP_CHECK_URL": "Check the request URL",
     "STEP_RETRY_POSTMAN": "Retry the request via Postman"
+  },
+  "API_ERROR": {
+    "BASKET_NOT_FOUND": "Could not load the basket.",
+    "PAYMENT_AMOUNT_TOO_SMALL": "The basket total is too low for payment. Please add more items to your basket.",
+    "PAYMENT_INIT_FAILED": "Could not start the payment. Please try again later.",
+    "ORDER_CREATE_FAILED": "An error occurred while creating the order.",
+    "ADDRESS_UPDATE_FAILED": "Could not update the address."
   }
 }
