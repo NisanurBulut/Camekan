@@ -2,7 +2,7 @@
   <div class="row">
       <div class="col-8">
           <app-stepper [linearModelSelected]="true" #appStepper>
-              <cdk-step [label]="'CHECKOUT.STEP_ADDRESS' | translate" [completed]="(checkoutForm.get('addressForm'))">
+              <cdk-step [label]="'CHECKOUT.STEP_ADDRESS' | translate" [completed]="(checkoutForm.get('addressForm')).valid">
                   <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
               </cdk-step>
               <cdk-step [label]="'CHECKOUT.STEP_DELIVERY' | translate" [completed]="(checkoutForm.get('deliveryForm')).valid">
