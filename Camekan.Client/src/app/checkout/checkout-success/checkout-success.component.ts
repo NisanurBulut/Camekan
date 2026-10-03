@@ -5,7 +5,8 @@ import { IOrder } from 'src/app/shared/models/order.model';
 @Component({
   selector: 'app-checkout-success',
   templateUrl: './checkout-success.component.html',
-  styleUrls: ['./checkout-success.component.scss']
+  styleUrls: ['./checkout-success.component.scss'],
+  standalone: false
 })
 export class CheckoutSuccessComponent {
   order: IOrder;

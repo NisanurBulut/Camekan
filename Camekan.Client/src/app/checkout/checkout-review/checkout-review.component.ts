@@ -7,7 +7,8 @@ import { IBasket } from 'src/app/shared/models/basket.model';
 @Component({
   selector: 'app-checkout-review',
   templateUrl: './checkout-review.component.html',
-  styleUrls: ['./checkout-review.component.scss']
+  styleUrls: ['./checkout-review.component.scss'],
+  standalone: false
 })
 
 export class CheckoutReviewComponent implements OnInit {

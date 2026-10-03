@@ -8,7 +8,8 @@ import { BasketService } from './basket.service';
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss']
+  styleUrls: ['./basket.component.scss'],
+  standalone: false
 })
 export class BasketComponent implements OnInit {
   basketTotal$: Observable<IBasketTotal>;

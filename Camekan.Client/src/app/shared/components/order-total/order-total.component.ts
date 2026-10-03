@@ -4,7 +4,8 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-order-total',
   templateUrl: './order-total.component.html',
-  styleUrls: ['./order-total.component.scss']
+  styleUrls: ['./order-total.component.scss'],
+  standalone: false
 })
 export class OrderTotalComponent {
 
