@@ -5,7 +5,8 @@ import { IProduct } from 'src/app/shared/models/product.model';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss']
+  styleUrls: ['./product-item.component.scss'],
+  standalone: false
 })
 export class ProductItemComponent {
   @Input() product: IProduct;

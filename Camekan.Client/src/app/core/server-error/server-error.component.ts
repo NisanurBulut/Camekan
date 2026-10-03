@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-server-error',
   templateUrl: './server-error.component.html',
-  styleUrls: ['./server-error.component.scss']
+  styleUrls: ['./server-error.component.scss'],
+  standalone: false
 })
 export class ServerErrorComponent {
   error: any;

@@ -4,7 +4,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-pager',
   templateUrl: './pager.component.html',
-  styleUrls: ['./pager.component.scss']
+  styleUrls: ['./pager.component.scss'],
+  standalone: false
 })
 export class PagerComponent {
   @Input() pageSize: number;

@@ -7,7 +7,8 @@ import { CheckoutService } from '../checkout.service';
 @Component({
   selector: 'app-checkout-delivery',
   templateUrl: './checkout-delivery.component.html',
-  styleUrls: ['./checkout-delivery.component.scss']
+  styleUrls: ['./checkout-delivery.component.scss'],
+  standalone: false
 })
 export class CheckoutDeliveryComponent implements OnInit {
   @Input() checkoutForm: UntypedFormGroup;
