@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncValidatorFn, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AsyncValidatorFn, FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { AccountService } from '../account.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   errors: string[];
 
   constructor(private accountService: AccountService, private router: Router) { }
@@ -20,11 +20,11 @@ export class RegisterComponent implements OnInit {
     this.createRegisterForm();
   }
   createRegisterForm() {
-    this.registerForm = new FormGroup({
-      displayName: new FormControl('', Validators.required),
-      email: new FormControl('',
+    this.registerForm = new UntypedFormGroup({
+      displayName: new UntypedFormControl('', Validators.required),
+      email: new UntypedFormControl('',
       Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'), this.validateEmailNotToken()),
-      password: new FormControl('', Validators.required)
+      password: new UntypedFormControl('', Validators.required)
     });
   }
   validateEmailNotToken(): AsyncValidatorFn {

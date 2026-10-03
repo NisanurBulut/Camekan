@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IDeliveryMethod } from 'src/app/shared/models/deliveryMethod.model';
 import { CheckoutService } from '../checkout.service';
@@ -10,7 +10,7 @@ import { CheckoutService } from '../checkout.service';
   styleUrls: ['./checkout-delivery.component.scss']
 })
 export class CheckoutDeliveryComponent implements OnInit {
-  @Input() checkoutForm: FormGroup;
+  @Input() checkoutForm: UntypedFormGroup;
   deliveryMethods: IDeliveryMethod[];
   constructor(private checkOutService: CheckoutService, private basketService: BasketService) { }
 

@@ -32,6 +32,7 @@
               "./node_modules/bootswatch/dist/flatly/bootstrap.min.css",
               "./node_modules/font-awesome/css/font-awesome.min.css",
               "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/ngx-spinner/animations/pacman.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -121,9 +122,10 @@
       }
     }
   },
-  "defaultProject": "Camekan",
   "cli": {
     "analytics": "c3ac5b5a-e070-4e6b-99f2-b2d1751db7d1",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

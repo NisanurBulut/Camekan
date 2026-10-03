@@ -343,3 +343,6 @@ healthchecksdb
 Camekan.API/appsettings.json
 Camekan.DataAccess/Camekan.db-shm
 Camekan.DataAccess/Camekan.db-wal
+
+
+/docs/*.*
