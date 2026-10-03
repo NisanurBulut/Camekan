@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
 import { IUser } from 'src/app/shared/models/user.model';
+import { ThemeService } from '../services/theme.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class NavBarComponent implements OnInit {
   currentUser$: Observable<IUser>;
 
   constructor(private basketService: BasketService, private accountService: AccountService,
-              public translateService: TranslateService) { }
+              public translateService: TranslateService, public themeService: ThemeService) { }
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;

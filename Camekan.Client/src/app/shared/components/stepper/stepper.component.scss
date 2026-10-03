@@ -1,12 +1,12 @@
 button.nav-link {
-  background-color: #e9ecef;
+  background-color: var(--stepper-bg);
   border-radius: 0;
   border: none;
   &:focus {
     outline: none;
   }
   &.active-hover {
-    color: white;
+    color: var(--on-accent);
   }
   &.active {
     outline: none;
@@ -15,6 +15,6 @@ button.nav-link {
     outline: none;
   }
   &.disabled:not(.active) {
-    color: #333;
+    color: var(--stepper-text);
   }
 }

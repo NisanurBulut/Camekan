@@ -12,7 +12,9 @@
     "WELCOME": "Welcome {{name}}",
     "GO_TO_BASKET": "Go to Basket",
     "VIEW_ORDERS": "View Orders",
-    "LOGOUT": "Log Out"
+    "LOGOUT": "Log Out",
+    "THEME_DARK": "Switch to dark mode",
+    "THEME_LIGHT": "Switch to light mode"
   },
   "BREADCRUMB": {
     "SHOP": "Shop",

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from './account/account.service';
 import { BasketService } from './basket/basket.service';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,9 @@ import { BasketService } from './basket/basket.service';
 export class AppComponent implements OnInit {
   title = 'Camekân';
 
+  // ThemeService is injected here so its effect applies the saved theme as soon as the app starts.
   constructor(private basketService: BasketService, private accountService: AccountService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService, private themeService: ThemeService) {
 
   }
   ngOnInit(): void {
