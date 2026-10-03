@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IOrder } from 'src/app/shared/models/order.model';
 
@@ -7,7 +7,7 @@ import { IOrder } from 'src/app/shared/models/order.model';
   templateUrl: './checkout-success.component.html',
   styleUrls: ['./checkout-success.component.scss']
 })
-export class CheckoutSuccessComponent implements OnInit {
+export class CheckoutSuccessComponent {
   order: IOrder;
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
@@ -17,7 +17,5 @@ export class CheckoutSuccessComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
 
 }
