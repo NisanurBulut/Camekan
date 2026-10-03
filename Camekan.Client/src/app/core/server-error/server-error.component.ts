@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ServerErrorComponent {
   error: any;
   constructor(private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
+    const navigation = this.router.currentNavigation();
     this.error = navigation && navigation.extras && navigation.extras.state && navigation.extras.state.error;
   }
 
