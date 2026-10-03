@@ -9,11 +9,8 @@ export class BusyService {
   constructor(private spinnerService: NgxSpinnerService) { }
   busy() {
     this.busyRequestCount++;
-    this.spinnerService.show(undefined, {
-      type: 'pacman',
-      bdColor: 'rgba(255,255,255,0.7)',
-      color: '#333333'
-    });
+    // Type and colors are set on <ngx-spinner> in app.component.html.
+    this.spinnerService.show();
   }
   idle() {
     this.busyRequestCount--;
