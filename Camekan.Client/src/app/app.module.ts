@@ -11,9 +11,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
-import { CheckoutModule } from './checkout/checkout.module';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-import { AccountModule } from './account/account.module';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {

@@ -17,9 +17,13 @@
         [label]="'USER.PASSWORD' | translate"
         [type]="'password'"
       ></app-text-input>
-      <ul class="text-danger list-unstyled" *ngIf="errors">
-        <li *ngFor="let item of errors">{{ item }}</li>
-      </ul>
+      @if (errors) {
+        <ul class="text-danger list-unstyled">
+          @for (item of errors; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      }
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         {{ 'ACCOUNT.REGISTER' | translate }}
       </button>

@@ -2,22 +2,21 @@
   <h4>
     {{ 'ERROR.SERVER_ERROR_TITLE' | translate }}
   </h4>
-  <ng-container *ngIf="error">
-
-      <h5 class="text-danger">{{ 'ERROR.ERROR_MESSAGE' | translate: { message: error.message } }}</h5>
-      <p class="font-weight-bold">
-        {{ 'ERROR.ANGULAR_NOTE' | translate }}
-      </p>
-      <p>{{ 'ERROR.WHAT_TO_DO' | translate }}</p>
-      <ol>
-          <li>{{ 'ERROR.STEP_OPEN_CONSOLE' | translate }}</li>
-          <li>{{ 'ERROR.STEP_NETWORK_TAB' | translate }}</li>
-          <li>{{ 'ERROR.STEP_INSPECT_REQUEST' | translate }}</li>
-          <li>{{ 'ERROR.STEP_CHECK_URL' | translate }}</li>
-          <li>{{ 'ERROR.STEP_RETRY_POSTMAN' | translate }}</li>
-      </ol>
-      <code class="mt-5" style="background-color: whitesmoke;">
-    {{error.detail}}
-      </code>
-  </ng-container>
+  @if (error) {
+    <h5 class="text-danger">{{ 'ERROR.ERROR_MESSAGE' | translate: { message: error.message } }}</h5>
+    <p class="font-weight-bold">
+      {{ 'ERROR.ANGULAR_NOTE' | translate }}
+    </p>
+    <p>{{ 'ERROR.WHAT_TO_DO' | translate }}</p>
+    <ol>
+      <li>{{ 'ERROR.STEP_OPEN_CONSOLE' | translate }}</li>
+      <li>{{ 'ERROR.STEP_NETWORK_TAB' | translate }}</li>
+      <li>{{ 'ERROR.STEP_INSPECT_REQUEST' | translate }}</li>
+      <li>{{ 'ERROR.STEP_CHECK_URL' | translate }}</li>
+      <li>{{ 'ERROR.STEP_RETRY_POSTMAN' | translate }}</li>
+    </ol>
+    <code class="mt-5" style="background-color: whitesmoke;">
+      {{error.detail}}
+    </code>
+  }
 </div>

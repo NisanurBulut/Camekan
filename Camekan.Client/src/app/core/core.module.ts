@@ -21,7 +21,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     }),
     BreadcrumbModule,
     SharedModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule
   ],
   exports: [
     NavBarComponent,

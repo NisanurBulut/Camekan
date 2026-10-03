@@ -1,31 +1,33 @@
 <div class="mt-4" [formGroup]="checkoutForm">
   <div class="row ml-5" formGroupName="deliveryForm">
-    <div class="form-group col-6" *ngFor="let item of deliveryMethods">
-      <input
-        type="radio"
-        id="{{ item.id }}"
-        value="{{ item.id }}"
-        (click)="setShippingPrice(item)"
-        formControlName="deliveryMethod"
-        class="custom-control-class mr-3"
-      />
-      <label for="{{ item.id }}" class="custom-control-class">
-        <strong>{{ item.shortName }} - {{ item.price | currency: "TRY":"₺":"" }}</strong>
-      </label>
-      <br />
-      <span class="label-description">
-        {{ item.description }}
-      </span>
+    @for (item of deliveryMethods; track item.id) {
+      <div class="form-group col-6">
+        <input
+          type="radio"
+          id="{{ item.id }}"
+          value="{{ item.id }}"
+          (click)="setShippingPrice(item)"
+          formControlName="deliveryMethod"
+          class="custom-control-class mr-3"
+          />
+          <label for="{{ item.id }}" class="custom-control-class">
+            <strong>{{ item.shortName }} - {{ item.price | currency: "TRY":"₺":"" }}</strong>
+          </label>
+          <br />
+          <span class="label-description">
+            {{ item.description }}
+          </span>
+        </div>
+      }
     </div>
   </div>
-</div>
-<div
-  class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
->
-  <button class="btn-outline-success" cdkStepperPrevious>
-    <i class="fa fa-angle-double-left"></i>
-  </button>
-  <button [disabled]="checkoutForm.get('deliveryForm').invalid" class="btn-primary" cdkStepperNext>
-    <i class="fa fa-angle-double-right"></i>
-  </button>
-</div>
+  <div
+    class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
+    >
+    <button class="btn-outline-success" cdkStepperPrevious>
+      <i class="fa fa-angle-double-left"></i>
+    </button>
+    <button [disabled]="checkoutForm.get('deliveryForm').invalid" class="btn-primary" cdkStepperNext>
+      <i class="fa fa-angle-double-right"></i>
+    </button>
+  </div>
