@@ -9,7 +9,7 @@ namespace Camekan.Util.Errors
         public ApiResponse(int statusCode, string message = null)
         {
             StatusCode = statusCode;
-            MessageOfError = message ?? GetDefaultMessafeForstatusCode(statusCode);
+            Message = message ?? GetDefaultMessafeForstatusCode(statusCode);
         }
 
         private string GetDefaultMessafeForstatusCode(int statusCode)
@@ -25,6 +25,6 @@ namespace Camekan.Util.Errors
         }
 
         public int StatusCode { get; set; }
-        public string MessageOfError { get; set; }
+        public string Message { get; set; }
     }
 }

@@ -99,6 +99,8 @@
     "NOT_FOUND": "Not Found",
     "SERVER_ERROR_TITLE": "Internal Server Error - Try refreshing the page to clear the error..",
     "ERROR_MESSAGE": "Error: {{message}}",
+    "CONNECTION_ERROR": "Cannot reach the server. Please check your connection and try again.",
+    "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
     "ANGULAR_NOTE": "Note: If you are seeing this, Angular is probably not responsible",
     "WHAT_TO_DO": "What would you like to do?",
     "STEP_OPEN_CONSOLE": "Open the Chrome developer console",
@@ -106,5 +108,12 @@
     "STEP_INSPECT_REQUEST": "Inspect the failing request",
     "STEP_CHECK_URL": "Check the request URL",
     "STEP_RETRY_POSTMAN": "Retry the request via Postman"
+  },
+  "API_ERROR": {
+    "BASKET_NOT_FOUND": "Could not load the basket.",
+    "PAYMENT_AMOUNT_TOO_SMALL": "The basket total is too low for payment. Please add more items to your basket.",
+    "PAYMENT_INIT_FAILED": "Could not start the payment. Please try again later.",
+    "ORDER_CREATE_FAILED": "An error occurred while creating the order.",
+    "ADDRESS_UPDATE_FAILED": "Could not update the address."
   }
 }

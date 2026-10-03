@@ -26,8 +26,8 @@ const routes: Routes = [
     path: 'account', loadChildren: () => import('./account/account.module')
       .then(a => a.AccountModule), data: { breadcrumb: 'Camekân' }
   },
-  { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'BREADCRUMB.SERVER_ERROR' } },
-  { path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: 'BREADCRUMB.NOT_FOUND' } },
+  { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'BREADCRUMB.NOT_FOUND' } },
+  { path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: 'BREADCRUMB.SERVER_ERROR' } },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 

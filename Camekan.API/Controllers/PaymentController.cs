@@ -28,11 +28,23 @@ namespace Camekan.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId)
         {
-            var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+            try
+            {
+                var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
 
-            if (basket == null) return BadRequest(new ApiResponse(400,"Sepet bilgilerine erişilemedi"));
+                if (basket == null) return BadRequest(new ApiResponse(400,"API_ERROR.BASKET_NOT_FOUND"));
 
-            return basket;
+                return basket;
+            }
+            catch (StripeException ex) when (ex.StripeError?.Code == "amount_too_small")
+            {
+                return BadRequest(new ApiResponse(400, "API_ERROR.PAYMENT_AMOUNT_TOO_SMALL"));
+            }
+            catch (StripeException ex)
+            {
+                _logger.LogWarning(ex, "Stripe PaymentIntent hatası");
+                return BadRequest(new ApiResponse(400, "API_ERROR.PAYMENT_INIT_FAILED"));
+            }
         }
         [Route("[action]")]
         [HttpPost]

@@ -97,8 +97,10 @@
   },
   "ERROR": {
     "NOT_FOUND": "Not Found",
-    "SERVER_ERROR_TITLE": "Internel Server Error - Hatanın kaybolması için ekranı yenilemeyi deneyiniz..",
+    "SERVER_ERROR_TITLE": "Internal Server Error - Hatanın kaybolması için ekranı yenilemeyi deneyiniz..",
     "ERROR_MESSAGE": "Hata: {{message}}",
+    "CONNECTION_ERROR": "Sunucuya ulaşılamıyor. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+    "UNEXPECTED_ERROR": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
     "ANGULAR_NOTE": "Not: Bunu görüyorsanız, muhtemelen Angular sorumlu değildir",
     "WHAT_TO_DO": "Ne yapmak istersiniz ?",
     "STEP_OPEN_CONSOLE": "Chrome tarayıcı geliştirici konsolunu aç",
@@ -106,5 +108,12 @@
     "STEP_INSPECT_REQUEST": "Hatalı isteği incele",
     "STEP_CHECK_URL": "URL isteğini kontrol edin",
     "STEP_RETRY_POSTMAN": "Postamn üzerinden istek atarak yeniden deneyin"
+  },
+  "API_ERROR": {
+    "BASKET_NOT_FOUND": "Sepet bilgilerine erişilemedi.",
+    "PAYMENT_AMOUNT_TOO_SMALL": "Sepet tutarı ödeme için çok düşük. Lütfen sepetinize ürün ekleyin.",
+    "PAYMENT_INIT_FAILED": "Ödeme başlatılamadı. Lütfen daha sonra tekrar deneyin.",
+    "ORDER_CREATE_FAILED": "Sipariş oluşturma aşamasında bir hata oluştu.",
+    "ADDRESS_UPDATE_FAILED": "Adres güncellenemedi."
   }
 }
