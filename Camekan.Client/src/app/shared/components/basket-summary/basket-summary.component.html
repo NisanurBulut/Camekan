@@ -23,7 +23,8 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of items; track item.id || item.productId) {
+        <!-- items is IBasketItem[] | IOrderItem[]; $any keeps the loose typing *ngFor had until the union is narrowed properly. -->
+        @for (item of $any(items); track item.id || item.productId) {
           <tr>
             <th scope="row">
               <div class="py-2">

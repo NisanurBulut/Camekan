@@ -26,9 +26,9 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   imports: [
     CommonModule,
-    PaginationModule.forRoot(),
-    CarouselModule.forRoot(),
-    BsDropdownModule.forRoot(),
+    PaginationModule,
+    CarouselModule,
+    BsDropdownModule,
     FormsModule,
     ReactiveFormsModule,
     CdkStepperModule,
