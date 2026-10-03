@@ -41,7 +41,7 @@ namespace Camekan.Util.Middleware
 
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-                var json = JsonSerializer.Serialize(response);
+                var json = JsonSerializer.Serialize(response, options);
                 await httpContext.Response.WriteAsync(json);
             }
         }
