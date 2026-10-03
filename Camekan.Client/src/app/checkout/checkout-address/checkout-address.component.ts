@@ -8,7 +8,8 @@ import { IAddress } from 'src/app/shared/models/address.model';
 @Component({
   selector: 'app-checkout-address',
   templateUrl: './checkout-address.component.html',
-  styleUrls: ['./checkout-address.component.scss']
+  styleUrls: ['./checkout-address.component.scss'],
+  standalone: false
 })
 export class CheckoutAddressComponent {
   @Input() checkoutForm: UntypedFormGroup;
