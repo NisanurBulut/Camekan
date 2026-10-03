@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 
 @Component({
@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './order-total.component.html',
   styleUrls: ['./order-total.component.scss']
 })
-export class OrderTotalComponent implements OnInit {
+export class OrderTotalComponent {
 
   @Input() shippingPrice: number;
   @Input() subTotal: number;
@@ -14,8 +14,5 @@ export class OrderTotalComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-
-  }
 
 }
