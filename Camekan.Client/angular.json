@@ -48,7 +48,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -105,15 +104,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         },
@@ -134,6 +129,7 @@
   },
   "defaultProject": "Camekan",
   "cli": {
-    "analytics": "c3ac5b5a-e070-4e6b-99f2-b2d1751db7d1"
+    "analytics": "c3ac5b5a-e070-4e6b-99f2-b2d1751db7d1",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
