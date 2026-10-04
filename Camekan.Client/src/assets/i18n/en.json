@@ -92,7 +92,20 @@
     "SHIPPING_NOTE": "Shipping costs will be added depending on the choices made during checkout",
     "SUBTOTAL": "Subtotal",
     "SHIPPING": "Shipping",
-    "TOTAL": "Total"
+    "TOTAL": "Total",
+    "STATUS_PENDING": "Awaiting confirmation",
+    "STATUS_PAID": "Paid",
+    "STATUS_FAILED": "Payment failed",
+    "DASH_ORDERS": "My orders",
+    "DASH_SPENT": "Total spent",
+    "DASH_BOOKS": "Books bought",
+    "DASH_AVG": "Average order",
+    "DASH_MONTHLY": "Spending, last 6 months",
+    "DASH_TOP_BOOKS": "Your most bought books",
+    "DASH_PIECES": "{{count}} pcs",
+    "DASH_PENDING": "{{count}} of your orders are waiting for payment confirmation.",
+    "DASH_EMPTY": "You have no orders yet. Find your first book?",
+    "DASH_GO_SHOP": "Browse books"
   },
   "PAGING": {
     "RECORDS": "Records"
