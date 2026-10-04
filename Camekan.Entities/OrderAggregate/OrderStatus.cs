@@ -14,7 +14,7 @@ namespace Camekan.Entities
         PaymentReceived,
 
         [EnumMember(Value = "Ödeme işlemi Eksik")]
-        PaymenyFailed
+        PaymentFailed
 
     }
 }
