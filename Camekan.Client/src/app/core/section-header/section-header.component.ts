@@ -6,12 +6,14 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   selector: 'cmk-section-header',
   templateUrl: './section-header.component.html',
   styleUrls: ['./section-header.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class SectionHeaderComponent {
   breadcrumb$: Observable<any[]>;
   constructor(private bcService: BreadcrumbService) {
     this.breadcrumb$ = this.bcService.breadcrumbs$;
   }
-
+  getLastBreadcrumbLabel(breadcrumb: any[]): string {
+    return breadcrumb.at(-1)?.label ?? '';
+  }
 }
