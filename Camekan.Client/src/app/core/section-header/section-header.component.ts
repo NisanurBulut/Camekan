@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BreadcrumbService } from 'xng-breadcrumb';
+import { BreadcrumbService, BreadcrumbModule } from 'xng-breadcrumb';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-section-header',
-  templateUrl: './section-header.component.html',
-  styleUrls: ['./section-header.component.scss'],
-  standalone: false,
+    selector: 'cmk-section-header',
+    templateUrl: './section-header.component.html',
+    styleUrls: ['./section-header.component.scss'],
+    imports: [
+        BreadcrumbModule,
+        AsyncPipe,
+        TitleCasePipe,
+        TranslateModule,
+    ],
 })
 export class SectionHeaderComponent {
   breadcrumb$: Observable<any[]>;
