@@ -41,6 +41,16 @@ export class OrderComponent implements OnInit {
     };
   });
 
+  kpis = computed(() => {
+    const s = this.summary();
+    return [
+      { label: 'ORDER.DASH_ORDERS', value: s.count, currency: false },
+      { label: 'ORDER.DASH_SPENT', value: s.spent, currency: true },
+      { label: 'ORDER.DASH_BOOKS', value: s.books, currency: false },
+      { label: 'ORDER.DASH_AVG', value: s.average, currency: true }
+    ];
+  });
+
   monthly = computed(() => {
     const now = new Date();
     const months = Array.from({ length: 6 }, (_, i) => ({

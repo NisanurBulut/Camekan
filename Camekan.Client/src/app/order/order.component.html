@@ -8,30 +8,16 @@
     } @else {
       <!-- KPI cards -->
       <div class="row">
-        <div class="col-6 col-md-3 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <p class="text-muted small mb-1">{{ 'ORDER.DASH_ORDERS' | translate }}</p>
-            <h4 class="mb-0">{{ summary().count }}</h4>
-          </div></div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <p class="text-muted small mb-1">{{ 'ORDER.DASH_SPENT' | translate }}</p>
-            <h4 class="mb-0">{{ summary().spent | currency : 'TRY' : '₺' : '1.0-0' }}</h4>
-          </div></div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <p class="text-muted small mb-1">{{ 'ORDER.DASH_BOOKS' | translate }}</p>
-            <h4 class="mb-0">{{ summary().books }}</h4>
-          </div></div>
-        </div>
-        <div class="col-6 col-md-3 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <p class="text-muted small mb-1">{{ 'ORDER.DASH_AVG' | translate }}</p>
-            <h4 class="mb-0">{{ summary().average | currency : 'TRY' : '₺' : '1.0-0' }}</h4>
-          </div></div>
-        </div>
+        @for (kpi of kpis(); track kpi.label) {
+          <div class="col-6 col-md-3 mb-3">
+            <div class="card h-100"><div class="card-body">
+              <p class="text-muted small mb-1">{{ kpi.label | translate }}</p>
+              <h4 class="mb-0">
+                {{ kpi.currency ? (kpi.value | currency : 'TRY' : '₺' : '1.0-0') : kpi.value }}
+              </h4>
+            </div></div>
+          </div>
+        }
       </div>
 
       @if (summary().pending > 0) {
