@@ -2,7 +2,8 @@
   "COMMON": {
     "LOADING": "Yükleniyor..",
     "SAVE": "Kaydet",
-    "ALL": "Hepsi"
+    "ALL": "Hepsi",
+    "RETRY": "Tekrar dene"
   },
   "NAV": {
     "HOME": "ANA SAYFA",
@@ -105,7 +106,10 @@
     "DASH_PIECES": "{{count}} adet",
     "DASH_PENDING": "{{count}} siparişinin ödeme onayı bekleniyor.",
     "DASH_EMPTY": "Henüz siparişin yok. İlk kitabını seçmeye ne dersin?",
-    "DASH_GO_SHOP": "Kitaplara göz at"
+    "DASH_GO_SHOP": "Kitaplara göz at",
+    "DASH_LOAD_FAILED": "Sipariş özeti yüklenemedi.",
+    "LIST_LOAD_FAILED": "Siparişler yüklenemedi.",
+    "LIST_LABEL": "Siparişlerim"
   },
   "PAGING": {
     "RECORDS": "Kayıt"

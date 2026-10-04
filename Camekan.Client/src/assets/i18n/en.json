@@ -2,7 +2,8 @@
   "COMMON": {
     "LOADING": "Loading..",
     "SAVE": "Save",
-    "ALL": "All"
+    "ALL": "All",
+    "RETRY": "Try again"
   },
   "NAV": {
     "HOME": "HOME",
@@ -105,7 +106,10 @@
     "DASH_PIECES": "{{count}} pcs",
     "DASH_PENDING": "{{count}} of your orders are waiting for payment confirmation.",
     "DASH_EMPTY": "You have no orders yet. Find your first book?",
-    "DASH_GO_SHOP": "Browse books"
+    "DASH_GO_SHOP": "Browse books",
+    "DASH_LOAD_FAILED": "The order summary could not be loaded.",
+    "LIST_LOAD_FAILED": "Your orders could not be loaded.",
+    "LIST_LABEL": "My orders"
   },
   "PAGING": {
     "RECORDS": "Records"
