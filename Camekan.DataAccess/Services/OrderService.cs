@@ -1,7 +1,7 @@
 ﻿using Camekan.DataAccess.Repositories;
+using Camekan.DataTransferObject;
 using Camekan.Entities;
 using Camekan.DataAccess.Specification;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,21 +14,23 @@ namespace Camekan.DataAccess
       
         private readonly IBasketRepository _basketRepo;
         private readonly IPaymentService _paymentService;
+        private readonly IOrderRepository _orderRepo;
+        private const int SummaryMonths = 6;
 
         public OrderService(IUnitOfWork unitOfWork,
-            IBasketRepository basketRepo, IPaymentService paymentService)
+            IBasketRepository basketRepo, IPaymentService paymentService, IOrderRepository orderRepo)
         {
-           
+
             this._basketRepo = basketRepo;
             this._paymentService = paymentService;
             this._unitOfWork = unitOfWork;
+            this._orderRepo = orderRepo;
         }
         public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress)
         {
-            // get basket from the repo
+          
             var basket = await _basketRepo.GetBasketAsync(basketId);
 
-            // get items from product repo
             var items = new List<OrderItemEntity>();
             foreach(var item in basket.Items)
             {
@@ -38,13 +40,9 @@ namespace Camekan.DataAccess
                 items.Add(orderItem);
             }
 
-            // get delivery method from the repo
             var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId);
 
-            // calculate subtotal
             var subTotal = items.Sum(a => a.Price * a.Quantity);
-
-            // check to see if order is exists
             var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
 
@@ -54,14 +52,10 @@ namespace Camekan.DataAccess
                 await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
             }
 
-            // create order
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);
             _unitOfWork.Repository<OrderEntity>().Add(order);
 
-            // save to db
             var result = await _unitOfWork.Complete();
-            
-            // return order
             if (result <= 0) return null;
             
           
@@ -83,6 +77,21 @@ namespace Camekan.DataAccess
         {
             var spec = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
             return await _unitOfWork.Repository<OrderEntity>().ListAsync(spec);
+        }
+
+        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserPagedAsync(string buyerEmail, OrderSpecParam param)
+        {
+            return await _orderRepo.ListAsync(new OrdersForUserPagedSpecification(buyerEmail, param));
+        }
+
+        public async Task<int> CountOrdersForUserAsync(string buyerEmail)
+        {
+            return await _orderRepo.CountAsync(new BaseSpecification<OrderEntity>(o => o.BuyerEmail == buyerEmail));
+        }
+
+        public async Task<OrderSummaryDto> GetOrderSummaryForUserAsync(string buyerEmail)
+        {
+            return await _orderRepo.GetSummaryForUserAsync(buyerEmail, SummaryMonths);
         }
     }
 }

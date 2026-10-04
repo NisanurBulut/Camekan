@@ -35,6 +35,7 @@
   --list-hover-bg: #2c3e509a;         // shop filter list hover
   --badge-bg: rgb(5, 115, 119);       // basket count badge
   --on-badge: #fff;
+  --chart-fill: #2c3e50;              // progress / bar fill (Flatly .progress-bar), 9.57:1 on --surface-muted
 
   // Overlays
   --hover-overlay: rgba(255, 255, 255, 0.5);   // product-item hover
@@ -68,6 +69,9 @@
   --input-border: #495057;
   --input-text: #e6e6e6;
   --input-label-muted: #a9b1b8;
+
+  // Brand
+  --chart-fill: #18bc9c;              // #2c3e50 is 1.30:1 on the dark track; this is 5.92:1 (WCAG 1.4.11 needs 3:1)
 
   // Overlays
   --hover-overlay: rgba(0, 0, 0, 0.5);

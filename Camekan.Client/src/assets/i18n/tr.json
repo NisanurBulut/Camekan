@@ -2,7 +2,8 @@
   "COMMON": {
     "LOADING": "Yükleniyor..",
     "SAVE": "Kaydet",
-    "ALL": "Hepsi"
+    "ALL": "Hepsi",
+    "RETRY": "Tekrar dene"
   },
   "NAV": {
     "HOME": "ANA SAYFA",
@@ -92,7 +93,23 @@
     "SHIPPING_NOTE": "Ödeme sırasında yapılan seçimlere bağlı olarak taşıma ücreti eklenecektir",
     "SUBTOTAL": "Ürün Fiyatı",
     "SHIPPING": "Taşıma Fiyatı",
-    "TOTAL": "Toplam Fiyat"
+    "TOTAL": "Toplam Fiyat",
+    "STATUS_PENDING": "Onay bekliyor",
+    "STATUS_PAID": "Ödendi",
+    "STATUS_FAILED": "Ödeme başarısız",
+    "DASH_ORDERS": "Siparişlerim",
+    "DASH_SPENT": "Toplam harcama",
+    "DASH_BOOKS": "Aldığım kitap",
+    "DASH_AVG": "Ortalama sipariş",
+    "DASH_MONTHLY": "Son 6 ay harcama",
+    "DASH_TOP_BOOKS": "En çok aldığın kitaplar",
+    "DASH_PIECES": "{{count}} adet",
+    "DASH_PENDING": "{{count}} siparişinin ödeme onayı bekleniyor.",
+    "DASH_EMPTY": "Henüz siparişin yok. İlk kitabını seçmeye ne dersin?",
+    "DASH_GO_SHOP": "Kitaplara göz at",
+    "DASH_LOAD_FAILED": "Sipariş özeti yüklenemedi.",
+    "LIST_LOAD_FAILED": "Siparişler yüklenemedi.",
+    "LIST_LABEL": "Siparişlerim"
   },
   "PAGING": {
     "RECORDS": "Kayıt"

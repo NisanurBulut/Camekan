@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Camekan.DataAccess;
+using Camekan.DataAccess.Specification;
 using Camekan.DataTransferObject;
 using Camekan.Entities;
 using Camekan.Util.Errors;
+using Camekan.Util.Helpers;
 using Camekan.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,10 +19,12 @@ namespace Camekan.WebAPI.Controllers
     {
         private IMapper _mapper { get; set; }
         private IOrderService _orderService { get; }
-        public OrderController(IOrderService orderService, IMapper mapper)
+        private readonly IConfiguration _config;
+        public OrderController(IOrderService orderService, IMapper mapper, IConfiguration config)
         {
             _orderService = orderService;
             _mapper = mapper;
+            _config = config;
         }
 
         [Route("[action]")]
@@ -41,6 +46,31 @@ namespace Camekan.WebAPI.Controllers
             var orders = await _orderService.GetOrdersForUserAsync(email);
             var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrdertoReturnDto>>(orders);
             return Ok(result);
+        }
+
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult<Pagination<OrderListItemDto>>> GetOrdersForUserPaged([FromQuery] OrderSpecParam param)
+        {
+            var email = HttpContext.User.RetrieveEmailFromPrincipal();
+            var count = await _orderService.CountOrdersForUserAsync(email);
+            var orders = await _orderService.GetOrdersForUserPagedAsync(email, param);
+            var data = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrderListItemDto>>(orders);
+            return Ok(new Pagination<OrderListItemDto>(param.PageIndex, param.PageSize, count, data));
+        }
+
+        [Route("[action]")]
+        [HttpGet]
+        public async Task<ActionResult<OrderSummaryDto>> GetOrderSummaryForUser()
+        {
+            var email = HttpContext.User.RetrieveEmailFromPrincipal();
+            var summary = await _orderService.GetOrderSummaryForUserAsync(email);
+
+            foreach (var book in summary.TopBooks)
+            {
+                book.PictureUrl = string.IsNullOrEmpty(book.PictureUrl) ? null : _config["apiUrl"] + book.PictureUrl;
+            }
+            return Ok(summary);
         }
 
         [Route("[action]")]

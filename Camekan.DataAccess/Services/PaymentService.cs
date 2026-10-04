@@ -76,7 +76,7 @@ namespace Camekan.DataAccess.Services
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
             var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
             if (order == null) return null;
-            order.Status = OrderStatus.PaymenyFailed;
+            order.Status = OrderStatus.PaymentFailed;
             _unitOfWork.Repository<OrderEntity>().Update(order);
             await _unitOfWork.Complete();
             return null;

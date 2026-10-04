@@ -1,3 +1,102 @@
-table {
+// Monthly spending bars
+.month-label {
+  width: 70px;
+}
+
+.month-total {
+  width: 80px;
+}
+
+.progress {
+  height: 10px;
+  background-color: var(--surface-muted);
+}
+
+.progress-bar {
+  background-color: var(--chart-fill);
+}
+
+// Top books list
+.book-cover {
+  width: 36px;
+  height: 48px;
+  object-fit: cover;
+}
+
+// Order list: a CSS grid that looks like the Bootstrap .table it replaces. A real <table> cannot be
+// virtualized (the viewport must wrap the rows), so rows are divs with ARIA grid roles instead.
+.order-grid {
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+}
+
+.order-row {
+  display: grid;
+  grid-template-columns: 6rem minmax(10rem, 1fr) 8rem 10rem;
+  align-items: center;
+  // Must equal ROW_HEIGHT in order.component.ts (fixed-size virtual scroll strategy).
+  height: 48px;
+  padding: 0 0.75rem;
+  border-top: 1px solid var(--border);
+  color: var(--text);
   cursor: pointer;
+  position: relative; // containing block for the row link's .stretched-link overlay
+
+  > div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &:hover {
+    background-color: var(--row-hover);
+  }
+
+  // Visible keyboard focus in both themes (WCAG 2.4.7): outline the whole row while its link has focus.
+  &:has(a:focus-visible) {
+    outline: 2px solid var(--text);
+    outline-offset: -2px;
+  }
+}
+
+// Same look as Bootstrap's .thead-light header.
+.order-grid-header {
+  border-top: 0;
+  border-bottom: 2px solid var(--border);
+  background-color: var(--surface-muted);
+  font-weight: bold;
+  cursor: default;
+
+  &:hover {
+    background-color: var(--surface-muted);
+  }
+}
+
+.order-viewport {
+  // Shows about 12 rows; the rest are virtual. contain keeps scroll-time layout work inside the viewport.
+  height: min(60vh, 576px);
+  min-height: 240px;
+  contain: strict;
+}
+
+// Skeleton for rows whose page has not arrived yet.
+.placeholder-cell::before {
+  content: '';
+  display: block;
+  width: 70%;
+  height: 0.75rem;
+  border-radius: 0.25rem;
+  background-color: var(--surface-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .placeholder-cell::before {
+    animation: placeholder-pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@keyframes placeholder-pulse {
+  50% {
+    opacity: 0.5;
+  }
 }

@@ -1,8 +1,5 @@
 @if (breadcrumb$ | async; as breadcrumb) {
-  @if (
-    breadcrumb.length > 0 &&
-    (breadcrumb[breadcrumb.length - 1].label !== 'Camekân')
-    ) {
+ @if (getLastBreadcrumbLabel(breadcrumb) !== 'Camekân') {
     <section
       class="py-5"
       >
@@ -10,8 +7,7 @@
         <div class="row d-flex align-items-center">
           <div class="col-9">
             <h1 class="breadCrumbHeader">
-              {{breadcrumb.length > 0 &&
-              breadcrumb[breadcrumb.length - 1].label | translate | titlecase}}
+              {{ getLastBreadcrumbLabel(breadcrumb) | translate | titlecase }}
             </h1>
           </div>
           <div class="col-3">

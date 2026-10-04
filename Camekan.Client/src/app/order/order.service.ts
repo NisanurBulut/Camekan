@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IOrderListItem, IOrderSummary, IPage } from '../shared/models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,14 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
-  getOrdersForUser() {
-    return this.http.get(this.baseUrl + '/order/GetOrdersForUser');
+  // pageIndex starts at 1; pageSize is capped at 100.
+  getOrdersPage(pageIndex: number, pageSize: number): Observable<IPage<IOrderListItem>> {
+    const params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize);
+    return this.http.get<IPage<IOrderListItem>>(this.baseUrl + '/order/GetOrdersForUserPaged', { params });
+  }
+
+  getOrderSummary(): Observable<IOrderSummary> {
+    return this.http.get<IOrderSummary>(this.baseUrl + '/order/GetOrderSummaryForUser');
   }
 
   getOrderDetail(id: number) {
