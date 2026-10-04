@@ -4,12 +4,17 @@ import { IBasket } from '../shared/models/basket.model';
 import { IBasketItem } from '../shared/models/basketItem.model';
 import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { BasketService } from './basket.service';
+import { BasketSummaryComponent } from '../shared/components/basket-summary/basket-summary.component';
+import { OrderTotalComponent } from '../shared/components/order-total/order-total.component';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-basket',
-  templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss'],
-  standalone: false
+    selector: 'cmk-basket',
+    templateUrl: './basket.component.html',
+    styleUrls: ['./basket.component.scss'],
+    imports: [BasketSummaryComponent, OrderTotalComponent, RouterLink, AsyncPipe, TranslateModule]
 })
 export class BasketComponent implements OnInit {
   basketTotal$: Observable<IBasketTotal>;

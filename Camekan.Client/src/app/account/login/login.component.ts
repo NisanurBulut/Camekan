@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
+import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: false
+    selector: 'cmk-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, TranslateModule]
 })
 export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
