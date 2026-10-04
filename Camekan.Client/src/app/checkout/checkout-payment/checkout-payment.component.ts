@@ -11,7 +11,7 @@ import { CheckoutService } from '../checkout.service';
 declare var Stripe;
 
 @Component({
-  selector: 'app-checkout-payment',
+  selector: 'cmk-checkout-payment',
   templateUrl: './checkout-payment.component.html',
   styleUrls: ['./checkout-payment.component.scss'],
   standalone: false

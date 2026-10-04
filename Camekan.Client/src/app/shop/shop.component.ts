@@ -6,7 +6,7 @@ import { ShopParam } from '../shared/models/shopParams.model';
 import { ShopService } from './shop.service';
 
 @Component({
-  selector: 'app-shop',
+  selector: 'cmk-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss'],
   standalone: false

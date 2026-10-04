@@ -2,17 +2,17 @@
   @if (order) {
     <div class="row">
       <div class="col-8">
-        <app-basket-summary
+        <cmk-basket-summary
           [isBasket]="false"
           [isOrder]="true"
           [items]="order.orderItems"
-        ></app-basket-summary>
+        ></cmk-basket-summary>
       </div>
       <div class="col-4">
-        <app-order-total
+        <cmk-order-total
           [shippingPrice]="order.shippingPrice"
           [subTotal]="order.subtotal"
-        [total]="order.total"></app-order-total>
+        [total]="order.total"></cmk-order-total>
       </div>
     </div>
   }

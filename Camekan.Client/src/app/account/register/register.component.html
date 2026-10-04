@@ -4,19 +4,19 @@
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
-      <app-text-input
+      <cmk-text-input
         formControlName="displayName"
         [label]="'USER.USERNAME' | translate"
-      ></app-text-input>
-      <app-text-input
+      ></cmk-text-input>
+      <cmk-text-input
         formControlName="email"
         [label]="'USER.EMAIL' | translate"
-      ></app-text-input>
-      <app-text-input
+      ></cmk-text-input>
+      <cmk-text-input
         formControlName="password"
         [label]="'USER.PASSWORD' | translate"
         [type]="'password'"
-      ></app-text-input>
+      ></cmk-text-input>
       @if (errors) {
         <ul class="text-danger list-unstyled">
           @for (item of errors; track item) {

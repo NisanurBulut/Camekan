@@ -6,7 +6,7 @@ import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { BasketService } from './basket.service';
 
 @Component({
-  selector: 'app-basket',
+  selector: 'cmk-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss'],
   standalone: false

@@ -5,9 +5,9 @@
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
 
-      <app-text-input formControlName="email" [label]="'USER.EMAIL' | translate"></app-text-input>
+      <cmk-text-input formControlName="email" [label]="'USER.EMAIL' | translate"></cmk-text-input>
 
-      <app-text-input formControlName="password" [label]="'USER.PASSWORD' | translate" [type]="'password'"></app-text-input>
+      <cmk-text-input formControlName="password" [label]="'USER.PASSWORD' | translate" [type]="'password'"></cmk-text-input>
 
       <button [disabled] class="btn btn-lg btn-primary btn-block" type="submit">
         {{ 'ACCOUNT.LOGIN' | translate }}

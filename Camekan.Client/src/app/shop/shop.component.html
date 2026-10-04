@@ -45,11 +45,11 @@
     </section>
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <app-paging-header
+        <cmk-paging-header
           [totalCount]="totalCount"
           [pageNumber]="this.shopParams.PageNumber"
           [pageSize]="this.shopParams.PageSize"
-        ></app-paging-header>
+        ></cmk-paging-header>
         @if (products) {
           <div class="form-inline mt-2">
             <input
@@ -68,19 +68,19 @@
         <div class="row">
           @for (item of products; track item.id) {
             <div class="col-4 mb-4">
-              <app-product-item [product]="item"></app-product-item>
+              <cmk-product-item [product]="item"></cmk-product-item>
             </div>
           }
         </div>
         @if (totalCount > 0) {
           <div class="d-flex justify-content-between"
             >
-            <app-pager
+            <cmk-pager
               [pageSize]="this.shopParams.PageSize"
               [totalCount]="this.totalCount"
               [pageNumber]="this.shopParams.PageNumber"
               (pageChanged)="onPagechanged($event)"
-            ></app-pager>
+            ></cmk-pager>
           </div>
         }
       </section>

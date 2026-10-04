@@ -5,7 +5,7 @@ import { IDeliveryMethod } from 'src/app/shared/models/deliveryMethod.model';
 import { CheckoutService } from '../checkout.service';
 
 @Component({
-  selector: 'app-checkout-delivery',
+  selector: 'cmk-checkout-delivery',
   templateUrl: './checkout-delivery.component.html',
   styleUrls: ['./checkout-delivery.component.scss'],
   standalone: false

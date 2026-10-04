@@ -9,7 +9,7 @@ import { ThemeService } from '../services/theme.service';
 
 
 @Component({
-  selector: 'app-nav-bar',
+  selector: 'cmk-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
   standalone: false

@@ -3,7 +3,7 @@ import { BasketService } from 'src/app/basket/basket.service';
 import { IProduct } from 'src/app/shared/models/product.model';
 
 @Component({
-  selector: 'app-product-item',
+  selector: 'cmk-product-item',
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
   standalone: false

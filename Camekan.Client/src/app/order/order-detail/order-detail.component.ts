@@ -5,7 +5,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { OrderService } from '../order.service';
 
 @Component({
-  selector: 'app-order-detail',
+  selector: 'cmk-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
   standalone: false

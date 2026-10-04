@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-paging-header',
+  selector: 'cmk-paging-header',
   templateUrl: './paging-header.component.html',
   styleUrls: ['./paging-header.component.scss'],
   standalone: false

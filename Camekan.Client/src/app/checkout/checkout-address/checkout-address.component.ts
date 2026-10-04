@@ -6,7 +6,7 @@ import { AccountService } from 'src/app/account/account.service';
 import { IAddress } from 'src/app/shared/models/address.model';
 
 @Component({
-  selector: 'app-checkout-address',
+  selector: 'cmk-checkout-address',
   templateUrl: './checkout-address.component.html',
   styleUrls: ['./checkout-address.component.scss'],
   standalone: false

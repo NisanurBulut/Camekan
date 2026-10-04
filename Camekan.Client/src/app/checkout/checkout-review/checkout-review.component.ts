@@ -5,7 +5,7 @@ import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
 
 @Component({
-  selector: 'app-checkout-review',
+  selector: 'cmk-checkout-review',
   templateUrl: './checkout-review.component.html',
   styleUrls: ['./checkout-review.component.scss'],
   standalone: false

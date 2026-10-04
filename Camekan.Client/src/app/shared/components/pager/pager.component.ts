@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 
 @Component({
-  selector: 'app-pager',
+  selector: 'cmk-pager',
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.scss'],
   standalone: false
