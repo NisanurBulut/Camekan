@@ -8,20 +8,20 @@
     </div>
     <div class="form-group col-6">
       <div #cardNumber class="form-control py-3"></div>
-      @if (cardErrors) {
-        <span class="text-danger">{{ cardErrors }}</span>
+      @if (cardErrors()) {
+        <span class="text-danger">{{ cardErrors() }}</span>
       }
     </div>
     <div class="form-group col-3">
       <div #cardExpiry class="form-control py-3"></div>
-      @if (cardErrors) {
-        <span class="text-danger">{{ cardErrors }}</span>
+      @if (cardErrors()) {
+        <span class="text-danger">{{ cardErrors() }}</span>
       }
     </div>
     <div class="form-group col-3">
       <div #cardCvc class="form-control py-3"></div>
-      @if (cardErrors) {
-        <span class="text-danger">{{ cardErrors }}</span>
+      @if (cardErrors()) {
+        <span class="text-danger">{{ cardErrors() }}</span>
       }
     </div>
   </div>
@@ -34,18 +34,18 @@
   </button>
   <button
     [disabled]="
-      loading ||
+      loading() ||
       checkoutForm.get('paymentForm').invalid ||
-      !cardExpiryValid ||
-      !cardCvcValid ||
-      !cardNumberValid
+      !cardExpiryValid() ||
+      !cardCvcValid() ||
+      !cardNumberValid()
     "
     class="btn-outline-success"
     (click)="submitOrder()"
     >
     {{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
     <i class="fa fa-angle-double-right"></i>
-    @if (loading) {
+    @if (loading()) {
       <i class="fa fa-spinner fa-spin"></i>
     }
   </button>

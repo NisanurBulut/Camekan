@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IOrder } from 'src/app/shared/models/order.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-checkout-success',
-  templateUrl: './checkout-success.component.html',
-  styleUrls: ['./checkout-success.component.scss'],
-  standalone: false
+    selector: 'cmk-checkout-success',
+    templateUrl: './checkout-success.component.html',
+    styleUrls: ['./checkout-success.component.scss'],
+    imports: [RouterLink, TranslateModule]
 })
 export class CheckoutSuccessComponent {
   order: IOrder;

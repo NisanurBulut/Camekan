@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterOutlet } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 import { AccountService } from './account/account.service';
 import { BasketService } from './basket/basket.service';
+import { NavBarComponent } from './core/nav-bar/nav-bar.component';
+import { SectionHeaderComponent } from './core/section-header/section-header.component';
 import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'cmk-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false
+  imports: [RouterOutlet, NavBarComponent, SectionHeaderComponent, NgxSpinnerComponent, TranslateModule]
 })
 export class AppComponent implements OnInit {
   title = 'Camekân';
@@ -33,7 +37,6 @@ export class AppComponent implements OnInit {
     const token = localStorage.getItem('token');
     this.accountService.loadCurrentUser(token)
     .subscribe(() => {
-      console.log('mevcut kullanici getirildi');
     }, error => console.log(error));
   }
   loadBasket() {
