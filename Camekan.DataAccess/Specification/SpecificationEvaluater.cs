@@ -1,10 +1,6 @@
 ﻿using Camekan.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Camekan.DataAccess.Specification
 {
@@ -23,7 +19,7 @@ namespace Camekan.DataAccess.Specification
             }
             if (spec.OrderByDescending != null)
             {
-                query = query.OrderBy(spec.OrderByDescending);
+                query = query.OrderByDescending(spec.OrderByDescending);
             }
             if(spec.IsPagingEnabled)
             {
