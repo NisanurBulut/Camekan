@@ -26,3 +26,32 @@ export interface IOrderItem {
   price: number;
   quantity: number;
 }
+
+export type OrderStatus = 'Pending' | 'PaymentReceived' | 'PaymentFailed';
+
+// One row of the paged order list (GET order/GetOrdersForUserPaged).
+export interface IOrderListItem {
+  id: number;
+  orderDate: string;
+  total: number;
+  status: OrderStatus;
+}
+
+// Server-side page envelope (Camekan.Util.Helpers.Pagination<T>).
+export interface IPage<T> {
+  index: number;
+  size: number;
+  count: number;
+  data: T[];
+}
+
+// Dashboard figures computed on the server (GET order/GetOrderSummaryForUser).
+export interface IOrderSummary {
+  count: number;
+  pending: number;
+  spent: number;
+  books: number;
+  average: number;
+  monthly: { year: number; month: number; total: number }[];
+  topBooks: { productId: number; productName: string; pictureUrl: string; quantity: number }[];
+}

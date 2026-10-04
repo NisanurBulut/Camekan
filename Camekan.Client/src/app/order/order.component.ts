@@ -1,92 +1,139 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
-import { IOrder, IOrderItem } from '../shared/models/order.model';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
+import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ListRange } from '@angular/cdk/collections';
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { IOrderListItem, OrderStatus } from '../shared/models/order.model';
 import { OrderService } from './order.service';
 
-// Backend sends the OrderStatus enum name as a string (PaymenyFailed is spelled that way in the enum).
-const STATUS: Record<string, { key: string; badge: string }> = {
+
+const PAGE_SIZE = 50;
+const ROW_HEIGHT = 4;
+
+const STATUS: Record<OrderStatus, { key: string; badge: string }> = {
   Pending: { key: 'ORDER.STATUS_PENDING', badge: 'badge-warning' },
   PaymentReceived: { key: 'ORDER.STATUS_PAID', badge: 'badge-success' },
-  PaymenyFailed: { key: 'ORDER.STATUS_FAILED', badge: 'badge-danger' }
+  PaymentFailed: { key: 'ORDER.STATUS_FAILED', badge: 'badge-danger' }
 };
 
 @Component({
   selector: 'cmk-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
-  standalone: false,
-  // All state is in signals, so the view only needs checking when they change.
+  imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, RouterLink, CurrencyPipe, DatePipe, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent {
   private orderService = inject(OrderService);
+  private translate = inject(TranslateService);
+  private destroyRef = inject(DestroyRef);
 
-  // null = not loaded yet, [] = the user has no orders
-  orders = signal<IOrder[] | null>(null);
-  private allOrders = computed(() => this.orders() ?? []);
+  readonly rowHeight = ROW_HEIGHT;
 
-  // Failed payments are not counted as spending. Pending ones are, because locally
-  // the Stripe webhook usually doesn't run and paid orders stay Pending.
-  private validOrders = computed(() => this.allOrders().filter(o => o.status !== 'PaymenyFailed'));
-
-  summary = computed(() => {
-    const orders = this.validOrders();
-    const spent = orders.reduce((sum, o) => sum + o.total, 0);
-    const books = orders.reduce((sum, o) => sum + o.orderItems.reduce((s, i) => s + i.quantity, 0), 0);
-    return {
-      count: this.allOrders().length,
-      spent,
-      books,
-      average: orders.length ? spent / orders.length : 0,
-      pending: this.allOrders().filter(o => o.status === 'Pending').length
-    };
-  });
+  // ---------- Dashboard ----------
+  summary = rxResource({ stream: () => this.orderService.getOrderSummary() });
 
   kpis = computed(() => {
-    const s = this.summary();
-    return [
+    const s = this.summary.value();
+    return s ? [
       { label: 'ORDER.DASH_ORDERS', value: s.count, currency: false },
       { label: 'ORDER.DASH_SPENT', value: s.spent, currency: true },
       { label: 'ORDER.DASH_BOOKS', value: s.books, currency: false },
       { label: 'ORDER.DASH_AVG', value: s.average, currency: true }
-    ];
+    ] : [];
   });
 
   monthly = computed(() => {
-    const now = new Date();
-    const months = Array.from({ length: 6 }, (_, i) => ({
-      date: new Date(now.getFullYear(), now.getMonth() - 5 + i, 1),
-      total: 0
-    }));
-    for (const order of this.validOrders()) {
-      const d = new Date(order.orderDate);
-      const month = months.find(m => m.date.getFullYear() === d.getFullYear() && m.date.getMonth() === d.getMonth());
-      if (month) {
-        month.total += order.total;
-      }
-    }
+    const months = this.summary.value()?.monthly ?? [];
     const max = Math.max(...months.map(m => m.total), 1);
-    return months.map(m => ({ ...m, percent: Math.round(m.total / max * 100) }));
+    return months.map(m => ({
+      key: `${m.year}-${m.month}`,
+      date: new Date(m.year, m.month - 1, 1),
+      total: m.total,
+      percent: Math.round(m.total / max * 100)
+    }));
   });
 
-  topBooks = computed(() => {
-    const byProduct = new Map<number, IOrderItem>();
-    for (const item of this.validOrders().flatMap(o => o.orderItems)) {
-      const book = byProduct.get(item.productId) ?? { ...item, quantity: 0 };
-      book.quantity += item.quantity;
-      byProduct.set(item.productId, book);
+  // ---------- Order list (server-side paging + virtual scroll) ----------
+
+  totalCount = signal<number | null>(null);
+  listError = signal(false);
+  private pages = signal<ReadonlyMap<number, IOrderListItem[]>>(new Map());
+  private requested = new Set<number>();
+
+  rows = computed(() => {
+    const rows: (IOrderListItem | undefined)[] = new Array(this.totalCount() ?? 0).fill(undefined);
+    for (const [page, items] of this.pages()) {
+      items.forEach((item, i) => rows[(page - 1) * PAGE_SIZE + i] = item);
     }
-    return [...byProduct.values()].sort((a, b) => b.quantity - a.quantity).slice(0, 3);
+    return rows;
   });
 
-  ngOnInit(): void {
-    this.orderService.getOrdersForUser()
-      .subscribe({
-        next: (result: IOrder[]) => this.orders.set(result),
-        error: error => console.log(error)
-      });
+  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.currentLang });
+  statusLabels = computed(() => {
+    this.lang();
+    const labels = {} as Record<string, string>;
+    for (const [status, { key }] of Object.entries(STATUS)) {
+      labels[status] = this.translate.instant(key);
+    }
+    return labels;
+  });
+
+  private visibleRange$ = new Subject<ListRange>();
+
+  constructor() {
+    this.loadPage(1);
+    this.visibleRange$
+      .pipe(debounceTime(100), takeUntilDestroyed())
+      .subscribe(range => this.loadRange(range));
   }
 
-  statusOf(status: string) {
-    return STATUS[status] ?? { key: status, badge: 'badge-secondary' };
+  badgeOf(status: OrderStatus) {
+    return STATUS[status]?.badge ?? 'badge-secondary';
+  }
+
+  trackByIndex = (index: number) => index;
+
+  onRangeChange(range: ListRange) {
+    this.visibleRange$.next(range);
+  }
+
+  retryList() {
+    this.listError.set(false);
+    this.requested.clear();
+    this.loadPage(1);
+  }
+
+  private loadRange({ start, end }: ListRange) {
+    const firstPage = Math.floor(start / PAGE_SIZE) + 1;
+    const lastPage = Math.floor(Math.max(start, end - 1) / PAGE_SIZE) + 1;
+    for (let page = firstPage; page <= lastPage; page++) {
+      this.loadPage(page);
+    }
+  }
+
+  private loadPage(page: number) {
+    if (this.requested.has(page)) {
+      return;
+    }
+    this.requested.add(page);
+    this.orderService.getOrdersPage(page, PAGE_SIZE)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: result => {
+          this.totalCount.set(result.count);
+          this.pages.update(pages => new Map(pages).set(page, result.data));
+        },
+        error: () => {
+          this.requested.delete(page);
+          if (page === 1) {
+            this.listError.set(true);
+          }
+        }
+      });
   }
 }

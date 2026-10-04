@@ -1,29 +1,32 @@
 <div class="container mt-5">
-  @if (orders(); as orderList) {
-    @if (orderList.length === 0) {
-      <div class="card text-center p-5">
-        <p class="mb-3">{{ 'ORDER.DASH_EMPTY' | translate }}</p>
-        <div><a routerLink="/shop" class="btn btn-primary">{{ 'ORDER.DASH_GO_SHOP' | translate }}</a></div>
+  @if (totalCount() === 0) {
+    <div class="card text-center p-5">
+      <p class="mb-3">{{ 'ORDER.DASH_EMPTY' | translate }}</p>
+      <div><a routerLink="/shop" class="btn btn-primary">{{ 'ORDER.DASH_GO_SHOP' | translate }}</a></div>
+    </div>
+  } @else {
+    <!-- Dashboard: server-side summary (rxResource) -->
+    @if (summary.error()) {
+      <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
+        <span>{{ 'ORDER.DASH_LOAD_FAILED' | translate }}</span>
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="summary.reload()">{{ 'COMMON.RETRY' | translate }}</button>
       </div>
-    } @else {
-      <!-- KPI cards -->
+    } @else if (summary.value(); as s) {
       <div class="row">
         @for (kpi of kpis(); track kpi.label) {
           <div class="col-6 col-md-3 mb-3">
             <div class="card h-100"><div class="card-body">
               <p class="text-muted small mb-1">{{ kpi.label | translate }}</p>
-              <h4 class="mb-0">
-                {{ kpi.currency ? (kpi.value | currency : 'TRY' : '₺' : '1.0-0') : kpi.value }}
-              </h4>
+              <p class="h4 mb-0">{{ kpi.currency ? (kpi.value | currency : 'TRY' : '₺' : '1.0-0') : kpi.value }}</p>
             </div></div>
           </div>
         }
       </div>
 
-      @if (summary().pending > 0) {
+      @if (s.pending > 0) {
         <div class="alert alert-warning d-flex align-items-center" role="status">
           <i class="fa fa-clock-o mr-2" aria-hidden="true"></i>
-          {{ 'ORDER.DASH_PENDING' | translate: { count: summary().pending } }}
+          {{ 'ORDER.DASH_PENDING' | translate: { count: s.pending } }}
         </div>
       }
 
@@ -31,13 +34,14 @@
         <!-- Monthly spending: Bootstrap progress bars, no chart library -->
         <div class="col-md-7 mb-3">
           <div class="card h-100"><div class="card-body">
-            <h6 class="card-title">{{ 'ORDER.DASH_MONTHLY' | translate }}</h6>
-            @for (month of monthly(); track month.date.getTime()) {
+            <h2 class="h6 card-title">{{ 'ORDER.DASH_MONTHLY' | translate }}</h2>
+            @for (month of monthly(); track month.key) {
               <div class="d-flex align-items-center mb-2">
                 <span class="small text-muted month-label">{{ month.date | date : 'MMM yy' }}</span>
                 <div class="progress flex-grow-1 mx-2">
                   <div class="progress-bar" role="progressbar" [style.width.%]="month.percent"
-                       [attr.aria-valuenow]="month.percent" aria-valuemin="0" aria-valuemax="100"></div>
+                       [attr.aria-valuenow]="month.percent" aria-valuemin="0" aria-valuemax="100"
+                       [attr.aria-label]="month.date | date : 'MMMM yyyy'"></div>
                 </div>
                 <span class="small text-right month-total">{{ month.total | currency : 'TRY' : '₺' : '1.0-0' }}</span>
               </div>
@@ -48,11 +52,11 @@
         <!-- Most bought books -->
         <div class="col-md-5 mb-3">
           <div class="card h-100"><div class="card-body">
-            <h6 class="card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h6>
+            <h2 class="h6 card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h2>
             <ul class="list-group list-group-flush">
-              @for (book of topBooks(); track book.productId) {
+              @for (book of s.topBooks; track book.productId) {
                 <li class="list-group-item d-flex align-items-center px-0">
-                  <img [src]="book.pictureUrl" [alt]="book.productName" class="book-cover mr-3 rounded">
+                  <img [src]="book.pictureUrl" alt="" class="book-cover mr-3 rounded" loading="lazy">
                   <a [routerLink]="['/shop', book.productId]" class="flex-grow-1">{{ book.productName }}</a>
                   <span class="badge badge-primary badge-pill">{{ 'ORDER.DASH_PIECES' | translate: { count: book.quantity } }}</span>
                 </li>
@@ -61,29 +65,44 @@
           </div></div>
         </div>
       </div>
+    }
 
-      <!-- Order list -->
-      <table class="table table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th>{{ 'ORDER.TITLE' | translate }}</th>
-            <th>{{ 'ORDER.DATE' | translate }}</th>
-            <th>{{ 'ORDER.AMOUNT' | translate }}</th>
-            <th>{{ 'ORDER.STATUS' | translate }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (order of orderList; track order.id) {
-            @let status = statusOf(order.status);
-            <tr routerLink="/order/{{order.id}}">
-              <th>#{{order.id}}</th>
-              <td>{{order.orderDate | date:'medium'}}</td>
-              <td>{{order.total | currency : "TRY":"₺":"" }}</td>
-              <td><span class="badge {{ status.badge }}">{{ status.key | translate }}</span></td>
-            </tr>
-          }
-        </tbody>
-      </table>
+    <!-- Order list: server-side paging + CDK virtual scroll. Each row's link is the keyboard target (Tab + Enter). -->
+    @if (listError()) {
+      <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
+        <span>{{ 'ORDER.LIST_LOAD_FAILED' | translate }}</span>
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="retryList()">{{ 'COMMON.RETRY' | translate }}</button>
+      </div>
+    } @else {
+      <div class="order-grid mb-5" role="table" [attr.aria-label]="'ORDER.LIST_LABEL' | translate"
+           [attr.aria-rowcount]="(totalCount() ?? 0) + 1" [attr.aria-busy]="totalCount() === null">
+        <div class="order-row order-grid-header" role="row" aria-rowindex="1">
+          <div role="columnheader">{{ 'ORDER.TITLE' | translate }}</div>
+          <div role="columnheader">{{ 'ORDER.DATE' | translate }}</div>
+          <div role="columnheader">{{ 'ORDER.AMOUNT' | translate }}</div>
+          <div role="columnheader">{{ 'ORDER.STATUS' | translate }}</div>
+        </div>
+
+        <cdk-virtual-scroll-viewport [itemSize]="rowHeight" minBufferPx="400" maxBufferPx="800"
+                                     class="order-viewport" role="rowgroup"
+                                     (scrolledIndexChange)="onRangeChange(viewport.getRenderedRange())" #viewport>
+          <div *cdkVirtualFor="let order of rows(); let i = index; trackBy: trackByIndex; templateCacheSize: 40"
+               class="order-row" role="row" [attr.aria-rowindex]="i + 2" [attr.aria-busy]="!order">
+            @if (order) {
+              <!-- stretched-link (Bootstrap) makes the whole row clickable; middle-click / new tab still work -->
+              <div role="cell"><a [routerLink]="['/order', order.id]" class="stretched-link">#{{ order.id }}</a></div>
+              <div role="cell">{{ order.orderDate | date : 'medium' }}</div>
+              <div role="cell">{{ order.total | currency : 'TRY' : '₺' : '' }}</div>
+              <div role="cell"><span class="badge {{ badgeOf(order.status) }}">{{ statusLabels()[order.status] ?? order.status }}</span></div>
+            } @else {
+              <div role="cell" class="placeholder-cell" aria-label="{{ 'COMMON.LOADING' | translate }}"></div>
+              <div role="cell" class="placeholder-cell"></div>
+              <div role="cell" class="placeholder-cell"></div>
+              <div role="cell" class="placeholder-cell"></div>
+            }
+          </div>
+        </cdk-virtual-scroll-viewport>
+      </div>
     }
   }
 </div>
