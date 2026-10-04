@@ -1,14 +1,14 @@
 @if (breadcrumb$ | async; as breadcrumb) {
  @if (getLastBreadcrumbLabel(breadcrumb) !== 'Camekân') {
     <section
-      class="py-5"
+      class="py-3"
       >
       <div class="container">
         <div class="row d-flex align-items-center">
           <div class="col-9">
-            <h1 class="breadCrumbHeader">
+            <h3 class="breadCrumbHeader h3 mb-0">
               {{ getLastBreadcrumbLabel(breadcrumb) | translate | titlecase }}
-            </h1>
+            </h3>
           </div>
           <div class="col-3">
             <nav aria-label="breadcrumb">
