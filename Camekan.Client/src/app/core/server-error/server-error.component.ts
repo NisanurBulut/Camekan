@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-server-error',
-  templateUrl: './server-error.component.html',
-  styleUrls: ['./server-error.component.scss'],
-  standalone: false
+    selector: 'cmk-server-error',
+    templateUrl: './server-error.component.html',
+    styleUrls: ['./server-error.component.scss'],
+    imports: [TranslateModule]
 })
 export class ServerErrorComponent {
   error: any;

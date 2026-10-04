@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row">
     <section class="col-3">
-      @if (types && brands) {
+      @if (types() && brands()) {
         <h5 class="ml-3 mt-4 mb-3">{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
@@ -17,7 +17,7 @@
         </select>
         <h5 class=" ml-3">{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
         <ul class="list-group my-3">
-          @for (item of brands; track item.id) {
+          @for (item of brands(); track item.id) {
             <li
               class="list-group-item"
               [class.active]="item.id === shopParams.BrandId"
@@ -30,7 +30,7 @@
         </ul>
         <h5 class=" ml-3">{{ 'SHOP.TYPES' | translate }}</h5>
         <ul class="list-group my-3">
-          @for (item of types; track item.id) {
+          @for (item of types(); track item.id) {
             <li
               class="list-group-item"
               [class.active]="item.id === shopParams.TypeId"
@@ -46,11 +46,11 @@
     <section class="col-9">
       <div class="d-flex justify-content-between align-items-center pb-2">
         <cmk-paging-header
-          [totalCount]="totalCount"
+          [totalCount]="totalCount()"
           [pageNumber]="this.shopParams.PageNumber"
           [pageSize]="this.shopParams.PageSize"
         ></cmk-paging-header>
-        @if (products) {
+        @if (products()) {
           <div class="form-inline mt-2">
             <input
               #search
@@ -66,18 +66,18 @@
         </div>
 
         <div class="row">
-          @for (item of products; track item.id) {
+          @for (item of products(); track item.id) {
             <div class="col-4 mb-4">
               <cmk-product-item [product]="item"></cmk-product-item>
             </div>
           }
         </div>
-        @if (totalCount > 0) {
+        @if (totalCount() > 0) {
           <div class="d-flex justify-content-between"
             >
             <cmk-pager
               [pageSize]="this.shopParams.PageSize"
-              [totalCount]="this.totalCount"
+              [totalCount]="totalCount()"
               [pageNumber]="this.shopParams.PageNumber"
               (pageChanged)="onPagechanged($event)"
             ></cmk-pager>

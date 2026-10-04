@@ -1,5 +1,5 @@
 <div class="container ml-5 mt-5">
-  @if (order) {
+  @if (order(); as order) {
     <div class="row">
       <div class="col-8">
         <cmk-basket-summary
