@@ -1,6 +1,82 @@
-<div class="container ml-5 mt-5">
-  <div class="row">
-    <div class="col-12">
+<div class="container mt-5">
+  @if (orders(); as orderList) {
+    @if (orderList.length === 0) {
+      <div class="card text-center p-5">
+        <p class="mb-3">{{ 'ORDER.DASH_EMPTY' | translate }}</p>
+        <div><a routerLink="/shop" class="btn btn-primary">{{ 'ORDER.DASH_GO_SHOP' | translate }}</a></div>
+      </div>
+    } @else {
+      <!-- KPI cards -->
+      <div class="row">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <p class="text-muted small mb-1">{{ 'ORDER.DASH_ORDERS' | translate }}</p>
+            <h4 class="mb-0">{{ summary().count }}</h4>
+          </div></div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <p class="text-muted small mb-1">{{ 'ORDER.DASH_SPENT' | translate }}</p>
+            <h4 class="mb-0">{{ summary().spent | currency : 'TRY' : '₺' : '1.0-0' }}</h4>
+          </div></div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <p class="text-muted small mb-1">{{ 'ORDER.DASH_BOOKS' | translate }}</p>
+            <h4 class="mb-0">{{ summary().books }}</h4>
+          </div></div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <p class="text-muted small mb-1">{{ 'ORDER.DASH_AVG' | translate }}</p>
+            <h4 class="mb-0">{{ summary().average | currency : 'TRY' : '₺' : '1.0-0' }}</h4>
+          </div></div>
+        </div>
+      </div>
+
+      @if (summary().pending > 0) {
+        <div class="alert alert-warning d-flex align-items-center" role="status">
+          <i class="fa fa-clock-o mr-2" aria-hidden="true"></i>
+          {{ 'ORDER.DASH_PENDING' | translate: { count: summary().pending } }}
+        </div>
+      }
+
+      <div class="row">
+        <!-- Monthly spending: Bootstrap progress bars, no chart library -->
+        <div class="col-md-7 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <h6 class="card-title">{{ 'ORDER.DASH_MONTHLY' | translate }}</h6>
+            @for (month of monthly(); track month.date.getTime()) {
+              <div class="d-flex align-items-center mb-2">
+                <span class="small text-muted month-label">{{ month.date | date : 'MMM yy' }}</span>
+                <div class="progress flex-grow-1 mx-2">
+                  <div class="progress-bar" role="progressbar" [style.width.%]="month.percent"
+                       [attr.aria-valuenow]="month.percent" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span class="small text-right month-total">{{ month.total | currency : 'TRY' : '₺' : '1.0-0' }}</span>
+              </div>
+            }
+          </div></div>
+        </div>
+
+        <!-- Most bought books -->
+        <div class="col-md-5 mb-3">
+          <div class="card h-100"><div class="card-body">
+            <h6 class="card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h6>
+            <ul class="list-group list-group-flush">
+              @for (book of topBooks(); track book.productId) {
+                <li class="list-group-item d-flex align-items-center px-0">
+                  <img [src]="book.pictureUrl" [alt]="book.productName" class="book-cover mr-3 rounded">
+                  <a [routerLink]="['/shop', book.productId]" class="flex-grow-1">{{ book.productName }}</a>
+                  <span class="badge badge-primary badge-pill">{{ 'ORDER.DASH_PIECES' | translate: { count: book.quantity } }}</span>
+                </li>
+              }
+            </ul>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Order list -->
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
@@ -11,16 +87,17 @@
           </tr>
         </thead>
         <tbody>
-          @for (order of orders; track order.id) {
+          @for (order of orderList; track order.id) {
+            @let status = statusOf(order.status);
             <tr routerLink="/order/{{order.id}}">
               <th>#{{order.id}}</th>
               <td>{{order.orderDate | date:'medium'}}</td>
               <td>{{order.total | currency : "TRY":"₺":"" }}</td>
-              <td>{{order.status}}</td>
+              <td><span class="badge {{ status.badge }}">{{ status.key | translate }}</span></td>
             </tr>
           }
         </tbody>
       </table>
-    </div>
-  </div>
+    }
+  }
 </div>

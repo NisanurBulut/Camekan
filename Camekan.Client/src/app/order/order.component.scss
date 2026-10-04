@@ -1,3 +1,24 @@
 table {
   cursor: pointer;
 }
+
+// Monthly spending bars
+.month-label {
+  width: 70px;
+}
+
+.month-total {
+  width: 80px;
+}
+
+.progress {
+  height: 10px;
+  background-color: var(--surface-muted);
+}
+
+// Top books list
+.book-cover {
+  width: 36px;
+  height: 48px;
+  object-fit: cover;
+}
