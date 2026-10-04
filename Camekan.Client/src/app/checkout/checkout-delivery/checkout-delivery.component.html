@@ -1,6 +1,6 @@
 <div class="mt-4" [formGroup]="checkoutForm">
   <div class="row ml-5" formGroupName="deliveryForm">
-    @for (item of deliveryMethods; track item.id) {
+    @for (item of deliveryMethods(); track item.id) {
       <div class="form-group col-6">
         <input
           type="radio"

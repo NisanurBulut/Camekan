@@ -1,14 +1,16 @@
-import { CdkStepper } from '@angular/cdk/stepper';
+import { CdkStepper, CdkStepperPrevious } from '@angular/cdk/stepper';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
+import { BasketSummaryComponent } from '../../shared/components/basket-summary/basket-summary.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'cmk-checkout-review',
-  templateUrl: './checkout-review.component.html',
-  styleUrls: ['./checkout-review.component.scss'],
-  standalone: false
+    selector: 'cmk-checkout-review',
+    templateUrl: './checkout-review.component.html',
+    styleUrls: ['./checkout-review.component.scss'],
+    imports: [BasketSummaryComponent, CdkStepperPrevious, AsyncPipe]
 })
 
 export class CheckoutReviewComponent implements OnInit {

@@ -1,12 +1,13 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { Component, Input, OnInit } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
-  selector: 'cmk-stepper',
-  templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss'],
-  providers: [{ provide: CdkStepper, useExisting: StepperComponent }],
-  standalone: false
+    selector: 'cmk-stepper',
+    templateUrl: './stepper.component.html',
+    styleUrls: ['./stepper.component.scss'],
+    providers: [{ provide: CdkStepper, useExisting: StepperComponent }],
+    imports: [NgTemplateOutlet]
 })
 export class StepperComponent extends CdkStepper implements OnInit {
 

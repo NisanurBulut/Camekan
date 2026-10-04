@@ -17,7 +17,7 @@
         [label]="'USER.PASSWORD' | translate"
         [type]="'password'"
       ></cmk-text-input>
-      @if (errors) {
+      @if (errors(); as errors) {
         <ul class="text-danger list-unstyled">
           @for (item of errors; track item) {
             <li>{{ item }}</li>

@@ -1,17 +1,23 @@
-import { Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, ElementRef, inject, Input, OnInit, Self, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.scss'],
-  standalone: false
+    selector: 'cmk-text-input',
+    templateUrl: './text-input.component.html',
+    styleUrls: ['./text-input.component.scss'],
+    imports: [NgClass, TranslateModule]
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
 
   @ViewChild('input', { static: true }) input: ElementRef;
   @Input() type = 'type';
   @Input() label: string;
+
+  private cdr = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
   constructor(@Self() public controlDir: NgControl) {
     this.controlDir.valueAccessor = this;
@@ -24,6 +30,12 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     control.setValidators(validators);
     control.setAsyncValidators(asyncValidators);
     control.updateValueAndValidity();
+
+    // Async validators (emailExists) and patchValue/reset after an HTTP call change the control state
+    // without a DOM event, so nothing would refresh the view without zone.js.
+    control.statusChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.cdr.markForCheck());
   }
   onChange(event: any) { }
 

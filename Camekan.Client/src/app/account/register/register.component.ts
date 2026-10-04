@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AsyncValidatorFn, FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, signal } from '@angular/core';
+import { AsyncValidatorFn, FormBuilder, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
+import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cmk-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  standalone: false
+    selector: 'cmk-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, TranslateModule]
 })
 export class RegisterComponent implements OnInit {
   registerForm: UntypedFormGroup;
-  errors: string[];
+  errors = signal<string[]>(undefined);
 
   constructor(private accountService: AccountService, private router: Router) { }
 
@@ -46,6 +48,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.accountService.register(this.registerForm.value).subscribe(() => {
       this.router.navigateByUrl('/shop');
-    }, error => this.errors = error.errors);
+    }, error => this.errors.set(error.errors));
   }
 }
