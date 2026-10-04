@@ -6,7 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
 
 @Component({
-  selector: 'app-register',
+  selector: 'cmk-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: false

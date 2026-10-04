@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 
 @Component({
-  selector: 'app-order-total',
+  selector: 'cmk-order-total',
   templateUrl: './order-total.component.html',
   styleUrls: ['./order-total.component.scss'],
   standalone: false

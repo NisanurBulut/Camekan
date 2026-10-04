@@ -6,7 +6,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { ShopService } from '../shop.service';
 
 @Component({
-  selector: 'app-product-detail',
+  selector: 'cmk-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
   standalone: false

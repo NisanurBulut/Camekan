@@ -3,7 +3,7 @@ import { IOrder } from '../shared/models/order.model';
 import { OrderService } from './order.service';
 
 @Component({
-  selector: 'app-order',
+  selector: 'cmk-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
   standalone: false

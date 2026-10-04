@@ -6,7 +6,7 @@ import { BasketService } from '../basket/basket.service';
 import { IBasketTotal } from '../shared/models/basketTotal.model';
 
 @Component({
-  selector: 'app-checkout',
+  selector: 'cmk-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
   standalone: false

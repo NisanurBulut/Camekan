@@ -5,7 +5,7 @@ import { BasketService } from './basket/basket.service';
 import { ThemeService } from './core/services/theme.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'cmk-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: false

@@ -1,28 +1,28 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-8">
-      <app-stepper [linearModelSelected]="true" #appStepper>
+      <cmk-stepper [linearModelSelected]="true" #appStepper>
         <cdk-step [label]="'CHECKOUT.STEP_ADDRESS' | translate" [completed]="(checkoutForm.get('addressForm')).valid">
-          <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
+          <cmk-checkout-address [checkoutForm]="checkoutForm"></cmk-checkout-address>
         </cdk-step>
         <cdk-step [label]="'CHECKOUT.STEP_DELIVERY' | translate" [completed]="(checkoutForm.get('deliveryForm')).valid">
-          <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
+          <cmk-checkout-delivery [checkoutForm]="checkoutForm"></cmk-checkout-delivery>
         </cdk-step>
         <cdk-step [label]="'ORDER.TITLE' | translate">
-          <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
+          <cmk-checkout-review [appStepper]="appStepper"></cmk-checkout-review>
         </cdk-step>
         <cdk-step [label]="'CHECKOUT.STEP_PAYMENT' | translate" [completed]="(checkoutForm.get('paymentForm')).valid">
-          <app-checkout-payment
-          [checkoutForm]="checkoutForm"></app-checkout-payment>
+          <cmk-checkout-payment
+          [checkoutForm]="checkoutForm"></cmk-checkout-payment>
         </cdk-step>
-      </app-stepper>
+      </cmk-stepper>
     </div>
     <div class="col-4">
       @if ((basketTotal$ | async)) {
-        <app-order-total
+        <cmk-order-total
           [shippingPrice]="(basketTotal$ | async).shipping"
           [subTotal]="(basketTotal$ | async).subTotal"
-        [total]="(basketTotal$ | async).total"></app-order-total>
+        [total]="(basketTotal$ | async).total"></cmk-order-total>
       }
     </div>
   </div>

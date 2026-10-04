@@ -1,12 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
-import { BasketService } from 'src/app/basket/basket.service';
-import { IBasket } from '../../models/basket.model';
 import { IBasketItem } from '../../models/basketItem.model';
 import { IOrderItem } from '../../models/order.model';
 
 @Component({
-  selector: 'app-basket-summary',
+  selector: 'cmk-basket-summary',
   templateUrl: './basket-summary.component.html',
   styleUrls: ['./basket-summary.component.scss'],
   standalone: false

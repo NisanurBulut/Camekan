@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, Self, ViewChild } from '@angular/
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-text-input',
+  selector: 'cmk-text-input',
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
   standalone: false

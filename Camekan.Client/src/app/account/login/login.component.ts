@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'cmk-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: false
