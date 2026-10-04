@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, effect, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { AfterViewInit, Component, effect, ElementRef, Input, OnDestroy, signal, ViewChild } from '@angular/core';
+import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
@@ -7,14 +7,17 @@ import { IBasket } from 'src/app/shared/models/basket.model';
 import { environment } from 'src/environments/environment';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import { CheckoutService } from '../checkout.service';
+import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
+import { CdkStepperPrevious } from '@angular/cdk/stepper';
+import { TranslateModule } from '@ngx-translate/core';
 
 declare var Stripe;
 
 @Component({
-  selector: 'cmk-checkout-payment',
-  templateUrl: './checkout-payment.component.html',
-  styleUrls: ['./checkout-payment.component.scss'],
-  standalone: false
+    selector: 'cmk-checkout-payment',
+    templateUrl: './checkout-payment.component.html',
+    styleUrls: ['./checkout-payment.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, CdkStepperPrevious, TranslateModule]
 })
 export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   @Input() checkoutForm: UntypedFormGroup;
@@ -26,20 +29,20 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   cardCvc: any;
   cardNumber: any;
   cardExpiry: any;
-  cardErrors: any;
+  // Signals: Stripe change events come from
+  cardErrors = signal<string>(null);
   cardHandler = this.onChange.bind(this);
-  loading = false;
-  cardNumberValid = false;
-  cardExpiryValid = false;
-  cardCvcValid = false;
+  loading = signal(false);
+  cardNumberValid = signal(false);
+  cardExpiryValid = signal(false);
+  cardCvcValid = signal(false);
   constructor(
     private checkOutService: CheckoutService,
     private basketService: BasketService,
     private toastrService: ToastrService,
     private router: Router,
     private themeService: ThemeService) {
-    // Stripe fields live in iframes, so CSS variables do not reach them: re-send the colors on theme change.
-    // ThemeService's root effect runs before this component effect, so data-theme is already updated here.
+   
     effect(() => {
       this.themeService.theme();
       const style = this.cardStyle();
@@ -79,24 +82,24 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   onChange(event) {
     if (event.error) {
-      this.cardErrors = event.error.message;
+      this.cardErrors.set(event.error.message);
     } else {
-      this.cardErrors = null;
+      this.cardErrors.set(null);
     }
     switch (event.elementType) {
       case 'cardNumber':
-        this.cardNumberValid = event.complete;
+        this.cardNumberValid.set(event.complete);
         break;
       case 'cardCvc':
-        this.cardCvcValid = event.complete;
+        this.cardCvcValid.set(event.complete);
         break;
       case 'cardExpiry':
-        this.cardExpiryValid = event.complete;
+        this.cardExpiryValid.set(event.complete);
         break;
     }
   }
   async submitOrder() {
-    this.loading = true;
+    this.loading.set(true);
     const basket = this.basketService.getCurrenctBasketValue();
     try {
       const createdOrder = await this.createOrder(basket);
@@ -110,10 +113,10 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       else {
         this.toastrService.error(paymentResult.error.message);
       }
-      this.loading = false;
+      this.loading.set(false);
     }
     catch (error) {
-      this.loading = false;
+      this.loading.set(false);
       console.log(error);
     }
   }
