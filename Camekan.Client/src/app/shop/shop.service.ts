@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IPagination, Pagination } from '../shared/models/pagination.model';
 import { IProductBrand } from '../shared/models/productBrand.model';
@@ -69,7 +69,6 @@ export class ShopService {
       params: param
     })
       .pipe(
-        delay(1000),
         map(response => {
           this.products = [...this.products, ...response.body.data];
           this.pagination = response.body;

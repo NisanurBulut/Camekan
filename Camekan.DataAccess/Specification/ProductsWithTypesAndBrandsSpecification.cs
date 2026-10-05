@@ -26,11 +26,12 @@ namespace Camekan.DataAccess.Specification
             {
                 switch (productSpecParam.Sort)
                 {
+                    // SQLite cannot ORDER BY a decimal column, so price is sorted as double.
                     case "priceAsc":
-                        AddOrderBy(a => a.Price);
+                        AddOrderBy(a => (double)a.Price);
                         break;
                     case "priceDesc":
-                        AddOrderByDescending(a => a.Price);
+                        AddOrderByDescending(a => (double)a.Price);
                         break;
                     default:
                         AddOrderBy(a => a.Name); // default

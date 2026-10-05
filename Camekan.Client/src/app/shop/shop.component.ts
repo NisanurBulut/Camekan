@@ -25,9 +25,9 @@ export class ShopComponent implements OnInit {
   shopParams: ShopParam;
   totalCount = signal<number>(undefined);
   sortOptions = [
-    { name: 'SHOP.SORT_ALPHABETICAL', value: 'name' },
-    { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc' },
-    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc' }
+    { name: 'SHOP.SORT_ALPHABETICAL', value: 'name', icon: 'A–Z' },
+    { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc', icon: '↑' },
+    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc', icon: '↓' }
   ];
   constructor(private shopService: ShopService) {
     this.shopParams = this.shopService.getShopParam();
@@ -44,7 +44,11 @@ export class ShopComponent implements OnInit {
       .subscribe((response) => {
         this.products.set(response.data);
         this.totalCount.set(response.count);
-      }, error => { console.log(error); });
+      }, error => {
+        // ShopService outlives this page; a failing filter left in it would break every return to /shop.
+        this.shopParams = new ShopParam();
+        this.shopService.setShopParam(this.shopParams);
+      });
   }
   getBrands() {
     this.shopService.getBrands()
@@ -92,6 +96,10 @@ export class ShopComponent implements OnInit {
     params.PageNumber = 1;
     this.shopService.setShopParam(params);
     this.getProducts();
+  }
+  hasFilters() {
+    const params = this.shopParams;
+    return params.BrandId !== 0 || params.TypeId !== 0 || params.Sort !== 'name' || !!params.search;
   }
   onReset() {
     this.searchTerm.nativeElement.value = '';

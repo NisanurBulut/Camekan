@@ -1,8 +1,9 @@
 <div class="container mt-5">
   <div class="row">
-    <section class="col-3">
+    <section class="col-12 col-md-3">
       @if (types() && brands()) {
-        <h5 class="ml-3 mt-4 mb-3">{{ 'SHOP.SORT' | translate }}</h5>
+        <div class="filter-panel">
+        <h5 class="ml-3 mt-2 mb-3"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i>{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
           (change)="onSortSelected($event.target.value)"
@@ -11,78 +12,119 @@
             <option
               [selected]="shopParams.Sort===item.value"
               [value]="item.value">
-              {{ item.name | translate }}
+              {{ item.icon }} {{ item.name | translate }}
             </option>
           }
         </select>
-        <h5 class=" ml-3">{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
-        <ul class="list-group my-3">
+        <h5 class="ml-3"><i class="fa fa-building-o" aria-hidden="true"></i>{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
+        <div class="list-group my-3">
           @for (item of brands(); track item.id) {
-            <li
-              class="list-group-item"
+            <button
+              type="button"
+              class="list-group-item list-group-item-action"
               [class.active]="item.id === shopParams.BrandId"
-              [value]="item.id"
+              [attr.aria-pressed]="item.id === shopParams.BrandId"
               (click)="onBrandSelected(item.id)"
               >
               {{ item.id === 0 ? (item.name | translate) : item.name }}
-            </li>
+            </button>
           }
-        </ul>
-        <h5 class=" ml-3">{{ 'SHOP.TYPES' | translate }}</h5>
-        <ul class="list-group my-3">
+        </div>
+        <h5 class="ml-3"><i class="fa fa-tags" aria-hidden="true"></i>{{ 'SHOP.TYPES' | translate }}</h5>
+        <div class="list-group my-3">
           @for (item of types(); track item.id) {
-            <li
-              class="list-group-item"
+            <button
+              type="button"
+              class="list-group-item list-group-item-action"
               [class.active]="item.id === shopParams.TypeId"
-              [value]="item.id"
+              [attr.aria-pressed]="item.id === shopParams.TypeId"
               (click)="onTypeSelected(item.id)"
               >
               {{ item.id === 0 ? (item.name | translate) : item.name }}
-            </li>
+            </button>
           }
-        </ul>
+        </div>
+        </div>
       }
     </section>
-    <section class="col-9">
-      <div class="d-flex justify-content-between align-items-center pb-2">
+    <section class="col-12 col-md-9">
+      <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
         <cmk-paging-header
           [totalCount]="totalCount()"
           [pageNumber]="this.shopParams.PageNumber"
           [pageSize]="this.shopParams.PageSize"
         ></cmk-paging-header>
         @if (products()) {
-          <div class="form-inline mt-2">
-            <input
-              #search
-              type="text"
-              style="width: 300px"
-              [placeholder]="'SHOP.SEARCH_PLACEHOLDER' | translate"
-              class="form-control mr-2"
-              />
-              <button (click)="onSearch()" class="btn btn-outline-primary my-2">{{ 'SHOP.SEARCH' | translate }}</button>
-              <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">{{ 'SHOP.RESET' | translate }}</button>
+          <div class="d-flex align-items-center my-2">
+            <div class="input-group search-group">
+              <input
+                #search
+                type="search"
+                class="form-control"
+                [placeholder]="'SHOP.SEARCH_PLACEHOLDER' | translate"
+                [attr.aria-label]="'SHOP.SEARCH' | translate"
+                (keyup.enter)="onSearch()"
+                />
+              <div class="input-group-append">
+                <button type="button" class="btn search-btn" (click)="onSearch()" [attr.aria-label]="'SHOP.SEARCH' | translate">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
-          }
-        </div>
-
-        <div class="row">
-          @for (item of products(); track item.id) {
-            <div class="col-4 mb-4">
-              <cmk-product-item [product]="item"></cmk-product-item>
-            </div>
-          }
-        </div>
-        @if (totalCount() > 0) {
-          <div class="d-flex justify-content-between"
-            >
-            <cmk-pager
-              [pageSize]="this.shopParams.PageSize"
-              [totalCount]="totalCount()"
-              [pageNumber]="this.shopParams.PageNumber"
-              (pageChanged)="onPagechanged($event)"
-            ></cmk-pager>
+            @if (hasFilters()) {
+              <button type="button" class="btn btn-link text-nowrap ml-2" (click)="onReset()">
+                <i class="fa fa-undo mr-1" aria-hidden="true"></i>{{ 'SHOP.RESET' | translate }}
+              </button>
+            }
           </div>
         }
-      </section>
-    </div>
+      </div>
+
+      @if (products()?.length === 0) {
+        <section class="empty-state" aria-labelledby="shop-empty-title">
+          <svg class="empty-state__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+            <circle class="art-blob" cx="105" cy="92" r="72" />
+            <rect class="art-book art-book--teal" x="44" y="70" width="20" height="58" rx="2" />
+            <rect class="art-book art-book--navy" x="66" y="82" width="16" height="46" rx="2" />
+            <rect class="art-gap" x="86" y="76" width="22" height="52" rx="2" />
+            <rect class="art-book art-book--orange" x="112" y="86" width="18" height="42" rx="2" />
+            <path class="art-spines" d="M48 82 H60 M48 90 H60 M70 94 H78 M116 98 H126" />
+            <rect class="art-shelf" x="30" y="128" width="150" height="8" rx="3" />
+            <g class="art-magnifier">
+              <path class="art-handle" d="M164 74 L182 92" />
+              <circle class="art-lens" cx="150" cy="60" r="20" />
+              <path class="art-x" d="M143 53 L157 67 M157 53 L143 67" />
+            </g>
+            <circle class="art-dot" cx="40" cy="46" r="4" />
+            <circle class="art-dot" cx="192" cy="126" r="3" />
+          </svg>
+          <div>
+            <h2 id="shop-empty-title" class="empty-state__title">{{ 'SHOP.NO_RESULTS' | translate }}</h2>
+            <p class="empty-state__text">{{ 'SHOP.NO_RESULTS_TEXT' | translate }}</p>
+            <button type="button" class="btn btn-cta" (click)="onReset()">
+              <i class="fa fa-undo mr-2" aria-hidden="true"></i>{{ 'SHOP.RESET' | translate }}
+            </button>
+          </div>
+        </section>
+      }
+
+      <div class="row">
+        @for (item of products(); track item.id) {
+          <div class="col-6 col-lg-4 mb-4">
+            <cmk-product-item [product]="item"></cmk-product-item>
+          </div>
+        }
+      </div>
+      @if (totalCount() > 0) {
+        <div class="d-flex justify-content-between">
+          <cmk-pager
+            [pageSize]="this.shopParams.PageSize"
+            [totalCount]="totalCount()"
+            [pageNumber]="this.shopParams.PageNumber"
+            (pageChanged)="onPagechanged($event)"
+          ></cmk-pager>
+        </div>
+      }
+    </section>
   </div>
+</div>

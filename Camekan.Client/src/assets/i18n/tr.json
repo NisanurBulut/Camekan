@@ -55,7 +55,9 @@
     "TYPES": "Tip",
     "SEARCH": "Ara",
     "SEARCH_PLACEHOLDER": "Ara...",
-    "RESET": "Temizle"
+    "RESET": "Filtreleri temizle",
+    "NO_RESULTS": "Aradığın kitap bulunamadı",
+    "NO_RESULTS_TEXT": "Başka bir kelime dene ya da filtreleri temizle."
   },
   "PRODUCT": {
     "TYPE": "Tür",
@@ -120,7 +122,8 @@
     "DASH_TOP_BOOKS": "En çok aldığın kitaplar",
     "DASH_PIECES": "{{count}} adet",
     "DASH_PENDING": "{{count}} siparişinin ödeme onayı bekleniyor.",
-    "DASH_EMPTY": "Henüz siparişin yok. İlk kitabını seçmeye ne dersin?",
+    "DASH_EMPTY": "Henüz siparişin yok",
+    "DASH_EMPTY_TEXT": "İlk kitabını seçmeye ne dersin? Vitrinde seni bekleyen kitaplar var.",
     "DASH_GO_SHOP": "Kitaplara göz at",
     "DASH_LOAD_FAILED": "Sipariş özeti yüklenemedi.",
     "LIST_LOAD_FAILED": "Siparişler yüklenemedi.",
