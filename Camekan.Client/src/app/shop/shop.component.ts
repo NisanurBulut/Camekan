@@ -97,6 +97,10 @@ export class ShopComponent implements OnInit {
     this.shopService.setShopParam(params);
     this.getProducts();
   }
+  hasFilters() {
+    const params = this.shopParams;
+    return params.BrandId !== 0 || params.TypeId !== 0 || params.Sort !== 'name' || !!params.search;
+  }
   onReset() {
     this.searchTerm.nativeElement.value = '';
     this.shopParams = new ShopParam();
