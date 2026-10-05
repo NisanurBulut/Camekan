@@ -1,3 +1,14 @@
+.filter-panel {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.list-group-item:not(.active) {
+  color: var(--text);
+}
 .list-group-item {
   cursor: pointer;
   border: none;

@@ -2,7 +2,8 @@
   <div class="row">
     <section class="col-12 col-md-3">
       @if (types() && brands()) {
-        <h5 class="ml-3 mt-4 mb-3"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i>{{ 'SHOP.SORT' | translate }}</h5>
+        <div class="filter-panel">
+        <h5 class="ml-3 mt-2 mb-3"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i>{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
           (change)="onSortSelected($event.target.value)"
@@ -42,6 +43,7 @@
               {{ item.id === 0 ? (item.name | translate) : item.name }}
             </button>
           }
+        </div>
         </div>
       }
     </section>
