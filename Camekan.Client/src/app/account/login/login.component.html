@@ -5,9 +5,19 @@
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
 
-      <cmk-text-input formControlName="email" [label]="'USER.EMAIL' | translate"></cmk-text-input>
+      <cmk-text-input
+        formControlName="email"
+        [label]="'USER.EMAIL' | translate"
+        [type]="'email'"
+        autocomplete="username"
+      ></cmk-text-input>
 
-      <cmk-text-input formControlName="password" [label]="'USER.PASSWORD' | translate" [type]="'password'"></cmk-text-input>
+      <cmk-text-input
+        formControlName="password"
+        [label]="'USER.PASSWORD' | translate"
+        [type]="'password'"
+        autocomplete="current-password"
+      ></cmk-text-input>
 
       <button [disabled]="loginForm.invalid" class="btn btn-lg btn-cta btn-block" type="submit">
         <i class="fa fa-sign-in mr-2" aria-hidden="true"></i>{{ 'ACCOUNT.LOGIN' | translate }}

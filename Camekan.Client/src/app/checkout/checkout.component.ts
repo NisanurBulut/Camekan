@@ -55,6 +55,8 @@ export class CheckoutComponent implements OnInit {
       .subscribe((address) => {
         if (address) {
           this.checkoutForm.get('addressForm').patchValue(address);
+          this.checkoutForm.get('paymentForm.nameOnCard')
+            ?.setValue(`${address.firstName} ${address.lastName}`.trim());
         }
       }, error => console.log(error));
   }
