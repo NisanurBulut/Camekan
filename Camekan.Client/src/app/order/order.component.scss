@@ -59,7 +59,11 @@
   border-top: 0;
   border-bottom: 2px solid var(--border);
   background-color: var(--surface-muted);
+  font-size: 0.75rem;
   font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
   cursor: default;
 
   &:hover {
@@ -92,4 +96,36 @@
   50% {
     opacity: 0.5;
   }
+}
+
+.kpi--blue { --kpi: #3498db; }
+.kpi--teal { --kpi: #18bc9c; }
+.kpi--purple { --kpi: #9b59b6; }
+.kpi--orange { --kpi: #f39c12; }
+
+.kpi-card {
+  border: 0;
+  border-top: 4px solid var(--kpi);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.kpi-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: var(--kpi);
+  background-color: color-mix(in srgb, var(--kpi) 15%, transparent);
+}
+
+.order-icon {
+  color: var(--text-muted);
+}
+
+.status-badge {
+  padding: 0.35em 0.75em;
 }
