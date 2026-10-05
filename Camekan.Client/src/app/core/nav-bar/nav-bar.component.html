@@ -34,9 +34,9 @@
       </button>
       <a routerLink="/basket" style="position: relative">
         <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
-        @if ((this.basket$ | async)) {
+        @if (basket(); as basket) {
           <div class="cart-no">
-            {{ (this.basket$ | async).items.length }}
+            {{ basket.items.length }}
           </div>
         }
       </a>
