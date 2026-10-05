@@ -13,7 +13,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- items is IBasketItem[] | IOrderItem[]; $any keeps the loose typing *ngFor had until the union is narrowed properly. -->
         @for (item of $any(items); track item.id || item.productId) {
           <tr>
             <th scope="row" class="align-middle">
