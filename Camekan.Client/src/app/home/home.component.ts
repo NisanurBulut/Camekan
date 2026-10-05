@@ -11,10 +11,10 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class HomeComponent {
   readonly slides = [
-    { src: 'assets/images/book0.jpg', alt: 'HOME.SLIDE_AUTUMN_LOVE' },
+    { src: 'assets/images/book0.webp', alt: 'HOME.SLIDE_AUTUMN_LOVE' },
     { src: 'assets/images/book1.webp', alt: 'HOME.SLIDE_STRONG_VOICES' },
-    { src: 'assets/images/book2.jpg', alt: 'HOME.SLIDE_STRONG_VOICES_BOOKS' },
-    { src: 'assets/images/book3.jpg', alt: 'HOME.SLIDE_PINK_RIBBON' },
-    { src: 'assets/images/book4.jpg', alt: 'HOME.SLIDE_MIRROR' }
+    { src: 'assets/images/book2.webp', alt: 'HOME.SLIDE_STRONG_VOICES_BOOKS' },
+    { src: 'assets/images/book3.webp', alt: 'HOME.SLIDE_PINK_RIBBON' },
+    { src: 'assets/images/book4.webp', alt: 'HOME.SLIDE_MIRROR' }
   ];
 }
