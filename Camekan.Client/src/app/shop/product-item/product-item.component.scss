@@ -1,3 +1,9 @@
+.card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
 .btn {
   width: 30%;
   height: 40px;
