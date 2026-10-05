@@ -32,8 +32,6 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     control.setAsyncValidators(asyncValidators);
     control.updateValueAndValidity();
 
-    // Async validators (emailExists) and patchValue/reset after an HTTP call change the control state
-    // without a DOM event, so nothing would refresh the view without zone.js.
     control.statusChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.cdr.markForCheck());

@@ -45,6 +45,12 @@ namespace Camekan.DataAccess.Context
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
+            modelBuilder.Entity<DashboardKpiView>().HasNoKey().ToView("vw_dashboard_kpis");
+            modelBuilder.Entity<DashboardSalesTrendView>().HasNoKey().ToView("vw_dashboard_sales_trend");
+            modelBuilder.Entity<DashboardCategoryView>().HasNoKey().ToView("vw_dashboard_category_distribution");
+            modelBuilder.Entity<DashboardTopBookView>().HasNoKey().ToView("vw_dashboard_top_books");
+            modelBuilder.Entity<DashboardRecentBookView>().HasNoKey().ToView("vw_dashboard_recent_books");
+            modelBuilder.Entity<DashboardTrendingView>().HasNoKey().ToView("vw_dashboard_trending");
 
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -56,5 +62,11 @@ namespace Camekan.DataAccess.Context
         public DbSet<ProductEntity> tProduct { get; set; }
         public DbSet<ProductBrandEntity> tProductBrand { get; set; }
         public DbSet<ProductTypeEntity> tProductType { get; set; }
+        public DbSet<DashboardKpiView> DashboardKpis { get; set; }
+        public DbSet<DashboardSalesTrendView> DashboardSalesTrend { get; set; }
+        public DbSet<DashboardCategoryView> DashboardCategories { get; set; }
+        public DbSet<DashboardTopBookView> DashboardTopBooks { get; set; }
+        public DbSet<DashboardRecentBookView> DashboardRecentBooks { get; set; }
+        public DbSet<DashboardTrendingView> DashboardTrending { get; set; }
     }
 }

@@ -24,6 +24,7 @@
     "@stripe/stripe-js": "^10.0.0",
     "bootstrap": "4.1.1",
     "bootswatch": "^4.6.2",
+    "chart.js": "^4.5.1",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^21.2.2",
     "ngx-spinner": "^17.0.0",

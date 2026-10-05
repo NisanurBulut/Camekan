@@ -26,35 +26,30 @@
   }
 
   @if (basket(); as basket) {
-    <div>
-      <div class="pb-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 py-5 mb-1">
-              <cmk-basket-summary
-                [isBasket]="true"
-                [isOrder]="false"
-                (decrement)="decrementItemQuantity($event)"
-                (increment)="incrementItemQuantity($event)"
-                (remove)="removeBasketItem($event)"
-                [items]="basket.items">
-              </cmk-basket-summary>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-md-6 offset-md-6">
-              @if (basketTotal(); as total) {
-                <cmk-order-total
-                  [shippingPrice]="total.shipping"
-                  [subTotal]="total.subTotal"
-                  [total]="total.total"></cmk-order-total>
-              }
-              <a routerLink="/checkout" class="btn btn-block btn-lg btn-cta">
-                <i class="fa fa-lock mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
-              </a>
-            </div>
-          </div>
-        </div>
+    <cmk-basket-summary
+      [isBasket]="true"
+      [isOrder]="false"
+      (decrement)="decrementItemQuantity($event)"
+      (increment)="incrementItemQuantity($event)"
+      (remove)="removeBasketItem($event)"
+      [items]="basket.items">
+    </cmk-basket-summary>
+    <div class="row pb-5">
+      <div class="col-12 col-md-6 order-2 order-md-1 mt-3">
+        <a routerLink="/shop" class="btn btn-link px-0">
+          <i class="fa fa-arrow-left mr-2" aria-hidden="true"></i>{{ 'BASKET.CONTINUE_SHOPPING' | translate }}
+        </a>
+      </div>
+      <div class="col-12 col-md-6 order-1 order-md-2">
+        @if (basketTotal(); as total) {
+          <cmk-order-total
+            [shippingPrice]="total.shipping"
+            [subTotal]="total.subTotal"
+            [total]="total.total"></cmk-order-total>
+        }
+        <a routerLink="/checkout" class="btn btn-block btn-lg btn-cta">
+          <i class="fa fa-lock mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
+        </a>
       </div>
     </div>
   }

@@ -29,7 +29,6 @@
     border-bottom-color: var(--border) !important;
   }
 
-  // .active keeps Flatly's accent: it marks the selected shop filter
   .card,
   .list-group-item:not(.active) {
     background-color: var(--surface);
@@ -80,8 +79,6 @@
     color: var(--text-secondary);
   }
 
-  // Flatly's active state is white on #95a5a6 (2.56:1); dark text on the same gray reads well
-  // (same selector shape as Flatly's rule so this one wins on specificity)
   .btn-outline-secondary:not(:disabled):not(.disabled).active,
   .btn-outline-secondary:not(:disabled):not(.disabled):active {
     color: var(--bg);
@@ -93,7 +90,6 @@
     color: var(--text-secondary);
   }
 
-  // Flatly's primary (#2c3e50) is unreadable as outline text on a dark background
   .btn-outline-primary {
     color: var(--text-secondary);
     border-color: var(--text-secondary);

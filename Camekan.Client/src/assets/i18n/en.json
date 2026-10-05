@@ -8,6 +8,7 @@
   "NAV": {
     "HOME": "HOME",
     "SHOP": "SHOP",
+    "DASHBOARD": "DASHBOARD",
     "LOGIN": "Login",
     "REGISTER": "Register",
     "WELCOME": "Welcome {{name}}",
@@ -23,7 +24,8 @@
     "CHECKOUT": "Checkout",
     "ORDER_DETAIL": "Order Detail",
     "SERVER_ERROR": "Server Error",
-    "NOT_FOUND": "Page Not Found"
+    "NOT_FOUND": "Page Not Found",
+    "DASHBOARD": "Dashboard"
   },
   "ACCOUNT": {
     "LOGIN": "Sign In",
@@ -78,7 +80,8 @@
     "PRICE": "PRICE",
     "QUANTITY": "QUANTITY",
     "TOTAL": "TOTAL",
-    "REMOVE": "REMOVE"
+    "REMOVE": "REMOVE",
+    "CONTINUE_SHOPPING": "Continue shopping"
   },
   "CHECKOUT": {
     "COMPLETE_ORDER": "Complete Order",
@@ -165,5 +168,22 @@
     "PAYMENT_INIT_FAILED": "Could not start the payment. Please try again later.",
     "ORDER_CREATE_FAILED": "An error occurred while creating the order.",
     "ADDRESS_UPDATE_FAILED": "Could not update the address."
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard",
+    "SUBTITLE": "Sales, categories and top books at a glance",
+    "TOTAL_BOOKS": "Total Books",
+    "TOTAL_SALES": "Total Sales",
+    "PUBLISHERS": "Publishers",
+    "CATEGORIES": "Categories",
+    "SALES_TREND": "Sales Trend (12 Months)",
+    "SALES": "Sales",
+    "CATEGORY_DISTRIBUTION": "Category Distribution",
+    "TOP_SELLING": "Top Selling Books",
+    "COPIES": "{{count}} copies",
+    "RECENTLY_ADDED": "Recently Added Books",
+    "TRENDING": "Trending This Week",
+    "NEW": "New",
+    "LOAD_FAILED": "Dashboard data could not be loaded."
   }
 }

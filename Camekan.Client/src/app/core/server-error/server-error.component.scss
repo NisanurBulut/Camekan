@@ -139,7 +139,6 @@
   font-weight: 600;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
-  // Visible keyboard focus in both themes (WCAG 2.4.7).
   &:focus-visible {
     outline: 3px solid var(--se-btn-bg);
     outline-offset: 3px;
