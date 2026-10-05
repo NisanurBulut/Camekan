@@ -57,7 +57,9 @@
     "ADD_TO_BASKET": "Sepete Ekle"
   },
   "BASKET": {
-    "EMPTY": "Sepette ürün bulunmuyor",
+    "EMPTY": "Sepetin boş",
+    "EMPTY_TEXT": "Henüz sepetine kitap eklemedin. Vitrine göz atıp okumak istediklerini ekleyebilirsin.",
+    "GO_SHOP": "Kitaplara göz at",
     "PRODUCT": "ÜRÜN",
     "PRICE": "FİYAT",
     "QUANTITY": "ADET",

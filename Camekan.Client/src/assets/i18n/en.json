@@ -57,7 +57,9 @@
     "ADD_TO_BASKET": "Add to Basket"
   },
   "BASKET": {
-    "EMPTY": "There are no items in your basket",
+    "EMPTY": "Your basket is empty",
+    "EMPTY_TEXT": "You have not added any books yet. Browse the shop and add the ones you want to read.",
+    "GO_SHOP": "Browse books",
     "PRODUCT": "PRODUCT",
     "PRICE": "PRICE",
     "QUANTITY": "QUANTITY",
