@@ -129,3 +129,79 @@
 .status-badge {
   padding: 0.35em 0.75em;
 }
+
+.empty-state {
+  --od-paper: #fff;
+  --od-edge: #d5dde3;
+  --od-line: #b8c4cc;
+  --od-head: #2c3e50;
+  --od-bag: #18bc9c;
+  --od-handle: #2c3e50;
+  --od-sparkle: #f39c12;
+  --od-dot: #3498db;
+}
+
+:host-context([data-theme='dark']) .empty-state {
+  --od-paper: #2a2f35;
+  --od-edge: #3a4148;
+  --od-line: #6b7780;
+  --od-head: #5d7a96;
+  --od-bag: #4fd8bc;
+  --od-handle: #a9b1b8;
+  --od-sparkle: #f5b041;
+  --od-dot: #5dade2;
+}
+
+.empty-state__art {
+  .art-receipt-head { fill: var(--od-head); }
+  .art-bag-body { fill: var(--od-bag); }
+  .art-dot { fill: var(--od-dot); }
+
+  .art-receipt {
+    fill: var(--od-paper);
+    stroke: var(--od-edge);
+    stroke-width: 1.5;
+  }
+
+  .art-receipt-lines {
+    stroke: var(--od-line);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 6 7;
+  }
+
+  .art-bag-handle {
+    fill: none;
+    stroke: var(--od-handle);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .art-sparkle {
+    stroke: var(--od-sparkle);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-bag {
+    animation: bag-bounce 2.6s ease-in-out infinite;
+  }
+
+  .art-sparkle {
+    animation: sparkle-twinkle 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes bag-bounce {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  50% {
+    opacity: 0.2;
+  }
+}

@@ -1,9 +1,28 @@
 <div class="container mt-5">
   @if (totalCount() === 0) {
-    <div class="card text-center p-5">
-      <p class="mb-3">{{ 'ORDER.DASH_EMPTY' | translate }}</p>
-      <div><a routerLink="/shop" class="btn btn-primary">{{ 'ORDER.DASH_GO_SHOP' | translate }}</a></div>
-    </div>
+    <section class="empty-state" aria-labelledby="orders-empty-title">
+      <svg class="empty-state__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+        <circle class="art-blob" cx="105" cy="92" r="72" />
+        <path class="art-receipt" d="M70 40 H140 V132 L132 126 L124 132 L116 126 L108 132 L100 126 L92 132 L84 126 L76 132 L70 126 Z" />
+        <rect class="art-receipt-head" x="82" y="50" width="30" height="6" rx="3" />
+        <path class="art-receipt-lines" d="M82 68 H128 M82 82 H120 M82 96 H128 M82 110 H110" />
+        <g class="art-bag">
+          <path class="art-bag-handle" d="M142 98 V92 A10 10 0 0 1 162 92 V98" />
+          <rect class="art-bag-body" x="130" y="98" width="44" height="38" rx="5" />
+        </g>
+        <path class="art-sparkle" d="M184 62 V76 M177 69 H191" />
+        <circle class="art-dot" cx="44" cy="58" r="4" />
+        <circle class="art-dot" cx="52" cy="128" r="3" />
+      </svg>
+
+      <div>
+        <h2 id="orders-empty-title" class="empty-state__title">{{ 'ORDER.DASH_EMPTY' | translate }}</h2>
+        <p class="empty-state__text">{{ 'ORDER.DASH_EMPTY_TEXT' | translate }}</p>
+        <a routerLink="/shop" class="btn btn-cta">
+          <i class="fa fa-book mr-2" aria-hidden="true"></i>{{ 'ORDER.DASH_GO_SHOP' | translate }}
+        </a>
+      </div>
+    </section>
   } @else {
     @if (summary.error()) {
       <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
