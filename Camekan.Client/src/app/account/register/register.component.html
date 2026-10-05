@@ -4,19 +4,24 @@
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
       </div>
-      <cmk-text-input
-        formControlName="displayName"
-        [label]="'USER.USERNAME' | translate"
-      ></cmk-text-input>
-      <cmk-text-input
-        formControlName="email"
-        [label]="'USER.EMAIL' | translate"
-      ></cmk-text-input>
-      <cmk-text-input
-        formControlName="password"
-        [label]="'USER.PASSWORD' | translate"
-        [type]="'password'"
-      ></cmk-text-input>
+    <cmk-text-input
+  formControlName="displayName"
+  [label]="'USER.USERNAME' | translate"
+  autocomplete="name"
+></cmk-text-input>
+
+<cmk-text-input
+  formControlName="email"
+  [label]="'USER.EMAIL' | translate"
+  autocomplete="email"
+></cmk-text-input>
+
+<cmk-text-input
+  formControlName="password"
+  [label]="'USER.PASSWORD' | translate"
+  [type]="'password'"
+  autocomplete="new-password"
+></cmk-text-input>
       @if (errors(); as errors) {
         <ul class="text-danger list-unstyled">
           @for (item of errors; track item) {
