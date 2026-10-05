@@ -1,6 +1,7 @@
 @use 'styles/theme';
 @use 'styles/dark-overrides';
 @use 'styles/empty-state';
+@use 'styles/buttons';
 
 .xng-breadcrumb-root {
   padding: 8px 16px;
@@ -19,4 +20,12 @@ label.xng-breadcrumb-trail {
 }
 .StripeElement {
   height: 3.125em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
