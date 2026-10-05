@@ -1,11 +1,16 @@
-img {
-  display: block;
-  width: 100%;
-  object-fit: cover;
+.slide-frame {
+  position: relative;
   height: 600px;
-  width: 100%;
-}
-.featured{
-    height: 250px;
 
+  @media (max-width: 576px) {
+    height: 240px;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.featured {
+  height: 250px;
 }

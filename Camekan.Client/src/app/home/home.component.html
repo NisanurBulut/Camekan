@@ -1,22 +1,11 @@
 <carousel>
-  <slide>
-    <img src="assets/images/book0.jpg" alt="" />
-  </slide>
-  <slide>
-    <img src="assets/images/book1.webp" alt="" />
-  </slide>
-  <slide>
-    <img src="assets/images/book2.jpg" alt="" />
-  </slide>
-  <slide>
-    <img src="assets/images/book3.jpg" alt="" />
-  </slide>
-  <slide>
-    <img src="assets/images/book4.jpg" alt="" />
-  </slide>
-  <slide>
-    <img src="assets/images/book5.png" alt="" />
-  </slide>
+  @for (slide of slides; track slide.src) {
+    <slide>
+      <div class="slide-frame">
+        <img [ngSrc]="slide.src" [alt]="slide.alt | translate" fill [priority]="$first" />
+      </div>
+    </slide>
+  }
 </carousel>
 <div class="featured">
   <div class="d-flex justify-content-center pt-4">

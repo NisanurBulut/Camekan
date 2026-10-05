@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { CarouselComponent, SlideComponent } from 'ngx-bootstrap/carousel';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -6,11 +7,14 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'cmk-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    imports: [CarouselComponent, SlideComponent, TranslateModule]
+    imports: [CarouselComponent, SlideComponent, TranslateModule, NgOptimizedImage]
 })
 export class HomeComponent {
-
-  constructor() { }
-
-
+  readonly slides = [
+    { src: 'assets/images/book0.jpg', alt: 'HOME.SLIDE_AUTUMN_LOVE' },
+    { src: 'assets/images/book1.webp', alt: 'HOME.SLIDE_STRONG_VOICES' },
+    { src: 'assets/images/book2.jpg', alt: 'HOME.SLIDE_STRONG_VOICES_BOOKS' },
+    { src: 'assets/images/book3.jpg', alt: 'HOME.SLIDE_PINK_RIBBON' },
+    { src: 'assets/images/book4.jpg', alt: 'HOME.SLIDE_MIRROR' }
+  ];
 }
