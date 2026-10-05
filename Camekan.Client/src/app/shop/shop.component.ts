@@ -25,9 +25,9 @@ export class ShopComponent implements OnInit {
   shopParams: ShopParam;
   totalCount = signal<number>(undefined);
   sortOptions = [
-    { name: 'SHOP.SORT_ALPHABETICAL', value: 'name' },
-    { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc' },
-    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc' }
+    { name: 'SHOP.SORT_ALPHABETICAL', value: 'name', icon: 'A–Z' },
+    { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc', icon: '↑' },
+    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc', icon: '↓' }
   ];
   constructor(private shopService: ShopService) {
     this.shopParams = this.shopService.getShopParam();
