@@ -5,7 +5,6 @@
       <div><a routerLink="/shop" class="btn btn-primary">{{ 'ORDER.DASH_GO_SHOP' | translate }}</a></div>
     </div>
   } @else {
-    <!-- Dashboard: server-side summary (rxResource) -->
     @if (summary.error()) {
       <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
         <span>{{ 'ORDER.DASH_LOAD_FAILED' | translate }}</span>
@@ -31,7 +30,6 @@
       }
 
       <div class="row">
-        <!-- Monthly spending: Bootstrap progress bars, no chart library -->
         <div class="col-md-7 mb-3">
           <div class="card h-100"><div class="card-body">
             <h2 class="h6 card-title">{{ 'ORDER.DASH_MONTHLY' | translate }}</h2>
@@ -49,7 +47,6 @@
           </div></div>
         </div>
 
-        <!-- Most bought books -->
         <div class="col-md-5 mb-3">
           <div class="card h-100"><div class="card-body">
             <h2 class="h6 card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h2>
@@ -67,7 +64,6 @@
       </div>
     }
 
-    <!-- Order list: server-side paging + CDK virtual scroll. Each row's link is the keyboard target (Tab + Enter). -->
     @if (listError()) {
       <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
         <span>{{ 'ORDER.LIST_LOAD_FAILED' | translate }}</span>
@@ -89,7 +85,6 @@
           <div *cdkVirtualFor="let order of rows(); let i = index; trackBy: trackByIndex; templateCacheSize: 40"
                class="order-row" role="row" [attr.aria-rowindex]="i + 2" [attr.aria-busy]="!order">
             @if (order) {
-              <!-- stretched-link (Bootstrap) makes the whole row clickable; middle-click / new tab still work -->
               <div role="cell"><a [routerLink]="['/order', order.id]" class="stretched-link">#{{ order.id }}</a></div>
               <div role="cell">{{ order.orderDate | date : 'medium' }}</div>
               <div role="cell">{{ order.total | currency : 'TRY' : '₺' : '' }}</div>
