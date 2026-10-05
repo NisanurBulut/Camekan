@@ -144,7 +144,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   private async createOrder(basket: IBasket) {
     const orderToCreate = this.getOrderToCreate(basket);
-    return firstValueFrom(this.checkOutService.creatOrder(orderToCreate));
+    return firstValueFrom(this.checkOutService.createOrder(orderToCreate));
   }
   private getOrderToCreate(basket: IBasket) {
     return {
