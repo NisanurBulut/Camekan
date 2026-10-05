@@ -8,6 +8,7 @@
   "NAV": {
     "HOME": "ANA SAYFA",
     "SHOP": "VİTRİN",
+    "DASHBOARD": "PANEL",
     "LOGIN": "Giriş",
     "REGISTER": "Kayıt",
     "WELCOME": "Hoşgeldiniz {{name}}",
@@ -23,7 +24,8 @@
     "CHECKOUT": "Hesap",
     "ORDER_DETAIL": "Sipariş Detayı",
     "SERVER_ERROR": "Sunucu Hatası",
-    "NOT_FOUND": "Sayfa Bulunamadı"
+    "NOT_FOUND": "Sayfa Bulunamadı",
+    "DASHBOARD": "Panel"
   },
   "ACCOUNT": {
     "LOGIN": "Oturum Aç",
@@ -78,7 +80,8 @@
     "PRICE": "FİYAT",
     "QUANTITY": "ADET",
     "TOTAL": "TOPLAM",
-    "REMOVE": "KALDIR"
+    "REMOVE": "KALDIR",
+    "CONTINUE_SHOPPING": "Alışverişe devam et"
   },
   "CHECKOUT": {
     "COMPLETE_ORDER": "Siparişi Tamamla",
@@ -165,5 +168,21 @@
     "PAYMENT_INIT_FAILED": "Ödeme başlatılamadı. Lütfen daha sonra tekrar deneyin.",
     "ORDER_CREATE_FAILED": "Sipariş oluşturma aşamasında bir hata oluştu.",
     "ADDRESS_UPDATE_FAILED": "Adres güncellenemedi."
+  },
+  "DASHBOARD": {
+    "TITLE": "Panel",
+    "TOTAL_BOOKS": "Toplam Kitap",
+    "TOTAL_SALES": "Toplam Satış",
+    "PUBLISHERS": "Yayınevi",
+    "CATEGORIES": "Kategori",
+    "SALES_TREND": "Satış Trendi (12 Ay)",
+    "SALES": "Satış",
+    "CATEGORY_DISTRIBUTION": "Kategori Dağılımı",
+    "TOP_SELLING": "En Çok Satan Kitaplar",
+    "COPIES": "{{count}} adet",
+    "RECENTLY_ADDED": "Son Eklenen Kitaplar",
+    "TRENDING": "Bu Hafta Trend Olanlar",
+    "NEW": "Yeni",
+    "LOAD_FAILED": "Panel verileri yüklenemedi."
   }
 }
