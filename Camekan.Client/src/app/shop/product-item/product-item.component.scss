@@ -2,7 +2,10 @@
   width: 30%;
   height: 40px;
 }
-.img-fluid{
+.img-fluid {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
   cursor: pointer;
 }
 .image :hover {
