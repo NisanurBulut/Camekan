@@ -155,6 +155,7 @@
 .empty-state__art {
   .art-receipt-head { fill: var(--od-head); }
   .art-bag-body { fill: var(--od-bag); }
+  .art-bag-hole { fill: var(--od-handle); }
   .art-dot { fill: var(--od-dot); }
 
   .art-receipt {
@@ -173,7 +174,7 @@
   .art-bag-handle {
     fill: none;
     stroke: var(--od-handle);
-    stroke-width: 4;
+    stroke-width: 3;
     stroke-linecap: round;
   }
 
