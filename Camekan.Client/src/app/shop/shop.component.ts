@@ -44,7 +44,11 @@ export class ShopComponent implements OnInit {
       .subscribe((response) => {
         this.products.set(response.data);
         this.totalCount.set(response.count);
-      }, error => { console.log(error); });
+      }, error => {
+        // ShopService outlives this page; a failing filter left in it would break every return to /shop.
+        this.shopParams = new ShopParam();
+        this.shopService.setShopParam(this.shopParams);
+      });
   }
   getBrands() {
     this.shopService.getBrands()
