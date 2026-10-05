@@ -23,10 +23,9 @@ export const routes: Routes = [
   },
   {
     path: 'account', loadChildren: () => import('./account/account.routes')
-      .then(m => m.ACCOUNT_ROUTES), data: { breadcrumb: 'Camekân' }
+      .then(m => m.ACCOUNT_ROUTES), data: { breadcrumb: { skip: true } }
   },
   { path: 'not-found', component: NotFoundComponent, data: { breadcrumb: 'BREADCRUMB.NOT_FOUND' } },
   { path: 'server-error', component: ServerErrorComponent, data: { breadcrumb: 'BREADCRUMB.SERVER_ERROR' } },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
-
