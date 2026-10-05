@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAddress } from '../shared/models/address.model';
 import { IUser } from '../shared/models/user.model';
@@ -31,7 +31,7 @@ export class AccountService {
     }
 
     return this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`).pipe(
-      map((user: IUser) => {
+      tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currenUserSource.next(user);
@@ -48,7 +48,7 @@ export class AccountService {
 
   login(values: any) {
     return this.http.post<IUser>(`${this.baseUrl}/account/login`, values).pipe(
-      map((user: IUser) => {
+      tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currenUserSource.next(user);
@@ -57,9 +57,9 @@ export class AccountService {
     );
   }
 
-  register(values: RegisterRequest): Observable<void> {
+  register(values: RegisterRequest): Observable<IUser> {
     return this.http.post<IUser>(`${this.baseUrl}/account/register`, values).pipe(
-      map((user: IUser) => {
+      tap((user) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currenUserSource.next(user);
@@ -80,6 +80,6 @@ export class AccountService {
     return this.http.get<IAddress>(`${this.baseUrl}/account/GetUserAddress`);
   }
   updateUserAddress(address: IAddress) {
-    return this.http.put<IAddress>(this.baseUrl + '/account/address', address);
+    return this.http.put<IAddress>(`${this.baseUrl}/account/address`, address);
   }
 }
