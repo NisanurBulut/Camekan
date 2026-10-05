@@ -82,9 +82,9 @@ export class ShopComponent implements OnInit {
     this.shopService.setShopParam(params);
     this.getProducts();
   }
-  onPagechanged(event: any) {
+  onPageChanged(event: any) {
     const params = this.shopService.getShopParam();
-    if (params.PageNumber !== event) {
+    if (params.PageNumber !== event.page) {
       params.PageNumber = event.page;
       this.shopService.setShopParam(params);
       this.getProducts(true);
