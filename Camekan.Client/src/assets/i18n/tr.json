@@ -82,6 +82,9 @@
   },
   "CHECKOUT": {
     "COMPLETE_ORDER": "Siparişi Tamamla",
+    "BACK_TO_BASKET": "Sepete dön",
+    "BACK": "Geri",
+    "NEXT": "Devam et",
     "STEP_ADDRESS": "Adres",
     "STEP_DELIVERY": "Teslimat",
     "STEP_PAYMENT": "Ödeme",

@@ -82,6 +82,9 @@
   },
   "CHECKOUT": {
     "COMPLETE_ORDER": "Complete Order",
+    "BACK_TO_BASKET": "Back to basket",
+    "BACK": "Back",
+    "NEXT": "Continue",
     "STEP_ADDRESS": "Address",
     "STEP_DELIVERY": "Delivery",
     "STEP_PAYMENT": "Payment",
