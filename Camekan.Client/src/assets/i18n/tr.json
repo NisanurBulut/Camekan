@@ -171,6 +171,7 @@
   },
   "DASHBOARD": {
     "TITLE": "Panel",
+    "SUBTITLE": "Satışlar, kategoriler ve öne çıkan kitaplar tek bakışta",
     "TOTAL_BOOKS": "Toplam Kitap",
     "TOTAL_SALES": "Toplam Satış",
     "PUBLISHERS": "Yayınevi",

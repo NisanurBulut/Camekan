@@ -171,6 +171,7 @@
   },
   "DASHBOARD": {
     "TITLE": "Dashboard",
+    "SUBTITLE": "Sales, categories and top books at a glance",
     "TOTAL_BOOKS": "Total Books",
     "TOTAL_SALES": "Total Sales",
     "PUBLISHERS": "Publishers",
