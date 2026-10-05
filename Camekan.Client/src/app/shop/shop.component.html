@@ -80,6 +80,22 @@
 
       @if (products()?.length === 0) {
         <section class="empty-state" aria-labelledby="shop-empty-title">
+          <svg class="empty-state__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+            <circle class="art-blob" cx="105" cy="92" r="72" />
+            <rect class="art-book art-book--teal" x="44" y="70" width="20" height="58" rx="2" />
+            <rect class="art-book art-book--navy" x="66" y="82" width="16" height="46" rx="2" />
+            <rect class="art-gap" x="86" y="76" width="22" height="52" rx="2" />
+            <rect class="art-book art-book--orange" x="112" y="86" width="18" height="42" rx="2" />
+            <path class="art-spines" d="M48 82 H60 M48 90 H60 M70 94 H78 M116 98 H126" />
+            <rect class="art-shelf" x="30" y="128" width="150" height="8" rx="3" />
+            <g class="art-magnifier">
+              <path class="art-handle" d="M164 74 L182 92" />
+              <circle class="art-lens" cx="150" cy="60" r="20" />
+              <path class="art-x" d="M143 53 L157 67 M157 53 L143 67" />
+            </g>
+            <circle class="art-dot" cx="40" cy="46" r="4" />
+            <circle class="art-dot" cx="192" cy="126" r="3" />
+          </svg>
           <div>
             <h2 id="shop-empty-title" class="empty-state__title">{{ 'SHOP.NO_RESULTS' | translate }}</h2>
             <p class="empty-state__text">{{ 'SHOP.NO_RESULTS_TEXT' | translate }}</p>
