@@ -12,12 +12,12 @@ import { OrderService } from './order.service';
 
 
 const PAGE_SIZE = 50;
-const ROW_HEIGHT = 4;
+const ROW_HEIGHT = 48;
 
-const STATUS: Record<OrderStatus, { key: string; badge: string }> = {
-  Pending: { key: 'ORDER.STATUS_PENDING', badge: 'badge-warning' },
-  PaymentReceived: { key: 'ORDER.STATUS_PAID', badge: 'badge-success' },
-  PaymentFailed: { key: 'ORDER.STATUS_FAILED', badge: 'badge-danger' }
+const STATUS: Record<OrderStatus, { key: string; badge: string; icon: string }> = {
+  Pending: { key: 'ORDER.STATUS_PENDING', badge: 'badge-warning', icon: 'fa-clock-o' },
+  PaymentReceived: { key: 'ORDER.STATUS_PAID', badge: 'badge-success', icon: 'fa-check' },
+  PaymentFailed: { key: 'ORDER.STATUS_FAILED', badge: 'badge-danger', icon: 'fa-times' }
 };
 
 @Component({
@@ -40,10 +40,10 @@ export class OrderComponent {
   kpis = computed(() => {
     const s = this.summary.value();
     return s ? [
-      { label: 'ORDER.DASH_ORDERS', value: s.count, currency: false },
-      { label: 'ORDER.DASH_SPENT', value: s.spent, currency: true },
-      { label: 'ORDER.DASH_BOOKS', value: s.books, currency: false },
-      { label: 'ORDER.DASH_AVG', value: s.average, currency: true }
+      { label: 'ORDER.DASH_ORDERS', value: s.count, currency: false, icon: 'fa-shopping-bag', tone: 'blue' },
+      { label: 'ORDER.DASH_SPENT', value: s.spent, currency: true, icon: 'fa-money', tone: 'teal' },
+      { label: 'ORDER.DASH_BOOKS', value: s.books, currency: false, icon: 'fa-book', tone: 'purple' },
+      { label: 'ORDER.DASH_AVG', value: s.average, currency: true, icon: 'fa-line-chart', tone: 'orange' }
     ] : [];
   });
 
@@ -94,6 +94,10 @@ export class OrderComponent {
 
   badgeOf(status: OrderStatus) {
     return STATUS[status]?.badge ?? 'badge-secondary';
+  }
+
+  iconOf(status: OrderStatus) {
+    return STATUS[status]?.icon ?? 'fa-question';
   }
 
   trackByIndex = (index: number) => index;

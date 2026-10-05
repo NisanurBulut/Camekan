@@ -14,9 +14,10 @@
       <div class="row">
         @for (kpi of kpis(); track kpi.label) {
           <div class="col-6 col-md-3 mb-3">
-            <div class="card h-100"><div class="card-body">
+            <div class="card kpi-card kpi--{{ kpi.tone }} h-100"><div class="card-body">
+              <span class="kpi-icon mb-3"><i class="fa {{ kpi.icon }}" aria-hidden="true"></i></span>
               <p class="text-muted small mb-1">{{ kpi.label | translate }}</p>
-              <p class="h4 mb-0">{{ kpi.currency ? (kpi.value | currency : 'TRY' : '₺' : '1.0-0') : kpi.value }}</p>
+              <p class="h4 mb-0 font-weight-bold">{{ kpi.currency ? (kpi.value | currency : 'TRY' : '₺' : '1.0-0') : kpi.value }}</p>
             </div></div>
           </div>
         }
@@ -52,9 +53,9 @@
             <h2 class="h6 card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h2>
             <ul class="list-group list-group-flush">
               @for (book of s.topBooks; track book.productId) {
-                <li class="list-group-item d-flex align-items-center px-0">
+                <li class="list-group-item d-flex align-items-center px-0 position-relative">
                   <img [src]="book.pictureUrl" alt="" class="book-cover mr-3 rounded" loading="lazy">
-                  <a [routerLink]="['/shop', book.productId]" class="flex-grow-1">{{ book.productName }}</a>
+                  <a [routerLink]="['/shop', book.productId]" class="flex-grow-1 stretched-link">{{ book.productName }}</a>
                   <span class="badge badge-primary badge-pill">{{ 'ORDER.DASH_PIECES' | translate: { count: book.quantity } }}</span>
                 </li>
               }
@@ -85,10 +86,10 @@
           <div *cdkVirtualFor="let order of rows(); let i = index; trackBy: trackByIndex; templateCacheSize: 40"
                class="order-row" role="row" [attr.aria-rowindex]="i + 2" [attr.aria-busy]="!order">
             @if (order) {
-              <div role="cell"><a [routerLink]="['/order', order.id]" class="stretched-link">#{{ order.id }}</a></div>
+              <div role="cell"><i class="fa fa-file-text-o order-icon mr-2" aria-hidden="true"></i><a [routerLink]="['/order', order.id]" class="stretched-link">#{{ order.id }}</a></div>
               <div role="cell">{{ order.orderDate | date : 'medium' }}</div>
-              <div role="cell">{{ order.total | currency : 'TRY' : '₺' : '' }}</div>
-              <div role="cell"><span class="badge {{ badgeOf(order.status) }}">{{ statusLabels()[order.status] ?? order.status }}</span></div>
+              <div role="cell" class="font-weight-bold">{{ order.total | currency : 'TRY' : '₺' : '' }}</div>
+              <div role="cell"><span class="badge badge-pill status-badge {{ badgeOf(order.status) }}"><i class="fa {{ iconOf(order.status) }} mr-1" aria-hidden="true"></i>{{ statusLabels()[order.status] ?? order.status }}</span></div>
             } @else {
               <div role="cell" class="placeholder-cell" aria-label="{{ 'COMMON.LOADING' | translate }}"></div>
               <div role="cell" class="placeholder-cell"></div>
