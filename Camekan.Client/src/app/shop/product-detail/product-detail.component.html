@@ -31,12 +31,11 @@
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </div>
-            <button type="button" (click)="addItemToBasket()" class="btn btn-lg mb-2"
-                    [class.btn-success]="added()" [class.btn-outline-primary]="!added()">
+            <button type="button" (click)="addItemToBasket()" class="btn btn-lg btn-cta mb-2">
               @if (added()) {
                 <i class="fa fa-check mr-2" aria-hidden="true"></i>{{ 'PRODUCT.ADDED' | translate }}
               } @else {
-                {{ 'PRODUCT.ADD_TO_BASKET' | translate }}
+                <i class="fa fa-cart-plus mr-2" aria-hidden="true"></i>{{ 'PRODUCT.ADD_TO_BASKET' | translate }}
               }
             </button>
           </div>
