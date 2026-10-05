@@ -17,7 +17,16 @@
   }
 }
 h5 {
-  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+
+  i {
+    width: 1.5rem;
+    color: var(--primary);
+  }
 }
 .search-group {
   width: 300px;

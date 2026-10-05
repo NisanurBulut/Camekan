@@ -2,7 +2,7 @@
   <div class="row">
     <section class="col-12 col-md-3">
       @if (types() && brands()) {
-        <h5 class="ml-3 mt-4 mb-3">{{ 'SHOP.SORT' | translate }}</h5>
+        <h5 class="ml-3 mt-4 mb-3"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i>{{ 'SHOP.SORT' | translate }}</h5>
         <select
           class="custom-select mb-4"
           (change)="onSortSelected($event.target.value)"
@@ -15,7 +15,7 @@
             </option>
           }
         </select>
-        <h5 class=" ml-3">{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
+        <h5 class="ml-3"><i class="fa fa-building-o" aria-hidden="true"></i>{{ 'PRODUCT.PUBLISHER' | translate }}</h5>
         <div class="list-group my-3">
           @for (item of brands(); track item.id) {
             <button
@@ -29,7 +29,7 @@
             </button>
           }
         </div>
-        <h5 class=" ml-3">{{ 'SHOP.TYPES' | translate }}</h5>
+        <h5 class="ml-3"><i class="fa fa-tags" aria-hidden="true"></i>{{ 'SHOP.TYPES' | translate }}</h5>
         <div class="list-group my-3">
           @for (item of types(); track item.id) {
             <button
