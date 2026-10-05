@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, numberAttribute, signal } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,7 +36,7 @@ export class ProductDetailComponent {
 
   added = signal(false);
 
-  private basket = toSignal(this.basketService.basket$);
+  private basket = this.basketService.basket;
   inBasket = computed(() => this.basket()?.items.find(item => item.id === this.id())?.quantity ?? 0);
 
   constructor() {

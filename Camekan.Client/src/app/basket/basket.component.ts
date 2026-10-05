@@ -1,30 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IBasket } from '../shared/models/basket.model';
+import { Component } from '@angular/core';
 import { IBasketItem } from '../shared/models/basketItem.model';
-import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { BasketService } from './basket.service';
 import { BasketSummaryComponent } from '../shared/components/basket-summary/basket-summary.component';
 import { OrderTotalComponent } from '../shared/components/order-total/order-total.component';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-basket',
     templateUrl: './basket.component.html',
     styleUrls: ['./basket.component.scss'],
-    imports: [BasketSummaryComponent, OrderTotalComponent, RouterLink, AsyncPipe, TranslateModule]
+    imports: [BasketSummaryComponent, OrderTotalComponent, RouterLink, TranslateModule]
 })
-export class BasketComponent implements OnInit {
-  basketTotal$: Observable<IBasketTotal>;
-  basket$: Observable<IBasket>;
+export class BasketComponent {
   constructor(private basketService: BasketService) { }
 
-  ngOnInit(): void {
-    this.basketTotal$ = this.basketService.basketTotal$;
-    this.basket$ = this.basketService.basket$;
-  }
+  basket = this.basketService.basket;
+  basketTotal = this.basketService.basketTotal;
+
   removeBasketItem(item: IBasketItem) {
     this.basketService.removeItemFromBasket(item);
   }

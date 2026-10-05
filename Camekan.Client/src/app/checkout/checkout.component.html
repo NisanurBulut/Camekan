@@ -18,11 +18,11 @@
       </cmk-stepper>
     </div>
     <div class="col-12 col-lg-4">
-      @if ((basketTotal$ | async)) {
+      @if (basketTotal(); as total) {
         <cmk-order-total
-          [shippingPrice]="(basketTotal$ | async).shipping"
-          [subTotal]="(basketTotal$ | async).subTotal"
-        [total]="(basketTotal$ | async).total"></cmk-order-total>
+          [shippingPrice]="total.shipping"
+          [subTotal]="total.subTotal"
+          [total]="total.total"></cmk-order-total>
       }
     </div>
   </div>
