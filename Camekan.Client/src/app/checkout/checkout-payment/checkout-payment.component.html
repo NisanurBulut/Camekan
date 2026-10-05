@@ -1,4 +1,7 @@
 <div class="mt-4" [formGroup]="checkoutForm">
+  @if (stripeLoadFailed()) {
+    <div class="alert alert-danger" role="alert">{{ 'CHECKOUT.PAYMENT_LOAD_FAILED' | translate }}</div>
+  }
   <div class="row">
     <div class="form-group col-12" formGroupName="paymentForm">
       <cmk-text-input

@@ -1,6 +1,6 @@
 <div class="container mt-4">
-  <section class="not-found" aria-labelledby="not-found-title">
-    <svg class="not-found__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+  <section class="empty-state" aria-labelledby="not-found-title">
+    <svg class="empty-state__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
       <circle class="art-blob" cx="105" cy="92" r="72" />
       <path class="art-cover" d="M32 76 Q70 62 105 78 Q140 62 178 76 V150 Q140 137 105 152 Q70 137 32 150 Z" />
       <path class="art-page" d="M40 70 Q72 58 105 72 V142 Q72 129 40 141 Z" />
@@ -25,15 +25,15 @@
       <circle class="art-dot" cx="190" cy="132" r="3" />
     </svg>
 
-    <div class="not-found__content">
-      <span class="not-found__badge">404 · {{ 'ERROR.NOT_FOUND' | translate }}</span>
-      <h2 id="not-found-title" class="not-found__title">{{ 'ERROR.NOT_FOUND_HEADING' | translate }}</h2>
-      <p class="not-found__text">{{ 'ERROR.NOT_FOUND_TEXT' | translate }}</p>
-      <div class="not-found__actions">
-        <a routerLink="/shop" class="btn nf-btn nf-btn--primary">
+    <div class="empty-state__content">
+      <span class="empty-state__badge">404 · {{ 'ERROR.NOT_FOUND' | translate }}</span>
+      <h2 id="not-found-title" class="empty-state__title">{{ 'ERROR.NOT_FOUND_HEADING' | translate }}</h2>
+      <p class="empty-state__text">{{ 'ERROR.NOT_FOUND_TEXT' | translate }}</p>
+      <div class="empty-state__actions">
+        <a routerLink="/shop" class="btn es-btn es-btn--primary">
           <i class="fa fa-book mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_SHOP' | translate }}
         </a>
-        <a routerLink="/" class="btn nf-btn nf-btn--ghost">
+        <a routerLink="/" class="btn es-btn es-btn--ghost">
           <i class="fa fa-home mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_HOME' | translate }}
         </a>
       </div>

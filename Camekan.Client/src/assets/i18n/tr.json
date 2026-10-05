@@ -39,7 +39,13 @@
     "EMAIL_EXISTS": "Email kullanılmaktadır."
   },
   "HOME": {
-    "READY": "Camekân sizin için hazır !"
+    "READY": "Camekân sizin için hazır !",
+    "SLIDE_AUTUMN_LOVE": "Sonbahar ormanında Book Love ve Cinnamon Spice Love kitapları",
+    "SLIDE_STRONG_VOICES": "Starke Stimmen (Güçlü Sesler) kampanyası",
+    "SLIDE_STRONG_VOICES_BOOKS": "Starke Stimmen seçkisi: Aus der Asche unserer Angst, Haltet euch fest ve Ich bau mir ne Welt kitapları",
+    "SLIDE_PINK_RIBBON": "Meme kanseri farkındalığını simgeleyen pembe kurdele",
+    "SLIDE_MIRROR": "Stephanie Garber, The Mirror of Infinite Endings",
+    "SLIDE_BOOKSTOCK": "Bookstock Festivali, 23-24 Ekim 2026"
   },
   "SHOP": {
     "SORT": "Sıralama",
@@ -57,7 +63,9 @@
     "ADD_TO_BASKET": "Sepete Ekle"
   },
   "BASKET": {
-    "EMPTY": "Sepette ürün bulunmuyor",
+    "EMPTY": "Sepetin boş",
+    "EMPTY_TEXT": "Henüz sepetine kitap eklemedin. Vitrine göz atıp okumak istediklerini ekleyebilirsin.",
+    "GO_SHOP": "Kitaplara göz at",
     "PRODUCT": "ÜRÜN",
     "PRICE": "FİYAT",
     "QUANTITY": "ADET",
@@ -72,6 +80,7 @@
     "DELIVERY_ADDRESS": "Teslimat Adresi",
     "ADDRESS_SAVED": "Adres kaydedildi.",
     "NAME_ON_CARD": "Kart Üzerindeki İsim",
+    "PAYMENT_LOAD_FAILED": "Ödeme formu yüklenemedi. Reklam engelleyiciniz açıksa kapatıp sayfayı yenileyin.",
     "SUCCESS_TITLE": "Sipariş talebiniz alındı.",
     "VIEW_ORDER": "Siparişinizi Görüntüleyin",
     "VIEW_ORDERS": "Siparişlerinizi Görüntüleyin"

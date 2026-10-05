@@ -1,8 +1,28 @@
-<div class="container mt-">
+<div class="container mt-4">
   @if ((this.basket$ | async) === null) {
-    <div>
-      <p>{{ 'BASKET.EMPTY' | translate }}</p>
-    </div>
+    <section class="empty-state" aria-labelledby="basket-empty-title">
+      <svg class="empty-state__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+        <circle class="art-blob" cx="105" cy="92" r="72" />
+        <path class="art-handle" d="M72 86 Q105 34 138 86" />
+        <path class="art-basket" d="M54 86 H156 L144 140 Q142 148 134 148 H76 Q68 148 66 140 Z" />
+        <rect class="art-rim" x="48" y="78" width="114" height="14" rx="7" />
+        <path class="art-slats" d="M84 102 V134 M105 102 V134 M126 102 V134" />
+        <g class="art-book">
+          <rect class="art-book-cover" x="152" y="26" width="26" height="34" rx="3" />
+          <rect class="art-book-spine" x="152" y="26" width="6" height="34" rx="2" />
+        </g>
+      </svg>
+
+      <div>
+        <h2 id="basket-empty-title" class="empty-state__title">{{ 'BASKET.EMPTY' | translate }}</h2>
+        <p class="empty-state__text">{{ 'BASKET.EMPTY_TEXT' | translate }}</p>
+        <div class="empty-state__actions">
+          <a routerLink="/shop" class="btn es-btn es-btn--primary">
+            <i class="fa fa-book mr-2" aria-hidden="true"></i>{{ 'BASKET.GO_SHOP' | translate }}
+          </a>
+        </div>
+      </div>
+    </section>
   }
 
   @if (this.basket$ | async; as basket) {

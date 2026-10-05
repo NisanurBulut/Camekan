@@ -1,0 +1,40 @@
+.empty-state {
+  --bk-basket: #2c3e50;
+  --bk-slats: #4f6378;
+  --bk-book: #18bc9c;
+  --bk-spine: #128f76;
+}
+
+:host-context([data-theme='dark']) .empty-state {
+  --bk-basket: #5d7a96;
+  --bk-slats: #3f5468;
+  --bk-book: #4fd8bc;
+  --bk-spine: #2fa88f;
+}
+
+.empty-state__art {
+  .art-basket, .art-rim { fill: var(--bk-basket); }
+  .art-book-cover { fill: var(--bk-book); }
+  .art-book-spine { fill: var(--bk-spine); }
+
+  .art-handle, .art-slats {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+  }
+
+  .art-handle { stroke: var(--bk-basket); }
+  .art-slats { stroke: var(--bk-slats); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-book {
+    animation: book-float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes book-float {
+  50% {
+    transform: translateY(8px);
+  }
+}

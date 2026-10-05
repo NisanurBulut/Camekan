@@ -39,7 +39,13 @@
     "EMAIL_EXISTS": "Email is already in use."
   },
   "HOME": {
-    "READY": "Camekân is ready for you!"
+    "READY": "Camekân is ready for you!",
+    "SLIDE_AUTUMN_LOVE": "The books Book Love and Cinnamon Spice Love in an autumn forest",
+    "SLIDE_STRONG_VOICES": "Starke Stimmen (Strong Voices) campaign",
+    "SLIDE_STRONG_VOICES_BOOKS": "Starke Stimmen selection: Aus der Asche unserer Angst, Haltet euch fest and Ich bau mir ne Welt",
+    "SLIDE_PINK_RIBBON": "Pink ribbon for breast cancer awareness",
+    "SLIDE_MIRROR": "Stephanie Garber, The Mirror of Infinite Endings",
+    "SLIDE_BOOKSTOCK": "Bookstock Festival, 23-24 October 2026"
   },
   "SHOP": {
     "SORT": "Sort",
@@ -57,7 +63,9 @@
     "ADD_TO_BASKET": "Add to Basket"
   },
   "BASKET": {
-    "EMPTY": "There are no items in your basket",
+    "EMPTY": "Your basket is empty",
+    "EMPTY_TEXT": "You have not added any books yet. Browse the shop and add the ones you want to read.",
+    "GO_SHOP": "Browse books",
     "PRODUCT": "PRODUCT",
     "PRICE": "PRICE",
     "QUANTITY": "QUANTITY",
@@ -72,6 +80,7 @@
     "DELIVERY_ADDRESS": "Delivery Address",
     "ADDRESS_SAVED": "Address saved.",
     "NAME_ON_CARD": "Name on Card",
+    "PAYMENT_LOAD_FAILED": "The payment form could not be loaded. If you use an ad blocker, turn it off and refresh the page.",
     "SUCCESS_TITLE": "Your order has been received.",
     "VIEW_ORDER": "View Your Order",
     "VIEW_ORDERS": "View Your Orders"
