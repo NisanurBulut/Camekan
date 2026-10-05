@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace Camekan.DataTransferObject
 {
-    // Dashboard figures
     public class OrderSummaryDto
     {
         public int Count { get; set; }

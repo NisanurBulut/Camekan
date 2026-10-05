@@ -24,13 +24,11 @@ namespace Camekan.DataAccess.Repositories
             var validOrders = orders.Where(o => o.Status != OrderStatus.PaymentFailed);
             var validItems = validOrders.SelectMany(o => o.OrderItems);
 
-            // Counts and int sums run in the database.
             var count = await orders.CountAsync();
             var pending = await orders.CountAsync(o => o.Status == OrderStatus.Pending);
             var books = await validItems.SumAsync(i => i.Quantity);
 
-            // SQLite cannot SUM decimal columns (the decimal->double conversion in DatabaseContext is
-            // disabled so money is summed in memory over a narrow two-column projection.
+            // SQLite cannot SUM decimal columns (DatabaseContext's decimal->double conversion never runs), so money is summed in memory.
             var rows = await validOrders
                 .Select(o => new { o.OrderDate, o.SubTotal, Shipping = o.DeliveryMethod != null ? o.DeliveryMethod.Price : 0 })
                 .ToListAsync();

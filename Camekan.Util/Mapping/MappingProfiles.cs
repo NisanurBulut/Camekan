@@ -46,9 +46,7 @@ namespace Camekan.Util.Mapping
                 .ForMember(d => d.DeliveryMethod, o => o.MapFrom(s => s.DeliveryMethod.ShortName))
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()));
             CreateMap<OrdertoReturnDto, OrderEntity>();
-            // Total comes from OrderEntity.GetTotal() (AutoMapper's Get-prefix convention).
-            // Status is the enum name (Pending, PaymentReceived, PaymenyFailed), not the Turkish EnumMember text,
-            // so the client can translate it into the selected language.
+            // Total maps from GetTotal(). Status is the enum name, not the Turkish EnumMember text, so the client can translate it.
             CreateMap<OrderEntity, OrderListItemDto>()
                 .ForMember(d => d.Status, o => o.MapFrom(s => s.Status.ToString()));
 

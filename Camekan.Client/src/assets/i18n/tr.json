@@ -22,8 +22,8 @@
     "BASKET": "Sepet",
     "CHECKOUT": "Hesap",
     "ORDER_DETAIL": "Sipariş Detayı",
-    "SERVER_ERROR": "Server Error",
-    "NOT_FOUND": "Not-Found Error"
+    "SERVER_ERROR": "Sunucu Hatası",
+    "NOT_FOUND": "Sayfa Bulunamadı"
   },
   "ACCOUNT": {
     "LOGIN": "Oturum Aç",
@@ -115,18 +115,26 @@
     "RECORDS": "Kayıt"
   },
   "ERROR": {
-    "NOT_FOUND": "Not Found",
-    "SERVER_ERROR_TITLE": "Internal Server Error - Hatanın kaybolması için ekranı yenilemeyi deneyiniz..",
+    "NOT_FOUND": "Sayfa Bulunamadı",
+    "NOT_FOUND_HEADING": "Aradığın sayfa rafta yok",
+    "NOT_FOUND_TEXT": "Bağlantı eski ya da hatalı olabilir. Vitrine dönüp aradığın kitabı bulabilirsin.",
+    "SERVER_ERROR_STATUS": "Sunucu Hatası",
+    "SERVER_ERROR_HEADING": "Bir şeyler ters gitti",
+    "SERVER_ERROR_TEXT": "Sunucuda beklenmeyen bir hata oluştu. Tekrar denemek çoğu zaman sorunu çözer.",
+    "ACTION_RETRY": "Tekrar dene",
+    "ACTION_HOME": "Ana sayfa",
+    "ACTION_SHOP": "Vitrine git",
+    "TECH_DETAILS": "Teknik ayrıntılar",
     "ERROR_MESSAGE": "Hata: {{message}}",
     "CONNECTION_ERROR": "Sunucuya ulaşılamıyor. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
     "UNEXPECTED_ERROR": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
-    "ANGULAR_NOTE": "Not: Bunu görüyorsanız, muhtemelen Angular sorumlu değildir",
-    "WHAT_TO_DO": "Ne yapmak istersiniz ?",
-    "STEP_OPEN_CONSOLE": "Chrome tarayıcı geliştirici konsolunu aç",
+    "ANGULAR_NOTE": "Not: Bu hata sunucudan geliyor, büyük ihtimalle Angular sorumlu değil.",
+    "WHAT_TO_DO": "Sorunu incelemek için:",
+    "STEP_OPEN_CONSOLE": "Chrome geliştirici konsolunu aç",
     "STEP_NETWORK_TAB": "Network sekmesini incele",
     "STEP_INSPECT_REQUEST": "Hatalı isteği incele",
-    "STEP_CHECK_URL": "URL isteğini kontrol edin",
-    "STEP_RETRY_POSTMAN": "Postamn üzerinden istek atarak yeniden deneyin"
+    "STEP_CHECK_URL": "İstek URL'ini kontrol et",
+    "STEP_RETRY_POSTMAN": "İsteği Postman ile tekrar gönder"
   },
   "API_ERROR": {
     "BASKET_NOT_FOUND": "Sepet bilgilerine erişilemedi.",

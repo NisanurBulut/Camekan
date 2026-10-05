@@ -22,12 +22,12 @@ namespace Camekan.WebAPI.Controllers
         [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-            return BadRequest();
+            return Problem();
         }
-        [HttpGet("basrequest")]
+        [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
-            return Ok();
+            return BadRequest();
         }
     }
 }

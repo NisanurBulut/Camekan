@@ -1,3 +1,42 @@
-<div class="container-mt5">
-   {{ 'ERROR.NOT_FOUND' | translate }}
+<div class="container mt-4">
+  <section class="not-found" aria-labelledby="not-found-title">
+    <svg class="not-found__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+      <circle class="art-blob" cx="105" cy="92" r="72" />
+      <path class="art-cover" d="M32 76 Q70 62 105 78 Q140 62 178 76 V150 Q140 137 105 152 Q70 137 32 150 Z" />
+      <path class="art-page" d="M40 70 Q72 58 105 72 V142 Q72 129 40 141 Z" />
+      <path class="art-page" d="M105 72 Q138 58 170 70 V141 Q138 129 105 142 Z" />
+      <g class="art-lines">
+        <path d="M52 86 H94" />
+        <path d="M52 97 H90" />
+        <path d="M52 108 H94" />
+        <path d="M52 119 H84" />
+      </g>
+      <g class="art-lines art-lines--missing">
+        <path d="M116 97 H158" />
+        <path d="M116 108 H152" />
+        <path d="M116 119 H158" />
+      </g>
+      <g class="art-magnifier">
+        <path class="art-handle" d="M166 78 L188 100" />
+        <circle class="art-lens" cx="150" cy="62" r="22" />
+        <text class="art-question" x="150" y="71" text-anchor="middle">?</text>
+      </g>
+      <circle class="art-dot" cx="38" cy="44" r="4" />
+      <circle class="art-dot" cx="190" cy="132" r="3" />
+    </svg>
+
+    <div class="not-found__content">
+      <span class="not-found__badge">404 · {{ 'ERROR.NOT_FOUND' | translate }}</span>
+      <h2 id="not-found-title" class="not-found__title">{{ 'ERROR.NOT_FOUND_HEADING' | translate }}</h2>
+      <p class="not-found__text">{{ 'ERROR.NOT_FOUND_TEXT' | translate }}</p>
+      <div class="not-found__actions">
+        <a routerLink="/shop" class="btn nf-btn nf-btn--primary">
+          <i class="fa fa-book mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_SHOP' | translate }}
+        </a>
+        <a routerLink="/" class="btn nf-btn nf-btn--ghost">
+          <i class="fa fa-home mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_HOME' | translate }}
+        </a>
+      </div>
+    </div>
+  </section>
 </div>

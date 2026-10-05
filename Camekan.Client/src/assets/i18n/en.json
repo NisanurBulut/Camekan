@@ -23,7 +23,7 @@
     "CHECKOUT": "Checkout",
     "ORDER_DETAIL": "Order Detail",
     "SERVER_ERROR": "Server Error",
-    "NOT_FOUND": "Not-Found Error"
+    "NOT_FOUND": "Page Not Found"
   },
   "ACCOUNT": {
     "LOGIN": "Sign In",
@@ -115,13 +115,21 @@
     "RECORDS": "Records"
   },
   "ERROR": {
-    "NOT_FOUND": "Not Found",
-    "SERVER_ERROR_TITLE": "Internal Server Error - Try refreshing the page to clear the error..",
+    "NOT_FOUND": "Page Not Found",
+    "NOT_FOUND_HEADING": "This page is not on our shelves",
+    "NOT_FOUND_TEXT": "The link may be old or mistyped. Go back to the shop to find the book you are looking for.",
+    "SERVER_ERROR_STATUS": "Internal Server Error",
+    "SERVER_ERROR_HEADING": "Something went wrong",
+    "SERVER_ERROR_TEXT": "An unexpected error happened on the server. Trying again usually fixes it.",
+    "ACTION_RETRY": "Try again",
+    "ACTION_HOME": "Home",
+    "ACTION_SHOP": "Go to shop",
+    "TECH_DETAILS": "Technical details",
     "ERROR_MESSAGE": "Error: {{message}}",
     "CONNECTION_ERROR": "Cannot reach the server. Please check your connection and try again.",
     "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
-    "ANGULAR_NOTE": "Note: If you are seeing this, Angular is probably not responsible",
-    "WHAT_TO_DO": "What would you like to do?",
+    "ANGULAR_NOTE": "Note: this error comes from the server, so Angular is probably not responsible.",
+    "WHAT_TO_DO": "To investigate the problem:",
     "STEP_OPEN_CONSOLE": "Open the Chrome developer console",
     "STEP_NETWORK_TAB": "Inspect the Network tab",
     "STEP_INSPECT_REQUEST": "Inspect the failing request",
