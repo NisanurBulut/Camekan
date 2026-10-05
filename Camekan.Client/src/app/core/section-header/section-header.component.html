@@ -1,13 +1,15 @@
 @if (breadcrumb$ | async; as breadcrumb) {
- @if (getLastBreadcrumbLabel(breadcrumb) !== appName) {
-    <section
-      class="py-3"
-      >
+  @let last = breadcrumb.at(-1);
+  @if (last?.label !== appName) {
+    <section class="py-3">
       <div class="container">
         <div class="row d-flex align-items-center">
           <div class="col-9">
-            <h3 class="breadCrumbHeader h3 mb-0">
-              {{ getLastBreadcrumbLabel(breadcrumb) | translate | titlecase }}
+            <h3 class="breadCrumbHeader h3 mb-0 d-flex align-items-center">
+              @if (last?.info) {
+                <span class="header-icon mr-3"><i class="fa {{ last.info }}" aria-hidden="true"></i></span>
+              }
+              {{ last?.label | translate | titlecase }}
             </h3>
           </div>
           <div class="col-3">

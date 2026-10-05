@@ -1,4 +1,20 @@
-section{
-    margin-top: 105px;
-    background-color: var(--section-bg);
+section {
+  margin-top: 110px;
+  background-color: var(--section-bg);
+
+  // The fixed navbar wraps to more lines on phones.
+  @media (max-width: 767.98px) {
+    margin-top: 196px;
+  }
+}
+
+.header-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
 }

@@ -22,7 +22,4 @@ export class SectionHeaderComponent {
   constructor(private bcService: BreadcrumbService) {
     this.breadcrumb$ = this.bcService.breadcrumbs$;
   }
-  getLastBreadcrumbLabel(breadcrumb: any[]): string {
-    return breadcrumb.at(-1)?.label ?? '';
-  }
 }
