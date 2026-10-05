@@ -72,6 +72,7 @@
     "DELIVERY_ADDRESS": "Teslimat Adresi",
     "ADDRESS_SAVED": "Adres kaydedildi.",
     "NAME_ON_CARD": "Kart Üzerindeki İsim",
+    "PAYMENT_LOAD_FAILED": "Ödeme formu yüklenemedi. Reklam engelleyiciniz açıksa kapatıp sayfayı yenileyin.",
     "SUCCESS_TITLE": "Sipariş talebiniz alındı.",
     "VIEW_ORDER": "Siparişinizi Görüntüleyin",
     "VIEW_ORDERS": "Siparişlerinizi Görüntüleyin"

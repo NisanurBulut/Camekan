@@ -72,6 +72,7 @@
     "DELIVERY_ADDRESS": "Delivery Address",
     "ADDRESS_SAVED": "Address saved.",
     "NAME_ON_CARD": "Name on Card",
+    "PAYMENT_LOAD_FAILED": "The payment form could not be loaded. If you use an ad blocker, turn it off and refresh the page.",
     "SUCCESS_TITLE": "Your order has been received.",
     "VIEW_ORDER": "View Your Order",
     "VIEW_ORDERS": "View Your Orders"
