@@ -112,7 +112,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   async submitOrder() {
     this.loading.set(true);
-    const basket = this.basketService.getCurrenctBasketValue();
+    const basket = this.basketService.getCurrentBasketValue();
     try {
       const createdOrder = await this.createOrder(basket);
       const paymentResult = await this.confirmCardPaymentWithStripe(basket);

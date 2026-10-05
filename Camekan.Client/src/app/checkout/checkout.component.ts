@@ -59,7 +59,7 @@ export class CheckoutComponent implements OnInit {
       }, error => console.log(error));
   }
   getDeliveryMethodValue() {
-    const basket = this.basketService.getCurrenctBasketValue();
+    const basket = this.basketService.getCurrentBasketValue();
     if (basket?.deliveryMethodId != null) {
       this.checkoutForm.get('deliveryForm').get('deliveryMethod').patchValue(basket.deliveryMethodId.toString());
     }
