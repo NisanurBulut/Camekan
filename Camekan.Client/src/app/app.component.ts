@@ -15,8 +15,6 @@ import { ThemeService } from './core/services/theme.service';
   imports: [RouterOutlet, NavBarComponent, SectionHeaderComponent, NgxSpinnerComponent, TranslateModule]
 })
 export class AppComponent implements OnInit {
-  title = 'Camekân';
-
   // ThemeService is injected here so its effect applies the saved theme as soon as the app starts.
   constructor(private basketService: BasketService, private accountService: AccountService,
               private translateService: TranslateService, private themeService: ThemeService) {

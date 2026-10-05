@@ -5,12 +5,13 @@ import { IDeliveryMethod } from 'src/app/shared/models/deliveryMethod.model';
 import { CheckoutService } from '../checkout.service';
 import { CdkStepperPrevious, CdkStepperNext } from '@angular/cdk/stepper';
 import { CurrencyPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-checkout-delivery',
     templateUrl: './checkout-delivery.component.html',
     styleUrls: ['./checkout-delivery.component.scss'],
-    imports: [FormsModule, ReactiveFormsModule, CdkStepperPrevious, CdkStepperNext, CurrencyPipe]
+    imports: [FormsModule, ReactiveFormsModule, CdkStepperPrevious, CdkStepperNext, CurrencyPipe, TranslateModule]
 })
 export class CheckoutDeliveryComponent implements OnInit {
   @Input() checkoutForm: UntypedFormGroup;

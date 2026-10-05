@@ -3,10 +3,11 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { authGuard } from './core/guard/auth.guard';
+import { APP_NAME } from './app.constants';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
-  { path: 'home', component: HomeComponent, data: { breadcrumb: 'Camekân' } },
+  { path: '', component: HomeComponent, data: { breadcrumb: APP_NAME } },
+  { path: 'home', component: HomeComponent, data: { breadcrumb: APP_NAME } },
   { path: 'shop', loadChildren: () => import('./shop/shop.routes').then(m => m.SHOP_ROUTES), data: { breadcrumb: 'BREADCRUMB.SHOP' } },
   { path: 'order',
     canActivate: [authGuard],

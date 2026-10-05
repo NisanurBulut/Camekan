@@ -8,7 +8,7 @@
           [class.active]="selectedIndex === i"
           class="py-3 nav-link btn-block font-weight-bold"
           >
-          {{ step.label }}
+          <i class="fa {{ i < selectedIndex ? 'fa-check' : step.state }} mr-2" aria-hidden="true"></i>{{ step.label }}
         </button>
       </li>
     }

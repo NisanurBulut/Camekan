@@ -1,24 +1,14 @@
 @if (items.length > 0) {
-  <div class="table-responsive">
-    <table class="table">
+  <div class="table-responsive summary-card">
+    <table class="table mb-0">
       <thead>
         <tr>
-          <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">{{ 'BASKET.PRODUCT' | translate }}</div>
-          </th>
-          <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">{{ 'BASKET.PRICE' | translate }}</div>
-          </th>
-          <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">{{ 'BASKET.QUANTITY' | translate }}</div>
-          </th>
-          <th class="border-0" [class.bg-light]="isBasket" scope="col">
-            <div class="p-2 px-3">{{ 'BASKET.TOTAL' | translate }}</div>
-          </th>
+          <th scope="col"><i class="fa fa-book" aria-hidden="true"></i>{{ 'BASKET.PRODUCT' | translate }}</th>
+          <th scope="col"><i class="fa fa-tag" aria-hidden="true"></i>{{ 'BASKET.PRICE' | translate }}</th>
+          <th scope="col"><i class="fa fa-hashtag" aria-hidden="true"></i>{{ 'BASKET.QUANTITY' | translate }}</th>
+          <th scope="col"><i class="fa fa-money" aria-hidden="true"></i>{{ 'BASKET.TOTAL' | translate }}</th>
           @if (isBasket) {
-            <th class="border-0 bg-light" scope="col">
-              <div class="p-2 px-3">{{ 'BASKET.REMOVE' | translate }}</div>
-            </th>
+            <th scope="col" class="text-center"><i class="fa fa-trash-o" aria-hidden="true"></i>{{ 'BASKET.REMOVE' | translate }}</th>
           }
         </tr>
       </thead>
@@ -26,71 +16,52 @@
         <!-- items is IBasketItem[] | IOrderItem[]; $any keeps the loose typing *ngFor had until the union is narrowed properly. -->
         @for (item of $any(items); track item.id || item.productId) {
           <tr>
-            <th scope="row">
-              <div class="py-2">
-                <img
-                  style="max-height: 100px"
-                  src="{{ item.pictureUrl }}"
-                  alt="{{ item.productName }}"
-                  class="img-fluid"
-                  />
-                  <div class="ml-3 d-inline-block align-middle">
-                    <h5 class="mb-0">
-                      <a routerLink="/shop/{{ item.id || item.productId}}" class="text-dark">{{
-                        item.productName
-                      }}</a>
-                    </h5>
-                    @if (item.type) {
-                      <span class="text-muted font-weight-normal font-italic">
-                        {{ 'PRODUCT.TYPE' | translate }}: {{ item.type }} <br />
-                        {{ 'PRODUCT.PUBLISHER' | translate }}: {{ item.brand }}
-                      </span>
-                    }
-                  </div>
-                </div>
-              </th>
-              <td class="align-middle">
-                <strong>{{ item.price | currency: "TRY":"₺":"" }}</strong>
-              </td>
-              <td class="align-middle">
-                <div
-                  class="d-flex align-items-center"
-                  [class.justify-content-center]="!isBasket"
-                  >
-                  @if (isBasket) {
-                    <button type="button" class="btn quantity-btn" (click)="decrementItemQuantity(item)"
-                            [attr.aria-label]="'PRODUCT.DECREASE' | translate">
-                      <i class="fa fa-minus" aria-hidden="true"></i>
-                    </button>
-                  }
-                  <span class="quantity">{{ item.quantity }}</span>
-                  @if (isBasket) {
-                    <button type="button" class="btn quantity-btn" (click)="incrementItemQuantity(item)"
-                            [attr.aria-label]="'PRODUCT.INCREASE' | translate">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button>
+            <th scope="row" class="align-middle">
+              <div class="d-flex align-items-center">
+                <img src="{{ item.pictureUrl }}" alt="{{ item.productName }}" class="item-cover" />
+                <div class="ml-3">
+                  <a routerLink="/shop/{{ item.id || item.productId }}" class="item-name">{{ item.productName }}</a>
+                  @if (item.type) {
+                    <div class="item-meta"><i class="fa fa-tags" aria-hidden="true"></i>{{ 'PRODUCT.TYPE' | translate }}: {{ item.type }}</div>
+                    <div class="item-meta"><i class="fa fa-building-o" aria-hidden="true"></i>{{ 'PRODUCT.PUBLISHER' | translate }}: {{ item.brand }}</div>
                   }
                 </div>
-              </td>
-              <td class="align-middle">
-                <strong>{{
-                  item.quantity * item.price | currency: "TRY":"₺":""
-                }}</strong>
-              </td>
+              </div>
+            </th>
+            <td class="align-middle text-muted">
+              {{ item.price | currency: "TRY":"₺":"" }}
+            </td>
+            <td class="align-middle">
+              <div class="d-flex align-items-center">
+                @if (isBasket) {
+                  <button type="button" class="btn quantity-btn" (click)="decrementItemQuantity(item)"
+                          [attr.aria-label]="'PRODUCT.DECREASE' | translate">
+                    <i class="fa fa-minus" aria-hidden="true"></i>
+                  </button>
+                }
+                <span class="quantity">{{ item.quantity }}</span>
+                @if (isBasket) {
+                  <button type="button" class="btn quantity-btn" (click)="incrementItemQuantity(item)"
+                          [attr.aria-label]="'PRODUCT.INCREASE' | translate">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </button>
+                }
+              </div>
+            </td>
+            <td class="align-middle font-weight-bold">
+              {{ item.quantity * item.price | currency: "TRY":"₺":"" }}
+            </td>
+            @if (isBasket) {
               <td class="align-middle text-center">
-                <a class="text-danger">
-                  @if (isBasket) {
-                    <i
-                      (click)="removeBasketItem(item)"
-                      class="fa fa-trash"
-                      style="font-size: 2em; cursor: pointer"
-                    ></i>
-                  }
-                </a>
+                <button type="button" class="btn remove-btn" (click)="removeBasketItem(item)"
+                        [attr.aria-label]="'BASKET.REMOVE' | translate">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
               </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  }
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

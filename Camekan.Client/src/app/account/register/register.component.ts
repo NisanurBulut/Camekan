@@ -3,9 +3,10 @@ import { AsyncValidatorFn, FormControl, FormGroup, Validators, ReactiveFormsModu
 import { Router } from '@angular/router';
 import { of, timer } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
-import { AccountService, RegisterRequest } from '../account.service';
+import { AccountService } from '../account.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { APP_NAME } from '../../app.constants';
 
 @Component({
     selector: 'cmk-register',
@@ -14,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [ReactiveFormsModule, TextInputComponent, TranslateModule]
 })
 export class RegisterComponent {
+  protected readonly appName = APP_NAME;
   registerForm = new FormGroup({
     displayName: new FormControl('', {
       nonNullable: true,

@@ -41,3 +41,23 @@
   font-weight: bold;
   text-align: center;
 }
+
+.btn-back {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--text);
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    color: var(--text);
+    background-color: var(--row-hover);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--cta-bg);
+    outline-offset: 3px;
+  }
+}

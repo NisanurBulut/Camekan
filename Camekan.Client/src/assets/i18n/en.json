@@ -39,7 +39,7 @@
     "EMAIL_EXISTS": "Email is already in use."
   },
   "HOME": {
-    "READY": "Camekân is ready for you!",
+    "READY": "{{name}} is ready for you!",
     "SLIDE_AUTUMN_LOVE": "The books Book Love and Cinnamon Spice Love in an autumn forest",
     "SLIDE_STRONG_VOICES": "Starke Stimmen (Strong Voices) campaign",
     "SLIDE_STRONG_VOICES_BOOKS": "Starke Stimmen selection: Aus der Asche unserer Angst, Haltet euch fest and Ich bau mir ne Welt",
@@ -82,6 +82,9 @@
   },
   "CHECKOUT": {
     "COMPLETE_ORDER": "Complete Order",
+    "BACK_TO_BASKET": "Back to basket",
+    "BACK": "Back",
+    "NEXT": "Continue",
     "STEP_ADDRESS": "Address",
     "STEP_DELIVERY": "Delivery",
     "STEP_PAYMENT": "Payment",
@@ -146,6 +149,8 @@
     "ERROR_MESSAGE": "Error: {{message}}",
     "CONNECTION_ERROR": "Cannot reach the server. Please check your connection and try again.",
     "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again.",
+    "BAD_REQUEST": "The request could not be processed. Please check your details and try again.",
+    "UNAUTHORIZED": "Your login details are wrong or your session has expired.",
     "ANGULAR_NOTE": "Note: this error comes from the server, so Angular is probably not responsible.",
     "WHAT_TO_DO": "To investigate the problem:",
     "STEP_OPEN_CONSOLE": "Open the Chrome developer console",

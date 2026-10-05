@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { CarouselComponent, SlideComponent } from 'ngx-bootstrap/carousel';
 import { TranslateModule } from '@ngx-translate/core';
+import { APP_NAME } from '../app.constants';
 
 @Component({
     selector: 'cmk-home',
@@ -10,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [CarouselComponent, SlideComponent, TranslateModule, NgOptimizedImage]
 })
 export class HomeComponent {
+  protected readonly appName = APP_NAME;
   readonly slides = [
     { src: 'assets/images/book0.webp', alt: 'HOME.SLIDE_AUTUMN_LOVE' },
     { src: 'assets/images/book1.webp', alt: 'HOME.SLIDE_STRONG_VOICES' },

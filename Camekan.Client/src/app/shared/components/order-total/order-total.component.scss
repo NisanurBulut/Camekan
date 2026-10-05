@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.summary-icon {
+  width: 1.5rem;
+  color: var(--primary);
+}
+
+.total-row {
+  font-size: 1.2rem;
+}

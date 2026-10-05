@@ -9,11 +9,14 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 import { CheckoutService } from '../checkout.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
 import { loadStripe } from '@stripe/stripe-js/pure';
 import type {
   Stripe, StripeCardCvcElement, StripeCardCvcElementChangeEvent, StripeCardExpiryElement,
-  StripeCardExpiryElementChangeEvent, StripeCardNumberElement, StripeCardNumberElementChangeEvent, StripeElementStyle
+  StripeCardExpiryElementChangeEvent, StripeCardNumberElement, StripeCardNumberElementChangeEvent, StripeElementLocale,
+  StripeElements, StripeElementStyle
 } from '@stripe/stripe-js';
 
 type CardChangeEvent = StripeCardNumberElementChangeEvent | StripeCardExpiryElementChangeEvent | StripeCardCvcElementChangeEvent;
@@ -31,6 +34,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cardCvc', { static: true }) cardCvcElement: ElementRef;
 
   stripe: Stripe;
+  elements: StripeElements;
   cardCvc: StripeCardCvcElement;
   cardNumber: StripeCardNumberElement;
   cardExpiry: StripeCardExpiryElement;
@@ -47,8 +51,13 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     private basketService: BasketService,
     private toastrService: ToastrService,
     private router: Router,
-    private themeService: ThemeService) {
-   
+    private themeService: ThemeService,
+    private translate: TranslateService) {
+
+    // Without a locale Stripe uses the browser language, not the language picked in the app.
+    this.translate.onLangChange.pipe(takeUntilDestroyed())
+      .subscribe(({ lang }) => this.elements?.update({ locale: lang as StripeElementLocale }));
+
     effect(() => {
       this.themeService.theme();
       const style = this.cardStyle();
@@ -63,13 +72,15 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit(): Promise<void> {
+    const locale = this.translate.currentLang as StripeElementLocale;
     try {
-      this.stripe = await loadStripe(environment.apiKey);
+      this.stripe = await loadStripe(environment.apiKey, { locale });
     } catch {
       this.stripeLoadFailed.set(true);
       return;
     }
-    const elements = this.stripe.elements();
+    this.elements = this.stripe.elements({ locale });
+    const elements = this.elements;
     const style = this.cardStyle();
 
     this.cardNumber = elements.create('cardNumber', { style });
@@ -111,13 +122,13 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   async submitOrder() {
     this.loading.set(true);
-    const basket = this.basketService.getCurrenctBasketValue();
+    const basket = this.basketService.getCurrentBasketValue();
     try {
       const createdOrder = await this.createOrder(basket);
       const paymentResult = await this.confirmCardPaymentWithStripe(basket);
 
       if (paymentResult.paymentIntent) {
-        this.basketService.deleteBasket(basket);
+        this.basketService.deleteBasket(basket).subscribe();
         const navigationExtras: NavigationExtras = { state: createdOrder };
         this.router.navigate(['/checkout/success'], navigationExtras);
       }
@@ -143,7 +154,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   private async createOrder(basket: IBasket) {
     const orderToCreate = this.getOrderToCreate(basket);
-    return this.checkOutService.creatOrder(orderToCreate).toPromise();
+    return firstValueFrom(this.checkOutService.createOrder(orderToCreate));
   }
   private getOrderToCreate(basket: IBasket) {
     return {

@@ -5,12 +5,13 @@ import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
 import { BasketSummaryComponent } from '../../shared/components/basket-summary/basket-summary.component';
 import { AsyncPipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-checkout-review',
     templateUrl: './checkout-review.component.html',
     styleUrls: ['./checkout-review.component.scss'],
-    imports: [BasketSummaryComponent, CdkStepperPrevious, AsyncPipe]
+    imports: [BasketSummaryComponent, CdkStepperPrevious, AsyncPipe, TranslateModule]
 })
 
 export class CheckoutReviewComponent implements OnInit {
@@ -24,9 +25,8 @@ export class CheckoutReviewComponent implements OnInit {
   }
 
   createPaymentIntent() {
-    return this.basketService.createPaymentIntent()
-      .subscribe((response: any) => {
-        this.appStepper.next();
-      }, error => console.log(error));
+  this.basketService.createPaymentIntent().subscribe({
+    next: () => this.appStepper.next()
+  });
   }
 }

@@ -26,11 +26,11 @@
   </div>
   </div>
 </div>
-<div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">
-<button class="btn-outline-success" routerLink="/basket">
-<i class="fa fa-shopping-cart"></i>
-</button>
-<button [disabled]="checkoutForm.get('addressForm').invalid" class="btn-primary" cdkStepperNext>
-  <i class="fa fa-angle-double-right"></i>
+<div class="d-flex justify-content-between align-items-center mb-5">
+  <a routerLink="/basket" class="btn btn-back">
+    <i class="fa fa-angle-left mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.BACK_TO_BASKET' | translate }}
+  </a>
+  <button type="button" [disabled]="checkoutForm.get('addressForm').invalid" class="btn btn-cta" cdkStepperNext>
+    {{ 'CHECKOUT.NEXT' | translate }}<i class="fa fa-angle-right ml-2" aria-hidden="true"></i>
   </button>
 </div>

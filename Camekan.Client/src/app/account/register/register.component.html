@@ -2,35 +2,27 @@
   <div class="col-12 col-sm-8 col-md-6 col-lg-3">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
+        <h1 class="h3 mb-3 font-weight-normal">{{ appName }}</h1>
       </div>
-      <cmk-text-input
-        formControlName="displayName"
-        [label]="'USER.USERNAME' | translate"
-      ></cmk-text-input>
-      <cmk-text-input
-        formControlName="email"
-        [label]="'USER.EMAIL' | translate"
-      ></cmk-text-input>
-      <cmk-text-input
-        formControlName="password"
-        [label]="'USER.PASSWORD' | translate"
-        [type]="'password'"
-      ></cmk-text-input>
+      <cmk-text-input formControlName="displayName" [label]="'USER.USERNAME' | translate"
+        autocomplete="name"></cmk-text-input>
+
+      <cmk-text-input formControlName="email" [label]="'USER.EMAIL' | translate" autocomplete="email"></cmk-text-input>
+
+      <cmk-text-input formControlName="password" [label]="'USER.PASSWORD' | translate" [type]="'password'"
+        autocomplete="new-password"></cmk-text-input>
       @if (errors(); as errors) {
-        <ul class="text-danger list-unstyled">
-          @for (item of errors; track item) {
-            <li>{{ item }}</li>
-          }
-        </ul>
+      <ul class="text-danger list-unstyled">
+        @for (item of errors; track item) {
+        <li>{{ item }}</li>
+        }
+      </ul>
       }
-      <button
-        class="btn btn-lg btn-cta btn-block"
-        type="submit"
+      <button class="btn btn-lg btn-cta btn-block" type="submit"
         [disabled]="registerForm.invalid || registerForm.pending || isSubmitting()">
         <i class="fa fa-user-plus mr-2" aria-hidden="true"></i>{{ 'ACCOUNT.REGISTER' | translate }}
       </button>
-            <p class="mt-5 mb-3 text-muted text-center">© 2020-2026 <br/> ⭐ by Developerella 💃</p>
+      <p class="mt-5 mb-3 text-muted text-center">© 2020-2026 <br /> ⭐ by Developerella 💃</p>
     </form>
   </div>
 </div>
