@@ -55,7 +55,9 @@
     "TYPES": "Type",
     "SEARCH": "Search",
     "SEARCH_PLACEHOLDER": "Search...",
-    "RESET": "Reset"
+    "RESET": "Clear filters",
+    "NO_RESULTS": "No books found",
+    "NO_RESULTS_TEXT": "Try another word or clear the filters."
   },
   "PRODUCT": {
     "TYPE": "Type",

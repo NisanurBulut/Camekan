@@ -55,7 +55,9 @@
     "TYPES": "Tip",
     "SEARCH": "Ara",
     "SEARCH_PLACEHOLDER": "Ara...",
-    "RESET": "Temizle"
+    "RESET": "Filtreleri temizle",
+    "NO_RESULTS": "Aradığın kitap bulunamadı",
+    "NO_RESULTS_TEXT": "Başka bir kelime dene ya da filtreleri temizle."
   },
   "PRODUCT": {
     "TYPE": "Tür",
