@@ -1,6 +1,5 @@
 namespace Camekan.DataAccess.Specification
 {
-    // Paging parameters for the order list
     public class OrderSpecParam
     {
         private const int MaxPageSize = 100;
