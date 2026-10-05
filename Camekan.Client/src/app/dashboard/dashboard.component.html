@@ -1,0 +1,113 @@
+<div class="container mt-4 mb-5">
+  <div class="hero mb-4">
+    <i class="fa fa-line-chart hero-icon" aria-hidden="true"></i>
+    <div>
+      <h1 class="h3 mb-1">{{ appName }} {{ 'DASHBOARD.TITLE' | translate }}</h1>
+      <p class="mb-0">{{ 'DASHBOARD.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  @if (dashboard.error()) {
+    <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
+      <span>{{ 'DASHBOARD.LOAD_FAILED' | translate }}</span>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="dashboard.reload()">{{ 'COMMON.RETRY' | translate }}</button>
+    </div>
+  } @else if (dashboard.hasValue()) {
+    <div class="row">
+      @for (kpi of kpis(); track kpi.label) {
+        <div class="col-6 col-lg-3 mb-4">
+          <div class="dash-card kpi-card h-100 p-3 d-flex align-items-center justify-content-between" [style.--kpi-color]="kpi.color">
+            <div>
+              <p class="text-muted small mb-1">{{ kpi.label | translate }}</p>
+              <p class="kpi-value mb-0">{{ kpi.value | number }}</p>
+            </div>
+            <span class="kpi-icon"><i class="fa {{ kpi.icon }}" aria-hidden="true"></i></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="row">
+      <div class="col-lg-7 mb-4">
+        <section class="dash-card h-100 p-3">
+          <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-line-chart" aria-hidden="true"></i></span>{{ 'DASHBOARD.SALES_TREND' | translate }}</h2>
+          <div class="chart-box">
+            <canvas #salesCanvas role="img" [attr.aria-label]="'DASHBOARD.SALES_TREND' | translate"></canvas>
+          </div>
+          <table class="sr-only">
+            <caption>{{ 'DASHBOARD.SALES_TREND' | translate }}</caption>
+            @for (month of salesTrend(); track month.date) {
+              <tr><th scope="row">{{ month.date | date: 'MM.yyyy' }}</th><td>{{ month.total | number }}</td></tr>
+            }
+          </table>
+        </section>
+      </div>
+
+      <div class="col-lg-5 mb-4">
+        <section class="dash-card h-100 p-3">
+          <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-pie-chart" aria-hidden="true"></i></span>{{ 'DASHBOARD.CATEGORY_DISTRIBUTION' | translate }}</h2>
+          <div class="chart-box chart-box--donut">
+            <canvas #categoryCanvas role="img" [attr.aria-label]="'DASHBOARD.CATEGORY_DISTRIBUTION' | translate"></canvas>
+          </div>
+          <ul class="list-unstyled legend mb-0">
+            @for (category of categories(); track category.name; let i = $index) {
+              <li class="d-flex align-items-center">
+                <span class="legend-swatch" [style.background-color]="'var(--series-' + (i + 1) + ')'" aria-hidden="true"></span>
+                <span class="flex-grow-1">{{ category.name }}</span>
+                <span class="text-muted mr-2">{{ category.count | number }}</span>
+                <span class="font-weight-bold">{{ category.share | percent }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="dash-card p-3 mb-4">
+      <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-trophy" aria-hidden="true"></i></span>{{ 'DASHBOARD.TOP_SELLING' | translate }}</h2>
+      @for (book of topBooks(); track book.title; let i = $index) {
+        <div class="d-flex align-items-center mb-2">
+          <span class="rank mr-2" [class.rank--top]="i === 0">{{ i + 1 }}</span>
+          <span class="bar-label">{{ book.title }}</span>
+          <div class="bar-track flex-grow-1 mx-3">
+            <div class="bar-fill" [style.width.%]="book.percent"></div>
+          </div>
+          <span class="bar-value">{{ 'DASHBOARD.COPIES' | translate: { count: (book.sales | number) } }}</span>
+        </div>
+      }
+    </section>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <section class="dash-card h-100 p-3">
+          <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ 'DASHBOARD.RECENTLY_ADDED' | translate }}</h2>
+          <ul class="list-unstyled mb-0">
+            @for (book of dashboard.value().recentBooks; track book.title) {
+              <li class="d-flex align-items-center list-row">
+                <i class="fa fa-book list-icon" aria-hidden="true"></i>
+                <span class="flex-grow-1">{{ book.title }}</span>
+                @if (book.addedAt) {
+                  <span class="text-muted small">{{ book.addedAt | date: 'dd.MM.yyyy' }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+      <div class="col-md-6 mb-4">
+        <section class="dash-card h-100 p-3">
+          <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-fire" aria-hidden="true"></i></span>{{ 'DASHBOARD.TRENDING' | translate }}</h2>
+          <ul class="list-unstyled mb-0">
+            @for (book of dashboard.value().trending; track book.title) {
+              <li class="d-flex align-items-center list-row">
+                <i class="fa fa-fire list-icon list-icon--hot" aria-hidden="true"></i>
+                <span class="flex-grow-1">{{ book.title }}</span>
+                <span class="text-muted small">{{ book.change === null ? ('DASHBOARD.NEW' | translate) : '+' + book.change + '%' }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    </div>
+  }
+</div>

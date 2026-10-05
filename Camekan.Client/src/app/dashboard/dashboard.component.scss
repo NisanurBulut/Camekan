@@ -1,0 +1,172 @@
+// Categorical slots from the dataviz reference palette, validated (CVD, contrast) against --surface in both themes.
+:host {
+  display: block;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-6: #008300;
+}
+
+:host-context([data-theme='dark']) {
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --series-6: #008300;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-radius: 0.75rem;
+  color: var(--cta-text);
+  background: linear-gradient(135deg, var(--cta-bg), color-mix(in srgb, var(--cta-bg) 70%, var(--primary)));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+
+  p {
+    opacity: 0.85;
+  }
+}
+
+.hero-icon {
+  margin-right: 1.5rem;
+  font-size: 2.5rem;
+}
+
+.dash-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.heading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+.kpi-card {
+  border-top: 4px solid var(--kpi-color);
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.kpi-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: var(--kpi-color);
+  background-color: color-mix(in srgb, var(--kpi-color) 15%, transparent);
+}
+
+.chart-box {
+  position: relative;
+  height: 340px;
+}
+
+.chart-box--donut {
+  height: 200px;
+  margin-bottom: 1rem;
+}
+
+.legend li {
+  padding: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.legend-swatch {
+  width: 12px;
+  height: 12px;
+  margin-right: 0.6rem;
+  border-radius: 3px;
+}
+
+.rank {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text);
+  background-color: var(--surface-muted);
+}
+
+.rank--top {
+  color: #fff;
+  background-color: var(--series-1);
+}
+
+.bar-label {
+  width: 9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  height: 12px;
+  border-radius: 4px;
+  background-color: var(--surface-muted);
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--series-1);
+}
+
+.bar-value {
+  width: 6.5rem;
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.list-row {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.list-icon {
+  width: 1.5rem;
+  color: var(--series-1);
+}
+
+.list-icon--hot {
+  color: var(--series-2);
+}
