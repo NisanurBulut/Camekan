@@ -1,0 +1,43 @@
+.btn-cta {
+  padding: 0.6rem 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--cta-text);
+  background-color: var(--cta-bg);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--cta-text);
+    background-color: var(--cta-bg-hover);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--cta-bg);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn-cta:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.quantity-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--text);
+  background-color: var(--surface-muted);
+}
+
+.quantity {
+  min-width: 2.5rem;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
