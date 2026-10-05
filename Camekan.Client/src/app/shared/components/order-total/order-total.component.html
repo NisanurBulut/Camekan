@@ -1,20 +1,22 @@
-<div class="bg-light px-4 py-3 font-weight-bold">{{ 'ORDER.SUMMARY' | translate }}</div>
+<div class="bg-light px-4 py-3 font-weight-bold">
+  <i class="fa fa-file-text-o summary-icon" aria-hidden="true"></i>{{ 'ORDER.SUMMARY' | translate }}
+</div>
 
 <div class="p-4">
-  <p class="font-italic">
+  <p class="font-italic small text-muted">
     {{ 'ORDER.SHIPPING_NOTE' | translate }}
   </p>
-  <ul class="list-unstyled mb-4">
+  <ul class="list-unstyled mb-0">
     <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">{{ 'ORDER.SUBTOTAL' | translate }}</strong>
+        <strong class="text-muted"><i class="fa fa-book summary-icon" aria-hidden="true"></i>{{ 'ORDER.SUBTOTAL' | translate }}</strong>
         <strong>{{subTotal |  currency: "TRY":"₺":""}}</strong>
     </li>
     <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">{{ 'ORDER.SHIPPING' | translate }}</strong>
+        <strong class="text-muted"><i class="fa fa-truck summary-icon" aria-hidden="true"></i>{{ 'ORDER.SHIPPING' | translate }}</strong>
         <strong>{{shippingPrice |  currency: "TRY":"₺":""}}</strong>
     </li>
-    <li class="d-flex justify-content-between py-3 border-bottom">
-        <strong class="text-muted">{{ 'ORDER.TOTAL' | translate }}</strong>
+    <li class="d-flex justify-content-between pt-3 total-row">
+        <strong><i class="fa fa-money summary-icon" aria-hidden="true"></i>{{ 'ORDER.TOTAL' | translate }}</strong>
         <strong>{{total |  currency: "TRY":"₺":""}}</strong>
     </li>
   </ul>
