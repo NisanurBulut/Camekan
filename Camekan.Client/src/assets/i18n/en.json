@@ -39,7 +39,7 @@
     "EMAIL_EXISTS": "Email is already in use."
   },
   "HOME": {
-    "READY": "Camekân is ready for you!",
+    "READY": "{{name}} is ready for you!",
     "SLIDE_AUTUMN_LOVE": "The books Book Love and Cinnamon Spice Love in an autumn forest",
     "SLIDE_STRONG_VOICES": "Starke Stimmen (Strong Voices) campaign",
     "SLIDE_STRONG_VOICES_BOOKS": "Starke Stimmen selection: Aus der Asche unserer Angst, Haltet euch fest and Ich bau mir ne Welt",

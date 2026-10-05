@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { BreadcrumbService, BreadcrumbModule } from 'xng-breadcrumb';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { APP_NAME } from '../../app.constants';
 
 @Component({
     selector: 'cmk-section-header',
@@ -16,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ],
 })
 export class SectionHeaderComponent {
+  protected readonly appName = APP_NAME;
   breadcrumb$: Observable<any[]>;
   constructor(private bcService: BreadcrumbService) {
     this.breadcrumb$ = this.bcService.breadcrumbs$;

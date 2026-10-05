@@ -39,7 +39,7 @@
     "EMAIL_EXISTS": "Email kullanılmaktadır."
   },
   "HOME": {
-    "READY": "Camekân sizin için hazır !",
+    "READY": "{{name}} sizin için hazır!",
     "SLIDE_AUTUMN_LOVE": "Sonbahar ormanında Book Love ve Cinnamon Spice Love kitapları",
     "SLIDE_STRONG_VOICES": "Starke Stimmen (Güçlü Sesler) kampanyası",
     "SLIDE_STRONG_VOICES_BOOKS": "Starke Stimmen seçkisi: Aus der Asche unserer Angst, Haltet euch fest ve Ich bau mir ne Welt kitapları",

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { APP_NAME } from '../../app.constants';
 
 @Component({
     selector: 'cmk-login',
@@ -12,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [FormsModule, ReactiveFormsModule, TextInputComponent, TranslateModule]
 })
 export class LoginComponent {
+  protected readonly appName = APP_NAME;
   loginForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,

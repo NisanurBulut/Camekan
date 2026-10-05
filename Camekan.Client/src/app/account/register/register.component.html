@@ -2,7 +2,7 @@
   <div class="col-12 col-sm-8 col-md-6 col-lg-3">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
+        <h1 class="h3 mb-3 font-weight-normal">{{ appName }}</h1>
       </div>
       <cmk-text-input formControlName="displayName" [label]="'USER.USERNAME' | translate"
         autocomplete="name"></cmk-text-input>
