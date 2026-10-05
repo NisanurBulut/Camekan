@@ -20,3 +20,46 @@ a, li {
         outline: none;
     }
 }
+
+.header-bar {
+  border-top: 4px solid var(--primary);
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  transition: background-color 0.2s, color 0.2s;
+
+  i {
+    margin-right: 0.5rem;
+    color: var(--primary);
+  }
+  &:hover {
+    color: var(--text);
+    background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+  }
+  &.active {
+    color: var(--cta-text);
+    background-color: var(--cta-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    i {
+      color: inherit;
+    }
+  }
+  @media (max-width: 767.98px) {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9rem;
+  }
+}
+.user-icon {
+  font-size: 1.4rem;
+  vertical-align: middle;
+  color: var(--primary);
+}
