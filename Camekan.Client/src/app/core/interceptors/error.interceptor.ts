@@ -14,6 +14,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     // TranslateService is resolved lazily: its HTTP loader depends on HttpClient, which depends on this interceptor.
     // Returns the text unchanged when it is not a translation key (instant() falls back to the key itself).
     const translate = (key: string): string => key ? injector.get(TranslateService).instant(key) : key;
+    // The API sends translation keys; plain text (e.g. ApiResponse defaults like "Bad Request") is shown as a localized fallback.
+    const messageOf = (error: HttpErrorResponse, fallbackKey: string): string => {
+        const key = error.error?.message;
+        const text = translate(key);
+        return text && text !== key ? text : translate(fallbackKey);
+    };
 
     return next(req).pipe(
         catchError((error: HttpErrorResponse) => {
@@ -22,10 +28,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                     if (error.error.errors) {
                         return throwError(() => error.error);
                     }
-                    toastrService.error(translate(error.error.message), error.error.statusCode);
+                    toastrService.error(messageOf(error, 'ERROR.BAD_REQUEST'), error.error?.statusCode);
                     break;
                 case 401:
-                    toastrService.error(translate(error.error.message), error.error.statusCode);
+                    toastrService.error(messageOf(error, 'ERROR.UNAUTHORIZED'), error.error?.statusCode);
                     break;
                 case 404:
                     router.navigateByUrl('/not-found');
@@ -37,9 +43,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                     toastrService.error(translate('ERROR.CONNECTION_ERROR'));
                     break;
                 default:
-                    toastrService.error(
-                        translate(error.error?.message) || translate('ERROR.UNEXPECTED_ERROR'),
-                        String(error.status));
+                    toastrService.error(messageOf(error, 'ERROR.UNEXPECTED_ERROR'), String(error.status));
                     break;
             }
             return throwError(() => error);

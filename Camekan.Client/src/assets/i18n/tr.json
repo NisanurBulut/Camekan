@@ -149,6 +149,8 @@
     "ERROR_MESSAGE": "Hata: {{message}}",
     "CONNECTION_ERROR": "Sunucuya ulaşılamıyor. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
     "UNEXPECTED_ERROR": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+    "BAD_REQUEST": "İstek işlenemedi. Lütfen bilgileri kontrol edip tekrar deneyin.",
+    "UNAUTHORIZED": "Giriş bilgileri hatalı ya da oturumunuz sona erdi.",
     "ANGULAR_NOTE": "Not: Bu hata sunucudan geliyor, büyük ihtimalle Angular sorumlu değil.",
     "WHAT_TO_DO": "Sorunu incelemek için:",
     "STEP_OPEN_CONSOLE": "Chrome geliştirici konsolunu aç",
