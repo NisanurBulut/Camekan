@@ -7,13 +7,14 @@ import { IProductType } from '../shared/models/productType.model';
 import { ShopParam } from '../shared/models/shopParams.model';
 import { IProduct } from '../shared/models/product.model';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
 
-  baseUrl = 'http://localhost:63484/api/';
+  private readonly baseUrl = environment.apiUrl;
   products: IProduct[] = [];
   brands: IProductBrand[] = [];
   types: IProductType[] = [];
@@ -34,7 +35,7 @@ export class ShopService {
     if (product) {
       return of(product);
     }
-    return this.http.get<IProduct>(this.baseUrl + 'product/' + id);
+    return this.http.get<IProduct>(`${this.baseUrl}/product/${id}`);
   }
   getProducts(useCache: boolean) {
     if (useCache) {
@@ -64,7 +65,7 @@ export class ShopService {
     param = param.append('PageSize', this.shopParam.PageSize.toString());
 
     return this.http.get<IPagination>(
-      this.baseUrl + 'product', {
+      `${this.baseUrl}/product`, {
       observe: 'response',
       params: param
     })
@@ -80,7 +81,7 @@ export class ShopService {
     if (this.brands.length > 0) {
       return of(this.brands);
     }
-    return this.http.get<IProductBrand[]>(this.baseUrl + 'product/getproductbrands')
+    return this.http.get<IProductBrand[]>(`${this.baseUrl}/product/getproductbrands`)
       .pipe(
         map((response) => {
           this.brands = response;
@@ -91,7 +92,7 @@ export class ShopService {
     if (this.types.length > 0) {
       return of(this.types);
     }
-    return this.http.get<IProductType[]>(this.baseUrl + 'product/getproducttypes')
+    return this.http.get<IProductType[]>(`${this.baseUrl}/product/getproducttypes`)
       .pipe(
         map((response) => {
           this.types = response;
