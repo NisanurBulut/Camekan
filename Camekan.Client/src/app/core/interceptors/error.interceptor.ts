@@ -20,7 +20,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             switch (error.status) {
                 case 400:
                     if (error.error.errors) {
-                        return throwError(error.error);
+                        return throwError(() => error.error);
                     }
                     toastrService.error(translate(error.error.message), error.error.statusCode);
                     break;
@@ -42,7 +42,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                         String(error.status));
                     break;
             }
-            return throwError(error);
+            return throwError(() => error);
         })
     );
 };

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
@@ -30,7 +30,7 @@ export class AccountService {
       return of(null);
     }
 
-    return this.http.get(this.baseUrl + '/account/getcurrentuser').pipe(
+    return this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`).pipe(
       map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -41,13 +41,13 @@ export class AccountService {
       catchError(error => {
         localStorage.removeItem('token');
         this.currenUserSource.next(null);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
   login(values: any) {
-    return this.http.post(this.baseUrl + '/account/login', values).pipe(
+    return this.http.post<IUser>(`${this.baseUrl}/account/login`, values).pipe(
       map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -58,7 +58,7 @@ export class AccountService {
   }
 
   register(values: RegisterRequest): Observable<void> {
-    return this.http.post<IUser>(this.baseUrl + '/account/register', values).pipe(
+    return this.http.post<IUser>(`${this.baseUrl}/account/register`, values).pipe(
       map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -74,10 +74,10 @@ export class AccountService {
     this.router.navigateByUrl('/');
   }
   checkEmailExists(email: string): Observable<boolean> {
-    return this.http.get<boolean>(this.baseUrl + '/account/emailexists', { params: { email } });
+    return this.http.get<boolean>(`${this.baseUrl}/account/emailexists`, { params: { email } });
   }
   getUserAddress() {
-    return this.http.get<IAddress>(this.baseUrl + '/account/GetUserAddress');
+    return this.http.get<IAddress>(`${this.baseUrl}/account/GetUserAddress`);
   }
   updateUserAddress(address: IAddress) {
     return this.http.put<IAddress>(this.baseUrl + '/account/address', address);

@@ -10,6 +10,7 @@ import { CheckoutService } from '../checkout.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
 import { TranslateModule } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
 import { loadStripe } from '@stripe/stripe-js/pure';
 import type {
   Stripe, StripeCardCvcElement, StripeCardCvcElementChangeEvent, StripeCardExpiryElement,
@@ -143,7 +144,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
   private async createOrder(basket: IBasket) {
     const orderToCreate = this.getOrderToCreate(basket);
-    return this.checkOutService.creatOrder(orderToCreate).toPromise();
+    return firstValueFrom(this.checkOutService.creatOrder(orderToCreate));
   }
   private getOrderToCreate(basket: IBasket) {
     return {
