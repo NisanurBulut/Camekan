@@ -60,7 +60,13 @@
   "PRODUCT": {
     "TYPE": "Tür",
     "PUBLISHER": "Yayın Evi",
-    "ADD_TO_BASKET": "Sepete Ekle"
+    "ADD_TO_BASKET": "Sepete Ekle",
+    "ADDED": "Sepete eklendi",
+    "QUANTITY": "Adet",
+    "INCREASE": "Adedi artır",
+    "DECREASE": "Adedi azalt",
+    "IN_BASKET": "Sepetinde {{count}} adet var",
+    "LOAD_FAILED": "Ürün yüklenemedi."
   },
   "BASKET": {
     "EMPTY": "Sepetin boş",
