@@ -29,7 +29,6 @@ export interface IOrderItem {
 
 export type OrderStatus = 'Pending' | 'PaymentReceived' | 'PaymentFailed';
 
-// One row of the paged order list (GET order/GetOrdersForUserPaged).
 export interface IOrderListItem {
   id: number;
   orderDate: string;
@@ -37,7 +36,6 @@ export interface IOrderListItem {
   status: OrderStatus;
 }
 
-// Server-side page envelope (Camekan.Util.Helpers.Pagination<T>).
 export interface IPage<T> {
   index: number;
   size: number;
@@ -45,7 +43,6 @@ export interface IPage<T> {
   data: T[];
 }
 
-// Dashboard figures computed on the server (GET order/GetOrderSummaryForUser).
 export interface IOrderSummary {
   count: number;
   pending: number;
