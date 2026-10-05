@@ -1,50 +1,65 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BasketService } from 'src/app/basket/basket.service';
-import { IProduct } from 'src/app/shared/models/product.model';
-import { BreadcrumbService } from 'xng-breadcrumb';
-import { ShopService } from '../shop.service';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal, numberAttribute, signal } from '@angular/core';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { BreadcrumbService } from 'xng-breadcrumb';
+import { BasketService } from 'src/app/basket/basket.service';
+import { ShopService } from '../shop.service';
+
+const MAX_QUANTITY = 10;
 
 @Component({
-    selector: 'cmk-product-detail',
-    templateUrl: './product-detail.component.html',
-    styleUrls: ['./product-detail.component.scss'],
-    imports: [CurrencyPipe, TranslateModule]
+  selector: 'cmk-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.scss'],
+  imports: [CurrencyPipe, RouterLink, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductDetailComponent implements OnInit {
-  product = signal<IProduct>(undefined);
-  quantity = 1;
+export class ProductDetailComponent {
+  private basketService = inject(BasketService);
+  private shopService = inject(ShopService);
+  private bcService = inject(BreadcrumbService);
 
-  constructor(
-    private basketService: BasketService,
-    private shopService: ShopService,
-    private activateRoute: ActivatedRoute,
-    private bcService: BreadcrumbService) {
+  readonly maxQuantity = MAX_QUANTITY;
+
+  // Filled from the :id route parameter (withComponentInputBinding).
+  id = input.required({ transform: numberAttribute });
+
+  product = rxResource({
+    params: () => this.id(),
+    stream: ({ params: id }) => this.shopService.getProduct(id)
+  });
+
+  // Goes back to 1 whenever another product is opened.
+  quantity = linkedSignal({ source: this.id, computation: () => 1 });
+
+  added = signal(false);
+
+  private basket = toSignal(this.basketService.basket$);
+  inBasket = computed(() => this.basket()?.items.find(item => item.id === this.id())?.quantity ?? 0);
+
+  constructor() {
     this.bcService.set('@ProductDetail', '');
+    effect(() => {
+      if (this.product.hasValue()) {
+        this.bcService.set('@ProductDetail', this.product.value().name);
+      }
+    });
   }
 
-  ngOnInit(): void {
-    this.loadProduct();
-  }
-  loadProduct() {
-    const id = Number(this.activateRoute.snapshot.paramMap.get('id'));
-    this.shopService.getProduct(id).subscribe((result) => {
-      this.product.set(result);
-      this.bcService.set('@ProductDetail', result.name);
-    }, error => console.log(error));
-  }
   addItemToBasket() {
-    this.basketService.addItemToBasket(this.product(), this.quantity);
-    this.quantity = 1;
+    this.basketService.addItemToBasket(this.product.value(), this.quantity());
+    this.quantity.set(1);
+    this.added.set(true);
+    setTimeout(() => this.added.set(false), 2000);
   }
+
   incrementQuantity() {
-    this.quantity++;
+    this.quantity.update(quantity => Math.min(quantity + 1, MAX_QUANTITY));
   }
+
   decrementQuantity() {
-    if (this.quantity > 1) {
-      this.quantity--;
-    }
+    this.quantity.update(quantity => Math.max(quantity - 1, 1));
   }
 }

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mt-5">
-  <div class="col-3">
+  <div class="col-12 col-sm-8 col-md-6 col-lg-3">
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Camekân</h1>
@@ -24,10 +24,13 @@
           }
         </ul>
       }
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
-        {{ 'ACCOUNT.REGISTER' | translate }}
+      <button
+        class="btn btn-lg btn-cta btn-block"
+        type="submit"
+        [disabled]="registerForm.invalid || registerForm.pending || isSubmitting()">
+        <i class="fa fa-user-plus mr-2" aria-hidden="true"></i>{{ 'ACCOUNT.REGISTER' | translate }}
       </button>
-      <p class="mt-5 mb-3 text-muted text-center">© 2020-2021</p>
+            <p class="mt-5 mb-3 text-muted text-center">© 2020-2026 <br/> ⭐ by Developerella 💃</p>
     </form>
   </div>
 </div>

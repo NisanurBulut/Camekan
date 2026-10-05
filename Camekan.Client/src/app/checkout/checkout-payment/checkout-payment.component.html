@@ -43,13 +43,14 @@
       !cardCvcValid() ||
       !cardNumberValid()
     "
-    class="btn-outline-success"
+    class="btn btn-lg btn-cta"
     (click)="submitOrder()"
     >
-    {{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
-    <i class="fa fa-angle-double-right"></i>
     @if (loading()) {
-      <i class="fa fa-spinner fa-spin"></i>
+      <i class="fa fa-spinner fa-spin mr-2" aria-hidden="true"></i>
+    } @else {
+      <i class="fa fa-lock mr-2" aria-hidden="true"></i>
     }
+    {{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
   </button>
 </div>

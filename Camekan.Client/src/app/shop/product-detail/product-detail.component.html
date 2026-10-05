@@ -1,27 +1,59 @@
 <div class="container mt-5">
-  @if (product(); as product) {
+  @if (product.error()) {
+    <div class="alert alert-warning d-flex align-items-center justify-content-between" role="alert">
+      <span>{{ 'PRODUCT.LOAD_FAILED' | translate }}</span>
+      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="product.reload()">{{ 'COMMON.RETRY' | translate }}</button>
+    </div>
+  } @else {
     <div class="row">
-      <div class="col-6">
-        <img
-          src="{{ product.pictureUrl }}"
-          alt="{{ product.name }}"
-          class="img-fluid w-100"
-          />
-        </div>
-        <div class="col-6">
-          <h3>{{ product.name }}</h3>
-          <p class="mb-2 price">{{ product.price | currency: "TRY":"₺":"" }}</p>
-          <div class="d-flex justify-content-start align-items-center">
-            <i (click)="decrementQuantity()" class="fa fa-minus-circle text-warning mr-2 btn-basket-action"></i>
-            <span class="font-weight-bold" style="font-size:1.5em;">{{quantity}}</span>
-            <i (click)="incrementQuantity()" class="fa fa-plus-circle text-warning  mx-2  btn-basket-action">
-            </i>
-            <button (click)="addItemToBasket()" class="btn btn-lg btn-outline-primary ml-4">{{ 'PRODUCT.ADD_TO_BASKET' | translate }}</button>
-          </div>
-          <div style="padding-top: 50px;">
-            <p>{{ product.description }}</p>
-          </div>
+      <div class="col-12 col-md-5 mb-4">
+        <div class="cover" [class.placeholder]="!product.value()" [style.view-transition-name]="'product-' + id()">
+          @if (product.value(); as product) {
+            <img [src]="product.pictureUrl" [alt]="product.name" />
+          }
         </div>
       </div>
-    }
-  </div>
+
+      <div class="col-12 col-md-7">
+        @if (product.value(); as product) {
+          <h3>{{ product.name }}</h3>
+          <p class="mb-3 price">{{ product.price | currency: "TRY":"₺":"" }}</p>
+
+          <div class="d-flex flex-wrap align-items-center">
+            <div class="d-flex align-items-center mr-4 mb-2">
+              <button type="button" class="btn quantity-btn" (click)="decrementQuantity()"
+                      [disabled]="quantity() === 1" [attr.aria-label]="'PRODUCT.DECREASE' | translate">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+              </button>
+              <output class="quantity" aria-live="polite" [attr.aria-label]="'PRODUCT.QUANTITY' | translate">{{ quantity() }}</output>
+              <button type="button" class="btn quantity-btn" (click)="incrementQuantity()"
+                      [disabled]="quantity() === maxQuantity" [attr.aria-label]="'PRODUCT.INCREASE' | translate">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+            <button type="button" (click)="addItemToBasket()" class="btn btn-lg btn-cta mb-2">
+              @if (added()) {
+                <i class="fa fa-check mr-2" aria-hidden="true"></i>{{ 'PRODUCT.ADDED' | translate }}
+              } @else {
+                <i class="fa fa-cart-plus mr-2" aria-hidden="true"></i>{{ 'PRODUCT.ADD_TO_BASKET' | translate }}
+              }
+            </button>
+          </div>
+
+          @if (inBasket() > 0) {
+            <p class="text-muted mt-2" role="status">
+              {{ 'PRODUCT.IN_BASKET' | translate: { count: inBasket() } }} ·
+              <a routerLink="/basket">{{ 'NAV.GO_TO_BASKET' | translate }}</a>
+            </p>
+          }
+
+          <p class="description mt-4">{{ product.description }}</p>
+        } @else {
+          <div class="placeholder placeholder-line w-75"></div>
+          <div class="placeholder placeholder-line w-25"></div>
+          <div class="placeholder placeholder-line w-50"></div>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -60,7 +60,13 @@
   "PRODUCT": {
     "TYPE": "Type",
     "PUBLISHER": "Publisher",
-    "ADD_TO_BASKET": "Add to Basket"
+    "ADD_TO_BASKET": "Add to Basket",
+    "ADDED": "Added to basket",
+    "QUANTITY": "Quantity",
+    "INCREASE": "Increase quantity",
+    "DECREASE": "Decrease quantity",
+    "IN_BASKET": "You have {{count}} in your basket",
+    "LOAD_FAILED": "The product could not be loaded."
   },
   "BASKET": {
     "EMPTY": "Your basket is empty",

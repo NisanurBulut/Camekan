@@ -42,14 +42,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6 offset-6">
+            <div class="col-12 col-md-6 offset-md-6">
               @if ((basketTotal$ | async)) {
                 <cmk-order-total
                   [shippingPrice]="(basketTotal$ | async).shipping"
                   [subTotal]="(basketTotal$ | async).subTotal"
                 [total]="(basketTotal$ | async).total"></cmk-order-total>
               }
-              <a routerLink="/checkout" class="btn btn-block btn-outline-primary py-2">{{ 'CHECKOUT.COMPLETE_ORDER' | translate }}</a>
+              <a routerLink="/checkout" class="btn btn-block btn-lg btn-cta">
+                <i class="fa fa-lock mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.COMPLETE_ORDER' | translate }}
+              </a>
             </div>
           </div>
         </div>

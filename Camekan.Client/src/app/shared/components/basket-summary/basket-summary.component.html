@@ -58,20 +58,17 @@
                   [class.justify-content-center]="!isBasket"
                   >
                   @if (isBasket) {
-                    <i
-                      (click)="incrementItemQuantity(item)"
-                      class="fa fa-2x fa-plus-circle text-warning mr-2 btn-basket-action"
-                      >
-                    </i>
+                    <button type="button" class="btn quantity-btn" (click)="decrementItemQuantity(item)"
+                            [attr.aria-label]="'PRODUCT.DECREASE' | translate">
+                      <i class="fa fa-minus" aria-hidden="true"></i>
+                    </button>
                   }
-                  <span class="font-weight-bold" style="font-size: 1.5em">{{
-                    item.quantity
-                  }}</span>
+                  <span class="quantity">{{ item.quantity }}</span>
                   @if (isBasket) {
-                    <i
-                      (click)="decrementItemQuantity(item)"
-                      class="fa fa-2x fa-minus-circle text-warning mx-2 btn-basket-action"
-                    ></i>
+                    <button type="button" class="btn quantity-btn" (click)="incrementItemQuantity(item)"
+                            [attr.aria-label]="'PRODUCT.INCREASE' | translate">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
                   }
                 </div>
               </td>

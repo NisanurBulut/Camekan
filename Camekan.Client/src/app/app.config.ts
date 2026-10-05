@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withViewTransitions } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideToastr } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
     
     provideZonelessChangeDetection(),
     ...(isDevMode() ? [provideCheckNoChangesConfig({ exhaustive: true, interval: 1000 })] : []),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding(), withViewTransitions()),
   
     provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor, jwtInterceptor])),
     // ngx-toastr and ngx-bootstrap still use @angular/animations.
