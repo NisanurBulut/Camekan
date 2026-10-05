@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IPagination, Pagination } from '../shared/models/pagination.model';
+import { IPagination } from '../shared/models/pagination.model';
 import { IProductBrand } from '../shared/models/productBrand.model';
 import { IProductType } from '../shared/models/productType.model';
 import { ShopParam } from '../shared/models/shopParams.model';
@@ -18,7 +18,7 @@ export class ShopService {
   products: IProduct[] = [];
   brands: IProductBrand[] = [];
   types: IProductType[] = [];
-  pagination = new Pagination();
+  private cache = new Map<string, IPagination>();
   shopParam = new ShopParam();
 
   constructor(private http: HttpClient) { }
@@ -37,18 +37,11 @@ export class ShopService {
     }
     return this.http.get<IProduct>(`${this.baseUrl}/product/${id}`);
   }
-  getProducts(useCache: boolean) {
-    if (useCache) {
-      this.products = [];
+  getProducts() {
+    const key = JSON.stringify(this.shopParam);
+    if (this.cache.has(key)) {
+      return of(this.cache.get(key));
     }
-    if (this.products.length > 0 && useCache === true) {
-      const pageReceived = Math.ceil(this.products.length / this.shopParam.PageSize);
-      this.pagination.data = this.products.slice(
-        (this.shopParam.PageNumber - 1) * this.shopParam.PageSize,
-        this.shopParam.PageSize * this.shopParam.PageNumber);
-      return of(this.pagination);
-    }
-
 
     let param = new HttpParams();
     if (this.shopParam.BrandId !== 0) {
@@ -72,7 +65,7 @@ export class ShopService {
       .pipe(
         map(response => {
           this.products = [...this.products, ...response.body.data];
-          this.pagination = response.body;
+          this.cache.set(key, response.body);
           return response.body;
         })
       );
