@@ -100,7 +100,7 @@ export class BasketService {
       if (basket.items.length > 0) {
         this.setBasket(basket);
       } else {
-        this.deleteBasket(basket);
+        this.deleteBasket(basket).subscribe({ error: error => console.log(error) });
       }
     }
   }
