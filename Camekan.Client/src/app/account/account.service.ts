@@ -1,11 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { of, ReplaySubject, throwError } from 'rxjs';
+import { Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAddress } from '../shared/models/address.model';
 import { IUser } from '../shared/models/user.model';
+
+export interface RegisterRequest {
+  email: string;
+  displayName: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +57,8 @@ export class AccountService {
     );
   }
 
-  register(values: any) {
-    return this.http.post(this.baseUrl + '/account/register', values).pipe(
+  register(values: RegisterRequest): Observable<void> {
+    return this.http.post<IUser>(this.baseUrl + '/account/register', values).pipe(
       map((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
@@ -67,8 +73,8 @@ export class AccountService {
     this.currenUserSource.next(null);
     this.router.navigateByUrl('/');
   }
-  checkEmailExists(email: string) {
-    return this.http.get(this.baseUrl + '/account/emailexists?email=' + email);
+  checkEmailExists(email: string): Observable<boolean> {
+    return this.http.get<boolean>(this.baseUrl + '/account/emailexists', { params: { email } });
   }
   getUserAddress() {
     return this.http.get<IAddress>(this.baseUrl + '/account/GetUserAddress');
