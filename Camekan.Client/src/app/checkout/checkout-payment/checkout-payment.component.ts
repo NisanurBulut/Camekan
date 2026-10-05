@@ -10,8 +10,13 @@ import { CheckoutService } from '../checkout.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
 import { TranslateModule } from '@ngx-translate/core';
+import { loadStripe } from '@stripe/stripe-js/pure';
+import type {
+  Stripe, StripeCardCvcElement, StripeCardCvcElementChangeEvent, StripeCardExpiryElement,
+  StripeCardExpiryElementChangeEvent, StripeCardNumberElement, StripeCardNumberElementChangeEvent, StripeElementStyle
+} from '@stripe/stripe-js';
 
-declare var Stripe;
+type CardChangeEvent = StripeCardNumberElementChangeEvent | StripeCardExpiryElementChangeEvent | StripeCardCvcElementChangeEvent;
 
 @Component({
     selector: 'cmk-checkout-payment',
@@ -25,10 +30,11 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cardExpiry', { static: true }) cardExpiryElement: ElementRef;
   @ViewChild('cardCvc', { static: true }) cardCvcElement: ElementRef;
 
-  stripe: any;
-  cardCvc: any;
-  cardNumber: any;
-  cardExpiry: any;
+  stripe: Stripe;
+  cardCvc: StripeCardCvcElement;
+  cardNumber: StripeCardNumberElement;
+  cardExpiry: StripeCardExpiryElement;
+  stripeLoadFailed = signal(false);
   // Signals: Stripe change events come from
   cardErrors = signal<string>(null);
   cardHandler = this.onChange.bind(this);
@@ -51,36 +57,41 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cardNumber.destroy();
-    this.cardCvc.destroy();
-    this.cardExpiry.destroy();
+    this.cardNumber?.destroy();
+    this.cardCvc?.destroy();
+    this.cardExpiry?.destroy();
   }
 
-  ngAfterViewInit(): void {
-    this.stripe = Stripe(environment.apiKey);
+  async ngAfterViewInit(): Promise<void> {
+    try {
+      this.stripe = await loadStripe(environment.apiKey);
+    } catch {
+      this.stripeLoadFailed.set(true);
+      return;
+    }
     const elements = this.stripe.elements();
     const style = this.cardStyle();
 
     this.cardNumber = elements.create('cardNumber', { style });
     this.cardNumber.mount(this.cardNumberElement.nativeElement);
-    this.cardNumber.addEventListener('change', this.cardHandler);
+    this.cardNumber.on('change', this.cardHandler);
 
     this.cardExpiry = elements.create('cardExpiry', { style });
     this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
-    this.cardExpiry.addEventListener('change', this.cardHandler);
+    this.cardExpiry.on('change', this.cardHandler);
 
     this.cardCvc = elements.create('cardCvc', { style });
     this.cardCvc.mount(this.cardCvcElement.nativeElement);
-    this.cardCvc.addEventListener('change', this.cardHandler);
+    this.cardCvc.on('change', this.cardHandler);
   }
   // Reads the current theme tokens (src/styles/_theme.scss) so the colors are not duplicated here.
-  private cardStyle() {
+  private cardStyle(): StripeElementStyle {
     const tokens = getComputedStyle(document.documentElement);
     const color = tokens.getPropertyValue('--input-text').trim();
     const muted = tokens.getPropertyValue('--text-muted').trim();
     return { base: { color, iconColor: muted, '::placeholder': { color: muted } } };
   }
-  onChange(event) {
+  onChange(event: CardChangeEvent) {
     if (event.error) {
       this.cardErrors.set(event.error.message);
     } else {
