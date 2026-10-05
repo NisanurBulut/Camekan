@@ -1,22 +1,85 @@
-<div class="container-mt5">
-  <h4>
-    {{ 'ERROR.SERVER_ERROR_TITLE' | translate }}
-  </h4>
-  @if (error) {
-    <h5 class="text-danger">{{ 'ERROR.ERROR_MESSAGE' | translate: { message: error.message } }}</h5>
-    <p class="font-weight-bold">
-      {{ 'ERROR.ANGULAR_NOTE' | translate }}
-    </p>
-    <p>{{ 'ERROR.WHAT_TO_DO' | translate }}</p>
-    <ol>
-      <li>{{ 'ERROR.STEP_OPEN_CONSOLE' | translate }}</li>
-      <li>{{ 'ERROR.STEP_NETWORK_TAB' | translate }}</li>
-      <li>{{ 'ERROR.STEP_INSPECT_REQUEST' | translate }}</li>
-      <li>{{ 'ERROR.STEP_CHECK_URL' | translate }}</li>
-      <li>{{ 'ERROR.STEP_RETRY_POSTMAN' | translate }}</li>
-    </ol>
-    <code class="mt-5" style="background-color: whitesmoke;">
-      {{error.detail}}
-    </code>
-  }
+<div class="container mt-4">
+  <section class="server-error" [class.server-error--details]="error" aria-labelledby="server-error-title">
+    <div class="server-error__hero">
+      <!-- Decorative illustration: colors come from CSS variables so it follows the theme. -->
+      <svg class="server-error__art" viewBox="0 0 220 170" aria-hidden="true" focusable="false">
+        <circle class="art-blob" cx="105" cy="92" r="72" />
+        <!-- Unplugged cable, drawn first so it runs behind the rack. -->
+        <path class="art-cable" d="M150 126 C 176 128, 168 154, 192 150" />
+        <g class="art-plug">
+          <rect x="190" y="143" width="14" height="14" rx="3" />
+          <rect x="204" y="146" width="7" height="2.5" rx="1" />
+          <rect x="204" y="151.5" width="7" height="2.5" rx="1" />
+        </g>
+        <g class="art-rack">
+          <rect class="art-unit" x="58" y="50" width="94" height="26" rx="4" />
+          <rect class="art-unit" x="58" y="80" width="94" height="26" rx="4" />
+          <rect class="art-unit" x="58" y="110" width="94" height="26" rx="4" />
+          <rect class="art-slot" x="68" y="60" width="44" height="6" rx="3" />
+          <rect class="art-slot" x="68" y="90" width="44" height="6" rx="3" />
+          <rect class="art-slot" x="68" y="120" width="44" height="6" rx="3" />
+          <circle class="art-led-ok" cx="128" cy="63" r="3.5" />
+          <circle class="art-led-ok" cx="140" cy="63" r="3.5" />
+          <circle class="art-led-ok" cx="128" cy="93" r="3.5" />
+          <circle class="art-led-ok" cx="140" cy="93" r="3.5" />
+          <circle class="art-led-off" cx="128" cy="123" r="3.5" />
+          <circle class="art-led-bad" cx="140" cy="123" r="3.5" />
+          <rect class="art-foot" x="66" y="136" width="10" height="6" rx="1.5" />
+          <rect class="art-foot" x="134" y="136" width="10" height="6" rx="1.5" />
+        </g>
+        <path class="art-zap" d="M162 98 l-7 9 h7 l-6 9" />
+        <g class="art-alert">
+          <path class="art-alert-bg" d="M168 22 l20 34 h-40z" />
+          <rect class="art-alert-mark" x="166" y="33" width="4" height="12" rx="2" />
+          <circle class="art-alert-mark" cx="168" cy="50" r="2.3" />
+        </g>
+      </svg>
+
+      <div class="server-error__content">
+        <span class="server-error__badge">{{ error?.statusCode || 500 }} · {{ 'ERROR.SERVER_ERROR_STATUS' | translate }}</span>
+        <h2 id="server-error-title" class="server-error__title">{{ 'ERROR.SERVER_ERROR_HEADING' | translate }}</h2>
+        <p class="server-error__text">{{ 'ERROR.SERVER_ERROR_TEXT' | translate }}</p>
+        <div class="server-error__actions">
+          @if (retryUrl) {
+            <button type="button" class="btn se-btn se-btn--primary" (click)="retry()">
+              <i class="fa fa-refresh mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_RETRY' | translate }}
+            </button>
+          }
+          <a routerLink="/" class="btn se-btn se-btn--ghost">
+            <i class="fa fa-home mr-2" aria-hidden="true"></i>{{ 'ERROR.ACTION_HOME' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    @if (error) {
+      <div class="server-error__dev">
+        @if (error.message) {
+          <p class="server-error__message">
+            <i class="fa fa-exclamation-circle mr-2" aria-hidden="true"></i>{{ 'ERROR.ERROR_MESSAGE' | translate: { message: error.message } }}
+          </p>
+        }
+        <p class="server-error__note">
+          <i class="fa fa-info-circle mr-2" aria-hidden="true"></i>{{ 'ERROR.ANGULAR_NOTE' | translate }}
+        </p>
+
+        <h3 class="server-error__subtitle">{{ 'ERROR.WHAT_TO_DO' | translate }}</h3>
+        <ol class="server-error__steps">
+          @for (step of steps; track step.key) {
+            <li>
+              <span class="step-icon"><i class="fa {{ step.icon }}" aria-hidden="true"></i></span>
+              <span>{{ step.key | translate }}</span>
+            </li>
+          }
+        </ol>
+
+        @if (error.detail) {
+          <details class="server-error__detail">
+            <summary>{{ 'ERROR.TECH_DETAILS' | translate }}</summary>
+            <pre><code>{{ error.detail }}</code></pre>
+          </details>
+        }
+      </div>
+    }
+  </section>
 </div>

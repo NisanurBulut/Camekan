@@ -1,0 +1,359 @@
+// Server error page. Local color tokens, redefined for the dark theme below.
+// Wide screens: illustration left, text right (same layout as the empty orders card).
+.server-error {
+  --se-glow: rgba(231, 76, 60, 0.1);
+  --se-blob: #fdecea;
+  --se-unit: #2c3e50;
+  --se-slot: #4f6378;
+  --se-led-ok: #18bc9c;
+  --se-led-off: #7f8c8d;
+  --se-led-bad: #e74c3c;
+  --se-cable: #7f8c8d;
+  --se-zap: #f39c12;
+  --se-alert-bg: #e74c3c;
+  --se-alert-mark: #fff;
+  --se-text: #55606a;
+  --se-badge-bg: #fdecea;
+  --se-badge-text: #a93226;
+  --se-btn-bg: #2c3e50;
+  --se-btn-bg-hover: #1a252f;
+  --se-btn-text: #fff;
+  --se-ghost-text: #2c3e50;
+  --se-panel-bg: #f6f8f9;
+  --se-message: #a93226;
+  --se-step-bg: rgba(44, 62, 80, 0.08);
+  --se-step-icon: #2c3e50;
+  --se-code-bg: #fff;
+
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 25% 0%, var(--se-glow), transparent 60%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  box-shadow: 0 9px 27px rgba(0, 0, 0, 0.06);
+}
+
+:host-context([data-theme='dark']) .server-error {
+  --se-glow: rgba(231, 76, 60, 0.16);
+  --se-blob: #3a2523;
+  --se-unit: #5d7a96;
+  --se-slot: #3f5468;
+  --se-led-off: #5f6b73;
+  --se-cable: #8a959c;
+  --se-zap: #f5b041;
+  --se-alert-bg: #f1948a;
+  --se-alert-mark: #1e2226;
+  --se-text: #c3cacf;
+  --se-badge-bg: rgba(241, 148, 138, 0.15);
+  --se-badge-text: #f5b7b1;
+  --se-btn-bg: #18bc9c;
+  --se-btn-bg-hover: #1fd1ad;
+  --se-btn-text: #0f1a17;
+  --se-ghost-text: #e6e6e6;
+  --se-panel-bg: #262b30;
+  --se-message: #f5b7b1;
+  --se-step-bg: rgba(255, 255, 255, 0.07);
+  --se-step-icon: #4fd8bc;
+  --se-code-bg: #1a1d21;
+
+  box-shadow: 0 9px 27px rgba(0, 0, 0, 0.35);
+}
+
+// ---------- Hero ----------
+.server-error__hero {
+  text-align: center;
+}
+
+.server-error__art {
+  display: block;
+  width: 190px;
+  max-width: 60%;
+  height: auto;
+  margin: 0 auto 1rem;
+
+  .art-blob { fill: var(--se-blob); }
+  .art-unit, .art-foot { fill: var(--se-unit); }
+  .art-slot { fill: var(--se-slot); }
+  .art-led-ok { fill: var(--se-led-ok); }
+  .art-led-off { fill: var(--se-led-off); }
+  .art-led-bad { fill: var(--se-led-bad); }
+  .art-plug { fill: var(--se-cable); }
+  .art-alert-bg { fill: var(--se-alert-bg); }
+  .art-alert-mark { fill: var(--se-alert-mark); }
+
+  .art-cable {
+    fill: none;
+    stroke: var(--se-cable);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .art-zap {
+    fill: none;
+    stroke: var(--se-zap);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.server-error__badge {
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--se-badge-text);
+  background-color: var(--se-badge-bg);
+}
+
+.server-error__title {
+  margin-bottom: 0.4rem;
+  font-size: 1.575rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.server-error__text {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: var(--se-text);
+}
+
+.server-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.se-btn {
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  // Visible keyboard focus in both themes (WCAG 2.4.7).
+  &:focus-visible {
+    outline: 3px solid var(--se-btn-bg);
+    outline-offset: 3px;
+  }
+}
+
+.se-btn--primary {
+  color: var(--se-btn-text);
+  background-color: var(--se-btn-bg);
+  border: none;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    color: var(--se-btn-text);
+    background-color: var(--se-btn-bg-hover);
+  }
+}
+
+.se-btn--ghost {
+  color: var(--se-ghost-text);
+  background-color: transparent;
+  border: 1px solid var(--border);
+
+  &:hover {
+    color: var(--se-ghost-text);
+    background-color: var(--row-hover);
+  }
+}
+
+// ---------- Developer details ----------
+.server-error__dev {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: 0.6rem;
+  background-color: var(--se-panel-bg);
+}
+
+.server-error__message {
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+  color: var(--se-message);
+  overflow-wrap: anywhere;
+}
+
+.server-error__note {
+  margin-bottom: 0.9rem;
+  font-size: 0.875rem;
+  color: var(--se-text);
+}
+
+.server-error__subtitle {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+// Phones: one column. From 576px: two columns.
+.server-error__steps {
+  display: grid;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+}
+
+.step-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  color: var(--se-step-icon);
+  background-color: var(--se-step-bg);
+}
+
+.server-error__detail {
+  margin-top: 1rem;
+
+  summary {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--se-text);
+    cursor: pointer;
+  }
+
+  pre {
+    max-height: 220px;
+    margin: 0.6rem 0 0;
+    padding: 0.75rem;
+    overflow: auto;
+    font-size: 0.75rem;
+    white-space: pre-wrap;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    background-color: var(--se-code-bg);
+  }
+
+  code {
+    color: var(--text);
+  }
+}
+
+@media (min-width: 576px) {
+  .server-error__hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.75rem;
+    text-align: left;
+  }
+
+  .server-error__art {
+    flex-shrink: 0;
+    max-width: none;
+    margin: 0;
+  }
+
+  .server-error__actions {
+    justify-content: flex-start;
+  }
+
+  .server-error__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Large screens with error details: friendly part left, developer panel right,
+// so the page fits a laptop screen without scrolling.
+@media (min-width: 992px) {
+  .server-error--details {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    gap: 1.75rem;
+    align-items: start;
+    max-width: 980px;
+
+    .server-error__hero {
+      display: block;
+    }
+
+    .server-error__art {
+      width: 150px;
+      margin-bottom: 0.75rem;
+    }
+
+    .server-error__dev {
+      margin-top: 0;
+    }
+
+    .server-error__steps {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-led-bad {
+    animation: led-blink 1.1s steps(2, jump-none) infinite;
+  }
+
+  .art-zap {
+    animation: zap-flicker 2.2s ease-in-out infinite;
+  }
+
+  .art-alert {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: alert-wobble 3s ease-in-out infinite;
+  }
+
+  .se-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes led-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes zap-flicker {
+  0%, 60%, 100% {
+    opacity: 1;
+  }
+
+  70%, 85% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes alert-wobble {
+  0%, 70%, 100% {
+    transform: rotate(0deg);
+  }
+
+  78% {
+    transform: rotate(-8deg);
+  }
+
+  86% {
+    transform: rotate(6deg);
+  }
+}
