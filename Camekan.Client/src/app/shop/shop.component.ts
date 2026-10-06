@@ -11,23 +11,30 @@ import { PagerComponent } from '../shared/components/pager/pager.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'cmk-shop',
-    templateUrl: './shop.component.html',
-    styleUrls: ['./shop.component.scss'],
-    imports: [FormsModule, PagingHeaderComponent, ProductItemComponent, PagerComponent, TranslateModule]
+  selector: 'cmk-shop',
+  templateUrl: './shop.component.html',
+  styleUrls: ['./shop.component.scss'],
+  imports: [
+    FormsModule,
+    PagingHeaderComponent,
+    ProductItemComponent,
+    PagerComponent,
+    TranslateModule,
+  ],
 })
 export class ShopComponent implements OnInit {
   @ViewChild('search', { static: false }) searchTerm: ElementRef;
 
-  products = signal<IProduct[]>(undefined);
-  brands = signal<IProductBrand[]>(undefined);
-  types = signal<IProductType[]>(undefined);
+  products = signal<IProduct[] | null>(null);
+  brands = signal<IProductBrand[] | null>(null);
+  types = signal<IProductType[] | null>(null);
+
   shopParams: ShopParam;
-  totalCount = signal<number>(undefined);
+  totalCount = signal<number>(0);
   sortOptions = [
     { name: 'SHOP.SORT_ALPHABETICAL', value: 'name', icon: 'A–Z' },
     { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc', icon: '↑' },
-    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc', icon: '↓' }
+    { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc', icon: '↓' },
   ];
   constructor(private shopService: ShopService) {
     this.shopParams = this.shopService.getShopParam();
@@ -40,27 +47,37 @@ export class ShopComponent implements OnInit {
   }
 
   getProducts() {
-    this.shopService.getProducts()
-      .subscribe((response) => {
+    this.shopService.getProducts().subscribe(
+      (response) => {
         this.products.set(response.data);
         this.totalCount.set(response.count);
-      }, error => {
+      },
+      (error) => {
         // ShopService outlives this page; a failing filter left in it would break every return to /shop.
         this.shopParams = new ShopParam();
         this.shopService.setShopParam(this.shopParams);
-      });
+      },
+    );
   }
   getBrands() {
-    this.shopService.getBrands()
-      .subscribe((response) => {
+    this.shopService.getBrands().subscribe(
+      (response) => {
         this.brands.set([{ id: 0, name: 'COMMON.ALL' }, ...response]);
-      }, error => { console.log(error); });
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   }
   getTypes() {
-    this.shopService.getTypes()
-      .subscribe((response) => {
+    this.shopService.getTypes().subscribe(
+      (response) => {
         this.types.set([{ id: 0, name: 'COMMON.ALL' }, ...response]);
-      }, error => { console.log(error); });
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
   }
   onBrandSelected(brandId: number) {
     const params = this.shopService.getShopParam();
@@ -82,10 +99,10 @@ export class ShopComponent implements OnInit {
     this.shopService.setShopParam(params);
     this.getProducts();
   }
-  onPageChanged(event: any) {
+  onPageChanged(pageNumber: number) {
     const params = this.shopService.getShopParam();
-    if (params.PageNumber !== event.page) {
-      params.PageNumber = event.page;
+    if (params.PageNumber !== pageNumber) {
+      params.PageNumber = pageNumber;
       this.shopService.setShopParam(params);
       this.getProducts();
     }
@@ -99,7 +116,12 @@ export class ShopComponent implements OnInit {
   }
   hasFilters() {
     const params = this.shopParams;
-    return params.BrandId !== 0 || params.TypeId !== 0 || params.Sort !== 'name' || !!params.search;
+    return (
+      params.BrandId !== 0 ||
+      params.TypeId !== 0 ||
+      params.Sort !== 'name' ||
+      !!params.search
+    );
   }
   onReset() {
     this.searchTerm.nativeElement.value = '';
