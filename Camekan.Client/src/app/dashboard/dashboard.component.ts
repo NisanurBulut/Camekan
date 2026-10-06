@@ -3,10 +3,10 @@ import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
-import Chart from 'chart.js/auto';
 import { APP_NAME } from '../app.constants';
 import { ThemeService } from '../core/services/theme.service';
 import { DashboardData } from '../shared/models/dashboard.model';
+import { Chart } from './chart-setup';
 import { DashboardService } from './dashboard.service';
 
 @Component({
