@@ -17,6 +17,6 @@ export class PagerComponent {
   constructor() { }
 
   onPageChanged(event: any) {
-    this.pageChanged.emit(event);
+    this.pageChanged.emit(event.page);
   }
 }
