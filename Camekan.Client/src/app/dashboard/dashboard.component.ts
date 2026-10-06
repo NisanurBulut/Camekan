@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import Chart from 'chart.js/auto';
 import { APP_NAME } from '../app.constants';
 import { ThemeService } from '../core/services/theme.service';
-import { DashboardData } from './dashboard.model';
+import { DashboardData } from '../shared/models/dashboard.model';
 import { DashboardService } from './dashboard.service';
 
 @Component({
