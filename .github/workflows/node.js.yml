@@ -30,5 +30,6 @@ jobs:
         cache: 'npm'
         cache-dependency-path: Camekan.Client/package-lock.json
     - run: npm ci
+    - run: cp src/environments/stripe-key.example.ts src/environments/stripe-key.ts
     - run: npm run lint
     - run: npm run build
