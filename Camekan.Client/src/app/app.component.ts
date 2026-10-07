@@ -33,12 +33,14 @@ export class AppComponent implements OnInit {
     this.translateService.use(lang && this.translateService.getLangs().includes(lang) ? lang : 'tr');
   }
   loadUser() {
-    const token = localStorage.getItem('token');
+    // local storage her zaman string|null döndürür. null ise token yok demektir.
+    const token : string | null = localStorage.getItem('token');
     this.accountService.loadCurrentUser(token)
-    .subscribe(() => {
-    }, error => console.log(error));
+    .subscribe({
+      error: (error) => console.log(error)
+    });
   }
-  
+
   @HostListener('document:visibilitychange')
     @HostListener('window:focus')
   onVisibilityChange() {
