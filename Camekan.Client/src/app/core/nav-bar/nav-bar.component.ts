@@ -16,17 +16,15 @@ import { AsyncPipe } from '@angular/common';
     styleUrls: ['./nav-bar.component.scss'],
     imports: [RouterLink, RouterLinkActive, BsDropdownDirective, BsDropdownToggleDirective, BsDropdownMenuDirective, AsyncPipe, TranslateModule]
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
   basket = this.basketService.basket;
-  currentUser$: Observable<IUser>;
+  currentUser$ = this.accountService.currentUser$;
 
-  constructor(private basketService: BasketService, private accountService: AccountService,
-              public translateService: TranslateService, public themeService: ThemeService) { }
-
-  ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
-  }
+  constructor(private basketService: BasketService,
+    private accountService: AccountService,
+              public translateService: TranslateService,
+              public themeService: ThemeService) { }
   logOut() {
     this.accountService.logout();
   }
