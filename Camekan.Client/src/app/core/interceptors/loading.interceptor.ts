@@ -4,6 +4,9 @@ import { finalize } from 'rxjs/operators';
 import { BusyService } from '../services/busy.service';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
+   if (req.method === 'GET' && req.url.includes('/basket')) {
+    return next(req);
+}
     if (req.method === 'POST' && req.url.includes('order')) {
         return next(req);
     }
