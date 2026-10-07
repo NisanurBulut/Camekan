@@ -32,8 +32,8 @@ jobs:
     - run: npm ci
     - run: cp src/environments/stripe-key.example.ts src/environments/stripe-key.ts
     - run: npm run lint
-    - run: npm run build
     - run: npm test -- --no-watch
+    - run: npm run build
   label-hotfix:
     runs-on: ubuntu-latest
     permissions:
