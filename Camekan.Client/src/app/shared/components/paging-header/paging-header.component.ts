@@ -8,9 +8,9 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [TranslateModule]
 })
 export class PagingHeaderComponent {
-  @Input() pageNumber: number;
-  @Input() pageSize: number;
-  @Input() totalCount: number;
+  @Input({required: true }) pageNumber!: number;
+  @Input({required: true }) pageSize!: number;
+  @Input({required: true }) totalCount!: number;
   constructor() { }
 
 
