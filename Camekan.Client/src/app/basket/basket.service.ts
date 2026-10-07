@@ -13,9 +13,9 @@ import { IProduct } from '../shared/models/product.model';
 })
 export class BasketService {
   baseUrl = environment.apiUrl;
-  private basketState = signal<IBasket>(null);
+  private basketState = signal<IBasket | null>(null); // sepet boş iken null değeri
   readonly basket = this.basketState.asReadonly();
-  readonly basketTotal = computed<IBasketTotal>(() => {
+  readonly basketTotal = computed<IBasketTotal | null>(() => {
     const basket = this.basket();
     if (!basket) {
       return null;
@@ -33,7 +33,7 @@ export class BasketService {
   createPaymentIntent() {
     return this.http
       .post<IBasket>(
-        `${this.baseUrl}/payment/CreateOrUpdatePaymentIntent?basketId=${this.getCurrentBasketValue().id}`,
+        `${this.baseUrl}/payment/CreateOrUpdatePaymentIntent?basketId=${this.getCurrentBasketValue()?.id}`,
         {},
       )
       .pipe(
@@ -83,7 +83,7 @@ export class BasketService {
       this.removeItemFromBasket(item);
     }
   }
-  getCurrentBasketValue() {
+  getCurrentBasketValue() : IBasket | null {
     return this.basket();
   }
 
@@ -107,8 +107,8 @@ export class BasketService {
       : [...items, itemToAdd];
   }
   removeItemFromBasket(item: IBasketItem) {
-    const basket = this.getCurrentBasketValue();
-    if (basket.items.some((x) => x.id === item.id)) {
+    const basket: IBasket | null = this.getCurrentBasketValue();
+    if (basket?.items.some((x) => x.id === item.id)) {
       const items = basket.items.filter((x) => x.id !== item.id);
       if (items.length > 0) {
         this.setBasket({ ...basket, items });
@@ -132,10 +132,13 @@ export class BasketService {
 
   // Updates return a new object: the signal compares by reference, so an in-place change would not refresh basketTotal.
   private changeQuantity(item: IBasketItem, delta: number) {
-    const basket = this.getCurrentBasketValue();
+    const basket: IBasket | null = this.getCurrentBasketValue();
+    if(!basket) {
+      return;
+    }
     this.setBasket({
       ...basket,
-      items: basket.items.map((a) =>
+      items: basket?.items.map((a) =>
         a.id === item.id ? { ...a, quantity: a.quantity + delta } : a,
       ),
     });
