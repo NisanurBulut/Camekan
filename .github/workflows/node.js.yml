@@ -39,6 +39,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=bug"
-      env:
+      - name: Label hotfix PR
+        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=bug"
