@@ -1,4 +1,0 @@
-{
-  "typescript.tsdk": "Camekan.Client/node_modules/typescript/lib",
-  "eslint.workingDirectories": ["Camekan.Client"]
-}

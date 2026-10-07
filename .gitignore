@@ -346,3 +346,4 @@ Camekan.DataAccess/Camekan.db-wal
 
 
 /docs/*.*
+/.vscode/settings.json
