@@ -1,1 +1,1 @@
-⭐ by Developerella 💃"
+⭐ by Developerella 💃
