@@ -20,10 +20,10 @@ export class CheckoutAddressComponent {
               private translateService: TranslateService) { }
 
   saveUserAddress() {
-    this.accountService.updateUserAddress(this.checkoutForm.get('addressForm').value)
+    this.accountService.updateUserAddress(this.checkoutForm.controls.addressForm.value)
       .subscribe((address: IAddress) => {
         this.toastrService.success(this.translateService.instant('CHECKOUT.ADDRESS_SAVED'));
-        this.checkoutForm.get('addressForm').reset(address);
+        this.checkoutForm.controls.addressForm.reset(address);
       }, error => this.toastrService.error(error.message));
   }
 }
