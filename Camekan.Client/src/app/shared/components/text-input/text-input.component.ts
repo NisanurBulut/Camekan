@@ -14,8 +14,8 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
 
   @ViewChild('input', { static: true }) input: ElementRef;
   @Input() type = 'type';
-  @Input() label: string;
-  @Input() autocomplete: string;
+  @Input() label: string = '';
+  @Input() autocomplete: string = 'off';
 
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
