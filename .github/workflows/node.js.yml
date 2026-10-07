@@ -43,3 +43,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=bug"
+        if: contains(github.head_ref, 'dev')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=enhancement"
+
