@@ -62,12 +62,13 @@ export class BasketService {
     );
   }
   setBasket(basket: IBasket) {
+    const previousBasket = this.basket();
     this.basketState.set(basket);
-    return this.http.post(this.baseUrl + '/basket', basket).subscribe(
-      (response: IBasket) => {
-        this.basketState.set(response);
-      },
-      (error) => console.log(error),
+    return this.http.post<IBasket>(`${this.baseUrl}/basket`, basket)
+    .subscribe({
+        next: (response: IBasket) => this.basketState.set(response),
+        error: () => this.basketState.set(previousBasket)
+      }
     );
   }
   incrementItemQuantity(item: IBasketItem) {
