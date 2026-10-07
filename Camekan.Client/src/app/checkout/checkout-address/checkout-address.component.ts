@@ -15,7 +15,7 @@ import { CdkStepperNext } from '@angular/cdk/stepper';
     imports: [FormsModule, ReactiveFormsModule, TextInputComponent, RouterLink, CdkStepperNext, TranslateModule]
 })
 export class CheckoutAddressComponent {
-  @Input() checkoutForm: UntypedFormGroup;
+  @Input({required: true}) checkoutForm!: UntypedFormGroup;
   constructor(private accountService: AccountService, private toastrService: ToastrService,
               private translateService: TranslateService) { }
 
