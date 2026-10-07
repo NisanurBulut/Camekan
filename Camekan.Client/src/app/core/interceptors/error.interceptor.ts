@@ -25,7 +25,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         catchError((error: HttpErrorResponse) => {
             switch (error.status) {
                 case 400:
-                    if (error.error.errors) {
+                    if (error.error?.errors) {
                         return throwError(() => error.error);
                     }
                     toastrService.error(messageOf(error, 'ERROR.BAD_REQUEST'), error.error?.statusCode);
