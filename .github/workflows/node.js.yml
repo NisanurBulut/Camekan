@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches:
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -33,3 +33,12 @@ jobs:
     - run: cp src/environments/stripe-key.example.ts src/environments/stripe-key.ts
     - run: npm run lint
     - run: npm run build
+  label-hotfix:
+    if: contains(github.head_ref, 'hotfix')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=bug"
+      env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
