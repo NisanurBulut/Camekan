@@ -7,6 +7,7 @@ import { IBasketItem } from '../shared/models/basketItem.model';
 import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod.model';
 import { IProduct } from '../shared/models/product.model';
+import { throwError, Observable } from 'rxjs/';
 
 @Injectable({
   providedIn: 'root',
@@ -30,17 +31,18 @@ export class BasketService {
 
   constructor(private http: HttpClient) {}
 
-  createPaymentIntent() {
+  createPaymentIntent(): Observable<IBasket> {
+    const basket = this.getCurrentBasketValue();
+    if (!basket) {
+      return throwError(() => new Error('Basket not found'));
+    }
+
     return this.http
       .post<IBasket>(
-        `${this.baseUrl}/payment/CreateOrUpdatePaymentIntent?basketId=${this.getCurrentBasketValue()?.id}`,
+        `${this.baseUrl}/payment/CreateOrUpdatePaymentIntent?basketId=${basket.id}`,
         {},
       )
-      .pipe(
-        tap((data: IBasket) => {
-          this.basketState.set(data);
-        }),
-      );
+      .pipe(tap((data) => this.basketState.set(data)));
   }
   setShippingPrice(deliveryMethod: IDeliveryMethod): void {
     const basket = this.basket();
@@ -64,14 +66,13 @@ export class BasketService {
   setBasket(basket: IBasket) {
     const previousBasket = this.basket();
     this.basketState.set(basket);
-    return this.http.post<IBasket>(`${this.baseUrl}/basket`, basket)
-    .subscribe({
-        next: (response: IBasket) => {
-          this.basketState.set(response);
-          localStorage.setItem('basket_id', basket.id);},
-        error: () => this.basketState.set(previousBasket)
-      }
-    );
+    return this.http.post<IBasket>(`${this.baseUrl}/basket`, basket).subscribe({
+      next: (response: IBasket) => {
+        this.basketState.set(response);
+        localStorage.setItem('basket_id', basket.id);
+      },
+      error: () => this.basketState.set(previousBasket),
+    });
   }
   incrementItemQuantity(item: IBasketItem) {
     this.changeQuantity(item, 1);
@@ -83,7 +84,7 @@ export class BasketService {
       this.removeItemFromBasket(item);
     }
   }
-  getCurrentBasketValue() : IBasket | null {
+  getCurrentBasketValue(): IBasket | null {
     return this.basket();
   }
 
@@ -133,7 +134,7 @@ export class BasketService {
   // Updates return a new object: the signal compares by reference, so an in-place change would not refresh basketTotal.
   private changeQuantity(item: IBasketItem, delta: number) {
     const basket: IBasket | null = this.getCurrentBasketValue();
-    if(!basket) {
+    if (!basket) {
       return;
     }
     this.setBasket({
