@@ -38,12 +38,15 @@ export class AppComponent implements OnInit {
     .subscribe(() => {
     }, error => console.log(error));
   }
+  
   @HostListener('document:visibilitychange')
+    @HostListener('window:focus')
   onVisibilityChange() {
     if (document.visibilityState === 'visible') {
       this.loadBasket();
     }
   }
+
   loadBasket() {
     const basketId = localStorage.getItem('basket_id');
     if (basketId) {
