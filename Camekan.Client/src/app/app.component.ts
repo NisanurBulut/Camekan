@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerComponent } from 'ngx-spinner';
@@ -37,6 +37,12 @@ export class AppComponent implements OnInit {
     this.accountService.loadCurrentUser(token)
     .subscribe(() => {
     }, error => console.log(error));
+  }
+  @HostListener('document:visibilitychange')
+  onVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+      this.loadBasket();
+    }
   }
   loadBasket() {
     const basketId = localStorage.getItem('basket_id');
