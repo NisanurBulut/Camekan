@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
 
+  // viewchild template deki isim etiketleri
   @ViewChild('input', { static: true }) input: ElementRef;
   @Input() type = 'type';
   @Input() label: string = '';

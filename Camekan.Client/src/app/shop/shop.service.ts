@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IPagination } from '../shared/models/pagination.model';
 import { IProductBrand } from '../shared/models/productBrand.model';
 import { IProductType } from '../shared/models/productType.model';
 import { ShopParam } from '../shared/models/shopParams.model';
 import { IProduct } from '../shared/models/product.model';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -37,13 +37,16 @@ export class ShopService {
     }
     return this.http.get<IProduct>(`${this.baseUrl}/product/${id}`);
   }
-  getProducts() {
+  getProducts(): Observable<IPagination> {
     const key = JSON.stringify(this.shopParam);
-    if (this.cache.has(key)) {
-      return of(this.cache.get(key));
+    const cached= this.cache.get(key);
+
+    if (cached) {
+      return of(cached);
     }
 
     let param = new HttpParams();
+
     if (this.shopParam.BrandId !== 0) {
       param = param.append('BrandId', this.shopParam.BrandId.toString());
     }
@@ -57,18 +60,13 @@ export class ShopService {
     param = param.append('PageIndex', this.shopParam.PageNumber.toString());
     param = param.append('PageSize', this.shopParam.PageSize.toString());
 
-    return this.http.get<IPagination>(
-      `${this.baseUrl}/product`, {
-      observe: 'response',
-      params: param
-    })
-      .pipe(
-        map(response => {
-          this.products = [...this.products, ...response.body.data];
-          this.cache.set(key, response.body);
-          return response.body;
+    return this.http.get<IPagination>(`${this.baseUrl}/product`, {
+      params: param }).pipe(
+        tap(page=>{
+          this.products = [...this.products, ...page.data];
+          this.cache.set(key, page);
         })
-      );
+      )
   }
   getBrands() {
     if (this.brands.length > 0) {
