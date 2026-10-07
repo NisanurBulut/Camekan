@@ -66,7 +66,9 @@ export class BasketService {
     this.basketState.set(basket);
     return this.http.post<IBasket>(`${this.baseUrl}/basket`, basket)
     .subscribe({
-        next: (response: IBasket) => this.basketState.set(response),
+        next: (response: IBasket) => {
+          this.basketState.set(response);
+          localStorage.setItem('basket_id', basket.id);},
         error: () => this.basketState.set(previousBasket)
       }
     );
@@ -140,9 +142,7 @@ export class BasketService {
   }
 
   private createBasket(): IBasket {
-    const basket = new Basket();
-    localStorage.setItem('basket_id', basket.id);
-    return basket;
+    return new Basket();
   }
 
   private mapProductToBasketItem(
