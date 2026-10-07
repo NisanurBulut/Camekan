@@ -50,8 +50,8 @@ export class ShopService {
     if (this.shopParam.TypeId !== 0) {
       param = param.append('TypeId', this.shopParam.TypeId.toString());
     }
-    if (this.shopParam.search) {
-      param = param.append('Search', this.shopParam.search);
+    if (this.shopParam.Search) {
+      param = param.append('Search', this.shopParam.Search);
     }
     param = param.append('Sort', this.shopParam.Sort);
     param = param.append('PageIndex', this.shopParam.PageNumber.toString());

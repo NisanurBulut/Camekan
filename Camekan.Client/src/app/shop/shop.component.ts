@@ -109,7 +109,7 @@ export class ShopComponent implements OnInit {
   }
   onSearch() {
     const params = this.shopService.getShopParam();
-    params.search = this.searchTerm.nativeElement.value;
+    params.Search = this.searchTerm.nativeElement.value;
     params.PageNumber = 1;
     this.shopService.setShopParam(params);
     this.getProducts();
@@ -120,7 +120,7 @@ export class ShopComponent implements OnInit {
       params.BrandId !== 0 ||
       params.TypeId !== 0 ||
       params.Sort !== 'name' ||
-      !!params.search
+      !!params.Search
     );
   }
   onReset() {
