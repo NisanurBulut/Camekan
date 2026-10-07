@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { AccountService } from '../account/account.service';
 import { BasketService } from '../basket/basket.service';
 import { StepperComponent } from '../shared/components/stepper/stepper.component';
@@ -12,55 +12,73 @@ import { OrderTotalComponent } from '../shared/components/order-total/order-tota
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'cmk-checkout',
-    templateUrl: './checkout.component.html',
-    styleUrls: ['./checkout.component.scss'],
-    imports: [StepperComponent, CdkStep, CheckoutAddressComponent, CheckoutDeliveryComponent, CheckoutReviewComponent, CheckoutPaymentComponent, OrderTotalComponent, TranslateModule]
+  selector: 'cmk-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.scss'],
+  imports: [
+    StepperComponent,
+    CdkStep,
+    CheckoutAddressComponent,
+    CheckoutDeliveryComponent,
+    CheckoutReviewComponent,
+    CheckoutPaymentComponent,
+    OrderTotalComponent,
+    TranslateModule,
+  ],
 })
 export class CheckoutComponent implements OnInit {
-  checkoutForm: UntypedFormGroup;
-  constructor(private fb: UntypedFormBuilder, private accountService: AccountService, private basketService: BasketService) { }
+  constructor(
+    private fb: UntypedFormBuilder,
+    private accountService: AccountService,
+    private basketService: BasketService,
+  ) {}
+
+  checkoutForm = this.fb.nonNullable.group({
+    addressForm: this.fb.nonNullable.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      street: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipCode: ['', Validators.required],
+    }),
+    deliveryForm: this.fb.nonNullable.group({
+      deliveryMethod: ['', Validators.required],
+    }),
+    paymentForm: this.fb.nonNullable.group({
+      nameOnCard: ['', Validators.required],
+    }),
+  });
 
   basketTotal = this.basketService.basketTotal;
 
   ngOnInit(): void {
-    this.createCheckoutForm();
     this.getAddressFormValues();
     this.getDeliveryMethodValue();
   }
-  createCheckoutForm(): void {
 
-    this.checkoutForm = this.fb.group({
-      addressForm: this.fb.group({
-        firstName: [null, Validators.required],
-        lastName: [null, Validators.required],
-        street: [null, Validators.required],
-        city: [null, Validators.required],
-        state: [null, Validators.required],
-        zipCode: [null, Validators.required]
-      }),
-      deliveryForm: this.fb.group({
-        deliveryMethod: [null, Validators.required]
-      }),
-      paymentForm: this.fb.group({
-        nameOnCard: [null, Validators.required]
-      })
-    });
-  }
   getAddressFormValues() {
-    this.accountService.getUserAddress()
-      .subscribe((address) => {
+    this.accountService.getUserAddress().subscribe({
+      next: (address) => {
         if (address) {
-          this.checkoutForm.get('addressForm').patchValue(address);
-          this.checkoutForm.get('paymentForm.nameOnCard')
-            ?.setValue(`${address.firstName} ${address.lastName}`.trim());
+          this.checkoutForm.controls.addressForm.patchValue(address);
+          this.checkoutForm.controls.paymentForm.controls.nameOnCard.setValue(
+            `${address.firstName} ${address.lastName}`.trim(),
+          );
         }
-      }, error => console.log(error));
+      },
+      error: (error) => console.log(error),
+    });
   }
   getDeliveryMethodValue() {
     const basket = this.basketService.getCurrentBasketValue();
+
     if (basket?.deliveryMethodId != null) {
-      this.checkoutForm.get('deliveryForm').get('deliveryMethod').patchValue(basket.deliveryMethodId.toString());
+      // null ya da undefined değilse
+      this.checkoutForm.controls.deliveryForm.controls.deliveryMethod.patchValue(
+        basket.deliveryMethodId.toString(),
+      );
     }
   }
 }
+export type CheckoutForm = CheckoutComponent['checkoutForm'];
