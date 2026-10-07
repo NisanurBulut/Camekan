@@ -7,7 +7,7 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
    if (req.method === 'GET' && req.url.includes('/basket')) {
     return next(req);
 }
-    if (req.method === 'POST' && req.url.includes('order')) {
+    if (req.method === 'POST' && req.url.endsWith('/order/CreateOrder')) {
         return next(req);
     }
     if (req.method === 'DELETE') {
