@@ -76,7 +76,7 @@ export class OrderComponent {
   private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.currentLang });
   statusLabels = computed(() => {
     this.lang();
-    const labels = {} as Record<string, string>;
+    const labels : Partial<Record<string, string>> = {};
     for (const [status, { key }] of Object.entries(STATUS)) {
       labels[status] = this.translate.instant(key);
     }
