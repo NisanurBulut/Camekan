@@ -16,9 +16,4 @@ export class StepperComponent extends CdkStepper implements OnInit {
   ngOnInit(): void {
     this.linear = this.linearModelSelected;
   }
-
-  onClick(index: number) {
-    this.selectedIndex = index;
-    console.log(this.selectedIndex);
-  }
 }
