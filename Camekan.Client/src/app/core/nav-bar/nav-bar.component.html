@@ -41,14 +41,10 @@
           </div>
         }
       </a>
-      @if ((this.currentUser$ | async)===null) {
-        <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">{{ 'NAV.LOGIN' | translate }}</a>
-        <a [routerLink]="['/account/register']" class="btn btn-outline-secondary mr-3">{{ 'NAV.REGISTER' | translate }}</a>
-      }
-      @if ((this.currentUser$ | async)) {
+@if(currentUser$ | async; as user){
         <div class="dropdown ml-3 mr-5" dropdown>
           <a class="dropdown-toggle" dropdownToggle >
-            <i class="fa fa-user-circle mr-2 user-icon" aria-hidden="true"></i><strong>{{ 'NAV.WELCOME' | translate: { name: (currentUser$ | async).displayName } }}</strong>
+            <i class="fa fa-user-circle mr-2 user-icon" aria-hidden="true"></i><strong>{{ 'NAV.WELCOME' | translate: { name: user.displayName } }}</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
             <li [routerLink]="['/basket']" class="dropdown-item d-flex align-items-center py-2">
@@ -69,5 +65,7 @@
           </ul>
         </div>
       }
+       @else{ <a [routerLink]="['/account/login']" class="btn btn-outline-secondary mr-2">{{ 'NAV.LOGIN' | translate }}</a>
+        <a [routerLink]="['/account/register']" class="btn btn-outline-secondary mr-3">{{ 'NAV.REGISTER' | translate }}</a>}
     </div>
   </div>
