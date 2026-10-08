@@ -13,7 +13,7 @@ export class CheckoutSuccessComponent {
   order: IOrder | null = null;
   constructor(private router: Router) {
     const navigation = this.router.currentNavigation();
-    const state = navigation?.extras?.state;
+    const state = navigation?.extras.state;
     if (state) {
       this.order = state as IOrder;
     }
