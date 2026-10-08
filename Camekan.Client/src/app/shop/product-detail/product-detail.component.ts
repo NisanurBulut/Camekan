@@ -48,8 +48,12 @@ export class ProductDetailComponent {
     });
   }
 
-  addItemToBasket() {
-    this.basketService.addItemToBasket(this.product.value(), this.quantity());
+  addItemToBasket() : void{
+    const productValue = this.product.value();
+
+    if(!productValue){ return }
+
+    this.basketService.addItemToBasket(productValue, this.quantity());
     this.quantity.set(1);
     this.added.set(true);
     setTimeout(() => this.added.set(false), 2000);
