@@ -4,13 +4,13 @@
       <div class="form-group col-6">
         <input
           type="radio"
-          id="{{ item.id }}"
+          id="delivery-{{ item.id }}"
           value="{{ item.id }}"
-          (click)="setShippingPrice(item)"
+          (change)="setShippingPrice(item)"
           formControlName="deliveryMethod"
           class="custom-control-class mr-3"
           />
-          <label for="{{ item.id }}" class="custom-control-class">
+          <label for="delivery-{{ item.id }}" class="custom-control-class">
             <strong>{{ item.shortName }} - {{ item.price | currency: "TRY":"₺":"" }}</strong>
           </label>
           <br />
@@ -25,7 +25,7 @@
     <button type="button" class="btn btn-back" cdkStepperPrevious>
       <i class="fa fa-angle-left mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.BACK' | translate }}
     </button>
-    <button type="button" [disabled]="checkoutForm.get('deliveryForm').invalid" class="btn btn-cta" cdkStepperNext>
+    <button type="button" [disabled]="checkoutForm.controls.deliveryForm.invalid" class="btn btn-cta" cdkStepperNext>
       {{ 'CHECKOUT.NEXT' | translate }}<i class="fa fa-angle-right ml-2" aria-hidden="true"></i>
     </button>
   </div>
