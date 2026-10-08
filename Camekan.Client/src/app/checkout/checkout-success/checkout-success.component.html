@@ -2,9 +2,9 @@
   <div class="fa fa-check-circle fa-5x"></div>
   <h2>{{ 'CHECKOUT.SUCCESS_TITLE' | translate }}</h2>
   @if (order) {
-    <button routerLink="/order/{{order?.id}}" class="btn btn-outline-success">{{ 'CHECKOUT.VIEW_ORDER' | translate }}</button>
+    <button routerLink="/order/{{order.id}}" class="btn btn-outline-success">{{ 'CHECKOUT.VIEW_ORDER' | translate }}</button>
   }
-  @if (!order) {
+  @else{
     <button routerLink="/order" class="btn btn-outline-success">{{ 'CHECKOUT.VIEW_ORDERS' | translate }}</button>
   }
 </div>
