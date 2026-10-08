@@ -53,8 +53,8 @@
 
       <div class="row">
         <div class="col-md-7 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <h2 class="h6 card-title">{{ 'ORDER.DASH_MONTHLY' | translate }}</h2>
+          <div class="card panel-card h-100"><div class="card-body">
+            <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></span>{{ 'ORDER.DASH_MONTHLY' | translate }}</h2>
             @for (month of monthly(); track month.key) {
               <div class="d-flex align-items-center mb-2">
                 <span class="small text-muted month-label">{{ month.date | date : 'MMM yy' }}</span>
@@ -63,21 +63,22 @@
                        [attr.aria-valuenow]="month.percent" aria-valuemin="0" aria-valuemax="100"
                        [attr.aria-label]="month.date | date : 'MMMM yyyy'"></div>
                 </div>
-                <span class="small text-right month-total">{{ month.total | currency : 'TRY' : '₺' : '1.0-0' }}</span>
+                <span class="small text-right font-weight-bold month-total">{{ month.total | currency : 'TRY' : '₺' : '1.0-0' }}</span>
               </div>
             }
           </div></div>
         </div>
 
         <div class="col-md-5 mb-3">
-          <div class="card h-100"><div class="card-body">
-            <h2 class="h6 card-title">{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h2>
+          <div class="card panel-card h-100"><div class="card-body">
+            <h2 class="card-heading"><span class="heading-icon"><i class="fa fa-trophy" aria-hidden="true"></i></span>{{ 'ORDER.DASH_TOP_BOOKS' | translate }}</h2>
             <ul class="list-group list-group-flush">
-              @for (book of s.topBooks; track book.productId) {
+              @for (book of s.topBooks; track book.productId; let i = $index) {
                 <li class="list-group-item d-flex align-items-center px-0 position-relative">
+                  <span class="rank mr-2" [class.rank--top]="i === 0">{{ i + 1 }}</span>
                   <img [src]="book.pictureUrl" alt="" class="book-cover mr-3 rounded" loading="lazy">
                   <a [routerLink]="['/shop', book.productId]" class="flex-grow-1 stretched-link">{{ book.productName }}</a>
-                  <span class="badge badge-primary badge-pill">{{ 'ORDER.DASH_PIECES' | translate: { count: book.quantity } }}</span>
+                  <span class="pieces-badge">{{ 'ORDER.DASH_PIECES' | translate: { count: book.quantity } }}</span>
                 </li>
               }
             </ul>

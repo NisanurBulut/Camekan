@@ -29,3 +29,44 @@ label.xng-breadcrumb-trail {
     animation: none !important;
   }
 }
+
+// Shared by the dashboard and the order summary cards.
+.card-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.heading-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+.rank {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text);
+  background-color: var(--surface-muted);
+}
+
+.rank--top {
+  color: var(--cta-text);
+  background-color: var(--cta-bg);
+}
