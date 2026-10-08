@@ -2,12 +2,11 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  ElementRef,
   inject,
   Input,
   OnInit,
   Self,
-  viewChild,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
@@ -21,9 +20,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [NgClass, TranslateModule],
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
-  // viewchild template deki isim etiketleri
-  input = viewChild.required<ElementRef<HTMLInputElement>>('input');
-  @Input() type : string = 'type';
+  value = signal('');
+
+  @Input() type: string = 'type';
   @Input() label: string = '';
   @Input() autocomplete: string = '';
 
@@ -38,7 +37,9 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     const control = this.controlDir.control; // abstractControl | null
 
     // guard clause
-    if(!control) { return; }
+    if (!control) {
+      return;
+    }
 
     const validators = control.validator ? [control.validator] : [];
     const asyncValidators = control.asyncValidator
@@ -53,17 +54,22 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => this.cdr.markForCheck());
   }
-  onChange(event: any) {}
+  onChange(value: string) {}
 
   onTouched() {}
 
-  writeValue(obj: any): void {
-    this.input().nativeElement.value = obj || '';
+  onInput(value: string) {
+    this.value.set(value);
+    this.onChange(value);
   }
-  registerOnChange(fn: any): void {
+  writeValue(obj: string | null): void {
+    this.value.set(obj ?? '');
+  }
+
+  registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 }

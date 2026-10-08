@@ -3,8 +3,9 @@
     [ngClass]="(controlDir && controlDir.control && controlDir.control.touched) ?
      !controlDir.control.valid ? 'is-invalid':'is-valid':null"
     [type]="type"
+    [value]="value()"
     [attr.autocomplete]="autocomplete || null"
-    (input)="onChange($event.target.value)"
+    (input)="onInput(input.value)"
     (blur)="onTouched()"
     #input
     id="{{label}}"
@@ -25,7 +26,8 @@
       </div>
     }
     @if ((controlDir && controlDir.control && !controlDir.control.valid && controlDir.control.dirty)) {
-      <div class="invalid-feedback d-block">
+      <div class="invalid-feedback d-block"
+>
         @if (controlDir.control.errors?.emailExists) {
           <span>{{ 'VALIDATION.EMAIL_EXISTS' | translate }}</span>
         }
