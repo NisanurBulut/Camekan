@@ -11,14 +11,9 @@ import { NgTemplateOutlet } from '@angular/common';
 })
 export class StepperComponent extends CdkStepper implements OnInit {
 
-  @Input() linearModelSelected: boolean;
+  @Input() linearModelSelected: boolean = false;
 
   ngOnInit(): void {
     this.linear = this.linearModelSelected;
-  }
-
-  onClick(index: number) {
-    this.selectedIndex = index;
-    console.log(this.selectedIndex);
   }
 }

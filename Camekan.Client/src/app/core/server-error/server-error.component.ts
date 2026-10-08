@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ServerErrorComponent {
   error: any;
   // The page that was open when the request failed; "Try again" goes back there.
-  retryUrl: string = null;
+  retryUrl: string = '';
 
   readonly steps = [
     { key: 'ERROR.STEP_OPEN_CONSOLE', icon: 'fa-terminal' },

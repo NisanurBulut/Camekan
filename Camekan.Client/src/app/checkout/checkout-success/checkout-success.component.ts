@@ -10,14 +10,12 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [RouterLink, TranslateModule]
 })
 export class CheckoutSuccessComponent {
-  order: IOrder;
+  order: IOrder | null = null;
   constructor(private router: Router) {
     const navigation = this.router.currentNavigation();
-    const state = navigation && navigation.extras && navigation.extras.state;
+    const state = navigation?.extras.state;
     if (state) {
       this.order = state as IOrder;
     }
   }
-
-
 }

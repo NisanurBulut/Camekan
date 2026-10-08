@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IOrderListItem, IOrderSummary, IPage } from '../shared/models/order.model';
+import { IOrder, IOrderListItem, IOrderSummary, IPage } from '../shared/models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,8 @@ export class OrderService {
     return this.http.get<IOrderSummary>(this.baseUrl + '/order/GetOrderSummaryForUser');
   }
 
-  getOrderDetail(id: number) {
-    return this.http.get(this.baseUrl + '/order/GetOrderByIdForUser?id=' + id);
-  }
+ getOrderDetail(id: number): Observable<IOrder> {
+  return this.http.get<IOrder>(`${this.baseUrl}/order/GetOrderByIdForUser`, { params: { id } });
+}
+
 }

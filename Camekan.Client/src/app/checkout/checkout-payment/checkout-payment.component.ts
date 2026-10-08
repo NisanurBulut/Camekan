@@ -1,6 +1,15 @@
-import { AfterViewInit, Component, effect, ElementRef, Input, OnDestroy, signal, ViewChild } from '@angular/core';
-import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  effect,
+  ElementRef,
+  Input,
+  OnDestroy,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
@@ -14,33 +23,53 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import { loadStripe } from '@stripe/stripe-js/pure';
 import type {
-  Stripe, StripeCardCvcElement, StripeCardCvcElementChangeEvent, StripeCardExpiryElement,
-  StripeCardExpiryElementChangeEvent, StripeCardNumberElement, StripeCardNumberElementChangeEvent, StripeElementLocale,
-  StripeElements, StripeElementStyle
+  Stripe,
+  StripeCardCvcElement,
+  StripeCardCvcElementChangeEvent,
+  StripeCardExpiryElement,
+  StripeCardExpiryElementChangeEvent,
+  StripeCardNumberElement,
+  StripeCardNumberElementChangeEvent,
+  StripeElementLocale,
+  StripeElements,
+  StripeElementStyle,
 } from '@stripe/stripe-js';
+import type{ CheckoutForm } from '../checkout.component';
 
-type CardChangeEvent = StripeCardNumberElementChangeEvent | StripeCardExpiryElementChangeEvent | StripeCardCvcElementChangeEvent;
+type CardChangeEvent =
+  | StripeCardNumberElementChangeEvent
+  | StripeCardExpiryElementChangeEvent
+  | StripeCardCvcElementChangeEvent;
 
 @Component({
-    selector: 'cmk-checkout-payment',
-    templateUrl: './checkout-payment.component.html',
-    styleUrls: ['./checkout-payment.component.scss'],
-    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, CdkStepperPrevious, TranslateModule]
+  selector: 'cmk-checkout-payment',
+  templateUrl: './checkout-payment.component.html',
+  styleUrls: ['./checkout-payment.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    TextInputComponent,
+    CdkStepperPrevious,
+    TranslateModule,
+  ],
 })
 export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
-  @Input() checkoutForm: UntypedFormGroup;
-  @ViewChild('cardNumber', { static: true }) cardNumberElement: ElementRef;
-  @ViewChild('cardExpiry', { static: true }) cardExpiryElement: ElementRef;
-  @ViewChild('cardCvc', { static: true }) cardCvcElement: ElementRef;
+  @Input({ required: true }) checkoutForm!: CheckoutForm;
 
-  stripe: Stripe;
-  elements: StripeElements;
-  cardCvc: StripeCardCvcElement;
-  cardNumber: StripeCardNumberElement;
-  cardExpiry: StripeCardExpiryElement;
+  cardNumberElement =
+    viewChild.required<ElementRef<HTMLDivElement>>('cardNumber');
+  cardExpiryElement =
+    viewChild.required<ElementRef<HTMLDivElement>>('cardExpiry');
+  cardCvcElement = viewChild.required<ElementRef<HTMLDivElement>>('cardCvc');
+
+  stripe?: Stripe;
+  elements?: StripeElements;
+  cardCvc?: StripeCardCvcElement;
+  cardNumber?: StripeCardNumberElement;
+  cardExpiry?: StripeCardExpiryElement;
   stripeLoadFailed = signal(false);
   // Signals: Stripe change events come from
-  cardErrors = signal<string>(null);
+  cardErrors = signal<string | null>(null);
   cardHandler = this.onChange.bind(this);
   loading = signal(false);
   cardNumberValid = signal(false);
@@ -52,16 +81,21 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     private toastrService: ToastrService,
     private router: Router,
     private themeService: ThemeService,
-    private translate: TranslateService) {
-
+    private translate: TranslateService,
+  ) {
     // Without a locale Stripe uses the browser language, not the language picked in the app.
-    this.translate.onLangChange.pipe(takeUntilDestroyed())
-      .subscribe(({ lang }) => this.elements?.update({ locale: lang as StripeElementLocale }));
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed())
+      .subscribe(({ lang }) =>
+        this.elements?.update({ locale: lang as StripeElementLocale }),
+      );
 
     effect(() => {
       this.themeService.theme();
       const style = this.cardStyle();
-      [this.cardNumber, this.cardExpiry, this.cardCvc].forEach(card => card?.update({ style }));
+      [this.cardNumber, this.cardExpiry, this.cardCvc].forEach((card) =>
+        card?.update({ style }),
+      );
     });
   }
 
@@ -73,26 +107,29 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
 
   async ngAfterViewInit(): Promise<void> {
     const locale = this.translate.currentLang as StripeElementLocale;
-    try {
-      this.stripe = await loadStripe(environment.apiKey, { locale });
-    } catch {
+    const stripe = await loadStripe(environment.apiKey, { locale }).catch(
+      () => null,
+    );
+    if (!stripe) {
       this.stripeLoadFailed.set(true);
       return;
     }
-    this.elements = this.stripe.elements({ locale });
-    const elements = this.elements;
+
+    this.stripe = stripe;
+    const elements = stripe.elements({ locale });
+    this.elements = elements;
     const style = this.cardStyle();
 
     this.cardNumber = elements.create('cardNumber', { style });
-    this.cardNumber.mount(this.cardNumberElement.nativeElement);
+    this.cardNumber.mount(this.cardNumberElement().nativeElement);
     this.cardNumber.on('change', this.cardHandler);
 
     this.cardExpiry = elements.create('cardExpiry', { style });
-    this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
+    this.cardExpiry.mount(this.cardExpiryElement().nativeElement);
     this.cardExpiry.on('change', this.cardHandler);
 
     this.cardCvc = elements.create('cardCvc', { style });
-    this.cardCvc.mount(this.cardCvcElement.nativeElement);
+    this.cardCvc.mount(this.cardCvcElement().nativeElement);
     this.cardCvc.on('change', this.cardHandler);
   }
   // Reads the current theme tokens (src/styles/_theme.scss) so the colors are not duplicated here.
@@ -100,7 +137,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     const tokens = getComputedStyle(document.documentElement);
     const color = tokens.getPropertyValue('--input-text').trim();
     const muted = tokens.getPropertyValue('--text-muted').trim();
-    return { base: { color, iconColor: muted, '::placeholder': { color: muted } } };
+    return {
+      base: { color, iconColor: muted, '::placeholder': { color: muted } },
+    };
   }
   onChange(event: CardChangeEvent) {
     if (event.error) {
@@ -121,37 +160,44 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     }
   }
   async submitOrder() {
-    this.loading.set(true);
     const basket = this.basketService.getCurrentBasketValue();
+    const stripe = this.stripe;
+    const card = this.cardNumber;
+    if (!basket?.clientSecret || !stripe || !card) {
+      this.toastrService.error(this.translate.instant('BASKET.EMPTY'));
+      return;
+    }
+
+    this.loading.set(true);
     try {
       const createdOrder = await this.createOrder(basket);
-      const paymentResult = await this.confirmCardPaymentWithStripe(basket);
+      const paymentResult = await stripe.confirmCardPayment(
+        basket.clientSecret,
+        {
+          payment_method: {
+            card,
+            billing_details: {
+              name: this.checkoutForm.controls.paymentForm.controls.nameOnCard
+                .value,
+            },
+          },
+        },
+      );
 
       if (paymentResult.paymentIntent) {
         this.basketService.deleteBasket(basket).subscribe();
-        const navigationExtras: NavigationExtras = { state: createdOrder };
-        this.router.navigate(['/checkout/success'], navigationExtras);
-      }
-      else {
+        this.router.navigate(['/checkout/success'], { state: createdOrder });
+      } else {
         this.toastrService.error(paymentResult.error.message);
       }
-      this.loading.set(false);
-    }
-    catch (error) {
+    } catch (error) {
       this.loading.set(false);
       console.log(error);
+    } finally {
+      this.loading.set(false);
     }
   }
-  private async confirmCardPaymentWithStripe(basket: IBasket) {
-    return this.stripe.confirmCardPayment(basket.clientSecret, {
-      payment_method: {
-        card: this.cardNumber,
-        billing_details: {
-          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
-        }
-      }
-    });
-  }
+
   private async createOrder(basket: IBasket) {
     const orderToCreate = this.getOrderToCreate(basket);
     return firstValueFrom(this.checkOutService.createOrder(orderToCreate));
@@ -159,8 +205,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   private getOrderToCreate(basket: IBasket) {
     return {
       basketId: basket.id,
-      deliveryMethodId: +this.checkoutForm.get('deliveryForm').get('deliveryMethod').value,
-      shipToAddress: this.checkoutForm.get('addressForm').value
+      deliveryMethodId:
+        +this.checkoutForm.controls.deliveryForm.controls.deliveryMethod.value,
+      shipToAddress: this.checkoutForm.controls.addressForm.getRawValue(),
     };
   }
 }

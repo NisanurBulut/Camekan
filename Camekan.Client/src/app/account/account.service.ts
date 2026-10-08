@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAddress } from '../shared/models/address.model';
 import { IUser } from '../shared/models/user.model';
@@ -19,14 +19,14 @@ export interface RegisterRequest {
 export class AccountService {
 
   baseUrl = environment.apiUrl;
-  private currenUserSource = new ReplaySubject<IUser>(1);
-  currentUser$ = this.currenUserSource.asObservable();
+  private currentUserSource = new ReplaySubject<IUser | null>(1);
+  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  loadCurrentUser(token: string) {
+  loadCurrentUser(token: string | null) : Observable<IUser | null> {
     if (token === null) {
-      this.currenUserSource.next(null);
+      this.currentUserSource.next(null);
       return of(null);
     }
 
@@ -34,13 +34,13 @@ export class AccountService {
       tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
-          this.currenUserSource.next(user);
+          this.currentUserSource.next(user);
         }
       }),
       // Expired or invalid token: log out locally so currentUser$ emits and authGuard does not wait forever.
       catchError(error => {
         localStorage.removeItem('token');
-        this.currenUserSource.next(null);
+        this.currentUserSource.next(null);
         return throwError(() => error);
       })
     );
@@ -51,7 +51,7 @@ export class AccountService {
       tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
-          this.currenUserSource.next(user);
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -62,7 +62,7 @@ export class AccountService {
       tap((user) => {
         if (user) {
           localStorage.setItem('token', user.token);
-          this.currenUserSource.next(user);
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -70,7 +70,7 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('token');
-    this.currenUserSource.next(null);
+    this.currentUserSource.next(null);
     this.router.navigateByUrl('/');
   }
   checkEmailExists(email: string): Observable<boolean> {

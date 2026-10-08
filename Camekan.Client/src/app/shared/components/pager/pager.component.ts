@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
     imports: [PaginationComponent, FormsModule]
 })
 export class PagerComponent {
-  @Input() pageSize: number;
-  @Input() pageNumber: number;
-  @Input() totalCount: number;
+  @Input({required: true }) pageSize!: number;
+  @Input({required: true }) pageNumber!: number;
+  @Input({required: true }) totalCount!: number;
   @Output() pageChanged = new EventEmitter<number>();
   constructor() { }
 

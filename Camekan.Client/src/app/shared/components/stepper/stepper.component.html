@@ -3,7 +3,6 @@
     @for (step of steps; track step; let i = $index) {
       <li class="nav-item">
         <button
-          (click)="onClick(i)"
           [disabled]="true"
           [class.active]="selectedIndex === i"
           class="py-3 nav-link btn-block font-weight-bold"
@@ -14,6 +13,6 @@
     }
   </ul>
   <div>
-    <ng-container [ngTemplateOutlet]="selected.content"> </ng-container>
+    <ng-container [ngTemplateOutlet]="selected?.content"> </ng-container>
   </div>
 </div>

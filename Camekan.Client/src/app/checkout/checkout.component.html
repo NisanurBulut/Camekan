@@ -2,16 +2,16 @@
   <div class="row">
     <div class="col-12 col-lg-8">
       <cmk-stepper [linearModelSelected]="true" #appStepper>
-        <cdk-step state="fa-map-marker" [label]="'CHECKOUT.STEP_ADDRESS' | translate" [completed]="(checkoutForm.get('addressForm')).valid">
+        <cdk-step state="fa-map-marker" [label]="'CHECKOUT.STEP_ADDRESS' | translate" [completed]="(checkoutForm.controls.addressForm.valid)">
           <cmk-checkout-address [checkoutForm]="checkoutForm"></cmk-checkout-address>
         </cdk-step>
-        <cdk-step state="fa-truck" [label]="'CHECKOUT.STEP_DELIVERY' | translate" [completed]="(checkoutForm.get('deliveryForm')).valid">
+        <cdk-step state="fa-truck" [label]="'CHECKOUT.STEP_DELIVERY' | translate" [completed]="(checkoutForm.controls.deliveryForm.valid)">
           <cmk-checkout-delivery [checkoutForm]="checkoutForm"></cmk-checkout-delivery>
         </cdk-step>
         <cdk-step state="fa-list-alt" [label]="'ORDER.TITLE' | translate">
           <cmk-checkout-review [appStepper]="appStepper"></cmk-checkout-review>
         </cdk-step>
-        <cdk-step state="fa-credit-card" [label]="'CHECKOUT.STEP_PAYMENT' | translate" [completed]="(checkoutForm.get('paymentForm')).valid">
+        <cdk-step state="fa-credit-card" [label]="'CHECKOUT.STEP_PAYMENT' | translate" [completed]="(checkoutForm.controls.paymentForm.valid)">
           <cmk-checkout-payment
           [checkoutForm]="checkoutForm"></cmk-checkout-payment>
         </cdk-step>

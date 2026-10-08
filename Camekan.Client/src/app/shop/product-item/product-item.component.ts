@@ -11,7 +11,7 @@ import { CurrencyPipe } from '@angular/common';
     imports: [RouterLink, CurrencyPipe]
 })
 export class ProductItemComponent {
-  @Input() product: IProduct;
+  @Input({required: true}) product!: IProduct;
   constructor(private basketService: BasketService) { }
 
   addItemToBasket() {

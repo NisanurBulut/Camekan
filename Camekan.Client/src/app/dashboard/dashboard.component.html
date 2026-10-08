@@ -102,7 +102,11 @@
               <li class="d-flex align-items-center list-row">
                 <i class="fa fa-fire list-icon list-icon--hot" aria-hidden="true"></i>
                 <span class="flex-grow-1">{{ book.title }}</span>
-                <span class="text-muted small">{{ book.change === null ? ('DASHBOARD.NEW' | translate) : '+' + book.change + '%' }}</span>
+                @if (book.change === null) {
+                  <span class="trend-badge trend-badge--new"><i class="fa fa-star" aria-hidden="true"></i>{{ 'DASHBOARD.NEW' | translate }}</span>
+                } @else {
+                  <span class="trend-badge trend-badge--up"><i class="fa fa-arrow-up" aria-hidden="true"></i>+{{ book.change }}%</span>
+                }
               </li>
             }
           </ul>

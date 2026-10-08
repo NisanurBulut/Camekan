@@ -12,14 +12,15 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 
 export class CheckoutReviewComponent {
-  @Input() appStepper: CdkStepper;
+  @Input({required: true}) appStepper!: CdkStepper;
   constructor(private basketService: BasketService) { }
 
   basket = this.basketService.basket;
 
   createPaymentIntent() {
   this.basketService.createPaymentIntent().subscribe({
-    next: () => this.appStepper.next()
+    next: () => this.appStepper.next(),
+    error: (error) => console.log(error)
   });
   }
 }

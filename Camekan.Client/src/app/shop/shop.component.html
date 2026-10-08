@@ -4,9 +4,9 @@
       @if (types() && brands()) {
         <div class="filter-panel">
         <h5 class="ml-3 mt-2 mb-3"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i>{{ 'SHOP.SORT' | translate }}</h5>
-        <select
+        <select #sort
           class="custom-select mb-4"
-          (change)="onSortSelected($event.target.value)"
+          (change)="onSortSelected(sort.value)"
           >
           @for (item of sortOptions; track item.value) {
             <option

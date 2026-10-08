@@ -11,9 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class OrderTotalComponent {
 
-  @Input() shippingPrice: number;
-  @Input() subTotal: number;
-  @Input() total: number;
+  @Input({required: true}) shippingPrice!: number;
+  @Input({required: true}) subTotal!: number;
+  @Input({required: true}) total!: number;
 
   constructor() { }
 
