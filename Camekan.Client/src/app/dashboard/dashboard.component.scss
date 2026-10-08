@@ -43,26 +43,6 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-.card-heading {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.heading-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  margin-right: 0.6rem;
-  border-radius: 50%;
-  color: var(--primary);
-  background-color: color-mix(in srgb, var(--primary) 15%, transparent);
-}
-
 .kpi-card {
   border-top: 4px solid var(--kpi-color);
 }
@@ -105,25 +85,6 @@
   height: 12px;
   margin-right: 0.6rem;
   border-radius: 3px;
-}
-
-.rank {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: var(--text);
-  background-color: var(--surface-muted);
-}
-
-.rank--top {
-  color: #fff;
-  background-color: var(--series-1);
 }
 
 .bar-label {
