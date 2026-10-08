@@ -12,6 +12,6 @@ describe('ShopParam', () => {
     });
 
     it('starts with no search term', () => {
-      expect(new ShopParam().Search).toBeUndefined();
+      expect(new ShopParam().Search).toBe('');
     });
 });
