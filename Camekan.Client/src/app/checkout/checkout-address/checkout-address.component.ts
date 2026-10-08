@@ -10,7 +10,7 @@ import { IAddress } from 'src/app/shared/models/address.model';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { RouterLink } from '@angular/router';
 import { CdkStepperNext } from '@angular/cdk/stepper';
-import { CheckoutForm } from '../checkout.component';
+import type{ CheckoutForm } from '../checkout.component';
 
 @Component({
   selector: 'cmk-checkout-address',
@@ -45,7 +45,7 @@ export class CheckoutAddressComponent {
 
           this.checkoutForm.controls.addressForm.reset(address);
         },
-        error: (error: Error) => this.toastrService.error(error.message),
+        error: (error) => this.toastrService.error(error.message),
       });
   }
 }
