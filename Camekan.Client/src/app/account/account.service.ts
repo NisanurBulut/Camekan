@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of, ReplaySubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { fromEvent, Observable, of, ReplaySubject, throwError } from 'rxjs';
+import { catchError, filter, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAddress } from '../shared/models/address.model';
 import { IUser } from '../shared/models/user.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface RegisterRequest {
   email: string;
@@ -25,6 +26,15 @@ export class AccountService {
   constructor(private http: HttpClient, private router: Router) {
 
     this.loadCurrentUser().subscribe({ error: error => console.log(error) });
+
+    // Another tab logged in or out: reload so this tab gets the same session.
+  fromEvent<StorageEvent>(window, 'storage')
+    .pipe(
+      filter(event => event.key === 'token' && !event.oldValue !== !event.newValue),
+      takeUntilDestroyed()
+    )
+    .subscribe(() => location.reload());
+
   }
 
   loadCurrentUser() : Observable<IUser | null> {
