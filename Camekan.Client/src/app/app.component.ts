@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerComponent } from 'ngx-spinner';
@@ -15,13 +15,11 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class AppComponent implements OnInit {
   // ThemeService is injected here so its effect applies the saved theme as soon as the app starts.
-  constructor(private accountService: AccountService,
-              private translateService: TranslateService, private themeService: ThemeService) {
+  constructor(private translateService: TranslateService, private themeService: ThemeService) {
 
   }
   ngOnInit(): void {
     this.loadLanguage();
-    this.loadUser();
   }
   loadLanguage() {
     this.translateService.onLangChange.subscribe(({ lang }) => document.documentElement.lang = lang);
@@ -30,12 +28,5 @@ export class AppComponent implements OnInit {
     const lang = localStorage.getItem('lang');
     this.translateService.use(lang && this.translateService.getLangs().includes(lang) ? lang : 'tr');
   }
-  loadUser() {
-    // local storage her zaman string|null döndürür. null ise token yok demektir.
-    const token : string | null = localStorage.getItem('token');
-    this.accountService.loadCurrentUser(token)
-    .subscribe({
-      error: (error) => console.log(error)
-    });
-  }
+
 }

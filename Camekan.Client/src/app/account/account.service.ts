@@ -22,15 +22,22 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
 
-  loadCurrentUser(token: string | null) : Observable<IUser | null> {
-    if (token === null) {
+    this.loadCurrentUser().subscribe({ error: error => console.log(error) });
+  }
+
+  loadCurrentUser() : Observable<IUser | null> {
+
+    const token : string | null = localStorage.getItem('token');
+
+    if (!token) {
       this.currentUserSource.next(null);
       return of(null);
     }
 
-    return this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`).pipe(
+    return  this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`)
+    .pipe(
       tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
