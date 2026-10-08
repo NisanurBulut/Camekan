@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-content-center">
     <h4>{{ 'CHECKOUT.DELIVERY_ADDRESS' | translate }}</h4>
     <button (click)="saveUserAddress()"
-    [disabled]="!checkoutForm.get('addressForm').valid || !checkoutForm.get('addressForm').dirty"
+    [disabled]="!checkoutForm.controls.addressForm.valid || !checkoutForm.controls.addressForm.dirty"
     class="btn btn-outline-success mb-3">{{ 'COMMON.SAVE' | translate }}</button>
   </div>
   <div class="row" formGroupName="addressForm">
@@ -30,7 +30,7 @@
   <a routerLink="/basket" class="btn btn-back">
     <i class="fa fa-angle-left mr-2" aria-hidden="true"></i>{{ 'CHECKOUT.BACK_TO_BASKET' | translate }}
   </a>
-  <button type="button" [disabled]="checkoutForm.get('addressForm').invalid" class="btn btn-cta" cdkStepperNext>
+  <button type="button" [disabled]="checkoutForm.controls.addressForm.invalid" class="btn btn-cta" cdkStepperNext>
     {{ 'CHECKOUT.NEXT' | translate }}<i class="fa fa-angle-right ml-2" aria-hidden="true"></i>
   </button>
 </div>
