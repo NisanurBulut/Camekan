@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasket } from 'src/app/shared/models/basket.model';
@@ -34,7 +34,7 @@ import type {
   StripeElements,
   StripeElementStyle,
 } from '@stripe/stripe-js';
-import { CheckoutForm } from '../checkout.component';
+import type{ CheckoutForm } from '../checkout.component';
 
 type CardChangeEvent =
   | StripeCardNumberElementChangeEvent
