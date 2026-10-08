@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, signal } from '@angular/core';
 import {
-  UntypedFormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -10,7 +9,7 @@ import { CheckoutService } from '../checkout.service';
 import { CdkStepperPrevious, CdkStepperNext } from '@angular/cdk/stepper';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { CheckoutForm } from '../checkout.component';
+import type { CheckoutForm } from '../checkout.component';
 
 @Component({
   selector: 'cmk-checkout-delivery',
@@ -47,7 +46,7 @@ export class CheckoutDeliveryComponent implements OnInit {
       next: (dm: IDeliveryMethod[]) => {
         this.deliveryMethods.set(dm);
       },
-      error: (error: Error) => console.log(error.message),
+      error: (error) => console.log(error.message),
     });
   }
 }
