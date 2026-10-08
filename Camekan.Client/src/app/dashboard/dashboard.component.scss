@@ -169,3 +169,49 @@
 .list-icon--hot {
   color: var(--series-2);
 }
+
+.trend-badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  white-space: nowrap;
+
+  i {
+    margin-right: 0.35rem;
+  }
+}
+
+// White text keeps at least 5:1 contrast on both ends of the gradient.
+.trend-badge--new {
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #c2410c, #be185d);
+  box-shadow: 0 3px 10px rgba(190, 24, 93, 0.35);
+}
+
+.trend-badge--up {
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--series-3) 18%, transparent);
+
+  i {
+    color: var(--series-3);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .trend-badge--new i {
+    animation: badge-sparkle 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes badge-sparkle {
+  50% {
+    opacity: 0.6;
+    transform: scale(1.25);
+  }
+}
