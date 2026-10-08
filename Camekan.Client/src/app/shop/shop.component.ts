@@ -60,23 +60,23 @@ export class ShopComponent implements OnInit {
     );
   }
   getBrands() {
-    this.shopService.getBrands().subscribe(
-      (response) => {
+    this.shopService.getBrands().subscribe({
+      next:(response) => {
         this.brands.set([{ id: 0, name: 'COMMON.ALL' }, ...response]);
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
-      },
-    );
+      }
+  });
   }
   getTypes() {
-    this.shopService.getTypes().subscribe(
-      (response) => {
+    this.shopService.getTypes().subscribe({
+      next:(response) => {
         this.types.set([{ id: 0, name: 'COMMON.ALL' }, ...response]);
       },
-      (error) => {
+      error:(error) => {
         console.log(error);
-      },
+  }},
     );
   }
   onBrandSelected(brandId: number) {
