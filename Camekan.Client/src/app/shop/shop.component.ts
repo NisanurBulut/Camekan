@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, viewChild } from '@angular/core';
 import { IProduct } from '../shared/models/product.model';
 import { IProductBrand } from '../shared/models/productBrand.model';
 import { IProductType } from '../shared/models/productType.model';
@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('search', { static: false }) searchTerm: ElementRef;
+  searchTerm = viewChild.required<ElementRef<HTMLInputElement>>('search');
 
   products = signal<IProduct[] | null>(null);
   brands = signal<IProductBrand[] | null>(null);
@@ -109,7 +109,7 @@ export class ShopComponent implements OnInit {
   }
   onSearch() {
     const params = this.shopService.getShopParam();
-    params.Search = this.searchTerm.nativeElement.value;
+    params.Search = this.searchTerm().nativeElement.value;
     params.PageNumber = 1;
     this.shopService.setShopParam(params);
     this.getProducts();
@@ -124,7 +124,7 @@ export class ShopComponent implements OnInit {
     );
   }
   onReset() {
-    this.searchTerm.nativeElement.value = '';
+    this.searchTerm().nativeElement.value = '';
     this.shopParams = new ShopParam();
     this.shopService.setShopParam(this.shopParams);
     this.getProducts();
