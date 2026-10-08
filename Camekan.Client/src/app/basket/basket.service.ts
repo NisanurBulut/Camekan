@@ -1,13 +1,14 @@
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { filter, tap, throttle, throttleTime } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasket } from '../shared/models/basket.model';
 import { IBasketItem } from '../shared/models/basketItem.model';
 import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod.model';
 import { IProduct } from '../shared/models/product.model';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, fromEvent, merge } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +30,26 @@ export class BasketService {
     return { shipping, subTotal, total: subTotal + shipping };
   });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.loadBasket();
 
+    merge(fromEvent(document, 'visibilitychange'), fromEvent(window, 'focus'))
+      .pipe(
+        filter(() => document.visibilityState === 'visible'),
+        throttleTime(1000),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => this.loadBasket());
+  }
+
+  loadBasket() {
+    const basketId = localStorage.getItem('basket_id');
+    if (basketId) {
+      this.getBasket(basketId).subscribe({
+        error: (error) => console.log(error.message),
+      });
+    }
+  }
   createPaymentIntent(): Observable<IBasket> {
     const basket = this.getCurrentBasketValue();
     if (!basket) {

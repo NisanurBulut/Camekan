@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerComponent } from 'ngx-spinner';
 import { AccountService } from './account/account.service';
-import { BasketService } from './basket/basket.service';
 import { NavBarComponent } from './core/nav-bar/nav-bar.component';
 import { SectionHeaderComponent } from './core/section-header/section-header.component';
 import { ThemeService } from './core/services/theme.service';
@@ -16,13 +15,12 @@ import { ThemeService } from './core/services/theme.service';
 })
 export class AppComponent implements OnInit {
   // ThemeService is injected here so its effect applies the saved theme as soon as the app starts.
-  constructor(private basketService: BasketService, private accountService: AccountService,
+  constructor(private accountService: AccountService,
               private translateService: TranslateService, private themeService: ThemeService) {
 
   }
   ngOnInit(): void {
     this.loadLanguage();
-    this.loadBasket();
     this.loadUser();
   }
   loadLanguage() {
@@ -39,23 +37,5 @@ export class AppComponent implements OnInit {
     .subscribe({
       error: (error) => console.log(error)
     });
-  }
-
-  @HostListener('document:visibilitychange')
-    @HostListener('window:focus')
-  onVisibilityChange() {
-    if (document.visibilityState === 'visible') {
-      this.loadBasket();
-    }
-  }
-
-  loadBasket() {
-    const basketId = localStorage.getItem('basket_id');
-    if (basketId) {
-      this.basketService.getBasket(basketId)
-        .subscribe({
-          error: (error) => console.log(error)
-        });
-    }
   }
 }
