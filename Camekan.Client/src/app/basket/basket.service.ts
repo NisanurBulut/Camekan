@@ -7,7 +7,7 @@ import { IBasketItem } from '../shared/models/basketItem.model';
 import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod.model';
 import { IProduct } from '../shared/models/product.model';
-import { throwError, Observable } from 'rxjs/';
+import { throwError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
