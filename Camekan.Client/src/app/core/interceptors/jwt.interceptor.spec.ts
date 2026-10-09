@@ -24,5 +24,6 @@ function headerFor(url:string){
       expect(headerFor('../../../assets/i18n/tr.json')).toBeNull();
       expect(headerFor('../../../assets/i18n/en.json')).toBeNull();
       expect(headerFor(`${environment.apiUrl}x/basket`)).toBeNull();
+      expect(headerFor('hhttps://github.com/NisanurBulut/Camekan')).toBeNull();
     })
   });
