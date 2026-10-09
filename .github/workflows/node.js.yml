@@ -49,5 +49,35 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/labels -f "labels[]=enhancement"
+  release:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    concurrency: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create the next tag and release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          last=$(git tag --list 'v.*' --sort=-v:refname | head -n 1)
+          IFS=. read -r _ a b c d <<< "$last"
+
+          # Labels of the pull request that created this commit.
+          labels=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls" --jq '.[0].labels[].name')
+
+          if grep -qx enhancement <<< "$labels"; then
+            c=$((c + 1)); d=0
+          else
+            d=$((d + 1))
+          fi
+
+          gh release create "v.$a.$b.$c.$d" --target "$GITHUB_SHA" --generate-notes
+
         
 
