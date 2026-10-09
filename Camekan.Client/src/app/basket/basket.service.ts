@@ -1,7 +1,7 @@
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
-import { filter, tap, throttle, throttleTime } from 'rxjs/operators';
+import { filter, tap, throttleTime } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasket } from '../shared/models/basket.model';
 import { IBasketItem } from '../shared/models/basketItem.model';
@@ -9,14 +9,19 @@ import { IBasketTotal } from '../shared/models/basketTotal.model';
 import { IDeliveryMethod } from '../shared/models/deliveryMethod.model';
 import { IProduct } from '../shared/models/product.model';
 import { throwError, Observable, fromEvent, merge } from 'rxjs';
+import { SKIP_SPINNER } from '../core/interceptors/loading.interceptor';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
   baseUrl = environment.apiUrl;
+
   private basketState = signal<IBasket | null>(null); // sepet boş iken null değeri
+
   readonly basket = this.basketState.asReadonly();
+
+
   readonly basketTotal = computed<IBasketTotal | null>(() => {
     const basket = this.basket();
     if (!basket) {
@@ -75,8 +80,12 @@ export class BasketService {
       shippingPrice: deliveryMethod.price,
     });
   }
+
   getBasket(id: string) {
-    return this.http.get<IBasket>(`${this.baseUrl}/basket?id=${id}`).pipe(
+    return this.http.get<IBasket>(`${this.baseUrl}/basket?id=${id}`,
+      { context: new HttpContext().set(SKIP_SPINNER,true)}
+    )
+    .pipe(
       tap((basket: IBasket) => {
         this.basketState.set(basket);
       }),
