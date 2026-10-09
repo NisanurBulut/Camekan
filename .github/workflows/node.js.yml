@@ -68,8 +68,11 @@ jobs:
           last=$(git tag --list 'v.*' --sort=-v:refname | head -n 1)
           IFS=. read -r _ a b c d <<< "$last"
 
-          # Labels of the pull request that created this commit.
-          labels=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls" --jq '.[0].labels[].name')
+          # ⭐ by Developerella 💃<br/>
+          # The pull request that created this commit: its labels and description.
+          pr=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls" --jq '.[0]')
+          labels=$(jq -r '.labels[].name' <<< "$pr")
+          jq -r '.body // ""' <<< "$pr" > notes.md
 
           if grep -qx enhancement <<< "$labels"; then
             c=$((c + 1)); d=0
@@ -77,7 +80,8 @@ jobs:
             d=$((d + 1))
           fi
 
-          gh release create "v.$a.$b.$c.$d" --target "$GITHUB_SHA" --generate-notes
+          gh release create "v.$a.$b.$c.$d" --target "$GITHUB_SHA" --notes-file notes.md --generate-notes
+
 
         
 
