@@ -7,7 +7,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     const token = localStorage.getItem('token');
     const url = new URL(req.url, location.origin);
 
-    const isApi= url.origin === api.origin && url.pathname.startsWith(`${api.pathname}`);
+    const isApi= url.origin === api.origin && url.pathname.startsWith(`${api.pathname}/`);
 
     if (token && isApi) {
         req = req.clone({
