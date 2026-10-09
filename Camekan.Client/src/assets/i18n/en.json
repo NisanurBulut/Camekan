@@ -160,7 +160,8 @@
     "STEP_NETWORK_TAB": "Inspect the Network tab",
     "STEP_INSPECT_REQUEST": "Inspect the failing request",
     "STEP_CHECK_URL": "Check the request URL",
-    "STEP_RETRY_POSTMAN": "Retry the request via Postman"
+    "STEP_RETRY_POSTMAN": "Retry the request via Postman",
+    "SESSION_EXPIRED": "Your session has expired. Please log in again."
   },
   "API_ERROR": {
     "BASKET_NOT_FOUND": "Could not load the basket.",

@@ -160,7 +160,8 @@
     "STEP_NETWORK_TAB": "Network sekmesini incele",
     "STEP_INSPECT_REQUEST": "Hatalı isteği incele",
     "STEP_CHECK_URL": "İstek URL'ini kontrol et",
-    "STEP_RETRY_POSTMAN": "İsteği Postman ile tekrar gönder"
+    "STEP_RETRY_POSTMAN": "İsteği Postman ile tekrar gönder",
+    "SESSION_EXPIRED": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın."
   },
   "API_ERROR": {
     "BASKET_NOT_FOUND": "Sepet bilgilerine erişilemedi.",
