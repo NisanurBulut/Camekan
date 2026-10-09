@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { fromEvent, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, filter, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -85,10 +85,10 @@ export class AccountService {
     );
   }
 
-  logout() {
+  logout(redirectTo: string | UrlTree = '/') {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl(redirectTo);
   }
   checkEmailExists(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/account/emailexists`, { params: { email } });
