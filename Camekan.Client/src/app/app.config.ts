@@ -1,10 +1,10 @@
 import {
-  ApplicationConfig, importProvidersFrom, isDevMode, provideCheckNoChangesConfig, provideZonelessChangeDetection
+  ApplicationConfig, isDevMode, provideCheckNoChangesConfig, provideZonelessChangeDetection
 } from '@angular/core';
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, TitleStrategy, withComponentInputBinding, withNavigationErrorHandler, withViewTransitions } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideToastr } from 'ngx-toastr';
 
@@ -43,14 +43,14 @@ export const appConfig: ApplicationConfig = {
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
     }),
-    // @ngx-translate/core 15 has no provideTranslateService() (added in v16).
-    importProvidersFrom(TranslateModule.forRoot({
+
+    provideTranslateService({
       defaultLanguage: 'tr',
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })),
+    }),
   ]
 };
