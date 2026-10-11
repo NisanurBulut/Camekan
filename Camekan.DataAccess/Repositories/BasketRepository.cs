@@ -21,7 +21,7 @@ namespace Camekan.DataAccess.Repositories
         public async Task<BasketEntity> GetBasketAsync(string basketId)
         {
             var data = await _database.StringGetAsync(basketId);
-            return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketEntity>(data);
+            return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketEntity>((string)data);
         }
 
         public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity)
