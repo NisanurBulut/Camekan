@@ -34,7 +34,7 @@ export const routes: Routes = [
   },
   {
     path: 'checkout',
-    title: ' BREADCRUMB.CHECKOUT',
+    title: 'BREADCRUMB.CHECKOUT',
     canActivate: [authGuard],
     loadChildren: () =>
       import('./checkout/checkout.routes').then((m) => m.CHECKOUT_ROUTES),
