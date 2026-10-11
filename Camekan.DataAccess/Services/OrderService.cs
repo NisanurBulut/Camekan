@@ -30,6 +30,7 @@ namespace Camekan.DataAccess
         {
           
             var basket = await _basketRepo.GetBasketAsync(basketId);
+            if (basket == null) return null;
 
             var items = new List<OrderItemEntity>();
             foreach(var item in basket.Items)
@@ -49,7 +50,7 @@ namespace Camekan.DataAccess
             if (existingOrder != null)
             {
                 _unitOfWork.Repository<OrderEntity>().Delete(existingOrder);
-                await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+                await _paymentService.CreateOrUpdatePaymentIntent(basketId);
             }
 
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);
