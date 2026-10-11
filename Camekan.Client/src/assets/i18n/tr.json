@@ -95,6 +95,8 @@
     "ADDRESS_SAVED": "Adres kaydedildi.",
     "NAME_ON_CARD": "Kart Üzerindeki İsim",
     "PAYMENT_LOAD_FAILED": "Ödeme formu yüklenemedi. Reklam engelleyiciniz açıksa kapatıp sayfayı yenileyin.",
+    "PAYMENT_FAILED": "Ödeme tamamlanamadı. Lütfen kart bilgilerinizi kontrol edip tekrar deneyin.",
+    "PAYMENT_NOT_COMPLETED": "Ödemeniz henüz onaylanmadı. Sepetiniz korunuyor, birkaç dakika sonra siparişlerinizi kontrol edin.",
     "SUCCESS_TITLE": "Sipariş talebiniz alındı.",
     "VIEW_ORDER": "Siparişinizi Görüntüleyin",
     "VIEW_ORDERS": "Siparişlerinizi Görüntüleyin"

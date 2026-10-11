@@ -171,7 +171,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
     this.loading.set(true);
     try {
       const createdOrder = await this.createOrder(basket);
-      const paymentResult = await stripe.confirmCardPayment(
+      const { paymentIntent, error } = await stripe.confirmCardPayment(
         basket.clientSecret,
         {
           payment_method: {
@@ -184,14 +184,23 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
         },
       );
 
-      if (paymentResult.paymentIntent) {
-        this.basketService.deleteBasket(basket).subscribe();
-        this.router.navigate(['/checkout/success'], { state: createdOrder });
-      } else {
-        this.toastrService.error(paymentResult.error.message);
+      if (error) {
+        this.toastrService.error(
+          error.message ?? this.translate.instant('CHECKOUT.PAYMENT_FAILED'),
+        );
+        return;
       }
+      // A payment intent can also come back as "processing": keep the basket until the money is taken.
+      if (paymentIntent?.status !== 'succeeded') {
+        this.toastrService.warning(
+          this.translate.instant('CHECKOUT.PAYMENT_NOT_COMPLETED'),
+        );
+        return;
+      }
+
+      this.basketService.deleteBasket(basket).subscribe();
+      this.router.navigate(['/checkout/success'], { state: createdOrder });
     } catch (error) {
-      this.loading.set(false);
       console.log(error);
     } finally {
       this.loading.set(false);
