@@ -53,7 +53,7 @@ namespace Camekan.DataAccess.Services
                 {
                     Amount = (long)basket.Items.Sum(a => a.Quantity * (a.Price * 100)) + (long)shippingPrice * 100,
                     Currency = "TRY",
-                    PaymentMethodTypes = new List<string>() { "card" }
+                    AllowedPaymentMethodTypes = new List<string>() { "card" }
                 };
                 paymentIntent = await service.CreateAsync(options);
                 basket.PaymentIntentId = paymentIntent.Id;
