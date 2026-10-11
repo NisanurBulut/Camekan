@@ -3,6 +3,7 @@ using Camekan.DataAccess.Specification;
 using Camekan.Entities;
 using Microsoft.Extensions.Configuration;
 using Stripe;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace Camekan.DataAccess.Services
             {
                 var options = new PaymentIntentCreateOptions
                 {
-                    Amount = (long)basket.Items.Sum(a => a.Quantity * (a.Price * 100)) + (long)shippingPrice * 100,
+                    Amount = CalculateAmount(basket, shippingPrice),
                     Currency = "TRY",
                     AllowedPaymentMethodTypes = new List<string>() { "card" }
                 };
@@ -63,7 +64,7 @@ namespace Camekan.DataAccess.Services
             {
                 var options = new PaymentIntentUpdateOptions
                 {
-                    Amount = (long)basket.Items.Sum(a => a.Quantity * (a.Price * 100)) + (long)shippingPrice * 100
+                    Amount = CalculateAmount(basket, shippingPrice)
                 };
                 await service.UpdateAsync( basket.PaymentIntentId, options);         
             }
@@ -71,26 +72,32 @@ namespace Camekan.DataAccess.Services
             return basket;
         }
 
-        public async Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId)
+        public Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId)
         {
-            var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
-            if (order == null) return null;
-            order.Status = OrderStatus.PaymentFailed;
-            _unitOfWork.Repository<OrderEntity>().Update(order);
-            await _unitOfWork.Complete();
-            return null;
+            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentFailed);
         }
 
-        public async Task<OrderEntity> UpdateOrderPaymentSucceeded(string paymentIntentId)
+        public Task<OrderEntity> UpdateOrderPaymentSucceeded(string paymentIntentId)
+        {
+            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentReceived);
+        }
+
+        private async Task<OrderEntity> SetOrderStatus(string paymentIntentId, OrderStatus status)
         {
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
             var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
             if (order == null) return null;
-            order.Status = OrderStatus.PaymentReceived;
+            order.Status = status;
             _unitOfWork.Repository<OrderEntity>().Update(order);
             await _unitOfWork.Complete();
-            return null;
+            return order;
+        }
+
+        // Stripe wants the smallest currency unit (kuruş). Round once, do not cut each part.
+        private static long CalculateAmount(BasketEntity basket, decimal shippingPrice)
+        {
+            var total = basket.Items.Sum(a => a.Quantity * a.Price) + shippingPrice;
+            return (long)Math.Round(total * 100, MidpointRounding.AwayFromZero);
         }
     }
 }

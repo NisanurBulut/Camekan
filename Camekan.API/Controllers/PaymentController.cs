@@ -2,7 +2,9 @@
 using Camekan.Entities;
 using Camekan.Util.Errors;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using System.IO;
@@ -15,13 +17,14 @@ namespace Camekan.WebAPI.Controllers
     public class PaymentController : BaseApiController
     {
         private readonly IPaymentService _paymentService;
-        private readonly ILogger _logger;
-        private const string WhSecret = "";
+        private readonly ILogger<PaymentController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public PaymentController(IPaymentService paymentService, ILogger<IPaymentService> logger)
+        public PaymentController(IPaymentService paymentService, ILogger<PaymentController> logger, IConfiguration configuration)
         {
             this._logger = logger;
             this._paymentService = paymentService;
+            this._configuration = configuration;
         }
 
         [Route("[action]")]
@@ -46,34 +49,57 @@ namespace Camekan.WebAPI.Controllers
                 return BadRequest(new ApiResponse(400, "API_ERROR.PAYMENT_INIT_FAILED"));
             }
         }
+        
+        [AllowAnonymous]
         [Route("[action]")]
         [HttpPost]
         public async Task<ActionResult> StripeWebHook()
         {
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            var secret = _configuration["StripeSettings:WebhookSecret"];
+            if (string.IsNullOrEmpty(secret))
+            {
+                _logger.LogError("StripeSettings:WebhookSecret is not set.");
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
-            var stripeEvent = EventUtility.ConstructEvent(json, Request.Headers["Stripe-Signature"], WhSecret);
+            var signature = Request.Headers["Stripe-Signature"].ToString();
+            if (string.IsNullOrEmpty(signature))
+            {
+                return BadRequest();
+            }
 
-            PaymentIntent paymentIntent;
-            OrderEntity orderEntity;
+            using var reader = new StreamReader(Request.Body);
+            var json = await reader.ReadToEndAsync();
+
+            Event stripeEvent;
+            try
+            {
+                // The Stripe.net API version can differ from the one set on the Stripe account.
+                stripeEvent = EventUtility.ConstructEvent(json, signature, secret, throwOnApiVersionMismatch: false);
+            }
+            catch (StripeException ex)
+            {
+                _logger.LogWarning(ex, "Stripe webhook signature is not valid.");
+                return BadRequest();
+            }
+
+            if (stripeEvent.Data.Object is not PaymentIntent paymentIntent)
+            {
+                return Ok();
+            }
 
             switch (stripeEvent.Type)
             {
-                case "payment_intent.succeeded":
-                    paymentIntent = (PaymentIntent)stripeEvent.Data.Object;
-                    this._logger.LogInformation("Payment succceded : " , paymentIntent.Id);
-                    orderEntity = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id);
-                    this._logger.LogInformation("Order updated to payment succceded : ", orderEntity.Id);
-
+                case EventTypes.PaymentIntentSucceeded:
+                    var paidOrder = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id);
+                    _logger.LogInformation("Payment succeeded: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, paidOrder?.Id);
                     break;
-                case "payment_intent.failed":
-                    paymentIntent = (PaymentIntent)stripeEvent.Data.Object;
-                    this._logger.LogInformation("Payment failed : ", paymentIntent.Id);
-                    orderEntity = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id);
-                    this._logger.LogInformation("Order updated to payment failed : ", orderEntity.Id);
+                case EventTypes.PaymentIntentPaymentFailed:
+                    var failedOrder = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id);
+                    _logger.LogInformation("Payment failed: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, failedOrder?.Id);
                     break;
             }
-            return new EmptyResult();
+            return Ok();
         }
     }
 }
