@@ -22,7 +22,6 @@
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
     "@stripe/stripe-js": "^10.0.0",
-    "bootstrap": "4.1.1",
     "bootswatch": "^4.6.2",
     "chart.js": "^4.5.1",
     "font-awesome": "^4.7.0",
