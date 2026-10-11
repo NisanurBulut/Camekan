@@ -50,7 +50,7 @@ export class AccountService {
 
     return this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`).pipe(
       tap((user: IUser) => {
-        if (user) {
+        if (user?.token) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
