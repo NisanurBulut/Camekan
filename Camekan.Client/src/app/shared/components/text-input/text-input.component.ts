@@ -11,13 +11,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'cmk-text-input',
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.scss'],
-  imports: [NgClass, TranslateModule],
+  imports: [NgClass, TranslatePipe],
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
   value = signal('');

@@ -3,7 +3,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/account/account.service';
 import { IAddress } from 'src/app/shared/models/address.model';
@@ -22,7 +22,7 @@ import type{ CheckoutForm } from '../checkout.component';
     TextInputComponent,
     RouterLink,
     CdkStepperNext,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class CheckoutAddressComponent {

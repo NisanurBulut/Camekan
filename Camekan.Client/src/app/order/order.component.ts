@@ -4,7 +4,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ListRange } from '@angular/cdk/collections';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { IOrderListItem, OrderStatus } from '../shared/models/order.model';
@@ -24,7 +24,7 @@ const STATUS: Record<OrderStatus, { key: string; badge: string; icon: string }> 
   selector: 'cmk-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss'],
-  imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, RouterLink, CurrencyPipe, DatePipe, TranslateModule],
+  imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, RouterLink, CurrencyPipe, DatePipe, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrderComponent {

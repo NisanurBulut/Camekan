@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PagingHeaderComponent } from '../shared/components/paging-header/paging-header.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { PagerComponent } from '../shared/components/pager/pager.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'cmk-shop',
@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     PagingHeaderComponent,
     ProductItemComponent,
     PagerComponent,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class ShopComponent implements OnInit {

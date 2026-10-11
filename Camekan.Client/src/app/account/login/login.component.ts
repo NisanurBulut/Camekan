@@ -3,14 +3,14 @@ import { Validators, FormsModule, ReactiveFormsModule, FormGroup, FormControl } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { APP_NAME } from '../../app.constants';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, TextInputComponent, TranslatePipe]
 })
 export class LoginComponent {
   protected readonly appName = APP_NAME;

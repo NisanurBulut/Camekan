@@ -8,7 +8,7 @@ import { IDeliveryMethod } from 'src/app/shared/models/deliveryMethod.model';
 import { CheckoutService } from '../checkout.service';
 import { CdkStepperPrevious, CdkStepperNext } from '@angular/cdk/stepper';
 import { CurrencyPipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import type { CheckoutForm } from '../checkout.component';
 
 @Component({
@@ -21,7 +21,7 @@ import type { CheckoutForm } from '../checkout.component';
     CdkStepperPrevious,
     CdkStepperNext,
     CurrencyPipe,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class CheckoutDeliveryComponent implements OnInit {

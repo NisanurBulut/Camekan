@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerComponent } from 'ngx-spinner';
-import { AccountService } from './account/account.service';
 import { NavBarComponent } from './core/nav-bar/nav-bar.component';
 import { SectionHeaderComponent } from './core/section-header/section-header.component';
 import { ThemeService } from './core/services/theme.service';
@@ -11,7 +10,7 @@ import { ThemeService } from './core/services/theme.service';
   selector: 'cmk-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterOutlet, NavBarComponent, SectionHeaderComponent, NgxSpinnerComponent, TranslateModule]
+  imports: [RouterOutlet, NavBarComponent, SectionHeaderComponent, NgxSpinnerComponent, TranslatePipe]
 })
 export class AppComponent implements OnInit {
   // ThemeService is injected here so its effect applies the saved theme as soon as the app starts.

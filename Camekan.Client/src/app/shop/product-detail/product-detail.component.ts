@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, li
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { BasketService } from 'src/app/basket/basket.service';
 import { ShopService } from '../shop.service';
@@ -13,7 +13,7 @@ const MAX_QUANTITY = 10;
   selector: 'cmk-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
-  imports: [CurrencyPipe, RouterLink, TranslateModule],
+  imports: [CurrencyPipe, RouterLink, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDetailComponent {

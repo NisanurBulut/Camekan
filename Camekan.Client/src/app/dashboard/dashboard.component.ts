@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 import { APP_NAME } from '../app.constants';
 import { ThemeService } from '../core/services/theme.service';
@@ -13,7 +13,7 @@ import { DashboardService } from './dashboard.service';
   selector: 'cmk-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [DatePipe, DecimalPipe, PercentPipe, TranslateModule],
+  imports: [DatePipe, DecimalPipe, PercentPipe, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {

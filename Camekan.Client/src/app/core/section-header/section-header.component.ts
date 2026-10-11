@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreadcrumbService, BreadcrumbModule } from 'xng-breadcrumb';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { APP_NAME } from '../../app.constants';
 
 @Component({
@@ -13,7 +13,7 @@ import { APP_NAME } from '../../app.constants';
         BreadcrumbModule,
         AsyncPipe,
         TitleCasePipe,
-        TranslateModule,
+        TranslatePipe,
     ],
 })
 export class SectionHeaderComponent {
