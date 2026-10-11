@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { fromEvent, Observable, of, ReplaySubject, throwError } from 'rxjs';
@@ -15,51 +15,55 @@ export interface RegisterRequest {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
-
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {
-
-    this.loadCurrentUser().subscribe({ error: error => console.log(error) });
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {
+    this.loadCurrentUser().subscribe({ error: (error) => console.log(error) });
 
     // Another tab logged in or out: reload so this tab gets the same session.
-  fromEvent<StorageEvent>(window, 'storage')
-    .pipe(
-      filter(event => event.key === 'token' && !event.oldValue !== !event.newValue),
-      takeUntilDestroyed()
-    )
-    .subscribe(() => location.reload());
-
+    fromEvent<StorageEvent>(window, 'storage')
+      .pipe(
+        filter(
+          (event) =>
+            event.key === 'token' && !event.oldValue !== !event.newValue,
+        ),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => location.reload());
   }
 
-  loadCurrentUser() : Observable<IUser | null> {
-
-    const token : string | null = localStorage.getItem('token');
+  loadCurrentUser(): Observable<IUser | null> {
+    const token: string | null = localStorage.getItem('token');
 
     if (!token) {
       this.currentUserSource.next(null);
       return of(null);
     }
 
-    return  this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`)
-    .pipe(
+    return this.http.get<IUser>(`${this.baseUrl}/account/getcurrentuser`).pipe(
       tap((user: IUser) => {
         if (user) {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
       }),
-      // Expired or invalid token: log out locally so currentUser$ emits and authGuard does not wait forever.
-      catchError(error => {
-        localStorage.removeItem('token');
+      catchError((error: HttpErrorResponse) => {
+        // Only 401 means the token is bad. Offline or 5xx keeps it, so a reload logs in again.
+        if (error.status === 401) {
+          localStorage.removeItem('token');
+        }
+        // Emit null in every case, so authGuard does not wait forever.
         this.currentUserSource.next(null);
         return throwError(() => error);
-      })
+      }),
     );
   }
 
@@ -70,19 +74,21 @@ export class AccountService {
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
-      })
+      }),
     );
   }
 
   register(values: RegisterRequest): Observable<IUser> {
-    return this.http.post<IUser>(`${this.baseUrl}/account/register`, values).pipe(
-      tap((user) => {
-        if (user) {
-          localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
-        }
-      })
-    );
+    return this.http
+      .post<IUser>(`${this.baseUrl}/account/register`, values)
+      .pipe(
+        tap((user) => {
+          if (user) {
+            localStorage.setItem('token', user.token);
+            this.currentUserSource.next(user);
+          }
+        }),
+      );
   }
 
   logout(redirectTo: string | UrlTree = '/') {
@@ -91,7 +97,9 @@ export class AccountService {
     this.router.navigateByUrl(redirectTo);
   }
   checkEmailExists(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/account/emailexists`, { params: { email } });
+    return this.http.get<boolean>(`${this.baseUrl}/account/emailexists`, {
+      params: { email },
+    });
   }
   getUserAddress() {
     return this.http.get<IAddress>(`${this.baseUrl}/account/GetUserAddress`);
