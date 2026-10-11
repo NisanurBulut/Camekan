@@ -18,7 +18,6 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 import { CheckoutService } from '../checkout.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import { loadStripe } from '@stripe/stripe-js/pure';
@@ -35,6 +34,7 @@ import type {
   StripeElementStyle,
 } from '@stripe/stripe-js';
 import type{ CheckoutForm } from '../checkout.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 type CardChangeEvent =
   | StripeCardNumberElementChangeEvent
@@ -50,7 +50,7 @@ type CardChangeEvent =
     ReactiveFormsModule,
     TextInputComponent,
     CdkStepperPrevious,
-    TranslateModule,
+    TranslatePipe
   ],
 })
 export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
@@ -106,7 +106,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    const locale = this.translate.currentLang as StripeElementLocale;
+    const locale = (this.translate.getCurrentLang() ??  'auto') as StripeElementLocale;
     const stripe = await loadStripe(environment.apiKey, { locale }).catch(
       () => null,
     );

@@ -2,13 +2,13 @@ import { CdkStepper, CdkStepperPrevious } from '@angular/cdk/stepper';
 import { Component, Input } from '@angular/core';
 import { BasketService } from 'src/app/basket/basket.service';
 import { BasketSummaryComponent } from '../../shared/components/basket-summary/basket-summary.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-checkout-review',
     templateUrl: './checkout-review.component.html',
     styleUrls: ['./checkout-review.component.scss'],
-    imports: [BasketSummaryComponent, CdkStepperPrevious, TranslateModule]
+    imports: [BasketSummaryComponent, CdkStepperPrevious, TranslatePipe]
 })
 
 export class CheckoutReviewComponent {

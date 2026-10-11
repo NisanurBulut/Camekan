@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-paging-header',
     templateUrl: './paging-header.component.html',
     styleUrls: ['./paging-header.component.scss'],
-    imports: [TranslateModule]
+    imports: [TranslatePipe]
 })
 export class PagingHeaderComponent {
   @Input({required: true }) pageNumber!: number;

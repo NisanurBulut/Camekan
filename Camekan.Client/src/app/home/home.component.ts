@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { CarouselComponent, SlideComponent } from 'ngx-bootstrap/carousel';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { APP_NAME } from '../app.constants';
 
 @Component({
     selector: 'cmk-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    imports: [CarouselComponent, SlideComponent, TranslateModule, NgOptimizedImage]
+    imports: [CarouselComponent, SlideComponent, TranslatePipe, NgOptimizedImage]
 })
 export class HomeComponent {
   protected readonly appName = APP_NAME;

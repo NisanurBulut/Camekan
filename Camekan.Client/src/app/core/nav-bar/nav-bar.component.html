@@ -16,9 +16,9 @@
   </nav>
   <div class="d-flex align-items-center">
     <div class="btn-group btn-group-sm mr-4">
-      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'tr'"
+      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.getCurrentLang() === 'tr'"
         (click)="changeLanguage('tr')">TR</button>
-      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.currentLang === 'en'"
+      <button type="button" class="btn btn-outline-secondary" [class.active]="translateService.getCurrentLang() === 'en'"
         (click)="changeLanguage('en')">EN</button>
     </div>
     <button type="button" class="btn btn-sm btn-outline-secondary mr-4" [attr.aria-pressed]="themeService.isDark()"

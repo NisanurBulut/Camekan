@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'cmk-order-total',
     templateUrl: './order-total.component.html',
     styleUrls: ['./order-total.component.scss'],
-    imports: [CurrencyPipe, TranslateModule]
+    imports: [CurrencyPipe, TranslatePipe]
 })
 export class OrderTotalComponent {
 

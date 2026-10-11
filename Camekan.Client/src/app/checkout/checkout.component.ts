@@ -9,7 +9,7 @@ import { CheckoutDeliveryComponent } from './checkout-delivery/checkout-delivery
 import { CheckoutReviewComponent } from './checkout-review/checkout-review.component';
 import { CheckoutPaymentComponent } from './checkout-payment/checkout-payment.component';
 import { OrderTotalComponent } from '../shared/components/order-total/order-total.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'cmk-checkout',
@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CheckoutReviewComponent,
     CheckoutPaymentComponent,
     OrderTotalComponent,
-    TranslateModule,
+    TranslatePipe,
   ],
 })
 export class CheckoutComponent implements OnInit {

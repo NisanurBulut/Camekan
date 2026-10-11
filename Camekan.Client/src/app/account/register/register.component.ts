@@ -5,14 +5,14 @@ import { of, timer } from 'rxjs';
 import { finalize, map, switchMap } from 'rxjs/operators';
 import { AccountService } from '../account.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { APP_NAME } from '../../app.constants';
 
 @Component({
     selector: 'cmk-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
-    imports: [ReactiveFormsModule, TextInputComponent, TranslateModule]
+    imports: [ReactiveFormsModule, TextInputComponent, TranslatePipe]
 })
 export class RegisterComponent {
   protected readonly appName = APP_NAME;

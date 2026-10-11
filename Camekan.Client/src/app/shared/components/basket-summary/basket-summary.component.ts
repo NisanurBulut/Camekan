@@ -3,13 +3,13 @@ import { IBasketItem } from '../../models/basketItem.model';
 import { IOrderItem } from '../../models/order.model';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-basket-summary',
     templateUrl: './basket-summary.component.html',
     styleUrls: ['./basket-summary.component.scss'],
-    imports: [RouterLink, CurrencyPipe, TranslateModule]
+    imports: [RouterLink, CurrencyPipe, TranslatePipe]
 })
 export class BasketSummaryComponent {
 

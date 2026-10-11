@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
 import { ThemeService } from '../services/theme.service';
@@ -12,7 +12,7 @@ import { AsyncPipe } from '@angular/common';
     selector: 'cmk-nav-bar',
     templateUrl: './nav-bar.component.html',
     styleUrls: ['./nav-bar.component.scss'],
-    imports: [RouterLink, RouterLinkActive, BsDropdownDirective, BsDropdownToggleDirective, BsDropdownMenuDirective, AsyncPipe, TranslateModule]
+    imports: [RouterLink, RouterLinkActive, BsDropdownDirective, BsDropdownToggleDirective, BsDropdownMenuDirective, AsyncPipe, TranslatePipe]
 })
 export class NavBarComponent {
 

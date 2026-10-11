@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { map } from 'rxjs/operators';
 import { APP_NAME } from '../app.constants';
 import { ThemeService } from '../core/services/theme.service';
@@ -13,7 +13,7 @@ import { DashboardService } from './dashboard.service';
   selector: 'cmk-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [DatePipe, DecimalPipe, PercentPipe, TranslateModule],
+  imports: [DatePipe, DecimalPipe, PercentPipe, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   dashboard = rxResource({ stream: () => this.dashboardService.getDashboard() });
 
-  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.currentLang });
+  private lang = this.translate.getCurrentLang;
   private salesCanvas = viewChild<ElementRef<HTMLCanvasElement>>('salesCanvas');
   private categoryCanvas = viewChild<ElementRef<HTMLCanvasElement>>('categoryCanvas');
 
@@ -67,7 +67,7 @@ export class DashboardComponent {
       if (!data || !sales || !categories) {
         return;
       }
-      const charts = [this.createSalesChart(sales.nativeElement, lang), this.createCategoryChart(categories.nativeElement, data)];
+      const charts = [this.createSalesChart(sales.nativeElement, lang ?? 'tr'), this.createCategoryChart(categories.nativeElement, data)];
       onCleanup(() => charts.forEach(chart => chart.destroy()));
     });
   }

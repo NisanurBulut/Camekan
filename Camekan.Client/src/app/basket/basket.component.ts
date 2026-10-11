@@ -4,13 +4,13 @@ import { BasketService } from './basket.service';
 import { BasketSummaryComponent } from '../shared/components/basket-summary/basket-summary.component';
 import { OrderTotalComponent } from '../shared/components/order-total/order-total.component';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'cmk-basket',
     templateUrl: './basket.component.html',
     styleUrls: ['./basket.component.scss'],
-    imports: [BasketSummaryComponent, OrderTotalComponent, RouterLink, TranslateModule]
+    imports: [BasketSummaryComponent, OrderTotalComponent, RouterLink, TranslatePipe]
 })
 export class BasketComponent {
   constructor(private basketService: BasketService) { }
