@@ -106,7 +106,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit(): Promise<void> {
-    const locale = this.translate.currentLang as StripeElementLocale;
+    const locale = (this.translate.getCurrentLang() ??  'auto') as StripeElementLocale;
     const stripe = await loadStripe(environment.apiKey, { locale }).catch(
       () => null,
     );

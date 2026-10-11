@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   dashboard = rxResource({ stream: () => this.dashboardService.getDashboard() });
 
-  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.getCurrentLang() });
+  private lang = this.translate.getCurrentLang;
   private salesCanvas = viewChild<ElementRef<HTMLCanvasElement>>('salesCanvas');
   private categoryCanvas = viewChild<ElementRef<HTMLCanvasElement>>('categoryCanvas');
 
@@ -67,7 +67,7 @@ export class DashboardComponent {
       if (!data || !sales || !categories) {
         return;
       }
-      const charts = [this.createSalesChart(sales.nativeElement, lang), this.createCategoryChart(categories.nativeElement, data)];
+      const charts = [this.createSalesChart(sales.nativeElement, lang ?? 'tr'), this.createCategoryChart(categories.nativeElement, data)];
       onCleanup(() => charts.forEach(chart => chart.destroy()));
     });
   }

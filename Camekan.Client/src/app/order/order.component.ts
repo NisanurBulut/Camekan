@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
-import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ListRange } from '@angular/cdk/collections';
 import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { IOrderListItem, OrderStatus } from '../shared/models/order.model';
 import { OrderService } from './order.service';
 
@@ -73,7 +73,7 @@ export class OrderComponent {
     return rows;
   });
 
-  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.getCurrentLang() });
+  private lang = this.translate.currentLang;
   statusLabels = computed(() => {
     this.lang();
     const labels : Partial<Record<string, string>> = {};
