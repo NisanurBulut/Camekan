@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   loadLanguage() {
     this.translateService.onLangChange.subscribe(({ lang }) => document.documentElement.lang = lang);
     this.translateService.addLangs(['tr', 'en']);
-    this.translateService.setDefaultLang('tr');
+    this.translateService.setFallbackLang('tr');
     const lang = localStorage.getItem('lang');
     this.translateService.use(lang && this.translateService.getLangs().includes(lang) ? lang : 'tr');
   }

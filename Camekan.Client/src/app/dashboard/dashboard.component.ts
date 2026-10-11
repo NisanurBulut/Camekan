@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   dashboard = rxResource({ stream: () => this.dashboardService.getDashboard() });
 
-  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.currentLang });
+  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.getCurrentLang() });
   private salesCanvas = viewChild<ElementRef<HTMLCanvasElement>>('salesCanvas');
   private categoryCanvas = viewChild<ElementRef<HTMLCanvasElement>>('categoryCanvas');
 

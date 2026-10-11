@@ -73,7 +73,7 @@ export class OrderComponent {
     return rows;
   });
 
-  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.currentLang });
+  private lang = toSignal(this.translate.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translate.getCurrentLang() });
   statusLabels = computed(() => {
     this.lang();
     const labels : Partial<Record<string, string>> = {};
