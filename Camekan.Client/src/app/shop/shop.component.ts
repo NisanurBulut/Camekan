@@ -9,6 +9,9 @@ import { PagingHeaderComponent } from '../shared/components/paging-header/paging
 import { ProductItemComponent } from './product-item/product-item.component';
 import { PagerComponent } from '../shared/components/pager/pager.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EMPTY, Subject } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'cmk-shop',
@@ -36,8 +39,30 @@ export class ShopComponent implements OnInit {
     { name: 'SHOP.SORT_PRICE_ASC', value: 'priceAsc', icon: '↑' },
     { name: 'SHOP.SORT_PRICE_DESC', value: 'priceDesc', icon: '↓' },
   ];
+  private loadProducts$ = new Subject<void>();
+
   constructor(private shopService: ShopService) {
     this.shopParams = this.shopService.getShopParam();
+
+    // switchMap cancels the older request, so a slow old answer cannot replace a newer one.
+    this.loadProducts$
+      .pipe(
+        switchMap(() =>
+          this.shopService.getProducts().pipe(
+            catchError(() => {
+              // ShopService outlives this page; a failing filter left in it would break every return to /shop.
+              this.shopParams = new ShopParam();
+              this.shopService.setShopParam(this.shopParams);
+              return EMPTY;
+            }),
+          ),
+        ),
+        takeUntilDestroyed(),
+      )
+      .subscribe((response) => {
+        this.products.set(response.data);
+        this.totalCount.set(response.count);
+      });
   }
 
   ngOnInit(): void {
@@ -47,17 +72,7 @@ export class ShopComponent implements OnInit {
   }
 
   getProducts() {
-    this.shopService.getProducts().subscribe(
-      (response) => {
-        this.products.set(response.data);
-        this.totalCount.set(response.count);
-      },
-      (error) => {
-        // ShopService outlives this page; a failing filter left in it would break every return to /shop.
-        this.shopParams = new ShopParam();
-        this.shopService.setShopParam(this.shopParams);
-      },
-    );
+    this.loadProducts$.next();
   }
   getBrands() {
     this.shopService.getBrands().subscribe({
