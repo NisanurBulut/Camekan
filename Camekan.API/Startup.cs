@@ -26,12 +26,10 @@ namespace Camekan.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-           
-            services.AddAutoMapper(typeof(MappingProfiles));
 
+
+            services.AddAutoMapper(cfg => { }, typeof(MappingProfiles));
             services.AddDbContext<DatabaseContext>();
-
-
             services.AddStartupServices();
             services.AddIdentityServices(Configuration);
             services.AddSwaggerDocumentation();
