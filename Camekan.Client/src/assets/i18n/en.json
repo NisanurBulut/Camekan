@@ -95,6 +95,8 @@
     "ADDRESS_SAVED": "Address saved.",
     "NAME_ON_CARD": "Name on Card",
     "PAYMENT_LOAD_FAILED": "The payment form could not be loaded. If you use an ad blocker, turn it off and refresh the page.",
+    "PAYMENT_FAILED": "The payment could not be completed. Please check your card details and try again.",
+    "PAYMENT_NOT_COMPLETED": "Your payment is not confirmed yet. Your basket is kept, please check your orders in a few minutes.",
     "SUCCESS_TITLE": "Your order has been received.",
     "VIEW_ORDER": "View Your Order",
     "VIEW_ORDERS": "View Your Orders"
