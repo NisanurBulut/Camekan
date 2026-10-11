@@ -8,14 +8,16 @@ import { guestGuard } from './core/guard/guest.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: APP_NAME } },
-  { path: 'home', component: HomeComponent, data: { breadcrumb: APP_NAME } },
+  { path: 'home', component: HomeComponent, title:APP_NAME, data: { breadcrumb: APP_NAME } },
   {
     path: 'shop',
+    title: 'BREADCRUMB.SHOP',
     loadChildren: () => import('./shop/shop.routes').then((m) => m.SHOP_ROUTES),
     data: { breadcrumb: { label: 'BREADCRUMB.SHOP', info: 'fa-book' } },
   },
   {
     path: 'order',
+    title: 'ORDER.TITLE',
     canActivate: [authGuard],
     loadChildren: () =>
       import('./order/order.routes').then((m) => m.ORDER_ROUTES),
@@ -23,6 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'basket',
+    title: 'BREADCRUMB.BASKET',
     loadComponent: () =>
       import('./basket/basket.component').then((m) => m.BasketComponent),
     data: {
@@ -31,6 +34,7 @@ export const routes: Routes = [
   },
   {
     path: 'checkout',
+    title: ' BREADCRUMB.CHECKOUT',
     canActivate: [authGuard],
     loadChildren: () =>
       import('./checkout/checkout.routes').then((m) => m.CHECKOUT_ROUTES),
@@ -44,13 +48,8 @@ export const routes: Routes = [
     data: { breadcrumb: { skip: true } },
   },
   {
-    path: 'account',
-    loadChildren: () =>
-      import('./account/account.routes').then((m) => m.ACCOUNT_ROUTES),
-    data: { breadcrumb: { skip: true } },
-  },
-  {
     path: 'dashboard',
+    title:'BREADCRUMB.DASHBOARD',
     loadComponent: () =>
       import('./dashboard/dashboard.component').then(
         (m) => m.DashboardComponent,
@@ -61,13 +60,17 @@ export const routes: Routes = [
   },
   {
     path: 'not-found',
+    title:'BREADCRUMB.NOT_FOUND',
     component: NotFoundComponent,
     data: { breadcrumb: 'BREADCRUMB.NOT_FOUND' },
   },
   {
     path: 'server-error',
+    title:'BREADCRUMB.SERVER_ERROR',
     component: ServerErrorComponent,
     data: { breadcrumb: 'BREADCRUMB.SERVER_ERROR' },
   },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
+  { path: '**',
+    title:'BREADCRUMB.NOT_FOUND',
+    redirectTo: 'not-found', pathMatch: 'full' },
 ];
