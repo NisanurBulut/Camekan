@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace Camekan.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
@@ -13,8 +15,7 @@ namespace Camekan.DataAccess.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.12");
 
             modelBuilder.Entity("Camekan.Entities.AddressEntity", b =>
                 {
@@ -68,8 +69,8 @@ namespace Camekan.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
@@ -81,12 +82,12 @@ namespace Camekan.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
@@ -104,19 +105,103 @@ namespace Camekan.DataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardCategoryView", b =>
+                {
+                    b.Property<int>("BookCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_category_distribution", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardKpiView", b =>
+                {
+                    b.Property<int>("CategoryCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PublisherCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalBooks")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TotalSales")
+                        .HasColumnType("INTEGER");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_kpis", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardRecentBookView", b =>
+                {
+                    b.Property<string>("AddedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_recent_books", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardSalesTrendView", b =>
+                {
+                    b.Property<string>("Month")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UnitsSold")
+                        .HasColumnType("INTEGER");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_sales_trend", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardTopBookView", b =>
+                {
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UnitsSold")
+                        .HasColumnType("INTEGER");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_top_books", (string)null);
+                });
+
+            modelBuilder.Entity("Camekan.Entities.DashboardTrendingView", b =>
+                {
+                    b.Property<double?>("ChangePercent")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("vw_dashboard_trending", (string)null);
                 });
 
             modelBuilder.Entity("Camekan.Entities.DeliveryMethodEntity", b =>
@@ -139,7 +224,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tDeliveryMethod","dbo");
+                    b.ToTable("tDeliveryMethod", "dbo");
                 });
 
             modelBuilder.Entity("Camekan.Entities.OrderEntity", b =>
@@ -171,7 +256,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("DeliveryMethodId");
 
-                    b.ToTable("tOrder","dbo");
+                    b.ToTable("tOrder", "dbo");
                 });
 
             modelBuilder.Entity("Camekan.Entities.OrderItemEntity", b =>
@@ -193,7 +278,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("OrderEntityId");
 
-                    b.ToTable("tOrderItem","dbo");
+                    b.ToTable("tOrderItem", "dbo");
                 });
 
             modelBuilder.Entity("Camekan.Entities.ProductBrandEntity", b =>
@@ -222,8 +307,8 @@ namespace Camekan.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
@@ -244,7 +329,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("tProduct","dbo");
+                    b.ToTable("tProduct", "dbo");
                 });
 
             modelBuilder.Entity("Camekan.Entities.ProductTypeEntity", b =>
@@ -271,20 +356,20 @@ namespace Camekan.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -307,7 +392,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -330,7 +415,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -352,7 +437,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -367,7 +452,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -386,7 +471,7 @@ namespace Camekan.DataAccess.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Camekan.Entities.AddressEntity", b =>
@@ -396,6 +481,8 @@ namespace Camekan.DataAccess.Migrations
                         .HasForeignKey("Camekan.Entities.AddressEntity", "AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Camekan.Entities.OrderEntity", b =>
@@ -429,11 +516,15 @@ namespace Camekan.DataAccess.Migrations
 
                             b1.HasKey("OrderEntityId");
 
-                            b1.ToTable("tOrder");
+                            b1.ToTable("tOrder", "dbo");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderEntityId");
                         });
+
+                    b.Navigation("DeliveryMethod");
+
+                    b.Navigation("ShipToAddress");
                 });
 
             modelBuilder.Entity("Camekan.Entities.OrderItemEntity", b =>
@@ -459,11 +550,13 @@ namespace Camekan.DataAccess.Migrations
 
                             b1.HasKey("OrderItemEntityId");
 
-                            b1.ToTable("tOrderItem");
+                            b1.ToTable("tOrderItem", "dbo");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderItemEntityId");
                         });
+
+                    b.Navigation("ItemOrdered");
                 });
 
             modelBuilder.Entity("Camekan.Entities.ProductEntity", b =>
@@ -479,6 +572,10 @@ namespace Camekan.DataAccess.Migrations
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ProductBrand");
+
+                    b.Navigation("ProductType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -530,6 +627,16 @@ namespace Camekan.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Camekan.Entities.AppUser", b =>
+                {
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Camekan.Entities.OrderEntity", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }
