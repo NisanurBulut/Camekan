@@ -81,29 +81,8 @@ namespace Camekan.API
                     logger.LogError(ex, "An error occured during migration");
                 }
             }
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-                // temporary code blockes
-                try
-                {
-                    var contextIdentity = services.GetRequiredService<DatabaseContext>();
-                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-                    await contextIdentity.Database.MigrateAsync();
-                    await DatabaseIdentityContextSeed.SeedUserAsync(userManager, loggerFactory);
-
-                    var context = services.GetRequiredService<DatabaseContext>();
-                    await context.Database.MigrateAsync();
-                    await DatabaseContextSeed.SeedAsync(context, loggerFactory);
-
-                }
-                catch (Exception ex)
-                {
-                    var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError(ex, "An error occured during migration");
-                }
-            }
+           
+            app.Run();
         }
     }
 }
