@@ -3,6 +3,7 @@ using Camekan.DataAccess.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.WebAPI.Controllers
@@ -17,9 +18,9 @@ namespace Camekan.WebAPI.Controllers
 
         [HttpGet]
         [Cached(300)]
-        public async Task<ActionResult> GetDashboard()
+        public async Task<ActionResult> GetDashboard(CancellationToken cancellationToken)
         {
-            var kpis = await _context.DashboardKpis.SingleAsync();
+            var kpis = await _context.DashboardKpis.SingleAsync(cancellationToken);
             return Ok(new
             {
                 Kpis = new
