@@ -60,9 +60,9 @@ namespace Camekan.WebAPI.Controllers
 
         [HttpPut("address")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model, CancellationToken cancellationToken)
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model)
         {
-            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User, cancellationToken);
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
 
             user.Address = _mapper.Map<AddressDto, AddressEntity>(model);
             var result = await _userManager.UpdateAsync(user);
