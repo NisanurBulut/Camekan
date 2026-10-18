@@ -27,7 +27,7 @@ namespace Camekan.DataAccess
             this._unitOfWork = unitOfWork;
             this._orderRepo = orderRepo;
         }
-        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress, CancellationToken cancellationToken)
+        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress)
         {
           
             var basket = await _basketRepo.GetBasketAsync(basketId);
@@ -36,22 +36,22 @@ namespace Camekan.DataAccess
             var items = new List<OrderItemEntity>();
             foreach(var item in basket.Items)
             {
-                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id,cancellationToken);
+                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id);
                 var itemOrdered = new ProductItemOrdered(productItem.Name,productItem.Id,productItem.PictureUrl);
                 var orderItem = new OrderItemEntity(itemOrdered,productItem.Price,item.Quantity);
                 items.Add(orderItem);
             }
 
-            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId,cancellationToken);
+            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId);
 
             var subTotal = items.Sum(a => a.Price * a.Quantity);
             var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
-            var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec,cancellationToken);
+            var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
 
             if (existingOrder != null)
             {
                 _unitOfWork.Repository<OrderEntity>().Delete(existingOrder);
-                await _paymentService.CreateOrUpdatePaymentIntent(basketId, cancellationToken);
+                await _paymentService.CreateOrUpdatePaymentIntent(basketId);
             }
 
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);

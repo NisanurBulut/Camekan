@@ -9,7 +9,7 @@ namespace Camekan.DataAccess
 {
     public interface IOrderService
     {
-        Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethod, string basketId, AddressAggregate shippingAddress, CancellationToken cancellationToken = default);
+        Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethod, string basketId, AddressAggregate shippingAddress);
         Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<OrderEntity>> GetOrdersForUserPagedAsync(string buyerEmail, OrderSpecParam param, CancellationToken cancellationToken = default);
         Task<int> CountOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken = default);

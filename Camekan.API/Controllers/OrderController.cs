@@ -30,11 +30,11 @@ namespace Camekan.WebAPI.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model, CancellationToken cancellationToken)
+        public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var address = _mapper.Map<AddressDto, AddressAggregate>(model.ShipToAddress);
-            var order = await _orderService.CreateOrderAsync(email, model.DeliveryMethodId, model.BasketId, address, cancellationToken);
+            var order = await _orderService.CreateOrderAsync(email, model.DeliveryMethodId, model.BasketId, address);
             if (order == null) return BadRequest(new ApiResponse(400,"API_ERROR.ORDER_CREATE_FAILED"));
             return Ok(order);
         }
