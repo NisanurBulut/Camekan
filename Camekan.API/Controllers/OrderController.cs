@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.WebAPI.Controllers
@@ -29,42 +30,42 @@ namespace Camekan.WebAPI.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model)
+        public async Task<ActionResult<OrderEntity>> CreateOrder(OrderDto model, CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var address = _mapper.Map<AddressDto, AddressAggregate>(model.ShipToAddress);
-            var order = await _orderService.CreateOrderAsync(email,model.DeliveryMethodId,model.BasketId,address);
+            var order = await _orderService.CreateOrderAsync(email, model.DeliveryMethodId, model.BasketId, address, cancellationToken);
             if (order == null) return BadRequest(new ApiResponse(400,"API_ERROR.ORDER_CREATE_FAILED"));
             return Ok(order);
         }
         
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<OrdertoReturnDto>>> GetOrdersForUser()
+        public async Task<ActionResult<IReadOnlyList<OrdertoReturnDto>>> GetOrdersForUser(CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
-            var orders = await _orderService.GetOrdersForUserAsync(email);
+            var orders = await _orderService.GetOrdersForUserAsync(email, cancellationToken);
             var result = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrdertoReturnDto>>(orders);
             return Ok(result);
         }
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<Pagination<OrderListItemDto>>> GetOrdersForUserPaged([FromQuery] OrderSpecParam param)
+        public async Task<ActionResult<Pagination<OrderListItemDto>>> GetOrdersForUserPaged([FromQuery] OrderSpecParam param, CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
-            var count = await _orderService.CountOrdersForUserAsync(email);
-            var orders = await _orderService.GetOrdersForUserPagedAsync(email, param);
+            var count = await _orderService.CountOrdersForUserAsync(email, cancellationToken);
+            var orders = await _orderService.GetOrdersForUserPagedAsync(email, param, cancellationToken);
             var data = _mapper.Map<IReadOnlyList<OrderEntity>, IReadOnlyList<OrderListItemDto>>(orders);
             return Ok(new Pagination<OrderListItemDto>(param.PageIndex, param.PageSize, count, data));
         }
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<OrderSummaryDto>> GetOrderSummaryForUser()
+        public async Task<ActionResult<OrderSummaryDto>> GetOrderSummaryForUser(CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
-            var summary = await _orderService.GetOrderSummaryForUserAsync(email);
+            var summary = await _orderService.GetOrderSummaryForUserAsync(email,cancellationToken);
 
             foreach (var book in summary.TopBooks)
             {
@@ -75,7 +76,7 @@ namespace Camekan.WebAPI.Controllers
 
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id)
+        public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id, CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
             var order = await _orderService.GetOrderByIdAsync(id,email);
@@ -85,9 +86,9 @@ namespace Camekan.WebAPI.Controllers
         }
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods()
+        public async Task<ActionResult<DeliveryMethodEntity>> GetDeliveryMethods(CancellationToken cancellationToken)
         {
-            return Ok(await _orderService.GetDeliveryMethodsAsync());
+            return Ok(await _orderService.GetDeliveryMethodsAsync(cancellationToken));
         }
     }
 }

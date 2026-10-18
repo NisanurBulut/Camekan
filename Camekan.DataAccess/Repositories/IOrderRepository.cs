@@ -1,12 +1,13 @@
 ﻿using Camekan.DataAccess.IRepositories;
 using Camekan.DataTransferObject;
 using Camekan.Entities;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Repositories
 {
     public interface IOrderRepository :IBaseRepository<OrderEntity>
     {
-        Task<OrderSummaryDto> GetSummaryForUserAsync(string buyerEmail, int months);
+        Task<OrderSummaryDto> GetSummaryForUserAsync(string buyerEmail, int months, CancellationToken cancellationToken = default);
     }
 }
