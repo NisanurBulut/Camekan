@@ -3,10 +3,8 @@ using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Specification;
 using Camekan.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +19,7 @@ namespace Camekan.DataAccess.Repositories
         }
         public async Task<T> GetByIdAsync(int id,CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<T>().FindAsync(id, cancellationToken);
+            return await _dbContext.Set<T>().FindAsync(new object[] { id }, cancellationToken);
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken)
