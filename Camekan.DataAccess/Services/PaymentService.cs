@@ -6,6 +6,7 @@ using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Services
@@ -34,12 +35,12 @@ namespace Camekan.DataAccess.Services
 
             if (basket.DeliveryMethodId.HasValue)
             {
-                var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync((int)basket.DeliveryMethodId);
+                var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync((int)basket.DeliveryMethodId, CancellationToken.None);
                 shippingPrice = deliveryMethod.Price;
             }
             foreach (var item in basket.Items)
             {
-                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id);
+                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id, CancellationToken.None);
                 if (productItem.Price != item.Price)
                 {
                     item.Price = productItem.Price;
@@ -85,7 +86,7 @@ namespace Camekan.DataAccess.Services
         private async Task<OrderEntity> SetOrderStatus(string paymentIntentId, OrderStatus status)
         {
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec, CancellationToken.None);
             if (order == null) return null;
             order.Status = status;
             _unitOfWork.Repository<OrderEntity>().Update(order);

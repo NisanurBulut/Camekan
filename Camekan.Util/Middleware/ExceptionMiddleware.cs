@@ -29,6 +29,10 @@ namespace Camekan.Util.Middleware
             {
                 await _next(httpContext);
             }
+            catch (OperationCanceledException) when (httpContext.RequestAborted.IsCancellationRequested)
+            {
+                // The client left. Nobody reads the answer, so this is not an error.
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);

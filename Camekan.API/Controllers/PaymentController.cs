@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.WebAPI.Controllers

@@ -10,6 +10,7 @@ using Camekan.WebAPI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.API.Controllers
@@ -28,9 +29,9 @@ namespace Camekan.API.Controllers
         [Cached(600)]
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands()
+        public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands(CancellationToken cancellationToken)
         {
-            var list = await _productRepo.GetProductBrandsAsync();
+            var list = await _productRepo.GetProductBrandsAsync(cancellationToken);
 
             return Ok(_mapper.Map<List<ProductBrandToReturnDto>>(list));
 
@@ -38,9 +39,9 @@ namespace Camekan.API.Controllers
         [Cached(600)]
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes()
+        public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes(CancellationToken cancellationToken)
         {
-            var list = await _productRepo.GetProductTypesAsync();
+            var list = await _productRepo.GetProductTypesAsync(cancellationToken);
 
             return Ok(_mapper.Map<List<ProductTypeToReturnDto>>(list));
 
@@ -49,11 +50,11 @@ namespace Camekan.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
-        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id, CancellationToken cancellationToken)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
-            var productEntity = await _productRepo.GetEntityWithSpec(spec);
+            var productEntity = await _productRepo.GetEntityWithSpec(spec, cancellationToken);
 
             if (productEntity == null) return NotFound(new ApiResponse(404));
 
@@ -63,15 +64,15 @@ namespace Camekan.API.Controllers
         
         [Cached(600)]
         [HttpGet]
-        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParam productSpecParam)
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParam productSpecParam, CancellationToken cancellationToken)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productSpecParam);
 
             var countSpec = new ProductsWithFiltersForCountSpecification(productSpecParam);
 
-            var totalItems = await _productRepo.CountAsync(countSpec);
+            var totalItems = await _productRepo.CountAsync(countSpec, cancellationToken);
 
-            var productEntities = await _productRepo.ListAsync(spec);
+            var productEntities = await _productRepo.ListAsync(spec, cancellationToken);
 
             var data = _mapper.Map<IReadOnlyList<ProductEntity>, IReadOnlyList<ProductToReturnDto>>(productEntities);
 

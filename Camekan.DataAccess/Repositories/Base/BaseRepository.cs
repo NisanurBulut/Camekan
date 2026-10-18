@@ -3,10 +3,9 @@ using Camekan.DataAccess.IRepositories;
 using Camekan.DataAccess.Specification;
 using Camekan.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Repositories
@@ -18,28 +17,28 @@ namespace Camekan.DataAccess.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id,CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<T>().FindAsync(id);
+            return await _dbContext.Set<T>().FindAsync(new object[] { id }, cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>()
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
-        public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
+        public async Task<T> GetEntityWithSpec(ISpecification<T> spec, CancellationToken cancellationToken)
         {
-            return await ApplySpecification(spec).FirstOrDefaultAsync();
+            return await ApplySpecification(spec).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+        public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec, CancellationToken cancellationToken)
         {
-            return await ApplySpecification(spec).ToListAsync();
+            return await ApplySpecification(spec).ToListAsync(cancellationToken);
         }
-        public async Task<int> CountAsync(ISpecification<T> spec)
+        public async Task<int> CountAsync(ISpecification<T> spec, CancellationToken cancellationToken)
         {
-            return await ApplySpecification(spec).CountAsync();
+            return await ApplySpecification(spec).CountAsync(cancellationToken);
         }
         private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {

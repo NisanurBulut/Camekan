@@ -1,10 +1,11 @@
-﻿using Camekan.Entities;
+﻿using Camekan.DataAccess.Context;
+using Camekan.DataTransferObject;
+using Camekan.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Camekan.DataAccess.Context;
-using Camekan.DataTransferObject;
-using Microsoft.EntityFrameworkCore;
 
 namespace Camekan.DataAccess.Repositories
 {
@@ -18,20 +19,20 @@ namespace Camekan.DataAccess.Repositories
 
         // Failed payments are not counted as spending. Pending ones are, because locally the Stripe
         // webhook usually doesn't run and paid orders stay Pending.
-        public async Task<OrderSummaryDto> GetSummaryForUserAsync(string buyerEmail, int months)
+        public async Task<OrderSummaryDto> GetSummaryForUserAsync(string buyerEmail, int months, CancellationToken cancellationToken)
         {
             var orders = _context.tOrder.Where(o => o.BuyerEmail == buyerEmail);
             var validOrders = orders.Where(o => o.Status != OrderStatus.PaymentFailed);
             var validItems = validOrders.SelectMany(o => o.OrderItems);
 
-            var count = await orders.CountAsync();
-            var pending = await orders.CountAsync(o => o.Status == OrderStatus.Pending);
-            var books = await validItems.SumAsync(i => i.Quantity);
+            var count = await orders.CountAsync(cancellationToken);
+            var pending = await orders.Where(o => o.Status == OrderStatus.Pending).CountAsync(cancellationToken);
+            var books = await validItems.SumAsync(i => i.Quantity,cancellationToken);
 
             // SQLite cannot SUM decimal columns (DatabaseContext's decimal->double conversion never runs), so money is summed in memory.
             var rows = await validOrders
                 .Select(o => new { o.OrderDate, o.SubTotal, Shipping = o.DeliveryMethod != null ? o.DeliveryMethod.Price : 0 })
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
             var totals = rows.Select(r => new { r.OrderDate, Total = r.SubTotal + r.Shipping }).ToList();
             var spent = totals.Sum(t => t.Total);
 
@@ -57,7 +58,7 @@ namespace Camekan.DataAccess.Repositories
                 })
                 .OrderByDescending(b => b.Quantity)
                 .Take(3)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new OrderSummaryDto
             {

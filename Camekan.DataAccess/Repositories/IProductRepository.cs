@@ -1,17 +1,16 @@
 ﻿using Camekan.DataAccess.IRepositories;
 using Camekan.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Repositories
 {
     public interface IProductRepository :IBaseRepository<ProductEntity>
     {
-        Task<ProductEntity> GetProductByIdAsync(int id);
-        Task<IReadOnlyList<ProductEntity>> GetProductsAsync();
-        Task<IReadOnlyList<ProductBrandEntity>> GetProductBrandsAsync();
-        Task<IReadOnlyList<ProductTypeEntity>> GetProductTypesAsync();
+        Task<ProductEntity> GetProductByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<ProductEntity>> GetProductsAsync(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<ProductBrandEntity>> GetProductBrandsAsync(CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<ProductTypeEntity>> GetProductTypesAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Camekan.Entities;
-using System;
-using System.Threading.Tasks;
 using StackExchange.Redis;
+using System;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Repositories
 {
