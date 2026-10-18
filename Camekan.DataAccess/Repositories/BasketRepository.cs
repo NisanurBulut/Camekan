@@ -14,18 +14,18 @@ namespace Camekan.DataAccess.Repositories
         {
             _database = connectionMultiplexer.GetDatabase();
         }
-        public async Task<bool> DeleteBasketAsync(string basketId, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteBasketAsync(string basketId)
         {
             return await _database.KeyDeleteAsync(basketId);
         }
 
-        public async Task<BasketEntity> GetBasketAsync(string basketId, CancellationToken cancellationToken = default)
+        public async Task<BasketEntity> GetBasketAsync(string basketId)
         {
             var data = await _database.StringGetAsync(basketId);
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketEntity>((string)data);
         }
 
-        public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity, CancellationToken cancellationToken = default)
+        public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity)
         {
             var created = await _database.StringSetAsync(basketEntity.Id,JsonSerializer.Serialize(basketEntity), TimeSpan.FromDays(30));
             if (!created) return null;
