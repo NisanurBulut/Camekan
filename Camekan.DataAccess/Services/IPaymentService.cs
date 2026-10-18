@@ -9,9 +9,9 @@ namespace Camekan.DataAccess
 {
     public interface IPaymentService
     {
-        Task<BasketEntity> CreateOrUpdatePaymentIntent(string basketId, CancellationToken cancellationToken);
-        Task<OrderEntity> UpdateOrderPaymentSucceeded(string basketId, CancellationToken cancellationToken);
-        Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId, CancellationToken cancellationToken);
+        Task<BasketEntity> CreateOrUpdatePaymentIntent(string basketId);
+        Task<OrderEntity> UpdateOrderPaymentSucceeded(string basketId);
+        Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId);
 
     }
 }

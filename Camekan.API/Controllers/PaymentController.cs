@@ -34,7 +34,7 @@ namespace Camekan.WebAPI.Controllers
         {
             try
             {
-                var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId,cancellationToken);
+                var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
 
                 if (basket == null) return BadRequest(new ApiResponse(400,"API_ERROR.BASKET_NOT_FOUND"));
 
@@ -92,11 +92,11 @@ namespace Camekan.WebAPI.Controllers
             switch (stripeEvent.Type)
             {
                 case EventTypes.PaymentIntentSucceeded:
-                    var paidOrder = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id,cancellationToken);
+                    var paidOrder = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id);
                     _logger.LogInformation("Payment succeeded: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, paidOrder?.Id);
                     break;
                 case EventTypes.PaymentIntentPaymentFailed:
-                    var failedOrder = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id,cancellationToken);
+                    var failedOrder = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id);
                     _logger.LogInformation("Payment failed: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, failedOrder?.Id);
                     break;
             }

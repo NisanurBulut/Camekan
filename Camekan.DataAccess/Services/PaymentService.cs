@@ -24,7 +24,7 @@ namespace Camekan.DataAccess.Services
             this._configuration = configuration;
         }
 
-        public async Task<BasketEntity> CreateOrUpdatePaymentIntent(string basketId, CancellationToken cancellationToken)
+        public async Task<BasketEntity> CreateOrUpdatePaymentIntent(string basketId)
         {
             StripeConfiguration.ApiKey = this._configuration["StripeSettings:SecretKey"];
             var basket = await _basketRepository.GetBasketAsync(basketId);
@@ -35,12 +35,12 @@ namespace Camekan.DataAccess.Services
 
             if (basket.DeliveryMethodId.HasValue)
             {
-                var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync((int)basket.DeliveryMethodId, cancellationToken);
+                var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync((int)basket.DeliveryMethodId, CancellationToken.None);
                 shippingPrice = deliveryMethod.Price;
             }
             foreach (var item in basket.Items)
             {
-                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id,cancellationToken);
+                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id, CancellationToken.None);
                 if (productItem.Price != item.Price)
                 {
                     item.Price = productItem.Price;
@@ -73,20 +73,20 @@ namespace Camekan.DataAccess.Services
             return basket;
         }
 
-        public Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId, CancellationToken cancellationToken)
+        public Task<OrderEntity> UpdateOrderPaymentFailed(string paymentIntentId)
         {
-            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentFailed, cancellationToken);
+            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentFailed);
         }
 
-        public Task<OrderEntity> UpdateOrderPaymentSucceeded(string paymentIntentId, CancellationToken cancellationToken)
+        public Task<OrderEntity> UpdateOrderPaymentSucceeded(string paymentIntentId)
         {
-            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentReceived, cancellationToken);
+            return SetOrderStatus(paymentIntentId, OrderStatus.PaymentReceived);
         }
 
-        private async Task<OrderEntity> SetOrderStatus(string paymentIntentId, OrderStatus status, CancellationToken cancellationToken)
+        private async Task<OrderEntity> SetOrderStatus(string paymentIntentId, OrderStatus status)
         {
             var spec = new OrderByPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec, cancellationToken);
+            var order = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec, CancellationToken.None);
             if (order == null) return null;
             order.Status = status;
             _unitOfWork.Repository<OrderEntity>().Update(order);

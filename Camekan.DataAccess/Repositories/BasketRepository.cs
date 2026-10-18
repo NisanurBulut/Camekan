@@ -1,9 +1,9 @@
 ﻿using Camekan.Entities;
-using System;
-using System.Threading.Tasks;
 using StackExchange.Redis;
+using System;
 using System.Text.Json;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Camekan.DataAccess.Repositories
 {
@@ -14,18 +14,18 @@ namespace Camekan.DataAccess.Repositories
         {
             _database = connectionMultiplexer.GetDatabase();
         }
-        public async Task<bool> DeleteBasketAsync(string basketId)
+        public async Task<bool> DeleteBasketAsync(string basketId, CancellationToken cancellationToken = default)
         {
             return await _database.KeyDeleteAsync(basketId);
         }
 
-        public async Task<BasketEntity> GetBasketAsync(string basketId)
+        public async Task<BasketEntity> GetBasketAsync(string basketId, CancellationToken cancellationToken = default)
         {
             var data = await _database.StringGetAsync(basketId);
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<BasketEntity>((string)data);
         }
 
-        public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity)
+        public async Task<BasketEntity> UpdateBasketAsync(BasketEntity basketEntity, CancellationToken cancellationToken = default)
         {
             var created = await _database.StringSetAsync(basketEntity.Id,JsonSerializer.Serialize(basketEntity), TimeSpan.FromDays(30));
             if (!created) return null;
