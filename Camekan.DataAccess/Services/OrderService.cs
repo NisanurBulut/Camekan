@@ -5,6 +5,7 @@ using Camekan.DataAccess.Specification;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Camekan.DataAccess
 {
@@ -26,7 +27,7 @@ namespace Camekan.DataAccess
             this._unitOfWork = unitOfWork;
             this._orderRepo = orderRepo;
         }
-        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress)
+        public async Task<OrderEntity> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, AddressAggregate shippingAddress, CancellationToken cancellationToken)
         {
           
             var basket = await _basketRepo.GetBasketAsync(basketId);
@@ -63,34 +64,34 @@ namespace Camekan.DataAccess
             return order;
         }
 
-        public async Task<IReadOnlyList<DeliveryMethodEntity>> GetDeliveryMethodsAsync()
+        public async Task<IReadOnlyList<DeliveryMethodEntity>> GetDeliveryMethodsAsync(CancellationToken cancellationToken)
         {
             return await _unitOfWork.Repository<DeliveryMethodEntity>().ListAllAsync();
         }
 
-        public async Task<OrderEntity> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<OrderEntity> GetOrderByIdAsync(int id, string buyerEmail, CancellationToken cancellationToken)
         {
             var spec = new OrdersWithItemsAndOrderingSpecification(id,buyerEmail);
             return await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
         }
 
-        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
             var spec = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
             return await _unitOfWork.Repository<OrderEntity>().ListAsync(spec);
         }
 
-        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserPagedAsync(string buyerEmail, OrderSpecParam param)
+        public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserPagedAsync(string buyerEmail, OrderSpecParam param, CancellationToken cancellationToken)
         {
             return await _orderRepo.ListAsync(new OrdersForUserPagedSpecification(buyerEmail, param));
         }
 
-        public async Task<int> CountOrdersForUserAsync(string buyerEmail)
+        public async Task<int> CountOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
             return await _orderRepo.CountAsync(new BaseSpecification<OrderEntity>(o => o.BuyerEmail == buyerEmail));
         }
 
-        public async Task<OrderSummaryDto> GetOrderSummaryForUserAsync(string buyerEmail)
+        public async Task<OrderSummaryDto> GetOrderSummaryForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
             return await _orderRepo.GetSummaryForUserAsync(buyerEmail, SummaryMonths);
         }
