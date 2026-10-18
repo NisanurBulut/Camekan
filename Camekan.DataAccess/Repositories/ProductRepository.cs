@@ -1,10 +1,12 @@
-﻿using Camekan.Entities;
+﻿using Camekan.DataAccess.Context;
+using Camekan.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Camekan.DataAccess.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Camekan.DataAccess.Repositories
 {
@@ -16,27 +18,28 @@ namespace Camekan.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<ProductEntity> GetProductByIdAsync(int id)
+        public async Task<ProductEntity> GetProductByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _context.tProduct
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .Where(p => p.Id == id).
+                FirstOrDefaultAsync(cancellationToken);
         }
-        public async Task<IReadOnlyList<ProductBrandEntity>> GetProductBrandsAsync()
+        public async Task<IReadOnlyList<ProductBrandEntity>> GetProductBrandsAsync(CancellationToken cancellationToken)
         {
-            return await _context.tProductBrand.ToListAsync();
+            return await _context.tProductBrand.ToListAsync(cancellationToken);
         }
-        public async Task<IReadOnlyList<ProductEntity>> GetProductsAsync()
+        public async Task<IReadOnlyList<ProductEntity>> GetProductsAsync(CancellationToken cancellationToken)
         {
             return await _context.tProduct
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
-        public async Task<IReadOnlyList<ProductTypeEntity>> GetProductTypesAsync()
+        public async Task<IReadOnlyList<ProductTypeEntity>> GetProductTypesAsync(CancellationToken cancellationToken)
         {
-            return await _context.tProductType.ToListAsync();
+            return await _context.tProductType.ToListAsync(cancellationToken);
         }
     }
 }

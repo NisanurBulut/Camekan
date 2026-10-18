@@ -29,9 +29,9 @@ namespace Camekan.API.Controllers
         [Cached(600)]
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands()
+        public async Task<ActionResult<List<ProductBrandToReturnDto>>> GetProductBrands(CancellationToken cancellationToken)
         {
-            var list = await _productRepo.GetProductBrandsAsync();
+            var list = await _productRepo.GetProductBrandsAsync(cancellationToken);
 
             return Ok(_mapper.Map<List<ProductBrandToReturnDto>>(list));
 
@@ -39,9 +39,9 @@ namespace Camekan.API.Controllers
         [Cached(600)]
         [Route("[action]")]
         [HttpGet]
-        public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes()
+        public async Task<ActionResult<List<ProductTypeToReturnDto>>> GetProductTypes(CancellationToken cancellationToken)
         {
-            var list = await _productRepo.GetProductTypesAsync();
+            var list = await _productRepo.GetProductTypesAsync(cancellationToken);
 
             return Ok(_mapper.Map<List<ProductTypeToReturnDto>>(list));
 
