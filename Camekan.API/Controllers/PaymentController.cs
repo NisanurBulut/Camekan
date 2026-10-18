@@ -30,7 +30,7 @@ namespace Camekan.WebAPI.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId, CancellationToken cancellationToken)
+        public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Camekan.WebAPI.Controllers
         [AllowAnonymous]
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult> StripeWebHook(CancellationToken cancellationToken)
+        public async Task<ActionResult> StripeWebHook()
         {
             var secret = _configuration["StripeSettings:WebhookSecret"];
             if (string.IsNullOrEmpty(secret))
