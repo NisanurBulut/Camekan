@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AutoMapper;
 using Camekan.DataAccess.Repositories;
+using System.Threading;
 
 namespace Camekan.WebAPI.Controllers
 {
@@ -30,9 +31,9 @@ namespace Camekan.WebAPI.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("getcurrentuser")]
-        public async Task<ActionResult<AppUserDto>> GetCurrentUser()
+        public async Task<ActionResult<AppUserDto>> GetCurrentUser(CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailFromClaimsPrincipalAsync(HttpContext.User);
+            var user = await _userManager.FindByEmailFromClaimsPrincipalAsync(HttpContext.User, cancellationToken);
             if (user == null) return Ok(new AppUserDto());
             return Ok(new AppUserDto
             {
@@ -50,18 +51,18 @@ namespace Camekan.WebAPI.Controllers
         [Route("[action]")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
-        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        public async Task<ActionResult<AddressDto>> GetUserAddress(CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User, cancellationToken);
          
             return _mapper.Map<AddressEntity, AddressDto>(user.Address);
         }
 
         [HttpPut("address")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model)
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto model, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
+            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User, cancellationToken);
 
             user.Address = _mapper.Map<AddressDto, AddressEntity>(model);
             var result = await _userManager.UpdateAsync(user);
