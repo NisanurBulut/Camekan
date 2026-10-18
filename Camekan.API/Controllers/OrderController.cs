@@ -79,7 +79,7 @@ namespace Camekan.WebAPI.Controllers
         public async Task<ActionResult<OrdertoReturnDto>> GetOrderByIdForUser(int id, CancellationToken cancellationToken)
         {
             var email = HttpContext.User.RetrieveEmailFromPrincipal();
-            var order = await _orderService.GetOrderByIdAsync(id,email);
+            var order = await _orderService.GetOrderByIdAsync(id,email, cancellationToken);
             if (order == null) return NotFound(new ApiResponse(404));
             var result = _mapper.Map<OrderEntity, OrdertoReturnDto>(order);
             return Ok(result);

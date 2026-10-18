@@ -36,22 +36,22 @@ namespace Camekan.DataAccess
             var items = new List<OrderItemEntity>();
             foreach(var item in basket.Items)
             {
-                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id);
+                var productItem = await _unitOfWork.Repository<ProductEntity>().GetByIdAsync(item.Id,cancellationToken);
                 var itemOrdered = new ProductItemOrdered(productItem.Name,productItem.Id,productItem.PictureUrl);
                 var orderItem = new OrderItemEntity(itemOrdered,productItem.Price,item.Quantity);
                 items.Add(orderItem);
             }
 
-            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId);
+            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethodEntity>().GetByIdAsync(deliveryMethodId,cancellationToken);
 
             var subTotal = items.Sum(a => a.Price * a.Quantity);
             var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
-            var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+            var existingOrder = await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec,cancellationToken);
 
             if (existingOrder != null)
             {
                 _unitOfWork.Repository<OrderEntity>().Delete(existingOrder);
-                await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+                await _paymentService.CreateOrUpdatePaymentIntent(basketId, cancellationToken);
             }
 
             var order = new OrderEntity(items,buyerEmail,deliveryMethod, shippingAddress, subTotal, basket.PaymentIntentId);
@@ -66,34 +66,34 @@ namespace Camekan.DataAccess
 
         public async Task<IReadOnlyList<DeliveryMethodEntity>> GetDeliveryMethodsAsync(CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Repository<DeliveryMethodEntity>().ListAllAsync();
+            return await _unitOfWork.Repository<DeliveryMethodEntity>().ListAllAsync(cancellationToken);
         }
 
         public async Task<OrderEntity> GetOrderByIdAsync(int id, string buyerEmail, CancellationToken cancellationToken)
         {
             var spec = new OrdersWithItemsAndOrderingSpecification(id,buyerEmail);
-            return await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec);
+            return await _unitOfWork.Repository<OrderEntity>().GetEntityWithSpec(spec, cancellationToken);
         }
 
         public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
             var spec = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
-            return await _unitOfWork.Repository<OrderEntity>().ListAsync(spec);
+            return await _unitOfWork.Repository<OrderEntity>().ListAsync(spec,cancellationToken);
         }
 
         public async Task<IReadOnlyList<OrderEntity>> GetOrdersForUserPagedAsync(string buyerEmail, OrderSpecParam param, CancellationToken cancellationToken)
         {
-            return await _orderRepo.ListAsync(new OrdersForUserPagedSpecification(buyerEmail, param));
+            return await _orderRepo.ListAsync(new OrdersForUserPagedSpecification(buyerEmail, param), cancellationToken);
         }
 
         public async Task<int> CountOrdersForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
-            return await _orderRepo.CountAsync(new BaseSpecification<OrderEntity>(o => o.BuyerEmail == buyerEmail));
+            return await _orderRepo.CountAsync(new BaseSpecification<OrderEntity>(o => o.BuyerEmail == buyerEmail),cancellationToken);
         }
 
         public async Task<OrderSummaryDto> GetOrderSummaryForUserAsync(string buyerEmail, CancellationToken cancellationToken)
         {
-            return await _orderRepo.GetSummaryForUserAsync(buyerEmail, SummaryMonths);
+            return await _orderRepo.GetSummaryForUserAsync(buyerEmail, SummaryMonths,cancellationToken);
         }
     }
 }

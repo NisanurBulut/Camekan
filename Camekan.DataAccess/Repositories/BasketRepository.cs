@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 using System.Text.Json;
+using System.Threading;
 
 namespace Camekan.DataAccess.Repositories
 {

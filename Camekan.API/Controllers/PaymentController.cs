@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Camekan.WebAPI.Controllers
@@ -29,11 +30,11 @@ namespace Camekan.WebAPI.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId)
+        public async Task<ActionResult<BasketEntity>> CreateOrUpdatePaymentIntent(string basketId, CancellationToken cancellationToken)
         {
             try
             {
-                var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+                var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId,cancellationToken);
 
                 if (basket == null) return BadRequest(new ApiResponse(400,"API_ERROR.BASKET_NOT_FOUND"));
 
@@ -53,7 +54,7 @@ namespace Camekan.WebAPI.Controllers
         [AllowAnonymous]
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult> StripeWebHook()
+        public async Task<ActionResult> StripeWebHook(CancellationToken cancellationToken)
         {
             var secret = _configuration["StripeSettings:WebhookSecret"];
             if (string.IsNullOrEmpty(secret))
@@ -91,11 +92,11 @@ namespace Camekan.WebAPI.Controllers
             switch (stripeEvent.Type)
             {
                 case EventTypes.PaymentIntentSucceeded:
-                    var paidOrder = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id);
+                    var paidOrder = await _paymentService.UpdateOrderPaymentSucceeded(paymentIntent.Id,cancellationToken);
                     _logger.LogInformation("Payment succeeded: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, paidOrder?.Id);
                     break;
                 case EventTypes.PaymentIntentPaymentFailed:
-                    var failedOrder = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id);
+                    var failedOrder = await _paymentService.UpdateOrderPaymentFailed(paymentIntent.Id,cancellationToken);
                     _logger.LogInformation("Payment failed: {PaymentIntentId}, order {OrderId}", paymentIntent.Id, failedOrder?.Id);
                     break;
             }
