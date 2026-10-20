@@ -27,13 +27,13 @@ namespace Camekan.API
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddStartupServices();
             builder.Services.AddIdentityServices(builder.Configuration);
-            builder.Services.AddSwaggerDocumentation();
 
             builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
             {
                 var config = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(config);
             });
+            builder.Services.AddApiDocumentationExtension();
             builder.Services.AddCors(option =>
             {
                 option.AddPolicy("CorsPolicy", policy =>
@@ -52,7 +52,7 @@ namespace Camekan.API
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSwaggerDocumentation();
+            app.UseApiDocumentation();
             app.MapControllers();
 
 
