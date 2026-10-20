@@ -5,6 +5,8 @@ using Microsoft.OpenApi;
 using Scalar.AspNetCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace Camekan.WebAPI.Extensions
 {
@@ -28,11 +30,20 @@ namespace Camekan.WebAPI.Extensions
                         BearerFormat = "JWT"
                     };
 
-                    document.Security ??= new List<OpenApiSecurityRequirement>();
-                    document.Security.Add(new OpenApiSecurityRequirement
+                    return Task.CompletedTask;
+                });
+                options.AddOperationTransformer((operation, context, cancellationToken) =>
+                {
+                    var metadata = context.Description.ActionDescriptor.EndpointMetadata;
+                    var needsToken = metadata.OfType<IAuthorizeData>().Any() && !metadata.OfType<IAllowAnonymous>().Any();
+                    if (needsToken)
                     {
-                        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
-                    });
+                        operation.Security ??= new List<OpenApiSecurityRequirement>();
+                        operation.Security.Add(new OpenApiSecurityRequirement
+                        {
+                            [new OpenApiSecuritySchemeReference("Bearer", context.Document)] = []
+                        });
+                    }
                     return Task.CompletedTask;
                 });
             });
