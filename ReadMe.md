@@ -123,7 +123,72 @@ npm start
 <details>
 <summary><b>Architecture notes</b></summary>
 
-(Move the current "Application Architecture" bullet list here.)
+## Architecture
+
+```mermaid
+flowchart LR
+    SPA["Angular 21 app<br/>standalone, zoneless, signals"] -->|"HTTPS + JWT"| API["ASP.NET Core 10 API<br/>controllers and middleware"]
+    API --> DA["Data access<br/>repositories, specifications, services"]
+    DA --> DB[("SQLite<br/>EF Core 10")]
+    DA --> RD[("Redis<br/>baskets and response cache")]
+    DA --> ST["Stripe<br/>PaymentIntents"]
+    ST -.->|"webhook"| API
+```
+
+### From basket to paid order
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as Customer
+    participant W as Angular app
+    participant A as ASP.NET Core API
+    participant R as Redis
+    participant S as Stripe
+
+    U->>W: Add books to the basket
+    W->>A: POST /api/basket
+    A->>R: Save the basket (30 days)
+    U->>W: Go to payment
+    W->>A: POST /api/payment/CreateOrUpdatePaymentIntent
+    A->>R: Read the basket
+    A->>S: Create or update the PaymentIntent (amount from database prices)
+    A->>R: Save PaymentIntentId and ClientSecret
+    A-->>W: Basket with the ClientSecret
+    W->>A: POST /api/order/CreateOrder
+    A-->>W: Order saved as Pending
+    W->>S: Confirm the card payment
+    S-->>W: Payment result
+    S->>A: Webhook payment_intent.succeeded
+    A->>A: Set the order to PaymentReceived
+```
+
+The price is never trusted from the browser: the API recalculates the amount from the database before it talks to Stripe.
+
+### Solution layout
+
+| Project | Role |
+|---|---|
+| `Camekan.API` | Controllers, middleware, JWT setup, OpenAPI and Scalar |
+| `Camekan.DataAccess` | EF Core context, repositories, specifications, order and payment services |
+| `Camekan.Util` | AutoMapper profiles, error responses, exception middleware |
+| `Camekan.DataTransferObject` | DTOs and validators |
+| `Camekan.Entities` | Domain entities |
+| `Camekan.Client` | Angular app with lazy-loaded routes, functional interceptors and TR/EN translations |
+
+Dependencies point downward: `API` → `DataAccess` and `Util` → `DataTransferObject` → `Entities`.
+
+<details>
+<summary><b>What I practised building this</b></summary>
+
+- **ASP.NET Identity:** context boundaries, `UserManager` and `SignInManager`, extensions, JWT
+- **Repository pattern:** separation of concerns, less duplicated query code, business code decoupled from data access
+- **Specification pattern:** reusable query rules, used for filtering, sorting, searching and paging
+- **Unit of Work pattern**
+- **Error handling:** developer exception page, middleware, customized HTTP error responses, validation errors
+- **Angular forms:** reactive forms, client-side validation, async validation
+- **Data:** related data, seeding, pagination (always page results, limit the page size)
+- **Queries:** a query is only a command until `ToList()`, `ToArray()`, `Count()` or a similar call runs it (deferred execution)
 
 </details>
 
