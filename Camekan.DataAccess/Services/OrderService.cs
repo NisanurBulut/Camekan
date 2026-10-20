@@ -50,6 +50,7 @@ namespace Camekan.DataAccess
 
             if (existingOrder != null)
             {
+                if (existingOrder.BuyerEmail != buyerEmail) return null;
                 _unitOfWork.Repository<OrderEntity>().Delete(existingOrder);
                 await _paymentService.CreateOrUpdatePaymentIntent(basketId);
             }
