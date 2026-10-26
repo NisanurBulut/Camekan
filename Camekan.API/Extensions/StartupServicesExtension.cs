@@ -27,10 +27,8 @@ namespace Camekan.API.Extensions
             
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
            
-            services.AddTransient<IValidator<AddressDto>, AddressValidator>();
-            services.AddTransient<IValidator<RegisterDto>, RegisterValidator>();
-            services.AddTransient<IValidator<BasketDto>, BasketValidator>();
-            services.AddTransient<IValidator<BasketItemDto>, BasketItemValidator>();
+            // Registers every validator in the DTO project. ValidationFilter runs them.
+            services.AddValidatorsFromAssemblyContaining<RegisterValidator>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
