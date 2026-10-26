@@ -1,4 +1,5 @@
 using Camekan.API.Extensions;
+using Camekan.API.Helpers;
 using Camekan.DataAccess.Context;
 using Camekan.Entities;
 using Camekan.Util.Mapping;
@@ -22,7 +23,7 @@ namespace Camekan.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>());
             builder.Services.AddAutoMapper(cfg => { }, typeof(MappingProfiles));
             builder.Services.AddDbContext<DatabaseContext>();
             builder.Services.AddStartupServices();

@@ -6,6 +6,7 @@ import { ThemeService } from '../services/theme.service';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BsDropdownDirective, BsDropdownToggleDirective, BsDropdownMenuDirective } from 'ngx-bootstrap/dropdown';
 import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -16,8 +17,13 @@ import { AsyncPipe } from '@angular/common';
 })
 export class NavBarComponent {
 
+//   undefined → sunucu henüz cevap vermedi
+// null → misafir
+// IUser → giriş yapmış
+
+
   basket = this.basketService.basket; // field initialization, Typescript = ile yapılan bu atamayı contsructor içine auto yazar
-  currentUser$ = this.accountService.currentUser$;
+  currentUser = toSignal(this.accountService.currentUser$);
 
   constructor(private basketService: BasketService,
     private accountService: AccountService,

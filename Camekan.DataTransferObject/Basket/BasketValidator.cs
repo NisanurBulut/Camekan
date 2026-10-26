@@ -10,6 +10,7 @@ namespace Camekan.DataTransferObject
         public BasketValidator()
         {
             RuleFor(a => a.Id).NotEmpty();
+            RuleForEach(a => a.Items).SetValidator(new BasketItemValidator());
         }
     }
 }
